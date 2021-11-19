@@ -1,10 +1,10 @@
 import { ListRequest, ListResponse } from '../../types';
 import httpClient from '../../httpClient';
-import { Transaction, AddTransactionRequest, EditTransactionRequest } from './types';
+import { Transaction, AddTransactionRequest, EditTransactionRequest, TransactionsFilter } from './types';
 
 const baseUrl = '/transactions';
 
-export const getTransactions = async (request?: ListRequest): Promise<ListResponse<Transaction>> => {
+export const getTransactions = async (request?: ListRequest<TransactionsFilter>): Promise<ListResponse<Transaction>> => {
   const params = { ...request?.paging, ...request?.sort };
 
   return httpClient.get<ListRequest, ListResponse<Transaction>>(baseUrl, { params });

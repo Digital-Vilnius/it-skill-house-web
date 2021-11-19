@@ -12,3 +12,7 @@ export interface AddTransactionRequest {
 export interface EditTransactionRequest {
   name: string;
 }
+
+export interface TransactionsFilter {
+  amountFrom: number;
+}
