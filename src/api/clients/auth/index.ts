@@ -3,14 +3,14 @@ import { AuthResponse, LoginRequest, RegistrationRequest, RefreshTokenRequest } 
 
 const baseUrl = '/auth';
 
-export const login = async (request: LoginRequest): Promise<AuthResponse> => {
+export const login = async (request: LoginRequest) => {
   return httpClient.post<LoginRequest, AuthResponse>(baseUrl, request);
 };
 
-export const refreshToken = async (request: RefreshTokenRequest): Promise<AuthResponse> => {
+export const refreshToken = async (request: RefreshTokenRequest) => {
   return httpClient.post<LoginRequest, AuthResponse>(baseUrl, request);
 };
 
-export const register = async (request: RegistrationRequest): Promise<AuthResponse> => {
+export const register = async (request: RegistrationRequest) => {
   return httpClient.post<RegistrationRequest, AuthResponse>(baseUrl, request);
 };

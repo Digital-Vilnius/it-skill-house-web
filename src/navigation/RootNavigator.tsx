@@ -1,15 +1,13 @@
 import React, { FC } from 'react';
-import { BrowserRouter, Routes } from 'react-router-dom';
-import ProtectedRoute from './ProtectedRoute';
-import AuthRoute from './AuthRoute';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthLayout, AdminLayout } from 'layouts';
 
 const RootNavigator: FC = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <AuthRoute path='/auth' children={AuthLayout} />
-        <ProtectedRoute path='/admin' children={AdminLayout} />
+        <Route path='/auth/*' element={<AuthLayout />} />
+        <Route path='/admin/*' element={<AdminLayout />} />
       </Routes>
     </BrowserRouter>
   );

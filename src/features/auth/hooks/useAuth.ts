@@ -1,8 +1,4 @@
-interface Response {
-  isLoggedIn: boolean;
-}
-
-const useAuth = (): Response => {
+const useAuth = () => {
   return {
     isLoggedIn: true,
   };

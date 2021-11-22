@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { store } from 'core/store';
 import { QueryClientProvider } from 'react-query';
 import { queryClient } from 'core/query';
+import 'assets/scss/app.scss';
 
 const App: FC = () => {
   return (

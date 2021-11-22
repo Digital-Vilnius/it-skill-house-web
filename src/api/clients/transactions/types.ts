@@ -1,7 +1,7 @@
 export interface Transaction {
   id: string;
   name: string;
-  updated?: string;
+  updated: string | null;
   created: string;
 }
 
@@ -14,5 +14,5 @@ export interface EditTransactionRequest {
 }
 
 export interface TransactionsFilter {
-  amountFrom: number;
+  amountFrom?: number;
 }
