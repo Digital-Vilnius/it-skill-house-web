@@ -1,21 +1,8 @@
 import React, { FC } from 'react';
-import { Routes, Route } from 'react-router-dom';
-import { TransactionsPage } from 'features/transactions/pages';
-import Header from './Header';
-import { Accounts } from 'features/accounts/hoc';
+import { Outlet } from 'react-router-dom';
 
 const AdminLayout: FC = () => {
-  return (
-    <div className='d-flex align-items-stretch'>
-      <Accounts />
-      <div className='d-flex flex-fill'>
-        <Header />
-        <Routes>
-          <Route path='/transactions' element={<TransactionsPage />} />
-        </Routes>
-      </div>
-    </div>
-  );
+  return <Outlet />;
 };
 
 export default AdminLayout;

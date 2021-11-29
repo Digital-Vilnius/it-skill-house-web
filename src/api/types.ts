@@ -20,3 +20,7 @@ export interface Paging {
   take: number;
   skip: number;
 }
+
+export interface ResultResponse<T> {
+  result: T;
+}

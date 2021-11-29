@@ -1,7 +1,9 @@
+import { useAppSelector } from 'core/store';
+
 const useAuth = () => {
-  return {
-    isLoggedIn: true,
-  };
+  const { isLoggedIn } = useAppSelector((state) => state.auth);
+
+  return { isLoggedIn };
 };
 
 export default useAuth;
