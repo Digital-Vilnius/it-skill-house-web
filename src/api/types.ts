@@ -6,8 +6,7 @@ export interface ListRequest<T = undefined> {
   paging?: Paging;
 }
 
-export interface ListResponse<T> {
-  data: T[];
+export interface ListResponse<T> extends ResultResponse<T[]> {
   total: number;
 }
 

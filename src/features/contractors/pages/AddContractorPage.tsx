@@ -8,7 +8,7 @@ const AddContractorPage: FC = () => {
       <Container fluid>
         <Row className='justify-content-center'>
           <Col xs={12} lg={10} xl={8}>
-            <div className='header mt-md-5'>
+            <div className='header my-5'>
               <div className='header-body'>
                 <Row className='align-items-center'>
                   <Col>

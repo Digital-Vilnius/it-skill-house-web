@@ -1,10 +1,10 @@
 import { FC } from 'react';
 import { Button, Form, InputGroup } from 'react-bootstrap';
-import { useLogin } from '../hooks';
+import { useLoginForm } from '../hooks';
 import { Controller } from 'react-hook-form';
 
 const LoginForm: FC = () => {
-  const { login, control, handleSubmit } = useLogin();
+  const { login, control, handleSubmit } = useLoginForm();
 
   return (
     <>

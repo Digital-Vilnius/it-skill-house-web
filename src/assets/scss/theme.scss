@@ -13,9 +13,6 @@
 // React variables
 @import 'react-variables';
 
-// Custom variables
-@import 'user-variables';
-
 // Theme variables
 @import 'theme/variables';
 
@@ -25,8 +22,8 @@
 // Theme core
 @import 'theme/theme';
 
-// Custom core
-@import 'user';
-
 // React
 @import 'react';
+
+// Custom
+@import 'custom/custom';

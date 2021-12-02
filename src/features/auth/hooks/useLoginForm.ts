@@ -13,12 +13,12 @@ const initialFormData: LoginFormData = {
 
 const getSchema = () => {
   return yup.object().shape({
-    email: yup.string().required(),
+    email: yup.string().email().required(),
     password: yup.string().required(),
   });
 };
 
-const useLogin = () => {
+const useLoginForm = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -36,4 +36,4 @@ const useLogin = () => {
   return { control, handleSubmit, login };
 };
 
-export default useLogin;
+export default useLoginForm;

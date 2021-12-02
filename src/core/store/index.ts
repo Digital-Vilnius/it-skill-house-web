@@ -6,6 +6,8 @@ import { persistStore, persistReducer } from 'redux-persist';
 import { reducer as authReducer } from 'features/auth/slice';
 import { reducer as transactionsReducer } from 'features/transactions/slice';
 import { reducer as contractorsReducer } from 'features/contractors/slice';
+import { reducer as recruitersReducer } from 'features/recruiters/slice';
+import { reducer as usersReducer } from 'features/users/slice';
 import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE } from 'redux-persist/es/constants';
 
 const persistConfig = {
@@ -17,6 +19,8 @@ const rootReducer = combineReducers({
   auth: authReducer,
   transactions: transactionsReducer,
   contractors: contractorsReducer,
+  recruiters: recruitersReducer,
+  users: usersReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

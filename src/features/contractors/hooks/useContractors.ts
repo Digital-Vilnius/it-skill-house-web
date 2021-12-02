@@ -23,7 +23,7 @@ const useContractors = (props: Props) => {
   return {
     isLoading,
     total: data?.total ?? 0,
-    contractors: data?.data?.map(mapContractor) ?? [],
+    contractors: data?.result?.map(mapContractor) ?? [],
   };
 };
 

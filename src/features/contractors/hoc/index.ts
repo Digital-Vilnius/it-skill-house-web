@@ -1,5 +1,4 @@
-import ContractorsTable from './ContractorsTable';
-import ContractorsHeader from './ContractorsHeader';
+import Contractors from './Contractors';
 import ContractorForm from './ContractorForm';
 
-export { ContractorsTable, ContractorsHeader, ContractorForm };
+export { Contractors, ContractorForm };
