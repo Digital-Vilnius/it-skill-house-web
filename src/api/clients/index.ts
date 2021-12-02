@@ -6,6 +6,7 @@ import * as ContractorsClient from './contractors';
 import * as RecruitersClient from './recruiters';
 import * as UsersClient from './users';
 import * as TechnologiesClient from './technologies';
+import * as ContractorRatesClient from './contractorRates';
 
 export {
   AccountsClient,
@@ -16,4 +17,5 @@ export {
   RecruitersClient,
   UsersClient,
   TechnologiesClient,
+  ContractorRatesClient,
 };

@@ -1,14 +1,16 @@
 import { Recruiter } from '../recruiters/types';
+import { Technology } from '../technologies/types';
+import { BaseModel } from '../../types';
 
-export interface Contractor {
-  id: string;
+export interface Contractor extends BaseModel {
   firstName: string;
   lastName: string;
   email: string;
+  isRemote: boolean;
+  location: string;
+  rate: number;
   recruiter: Recruiter;
-  technologies: string[];
-  updated: string | null;
-  created: string;
+  technologies: Technology[];
 }
 
 export interface AddContractorRequest {
@@ -16,15 +18,15 @@ export interface AddContractorRequest {
   lastName: string;
   email: string;
   recruiterId: string;
-  technologies: string[];
+  location: string;
+  isRemote: boolean;
+  rate: number;
+  technologiesIds: string[];
 }
 
 export interface EditContractorRequest {
-  firstName: string;
-  lastName: string;
-  email: string;
   recruiterId: string;
-  technologies: string[];
+  technologiesIds: string[];
 }
 
 export interface ContractorsFilter {

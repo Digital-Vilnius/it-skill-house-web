@@ -23,3 +23,9 @@ export interface Paging {
 export interface ResultResponse<T> {
   result: T;
 }
+
+export interface BaseModel {
+  id: string;
+  created: string;
+  updated: string | null;
+}

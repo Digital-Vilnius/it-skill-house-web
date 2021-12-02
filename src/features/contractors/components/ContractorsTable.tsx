@@ -1,18 +1,18 @@
 import React, { FC } from 'react';
-import { useContractorsColumns } from '../hooks';
-import DataGrid from 'react-data-grid';
 import { Contractor } from '../types';
+import { DataTable } from 'components';
+import { Column } from 'components/DataTable/types';
 
 interface Props {
   contractors: Contractor[];
   total: number;
+  columns: Column<Contractor>[];
 }
 
 const ContractorsTable: FC<Props> = (props) => {
-  const { contractors } = props;
-  const { columns } = useContractorsColumns();
+  const { contractors, columns } = props;
 
-  return <DataGrid columns={columns} rows={contractors} />;
+  return <DataTable columns={columns} data={contractors} />;
 };
 
 export default ContractorsTable;

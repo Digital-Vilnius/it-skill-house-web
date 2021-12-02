@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Badge, Button, Col, Container, Nav, Row } from 'react-bootstrap';
+import { Button, Col, Container, Row } from 'react-bootstrap';
 import { Contractors } from '../hoc';
 import { Link } from 'react-router-dom';
 
@@ -8,8 +8,8 @@ const ContractorsPage: FC = () => {
     <div className='main-content'>
       <Container fluid>
         <Row className='justify-content-center'>
-          <Col xs={12} lg={10} xl={8}>
-            <div className='header'>
+          <Col xs={12}>
+            <div className='header mt-md-5'>
               <div className='header-body'>
                 <Row className='align-items-center'>
                   <Col>
@@ -18,38 +18,8 @@ const ContractorsPage: FC = () => {
                   </Col>
                   <Col xs='auto'>
                     <Link to='/admin/contractors/add'>
-                      <Button className='ms-2'>Add contact</Button>
+                      <Button className='ms-2'>Add contractor</Button>
                     </Link>
-                  </Col>
-                </Row>
-                <Row className='align-items-center'>
-                  <Col>
-                    <Nav variant='tabs' className='header-tabs nav-overflow'>
-                      <Nav.Item>
-                        <Nav.Link className='text-nowrap' role='button' active>
-                          All contacts{' '}
-                          <Badge bg='secondary-soft' className='rounded-pill'>
-                            823
-                          </Badge>
-                        </Nav.Link>
-                      </Nav.Item>
-                      <Nav.Item>
-                        <Nav.Link className='text-nowrap' role='button'>
-                          Your contacts{' '}
-                          <Badge bg='secondary-soft' className='rounded-pill'>
-                            231
-                          </Badge>
-                        </Nav.Link>
-                      </Nav.Item>
-                      <Nav.Item>
-                        <Nav.Link className='text-nowrap' role='button'>
-                          Deleted{' '}
-                          <Badge bg='secondary-soft' className='rounded-pill'>
-                            22
-                          </Badge>
-                        </Nav.Link>
-                      </Nav.Item>
-                    </Nav>
                   </Col>
                 </Row>
               </div>

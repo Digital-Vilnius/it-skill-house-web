@@ -1,6 +1,11 @@
 import { ListRequest, ListResponse } from '../../types';
 import httpClient from '../../httpClient';
-import { Contractor, AddContractorRequest, EditContractorRequest, ContractorsFilter } from './types';
+import {
+  Contractor,
+  AddContractorRequest,
+  EditContractorRequest,
+  ContractorsFilter,
+} from './types';
 
 const baseUrl = '/contractors';
 

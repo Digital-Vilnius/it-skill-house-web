@@ -4,14 +4,12 @@ import { useTechnologies, useTechnologyAdd } from '../hooks';
 import { mapTechnologyOption } from '../map';
 import { queryClient } from 'core/query';
 import { getQueryKey } from '../hooks/useTechnologies';
+import { MultiSelectProps } from 'components/Select/MultiSelect';
 
-interface Props {
-  onChange: (value: (string | number)[]) => void;
-  value: string[];
-}
+type Props = Omit<MultiSelectProps, 'options' | 'id' | 'onOptionAdd'>;
 
 const TechnologiesSelect: FC<Props> = (props) => {
-  const { value, onChange } = props;
+  const { value, onChange, ...rest } = props;
   const { technologies } = useTechnologies();
   const { addTechnology } = useTechnologyAdd();
 
@@ -29,6 +27,7 @@ const TechnologiesSelect: FC<Props> = (props) => {
       options={technologies.map(mapTechnologyOption)}
       value={value}
       onChange={onChange}
+      {...rest}
     />
   );
 };

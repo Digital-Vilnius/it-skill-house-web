@@ -1,20 +1,25 @@
 import { Recruiter } from 'features/recruiters/types';
+import { Technology } from 'features/technologies/types';
+import { BaseModel } from 'api/types';
 
-export interface Contractor {
-  id: string;
+export interface Contractor extends BaseModel {
   firstName: string;
   lastName: string;
   email: string;
-  technologies: string[];
+  location: string;
+  isRemote: boolean;
+  technologies: Technology[];
   recruiter: Recruiter;
-  updated: string | null;
-  created: string;
+  rate: number;
 }
 
 export interface ContractorFormData {
   firstName: string;
   lastName: string;
   email: string;
-  technologies: string[];
+  technologiesIds: string[];
   recruiterId: string;
+  rate: number;
+  location: string;
+  isRemote: boolean;
 }

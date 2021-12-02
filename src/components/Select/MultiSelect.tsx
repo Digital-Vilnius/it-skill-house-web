@@ -5,26 +5,27 @@ import xor from 'lodash/xor';
 import classNames from 'classnames';
 import { Option } from './types';
 
-interface Props {
+export interface MultiSelectProps {
   id: string;
   options: Option[];
-  value: (string | number)[];
-  onChange: (value: (string | number)[]) => void;
-  onOptionAdd: (value: string) => void;
+  value: string[];
+  onChange: (value: string[]) => void;
+  onOptionAdd?: (value: string) => void;
+  isInvalid?: boolean;
 }
 
-export const getOption = (value: string | number, options: Option[]): Option => {
+export const getOption = (value: string, options: Option[]): Option => {
   const option = options.find((item) => item.value === value);
   if (option) return option;
   return { value, label: 'Unknown' };
 };
 
-export const getIsSelected = (value: string | number, selectedValues: (string | number)[]): boolean => {
+export const getIsSelected = (value: string, selectedValues: string[]): boolean => {
   return !!selectedValues.find((id) => id === value);
 };
 
-const MultiSelect: FC<Props> = (props) => {
-  const { value, options, onChange, id, onOptionAdd } = props;
+const MultiSelect: FC<MultiSelectProps> = (props) => {
+  const { value, options, onChange, id, onOptionAdd, isInvalid } = props;
   const [query, setQuery] = useState<string>('');
   const [filteredOptions, setFilteredOptions] = useState<Option[]>(options);
 
@@ -33,15 +34,15 @@ const MultiSelect: FC<Props> = (props) => {
     setFilteredOptions(options.filter((option) => option.label.includes(query)));
   }, [query, options]);
 
-  const clearOption = (optionValue: string | number) => {
+  const clearOption = (optionValue: string) => {
     onChange(value.filter((val) => val !== optionValue));
   };
 
-  const selectOption = (optionValue: string | number) => {
+  const selectOption = (optionValue: string) => {
     onChange(xor(value, [optionValue]));
   };
 
-  const renderSelectedOption = (optionValue: string | number, index: number) => {
+  const renderSelectedOption = (optionValue: string, index: number) => {
     const option = getOption(optionValue, options);
 
     return (
@@ -58,7 +59,11 @@ const MultiSelect: FC<Props> = (props) => {
     const selected = getIsSelected(option.value, value);
 
     return (
-      <Form.Check key={index} className={classNames('it-select-option my-3', { selected })} type='checkbox'>
+      <Form.Check
+        key={index}
+        className={classNames('it-select-option my-3', { selected })}
+        type='checkbox'
+      >
         <Form.Check.Input
           id={`${id}-${index}`}
           onChange={() => selectOption(option.value)}
@@ -76,16 +81,25 @@ const MultiSelect: FC<Props> = (props) => {
   };
 
   return (
-    <Dropdown className='it-select-container'>
+    <Dropdown className={classNames('it-select-container', { 'is-invalid': isInvalid })}>
       <Dropdown.Toggle as='div' className='it-select-control'>
-        <div className='form-control'>{value.map(renderSelectedOption)}</div>
+        <Form.Control isInvalid={isInvalid} as='div'>
+          {value.map(renderSelectedOption)}
+        </Form.Control>
       </Dropdown.Toggle>
       <Dropdown.Menu className='w-100'>
         <div className='px-3 pt-2'>
-          <Form.Control value={query} onChange={($event) => setQuery($event.target.value)} type='text' placeholder='Search...' />
+          <Form.Control
+            value={query}
+            onChange={($event) => setQuery($event.target.value)}
+            type='text'
+            placeholder='Search...'
+          />
           <div className='it-select-options mt-2 px-1'>
             {filteredOptions.map(renderOption)}
-            {isOptionCreateAvailable() && <span onClick={() => onOptionAdd(query)}>{`Add "${query}"`}</span>}
+            {isOptionCreateAvailable() && onOptionAdd && (
+              <span onClick={() => onOptionAdd(query)}>{`Add "${query}"`}</span>
+            )}
           </div>
         </div>
       </Dropdown.Menu>

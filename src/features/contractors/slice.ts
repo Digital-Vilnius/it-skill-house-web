@@ -1,5 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { setContractorsFilterAction, setContractorsSortAction, setContractorsPagingAction, resetContractorsFilterAction } from './actions';
+import {
+  setContractorsFilterAction,
+  setContractorsSortAction,
+  setContractorsPagingAction,
+  resetContractorsFilterAction,
+  setContractorsColumnsIdsAction,
+} from './actions';
 import { ContractorsFilter } from 'api/clients/contractors/types';
 import { Paging, Sort } from 'api/types';
 
@@ -7,12 +13,14 @@ interface State {
   paging: Paging;
   sort: Sort;
   filter: ContractorsFilter;
+  columnsIds: string[];
 }
 
 const initialState: State = {
   filter: {},
   paging: { take: 15, skip: 0 },
   sort: { column: 'created', direction: 'desc' },
+  columnsIds: ['email', 'fullName'],
 };
 
 const contractorsSlice = createSlice({
@@ -30,6 +38,9 @@ const contractorsSlice = createSlice({
     builder.addCase(setContractorsFilterAction, (state, action) => {
       state.filter = action.payload.filter;
       state.paging = { ...state.paging, skip: 0 };
+    });
+    builder.addCase(setContractorsColumnsIdsAction, (state, action) => {
+      state.columnsIds = action.payload.ids;
     });
     builder.addCase(resetContractorsFilterAction, (state) => {
       state.filter = initialState.filter;

@@ -3,25 +3,32 @@ import { useForm } from 'react-hook-form';
 import { Contractor, ContractorFormData } from '../types';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation } from 'react-query';
-import { Contractor as ApiContractor } from 'api/clients/contractors/types';
 import { ContractorsClient } from 'api/clients';
 
 const initialFormData: ContractorFormData = {
   email: '',
   firstName: '',
   lastName: '',
-  technologies: [],
+  technologiesIds: [],
   recruiterId: '',
+  rate: 0,
+  isRemote: false,
+  location: '',
 };
 
 const getSchema = () => {
-  return yup.object().default({
+  const schema = yup.object().shape({
+    rate: yup.number().positive().required(),
     firstName: yup.string().required(),
     lastName: yup.string().required(),
     email: yup.string().email().required(),
-    technologies: yup.array().of(yup.string()),
+    technologiesIds: yup.array().min(1).of(yup.string()),
     recruiterId: yup.string().required(),
+    location: yup.string().required(),
+    isRemote: yup.boolean().required(),
   });
+
+  return schema.required();
 };
 
 interface Props {
@@ -36,10 +43,11 @@ const useRecruiterForm = (props: Props) => {
     resolver: yupResolver(getSchema()),
   });
 
-  const { mutateAsync } = useMutation<ApiContractor, unknown, ContractorFormData>((data) => {
-    if (contractor) return ContractorsClient.editContractor(contractor.id, data);
+  const mutationFn = (data: ContractorFormData) => {
     return ContractorsClient.addContractor(data);
-  });
+  };
+
+  const { mutateAsync } = useMutation<unknown, unknown, ContractorFormData>(mutationFn);
 
   const save = (data: ContractorFormData) => {
     return mutateAsync(data);

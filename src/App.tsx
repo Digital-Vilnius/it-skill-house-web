@@ -6,16 +6,18 @@ import { QueryClientProvider } from 'react-query';
 import { queryClient } from 'core/query';
 import 'assets/scss/theme.scss';
 import { PersistGate } from 'redux-persist/integration/react';
+import { ToastContainer } from 'react-toastify';
 
 const App: FC = () => {
   return (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
           <RootNavigator />
-        </QueryClientProvider>
-      </PersistGate>
-    </Provider>
+          <ToastContainer />
+        </PersistGate>
+      </Provider>
+    </QueryClientProvider>
   );
 };
 

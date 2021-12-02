@@ -1,8 +1,8 @@
-import { User } from '../users/types';
-
 export interface Recruiter {
   id: string;
-  user: User;
+  firstName: string;
+  lastName: string;
+  email: string;
   updated: string | null;
   created: string;
 }
