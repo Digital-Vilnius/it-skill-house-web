@@ -18,11 +18,13 @@ const useContractors = (props: Props) => {
   const { filter, paging, sort } = props;
 
   const getContractorsFn = () => ContractorsClient.getContractors({ filter, paging, sort });
-  const { isLoading, data } = useQuery(getQueryKey(filter, paging, sort), getContractorsFn, { keepPreviousData: true });
+  const { isLoading, data } = useQuery(getQueryKey(filter, paging, sort), getContractorsFn, {
+    keepPreviousData: true,
+  });
 
   return {
     isLoading,
-    total: data?.total ?? 0,
+    count: data?.count ?? 0,
     contractors: data?.result?.map(mapContractor) ?? [],
   };
 };

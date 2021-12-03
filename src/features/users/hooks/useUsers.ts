@@ -18,11 +18,15 @@ const useUsers = (props: Props) => {
   const { filter, paging, sort } = props;
 
   const getUsersFn = () => UsersClient.getUsers({ filter, paging, sort });
-  const { isLoading, data } = useQuery<ListResponse<User>>(getQueryKey(filter, paging, sort), getUsersFn, { keepPreviousData: true });
+  const { isLoading, data } = useQuery<ListResponse<User>>(
+    getQueryKey(filter, paging, sort),
+    getUsersFn,
+    { keepPreviousData: true }
+  );
 
   return {
     isLoading,
-    total: data?.total ?? 0,
+    count: data?.count ?? 0,
     users: data?.result?.map(mapUser) ?? [],
   };
 };

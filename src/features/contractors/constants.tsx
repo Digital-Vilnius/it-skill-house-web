@@ -1,16 +1,17 @@
-import { Column } from 'components/DataTable/types';
+import { Column } from 'components/DataTable';
 import { Contractor } from './types';
 import { Form } from 'react-bootstrap';
 import React from 'react';
-import sortBy from 'lodash/sortBy';
 
 export const contractorColumns: Column<Contractor>[] = [
   { id: 'id', label: 'Id', className: 'text-center', sortable: true },
   { id: 'email', label: 'Email', sortable: true, sticky: true },
+  { id: 'phone', label: 'Phone', sortable: true },
   { id: 'firstName', label: 'First name', sortable: true },
   { id: 'lastName', label: 'Last name', sortable: true },
   { id: 'location', label: 'Location', sortable: true },
   { id: 'updated', label: 'Updated', className: 'text-center', sortable: true },
+  { id: 'availableFrom', label: 'Available from', className: 'text-center', sortable: true },
   {
     id: 'created',
     label: 'Created',
@@ -38,6 +39,13 @@ export const contractorColumns: Column<Contractor>[] = [
     Cell: (cell) => <Form.Check readOnly checked={cell.isRemote} type='checkbox' />,
   },
   {
+    id: 'isPublic',
+    label: 'Public',
+    className: 'text-center',
+    sortable: true,
+    Cell: (cell) => <Form.Check readOnly checked={cell.isPublic} type='checkbox' />,
+  },
+  {
     id: 'rate',
     label: 'Rate',
     className: 'text-center',
@@ -45,18 +53,3 @@ export const contractorColumns: Column<Contractor>[] = [
     sortable: true,
   },
 ];
-
-export const getAllColumns = (order: string[]) => {
-  const orderedColumns: Column<Contractor>[] = [];
-
-  order.forEach((id) => {
-    const nextColumn = contractorColumns.find((column) => column.id === id);
-    if (nextColumn) orderedColumns.push(nextColumn);
-  });
-
-  return orderedColumns;
-};
-
-export const getVisibleColumns = (columns: Column<Contractor>[], columnsIds: string[]) => {
-  return columns.filter((column) => columnsIds.includes(column.id) || column.sticky);
-};

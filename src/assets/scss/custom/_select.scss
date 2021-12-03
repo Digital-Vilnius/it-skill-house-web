@@ -1,7 +1,9 @@
-.dropdown-toggle:after {
-  position: absolute;
-  top: 13px;
-  right: 6px;
+.it-select-container {
+  .dropdown-toggle:after {
+    position: absolute;
+    top: 13px;
+    right: 6px;
+  }
 }
 
 .it-select {

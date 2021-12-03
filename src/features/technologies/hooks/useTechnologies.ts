@@ -8,11 +8,13 @@ export const getQueryKey = () => {
 
 const useTechnologies = () => {
   const getTechnologiesFn = () => TechnologiesClient.getTechnologies();
-  const { isLoading, data } = useQuery(getQueryKey(), getTechnologiesFn, { keepPreviousData: true });
+  const { isLoading, data } = useQuery(getQueryKey(), getTechnologiesFn, {
+    keepPreviousData: true,
+  });
 
   return {
     isLoading,
-    total: data?.total ?? 0,
+    count: data?.count ?? 0,
     technologies: data?.result?.map(mapTechnology) ?? [],
   };
 };

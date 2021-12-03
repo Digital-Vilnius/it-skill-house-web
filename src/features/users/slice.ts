@@ -1,5 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { setUsersFilterAction, setUsersPagingAction, setUsersSortAction, resetUsersFilterAction } from './actions';
+import {
+  setUsersFilterAction,
+  setUsersPagingAction,
+  setUsersSortAction,
+  resetUsersFilterAction,
+} from './actions';
 import { UsersFilter } from 'api/clients/users/types';
 import { Paging, Sort } from 'api/types';
 
@@ -11,7 +16,7 @@ interface State {
 
 const initialState: State = {
   filter: {},
-  paging: { take: 15, skip: 0 },
+  paging: { take: 1, skip: 0 },
   sort: { column: 'created', direction: 'desc' },
 };
 

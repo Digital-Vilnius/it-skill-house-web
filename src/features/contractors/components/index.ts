@@ -1,3 +1,3 @@
-import ContractorsTable from './ContractorsTable';
+import ColumnsSelect from './ColumnsSelect';
 
-export { ContractorsTable };
+export { ColumnsSelect };

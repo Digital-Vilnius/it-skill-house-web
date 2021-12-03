@@ -2,17 +2,24 @@ export interface Recruiter {
   id: string;
   firstName: string;
   lastName: string;
+  phone: string;
   email: string;
   updated: string | null;
   created: string;
 }
 
 export interface AddRecruiterRequest {
-  userId: string;
+  firstName: string;
+  lastName: string;
+  phone: string;
+  email: string;
 }
 
 export interface EditRecruiterRequest {
-  userId: string;
+  firstName: string;
+  lastName: string;
+  phone: string;
+  email: string;
 }
 
 export interface RecruitersFilter {

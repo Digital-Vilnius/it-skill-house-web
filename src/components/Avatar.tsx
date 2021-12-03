@@ -9,7 +9,13 @@ interface Props extends ComponentPropsWithoutRef<'div'> {
 
 const Avatar = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
   const { ratio, size, status, className, ...rest } = props;
-  const classes = classNames('avatar', ratio && `avatar-${ratio}`, size && `avatar-${size}`, status && `avatar-${status}`, className);
+  const classes = classNames(
+    'avatar',
+    ratio && `avatar-${ratio}`,
+    size && `avatar-${size}`,
+    status && `avatar-${status}`,
+    className
+  );
 
   return <div {...rest} className={classes} ref={ref} {...props} />;
 });

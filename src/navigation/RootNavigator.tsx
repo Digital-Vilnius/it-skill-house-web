@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthLayout, AdminLayout } from 'layouts';
 import { LoginPage } from 'features/auth/pages';
 import { AddContractorPage, ContractorsPage } from 'features/contractors/pages';
-import { TransactionsPage } from 'features/transactions/pages';
 import RequireAuth from './RequireAuth';
 import { RecruitersPage, AddRecruiterPage } from 'features/recruiters/pages';
 import { UsersPage, AddUserPage } from 'features/users/pages';
@@ -61,14 +60,6 @@ const RootNavigator: FC = () => {
             element={
               <RequireAuth>
                 <AddUserPage />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path='transactions'
-            element={
-              <RequireAuth>
-                <TransactionsPage />
               </RequireAuth>
             }
           />

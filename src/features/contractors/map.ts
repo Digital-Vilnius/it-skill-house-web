@@ -2,7 +2,7 @@ import { Contractor as ApiContractor } from 'api/clients/contractors/types';
 import { Contractor } from './types';
 import { mapRecruiter } from 'features/recruiters/map';
 import { mapTechnology } from 'features/technologies/map';
-import { Column } from 'components/DataTable/types';
+import { Column } from 'components/DataTable';
 
 export const mapContractor = (contractor: ApiContractor): Contractor => ({
   ...contractor,

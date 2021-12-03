@@ -3,21 +3,24 @@ import { useForm } from 'react-hook-form';
 import { Recruiter, RecruiterFormData } from '../types';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation } from 'react-query';
-import { Recruiter as ApiRecruiter } from 'api/clients/recruiters/types';
 import { RecruitersClient } from 'api/clients';
 
 const initialFormData: RecruiterFormData = {
   email: '',
   firstName: '',
   lastName: '',
+  phone: '',
 };
 
 const getSchema = () => {
-  return yup.object().default({
+  const schema = yup.object().shape({
     firstName: yup.string().required(),
     lastName: yup.string().required(),
     email: yup.string().email().required(),
+    phone: yup.string().required(),
   });
+
+  return schema.required();
 };
 
 interface Props {
@@ -32,10 +35,11 @@ const useRecruiterForm = (props: Props) => {
     resolver: yupResolver(getSchema()),
   });
 
-  const { mutateAsync } = useMutation<ApiRecruiter, unknown, RecruiterFormData>((data) => {
-    if (recruiter) return RecruitersClient.editRecruiter(recruiter.id, { userId: '' });
-    return RecruitersClient.addRecruiter({ userId: '' });
-  });
+  const mutationFn = (data: RecruiterFormData) => {
+    return RecruitersClient.addRecruiter(data);
+  };
+
+  const { mutateAsync } = useMutation<unknown, unknown, RecruiterFormData>(mutationFn);
 
   const save = (data: RecruiterFormData) => {
     return mutateAsync(data);

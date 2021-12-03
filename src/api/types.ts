@@ -7,7 +7,7 @@ export interface ListRequest<T = undefined> {
 }
 
 export interface ListResponse<T> extends ResultResponse<T[]> {
-  total: number;
+  count: number;
 }
 
 export interface Sort {

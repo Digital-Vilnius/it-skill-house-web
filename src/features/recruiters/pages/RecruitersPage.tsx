@@ -8,7 +8,7 @@ const RecruitersPage: FC = () => {
     <div className='main-content'>
       <Container fluid>
         <Row className='justify-content-center'>
-          <Col xs={12} lg={10} xl={8}>
+          <Col>
             <div className='header mt-md-5'>
               <div className='header-body'>
                 <Row className='align-items-center'>

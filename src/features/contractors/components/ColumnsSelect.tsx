@@ -1,11 +1,12 @@
 import React, { FC } from 'react';
-import { Column } from './DataTable/types';
+import { Column } from 'components/DataTable';
 import { Card, Dropdown, Form } from 'react-bootstrap';
 import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
 import xor from 'lodash/xor';
+import { Contractor } from '../types';
 
 interface Props {
-  columns: Column<any>[];
+  columns: Column<Contractor>[];
   value: string[];
   onChange: (ids: string[]) => void;
   order: string[];
@@ -32,8 +33,10 @@ const ColumnsSelect: FC<Props> = (props) => {
 
   return (
     <Dropdown>
-      <Dropdown.Toggle>Columns</Dropdown.Toggle>
-      <Dropdown.Menu>
+      <Dropdown.Toggle variant='white' size='sm'>
+        Columns
+      </Dropdown.Toggle>
+      <Dropdown.Menu style={{ width: '250px' }}>
         <Card.Body>
           <DragDropContext onDragEnd={onDragEnd}>
             <Droppable droppableId='tasks'>

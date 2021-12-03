@@ -18,11 +18,13 @@ const useRecruiters = (props: Props) => {
   const { filter, paging, sort } = props;
 
   const getRecruitersFn = () => RecruitersClient.getRecruiters({ filter, paging, sort });
-  const { isLoading, data } = useQuery(getQueryKey(filter, paging, sort), getRecruitersFn, { keepPreviousData: true });
+  const { isLoading, data } = useQuery(getQueryKey(filter, paging, sort), getRecruitersFn, {
+    keepPreviousData: true,
+  });
 
   return {
     isLoading,
-    total: data?.total ?? 0,
+    count: data?.count ?? 0,
     recruiters: data?.result?.map(mapRecruiter) ?? [],
   };
 };

@@ -13,7 +13,10 @@ const initialFormData: ContractorFormData = {
   recruiterId: '',
   rate: 0,
   isRemote: false,
+  isPublic: false,
   location: '',
+  availableFrom: '2021-12-25',
+  phone: '',
 };
 
 const getSchema = () => {
@@ -26,6 +29,9 @@ const getSchema = () => {
     recruiterId: yup.string().required(),
     location: yup.string().required(),
     isRemote: yup.boolean().required(),
+    isPublic: yup.boolean().required(),
+    availableFrom: yup.date().required(),
+    phone: yup.string().required(),
   });
 
   return schema.required();
