@@ -10,5 +10,9 @@ export const setContractorsColumnsIdsAction = createAction<{ ids: string[] }>(
   'setContractorsColumnsIds'
 );
 
+export const setContractorsColumnsOrderAction = createAction<{ ids: string[] }>(
+  'setContractorsColumnsOrder'
+);
+
 export const setContractorsFilterAction =
   createAction<{ filter: ContractorsFilter }>('setContractorsFilter');

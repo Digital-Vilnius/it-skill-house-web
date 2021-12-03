@@ -6,7 +6,6 @@ export interface Column<T> {
   sticky?: boolean;
   className?: string;
   sortable?: boolean;
-  order: number;
   Header?: () => React.ReactElement;
   Cell?: (cell: T) => React.ReactElement | string;
 }

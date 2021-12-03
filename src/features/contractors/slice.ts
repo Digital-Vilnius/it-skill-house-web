@@ -5,6 +5,7 @@ import {
   setContractorsPagingAction,
   resetContractorsFilterAction,
   setContractorsColumnsIdsAction,
+  setContractorsColumnsOrderAction,
 } from './actions';
 import { ContractorsFilter } from 'api/clients/contractors/types';
 import { Paging, Sort } from 'api/types';
@@ -14,6 +15,7 @@ interface State {
   sort: Sort;
   filter: ContractorsFilter;
   columnsIds: string[];
+  columnsOrder: string[];
 }
 
 const initialState: State = {
@@ -21,6 +23,19 @@ const initialState: State = {
   paging: { take: 15, skip: 0 },
   sort: { column: 'created', direction: 'desc' },
   columnsIds: ['email', 'fullName'],
+  columnsOrder: [
+    'id',
+    'email',
+    'firstName',
+    'lastName',
+    'fullName',
+    'recruiter',
+    'location',
+    'isRemote',
+    'rate',
+    'updated',
+    'created',
+  ],
 };
 
 const contractorsSlice = createSlice({
@@ -41,6 +56,9 @@ const contractorsSlice = createSlice({
     });
     builder.addCase(setContractorsColumnsIdsAction, (state, action) => {
       state.columnsIds = action.payload.ids;
+    });
+    builder.addCase(setContractorsColumnsOrderAction, (state, action) => {
+      state.columnsOrder = action.payload.ids;
     });
     builder.addCase(resetContractorsFilterAction, (state) => {
       state.filter = initialState.filter;
