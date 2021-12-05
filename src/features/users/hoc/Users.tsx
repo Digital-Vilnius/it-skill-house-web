@@ -4,8 +4,8 @@ import { useAppDispatch, useAppSelector } from 'core/store';
 import { DataTable, Pagination } from 'components';
 import { Column } from 'components/DataTable';
 import { User } from '../types';
-import { Paging } from 'api/types';
-import { setUsersPagingAction } from '../actions';
+import { Paging, Sort } from 'api/types';
+import { setUsersPagingAction, setUsersSortAction } from '../actions';
 import { Card, Form, InputGroup } from 'react-bootstrap';
 import Icon from '@ailibs/feather-react-ts';
 
@@ -28,6 +28,10 @@ const Users: FC = () => {
     dispatch(setUsersPagingAction({ paging: newPaging }));
   };
 
+  const handleSortChange = (newSort: Sort) => {
+    dispatch(setUsersSortAction({ sort: newSort }));
+  };
+
   return (
     <Card>
       <Card.Header>
@@ -38,7 +42,7 @@ const Users: FC = () => {
           </InputGroup.Text>
         </InputGroup>
       </Card.Header>
-      <DataTable columns={columns} data={users} />
+      <DataTable onSort={handleSortChange} sort={sort} columns={columns} data={users} />
       <Card.Footer className='d-flex justify-content-between'>
         <Pagination paging={paging} count={count} onChange={handlePagingChange} />
       </Card.Footer>

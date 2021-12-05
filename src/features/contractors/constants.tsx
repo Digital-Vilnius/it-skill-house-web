@@ -4,9 +4,9 @@ import { Form } from 'react-bootstrap';
 import React from 'react';
 
 export const contractorColumns: Column<Contractor>[] = [
-  { id: 'id', label: 'Id', className: 'text-center', sortable: true },
+  { id: 'id', label: 'Id', className: 'text-center' },
   { id: 'email', label: 'Email', sortable: true, sticky: true },
-  { id: 'phone', label: 'Phone', sortable: true },
+  { id: 'phone', label: 'Phone' },
   { id: 'firstName', label: 'First name', sortable: true },
   { id: 'lastName', label: 'Last name', sortable: true },
   { id: 'location', label: 'Location', sortable: true },

@@ -6,8 +6,8 @@ import { getAllColumns, getVisibleColumns } from '../utils';
 import { Column } from 'components/DataTable';
 import { Contractor } from '../types';
 import { DataTable, Pagination } from 'components';
-import { Paging } from 'api/types';
-import { setContractorsPagingAction } from '../actions';
+import { Paging, Sort } from 'api/types';
+import { setContractorsPagingAction, setContractorsSortAction } from '../actions';
 import { Card, Form, InputGroup } from 'react-bootstrap';
 import Icon from '@ailibs/feather-react-ts';
 
@@ -34,6 +34,10 @@ const Contractors: FC = () => {
     dispatch(setContractorsPagingAction({ paging: newPaging }));
   };
 
+  const handleSortChange = (newSort: Sort) => {
+    dispatch(setContractorsSortAction({ sort: newSort }));
+  };
+
   return (
     <Card>
       <Card.Header>
@@ -51,7 +55,12 @@ const Contractors: FC = () => {
           value={visibleColumns.map((column) => column.id)}
         />
       </Card.Header>
-      <DataTable columns={visibleColumns} data={contractors} />
+      <DataTable
+        onSort={handleSortChange}
+        sort={sort}
+        columns={visibleColumns}
+        data={contractors}
+      />
       <Card.Footer className='d-flex justify-content-between'>
         <Pagination paging={paging} count={count} onChange={handlePagingChange} />
       </Card.Footer>

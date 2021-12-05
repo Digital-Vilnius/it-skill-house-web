@@ -6,8 +6,8 @@ import { Recruiter } from '../types';
 import { DataTable, Pagination } from 'components';
 import { Card, Form, InputGroup } from 'react-bootstrap';
 import Icon from '@ailibs/feather-react-ts';
-import { Paging } from 'api/types';
-import { setRecruitersPagingAction } from '../actions';
+import { Paging, Sort } from 'api/types';
+import { setRecruitersPagingAction, setRecruitersSortAction } from '../actions';
 
 export const columns: Column<Recruiter>[] = [
   { id: 'email', label: 'Email', sortable: true },
@@ -27,6 +27,10 @@ const Recruiters: FC = () => {
     dispatch(setRecruitersPagingAction({ paging: newPaging }));
   };
 
+  const handleSortChange = (newSort: Sort) => {
+    dispatch(setRecruitersSortAction({ sort: newSort }));
+  };
+
   return (
     <Card>
       <Card.Header>
@@ -37,7 +41,7 @@ const Recruiters: FC = () => {
           </InputGroup.Text>
         </InputGroup>
       </Card.Header>
-      <DataTable columns={columns} data={recruiters} />
+      <DataTable onSort={handleSortChange} sort={sort} columns={columns} data={recruiters} />
       <Card.Footer className='d-flex justify-content-between'>
         <Pagination paging={paging} count={count} onChange={handlePagingChange} />
       </Card.Footer>

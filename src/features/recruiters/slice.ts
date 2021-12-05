@@ -1,5 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { setRecruitersFilterAction, setRecruitersPagingAction, setRecruitersSortAction, resetRecruitersFilterAction } from './actions';
+import {
+  setRecruitersFilterAction,
+  setRecruitersPagingAction,
+  setRecruitersSortAction,
+  resetRecruitersFilterAction,
+} from './actions';
 import { RecruitersFilter } from 'api/clients/recruiters/types';
 import { Paging, Sort } from 'api/types';
 
@@ -12,7 +17,7 @@ interface State {
 const initialState: State = {
   filter: {},
   paging: { take: 15, skip: 0 },
-  sort: { column: 'created', direction: 'desc' },
+  sort: { sortBy: 'created', sortDirection: 'desc' },
 };
 
 const recruitersSlice = createSlice({

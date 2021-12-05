@@ -17,7 +17,7 @@ interface State {
 const initialState: State = {
   filter: {},
   paging: { take: 1, skip: 0 },
-  sort: { column: 'created', direction: 'desc' },
+  sort: { sortBy: 'created', sortDirection: 'desc' },
 };
 
 const usersSlice = createSlice({

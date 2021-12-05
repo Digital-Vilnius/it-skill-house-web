@@ -1,6 +1,8 @@
 import React, { FC } from 'react';
 import { Dropdown, Form, Table } from 'react-bootstrap';
 import Icon from '@ailibs/feather-react-ts';
+import classNames from 'classnames';
+import { Sort } from 'api/types';
 
 export interface Column<T> {
   id: string;
@@ -15,10 +17,20 @@ export interface Column<T> {
 interface Props {
   columns: Column<any>[];
   data: any[];
+  onSort: (sort: Sort) => void;
+  sort: Sort;
 }
 
 const DataTable: FC<Props> = (props) => {
-  const { columns, data } = props;
+  const { columns, data, onSort, sort } = props;
+
+  const handleSort = (column: Column<unknown>) => {
+    if (!column.sortable) return;
+
+    const sortDirection =
+      column.id != sort.sortBy ? 'desc' : sort.sortDirection == 'asc' ? 'desc' : 'asc';
+    onSort({ sortBy: column.id, sortDirection });
+  };
 
   return (
     <Table size='sm' className='card-table table-nowrap'>
@@ -28,7 +40,11 @@ const DataTable: FC<Props> = (props) => {
             <Form.Check value='all' type='checkbox' />
           </th>
           {columns.map((column) => (
-            <th key={column.id} className={column.className}>
+            <th
+              key={column.id}
+              onClick={() => handleSort(column)}
+              className={classNames(column.className, { 'is-sortable': column.sortable })}
+            >
               {column.Header ? column.Header() : column.label}
             </th>
           ))}

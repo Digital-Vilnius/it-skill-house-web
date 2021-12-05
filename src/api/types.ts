@@ -11,8 +11,8 @@ export interface ListResponse<T> extends ResultResponse<T[]> {
 }
 
 export interface Sort {
-  column: string;
-  direction: SortDirection;
+  sortBy: string;
+  sortDirection: SortDirection;
 }
 
 export interface Paging {
