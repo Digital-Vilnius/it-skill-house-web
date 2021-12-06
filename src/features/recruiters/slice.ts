@@ -21,7 +21,7 @@ const initialState: State = {
 };
 
 const recruitersSlice = createSlice({
-  name: 'contractors',
+  name: 'recruiters',
   initialState,
   reducers: {},
   extraReducers: (builder) => {

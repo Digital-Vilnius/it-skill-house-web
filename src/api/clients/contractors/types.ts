@@ -36,5 +36,5 @@ export interface EditContractorRequest {
 }
 
 export interface ContractorsFilter {
-  amountFrom?: number;
+  keyword?: string;
 }

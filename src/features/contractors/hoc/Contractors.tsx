@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { ChangeEvent, FC, useEffect, useState } from 'react';
 import { useContractors, useContractorsColumns } from '../hooks';
 import { useAppDispatch, useAppSelector } from 'core/store';
 import { ColumnsSelect } from '../components';
@@ -7,7 +7,11 @@ import { Column } from 'components/DataTable';
 import { Contractor } from '../types';
 import { DataTable, Pagination } from 'components';
 import { Paging, Sort } from 'api/types';
-import { setContractorsPagingAction, setContractorsSortAction } from '../actions';
+import {
+  setContractorsFilterAction,
+  setContractorsPagingAction,
+  setContractorsSortAction,
+} from '../actions';
 import { Card, Form, InputGroup } from 'react-bootstrap';
 import Icon from '@ailibs/feather-react-ts';
 
@@ -38,11 +42,21 @@ const Contractors: FC = () => {
     dispatch(setContractorsSortAction({ sort: newSort }));
   };
 
+  const handleKeywordChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const newFilter = { ...filter, keyword: event.target.value };
+    dispatch(setContractorsFilterAction({ filter: newFilter }));
+  };
+
   return (
     <Card>
       <Card.Header>
         <InputGroup className='input-group-merge input-group-flush input-group-reverse'>
-          <Form.Control type='search' placeholder='Search' />
+          <Form.Control
+            value={filter.keyword}
+            onChange={handleKeywordChange}
+            type='search'
+            placeholder='Search'
+          />
           <InputGroup.Text>
             <Icon name='search' size={16} />
           </InputGroup.Text>

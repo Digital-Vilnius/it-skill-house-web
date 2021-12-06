@@ -20,7 +20,7 @@ export const columns: Column<Recruiter>[] = [
 
 const Recruiters: FC = () => {
   const dispatch = useAppDispatch();
-  const { filter, paging, sort } = useAppSelector((state) => state.contractors);
+  const { filter, paging, sort } = useAppSelector((state) => state.recruiters);
   const { recruiters, count } = useRecruiters({ filter, paging, sort });
 
   const handlePagingChange = (newPaging: Paging) => {
