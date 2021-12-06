@@ -18,27 +18,45 @@ interface State {
   columnsOrder: string[];
 }
 
+const initialColumnsOrder: string[] = [
+  'id',
+  'fullName',
+  'email',
+  'phone',
+  'firstName',
+  'lastName',
+  'recruiter',
+  'availableFrom',
+  'location',
+  'isRemote',
+  'isPublic',
+  'rate',
+  'updated',
+  'created',
+];
+
+const initialColumnsIds: string[] = [
+  'fullName',
+  'email',
+  'phone',
+  'recruiter',
+  'availableFrom',
+  'location',
+  'isRemote',
+  'isPublic',
+  'rate',
+  'created',
+];
+
+const initialPaging: Paging = { take: 15, skip: 0 };
+const initialSort: Sort = { sortBy: 'created', sortDirection: 'desc' };
+
 const initialState: State = {
   filter: {},
-  paging: { take: 15, skip: 0 },
-  sort: { sortBy: 'created', sortDirection: 'desc' },
-  columnsIds: ['email', 'fullName'],
-  columnsOrder: [
-    'id',
-    'email',
-    'phone',
-    'firstName',
-    'lastName',
-    'fullName',
-    'recruiter',
-    'availableFrom',
-    'location',
-    'isRemote',
-    'isPublic',
-    'rate',
-    'updated',
-    'created',
-  ],
+  paging: initialPaging,
+  sort: initialSort,
+  columnsIds: initialColumnsIds,
+  columnsOrder: initialColumnsOrder,
 };
 
 const contractorsSlice = createSlice({

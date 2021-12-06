@@ -9,6 +9,10 @@
 
 .modal-dialog {
 
+  .modal-title {
+    margin-bottom: 0;
+  }
+
   // When fading in the modal, animate it to slide down
   .modal.fade & {
     transform: translate(0, -150px);

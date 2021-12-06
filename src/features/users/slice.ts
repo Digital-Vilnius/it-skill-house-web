@@ -16,7 +16,7 @@ interface State {
 
 const initialState: State = {
   filter: {},
-  paging: { take: 1, skip: 0 },
+  paging: { take: 15, skip: 0 },
   sort: { sortBy: 'created', sortDirection: 'desc' },
 };
 

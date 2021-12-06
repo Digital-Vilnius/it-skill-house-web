@@ -12,13 +12,15 @@ import {
   setContractorsPagingAction,
   setContractorsSortAction,
 } from '../actions';
-import { Card, Form, InputGroup } from 'react-bootstrap';
+import { Button, Card, Form, InputGroup } from 'react-bootstrap';
 import Icon from '@ailibs/feather-react-ts';
+import ContractorsFilter from './ContractorsFilter';
 
 const Contractors: FC = () => {
   const dispatch = useAppDispatch();
   const { filter, paging, sort } = useAppSelector((state) => state.contractors);
   const { contractors, count } = useContractors({ filter, paging, sort });
+  const [filterVisible, setFilterVisible] = useState<boolean>(false);
 
   const { setColumnsIds, columnsIds, setColumnsOrder, columnsOrder } = useContractorsColumns();
   const [allColumns, setAllColumns] = useState<Column<Contractor>[]>(getAllColumns(columnsOrder));
@@ -48,37 +50,47 @@ const Contractors: FC = () => {
   };
 
   return (
-    <Card>
-      <Card.Header>
-        <InputGroup className='input-group-merge input-group-flush input-group-reverse'>
-          <Form.Control
-            value={filter.keyword}
-            onChange={handleKeywordChange}
-            type='search'
-            placeholder='Search'
-          />
-          <InputGroup.Text>
-            <Icon name='search' size={16} />
-          </InputGroup.Text>
-        </InputGroup>
-        <ColumnsSelect
-          order={columnsOrder}
-          onOrderChange={setColumnsOrder}
-          onChange={setColumnsIds}
-          columns={getAllColumns(columnsOrder)}
-          value={visibleColumns.map((column) => column.id)}
-        />
-      </Card.Header>
-      <DataTable
-        onSort={handleSortChange}
-        sort={sort}
-        columns={visibleColumns}
-        data={contractors}
+    <div>
+      <ContractorsFilter
+        onClose={() => setFilterVisible(false)}
+        visible={filterVisible}
+        filter={filter}
       />
-      <Card.Footer className='d-flex justify-content-between'>
-        <Pagination paging={paging} count={count} onChange={handlePagingChange} />
-      </Card.Footer>
-    </Card>
+      <Card>
+        <Card.Header>
+          <InputGroup className='input-group-merge input-group-flush input-group-reverse'>
+            <Form.Control
+              value={filter.keyword}
+              onChange={handleKeywordChange}
+              type='search'
+              placeholder='Search'
+            />
+            <InputGroup.Text>
+              <Icon name='search' size={16} />
+            </InputGroup.Text>
+          </InputGroup>
+          <ColumnsSelect
+            order={columnsOrder}
+            onOrderChange={setColumnsOrder}
+            onChange={setColumnsIds}
+            columns={getAllColumns(columnsOrder)}
+            value={visibleColumns.map((column) => column.id)}
+          />
+          <Button onClick={() => setFilterVisible(true)} className='ms-2' size='sm'>
+            Filter
+          </Button>
+        </Card.Header>
+        <DataTable
+          onSort={handleSortChange}
+          sort={sort}
+          columns={visibleColumns}
+          data={contractors}
+        />
+        <Card.Footer className='d-flex justify-content-between'>
+          <Pagination paging={paging} count={count} onChange={handlePagingChange} />
+        </Card.Footer>
+      </Card>
+    </div>
   );
 };
 

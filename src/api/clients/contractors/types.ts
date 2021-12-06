@@ -37,4 +37,13 @@ export interface EditContractorRequest {
 
 export interface ContractorsFilter {
   keyword?: string;
+  availableFrom?: string;
+  availableTo?: string;
+  recruitersIds?: string[];
+  technologiesIds?: string[];
+  isRemote?: boolean;
+  isPublic?: boolean;
+  isAvailable?: boolean;
+  rateFrom?: number;
+  rateTo?: number;
 }

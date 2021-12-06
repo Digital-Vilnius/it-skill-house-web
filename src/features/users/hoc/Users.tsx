@@ -10,10 +10,14 @@ import { Card, Form, InputGroup } from 'react-bootstrap';
 import Icon from '@ailibs/feather-react-ts';
 
 export const columns: Column<User>[] = [
+  {
+    id: 'fullName',
+    label: 'Full name',
+    Cell: (cell) => `${cell.firstName} ${cell.lastName}`,
+    sortable: true,
+  },
   { id: 'email', label: 'Email', sortable: true },
   { id: 'phone', label: 'Phone', sortable: true },
-  { id: 'firstName', label: 'First name', sortable: true },
-  { id: 'lastName', label: 'Last name', sortable: true },
   { id: 'lastLoginDate', label: 'Last login', className: 'text-center', sortable: true },
   { id: 'updated', label: 'Updated', className: 'text-center', sortable: true },
   { id: 'created', label: 'Created', className: 'text-center', sortable: true },

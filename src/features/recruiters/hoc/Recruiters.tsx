@@ -10,10 +10,14 @@ import { Paging, Sort } from 'api/types';
 import { setRecruitersPagingAction, setRecruitersSortAction } from '../actions';
 
 export const columns: Column<Recruiter>[] = [
+  {
+    id: 'fullName',
+    label: 'Full name',
+    Cell: (cell) => `${cell.firstName} ${cell.lastName}`,
+    sortable: true,
+  },
   { id: 'email', label: 'Email', sortable: true },
   { id: 'phone', label: 'Phone', sortable: true },
-  { id: 'firstName', label: 'First name', sortable: true },
-  { id: 'lastName', label: 'Last name', sortable: true },
   { id: 'updated', label: 'Updated', className: 'text-center', sortable: true },
   { id: 'created', label: 'Created', className: 'text-center', sortable: true },
 ];

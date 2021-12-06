@@ -5,6 +5,6 @@ import { Option } from 'components/Select/types';
 export const mapRecruiter = (recruiter: ApiRecruiter): Recruiter => recruiter;
 
 export const mapRecruiterOption = (recruiter: Recruiter): Option => ({
-  label: `${recruiter.firstName} ${recruiter.lastName} (${recruiter.email})`,
+  label: `${recruiter.firstName} ${recruiter.lastName}`,
   value: recruiter.id,
 });
