@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import { ContractorsFilter } from 'api/clients/contractors/types';
+import { ContractorsFilter } from './types';
 import { Sort, Paging } from 'api/types';
 
 export const resetContractorsFilterAction = createAction<void>('resetContractorsFilter');

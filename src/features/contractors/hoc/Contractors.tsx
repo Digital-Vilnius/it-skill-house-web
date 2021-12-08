@@ -51,16 +51,11 @@ const Contractors: FC = () => {
 
   return (
     <div>
-      <ContractorsFilter
-        onClose={() => setFilterVisible(false)}
-        visible={filterVisible}
-        filter={filter}
-      />
       <Card>
         <Card.Header>
           <InputGroup className='input-group-merge input-group-flush input-group-reverse'>
             <Form.Control
-              value={filter.keyword}
+              value={filter.keyword ?? ''}
               onChange={handleKeywordChange}
               type='search'
               placeholder='Search'
@@ -90,6 +85,11 @@ const Contractors: FC = () => {
           <Pagination paging={paging} count={count} onChange={handlePagingChange} />
         </Card.Footer>
       </Card>
+      <ContractorsFilter
+        onClose={() => setFilterVisible(false)}
+        visible={filterVisible}
+        filter={filter}
+      />
     </div>
   );
 };

@@ -1,9 +1,10 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { Button, Col, Container, Row } from 'react-bootstrap';
-import { Contractors } from '../hoc';
-import { Link } from 'react-router-dom';
+import { Contractors, ContractorForm } from '../hoc';
 
 const ContractorsPage: FC = () => {
+  const [formVisible, setFormVisible] = useState<boolean>(false);
+
   return (
     <div className='main-content'>
       <Container fluid>
@@ -17,9 +18,9 @@ const ContractorsPage: FC = () => {
                     <h1 className='header-title text-truncate'>Contractors</h1>
                   </Col>
                   <Col xs='auto'>
-                    <Link to='/admin/contractors/add'>
-                      <Button className='ms-2'>Add contractor</Button>
-                    </Link>
+                    <Button onClick={() => setFormVisible(true)} className='ms-2'>
+                      Add contractor
+                    </Button>
                   </Col>
                 </Row>
               </div>
@@ -28,6 +29,7 @@ const ContractorsPage: FC = () => {
           </Col>
         </Row>
       </Container>
+      <ContractorForm onClose={() => setFormVisible(false)} visible={formVisible} />
     </div>
   );
 };

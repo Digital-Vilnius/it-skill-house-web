@@ -15,7 +15,9 @@ export interface Column<T> {
 }
 
 interface Props {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   columns: Column<any>[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data: any[];
   onSort: (sort: Sort) => void;
   sort: Sort;

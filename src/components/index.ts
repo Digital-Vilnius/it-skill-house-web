@@ -6,5 +6,18 @@ import DataTable from './DataTable';
 import Pagination from './Pagination';
 import DatePicker from './DatePicker';
 import MoneyInput from './MoneyInput';
+import SearchInput from './SearchInput';
+import SwitchInput from './SwitchInput';
 
-export { Avatar, TextEditor, MultiSelect, Select, DataTable, Pagination, DatePicker, MoneyInput };
+export {
+  Avatar,
+  TextEditor,
+  MultiSelect,
+  Select,
+  DataTable,
+  Pagination,
+  DatePicker,
+  MoneyInput,
+  SearchInput,
+  SwitchInput,
+};

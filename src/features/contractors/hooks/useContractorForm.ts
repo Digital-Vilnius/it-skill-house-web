@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
-import { Contractor, ContractorFormData } from '../types';
+import { ContractorFormData } from '../types';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation } from 'react-query';
 import { ContractorsClient } from 'api/clients';
@@ -15,7 +15,7 @@ const initialFormData: ContractorFormData = {
   isRemote: false,
   isPublic: false,
   location: '',
-  availableFrom: '2021-12-25',
+  availableFrom: '',
   phone: '',
 };
 
@@ -30,7 +30,7 @@ const getSchema = () => {
     location: yup.string().required(),
     isRemote: yup.boolean().required(),
     isPublic: yup.boolean().required(),
-    availableFrom: yup.date().required(),
+    availableFrom: yup.string().trim().required(),
     phone: yup.string().required(),
   });
 
@@ -38,14 +38,14 @@ const getSchema = () => {
 };
 
 interface Props {
-  contractor?: Contractor;
+  successCallback: () => void;
 }
 
 const useRecruiterForm = (props: Props) => {
-  const { contractor } = props;
+  const { successCallback } = props;
 
-  const { control, handleSubmit } = useForm<ContractorFormData>({
-    defaultValues: contractor ?? initialFormData,
+  const { control, handleSubmit, reset } = useForm<ContractorFormData>({
+    defaultValues: initialFormData,
     resolver: yupResolver(getSchema()),
   });
 
@@ -55,8 +55,11 @@ const useRecruiterForm = (props: Props) => {
 
   const { mutateAsync } = useMutation<unknown, unknown, ContractorFormData>(mutationFn);
 
-  const save = (data: ContractorFormData) => {
-    return mutateAsync(data);
+  const save = async (data: ContractorFormData) => {
+    await mutateAsync(data).then(() => {
+      successCallback();
+      reset(initialFormData);
+    });
   };
 
   return { control, handleSubmit, save };

@@ -1,11 +1,10 @@
 import React, { FC } from 'react';
-import { Button, Col, Form, InputGroup, Modal, Row } from 'react-bootstrap';
-import { ContractorsFilter as ContractorsFilterType } from 'api/clients/contractors/types';
+import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
+import { ContractorsFilter as ContractorsFilterType } from '../types';
 import { useContractorsFilterForm } from '../hooks';
 import { Controller } from 'react-hook-form';
 import { TechnologiesSelect } from 'features/technologies/hoc';
-import Icon from '@ailibs/feather-react-ts';
-import { DatePicker, MoneyInput } from 'components';
+import { DatePicker, MoneyInput, SearchInput } from 'components';
 import { RecruitersMultiSelect } from 'features/recruiters/hoc';
 
 interface Props {
@@ -38,18 +37,13 @@ const ContractorsFilter: FC<Props> = (props) => {
                   <Form.Text className='text-muted mb-3'>
                     This is how others will learn about the project, so make it good!
                   </Form.Text>
-                  <InputGroup>
-                    <InputGroup.Text>
-                      <Icon name='search' size={16} />
-                    </InputGroup.Text>
-                    <Form.Control
-                      isInvalid={!!fieldState.error}
-                      onInput={field.onChange}
-                      onBlur={field.onBlur}
-                      name={field.name}
-                      value={field.value}
-                    />
-                  </InputGroup>
+                  <SearchInput
+                    isInvalid={!!fieldState.error}
+                    onInput={field.onChange}
+                    onBlur={field.onBlur}
+                    name={field.name}
+                    value={field.value}
+                  />
                   <Form.Control.Feedback type='invalid'>
                     {fieldState.error?.message}
                   </Form.Control.Feedback>
@@ -123,7 +117,7 @@ const ContractorsFilter: FC<Props> = (props) => {
                     onChange={field.onChange}
                     onBlur={field.onBlur}
                     name={field.name}
-                    value={field.value}
+                    value={field.value ?? null}
                   />
                   <Form.Control.Feedback type='invalid'>
                     {fieldState.error?.message}
@@ -144,7 +138,7 @@ const ContractorsFilter: FC<Props> = (props) => {
                     onChange={field.onChange}
                     onBlur={field.onBlur}
                     name={field.name}
-                    value={field.value ?? null}
+                    value={field.value}
                   />
                   <Form.Control.Feedback type='invalid'>
                     {fieldState.error?.message}
@@ -165,7 +159,7 @@ const ContractorsFilter: FC<Props> = (props) => {
                   <Form.Label>Rate from</Form.Label>
                   <MoneyInput
                     isInvalid={!!fieldState.error}
-                    onChange={field.onChange}
+                    onInput={field.onChange}
                     onBlur={field.onBlur}
                     name={field.name}
                     value={field.value}
@@ -186,7 +180,7 @@ const ContractorsFilter: FC<Props> = (props) => {
                   <Form.Label>Rate to</Form.Label>
                   <MoneyInput
                     isInvalid={!!fieldState.error}
-                    onChange={field.onChange}
+                    onInput={field.onChange}
                     onBlur={field.onBlur}
                     name={field.name}
                     value={field.value}

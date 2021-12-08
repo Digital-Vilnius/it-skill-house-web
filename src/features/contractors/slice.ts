@@ -7,7 +7,7 @@ import {
   setContractorsColumnsIdsAction,
   setContractorsColumnsOrderAction,
 } from './actions';
-import { ContractorsFilter } from 'api/clients/contractors/types';
+import { ContractorsFilter } from './types';
 import { Paging, Sort } from 'api/types';
 
 interface State {
@@ -17,6 +17,19 @@ interface State {
   columnsIds: string[];
   columnsOrder: string[];
 }
+
+const initialFilter: ContractorsFilter = {
+  rateFrom: null,
+  rateTo: null,
+  availableFrom: null,
+  availableTo: null,
+  keyword: null,
+  technologiesIds: [],
+  recruitersIds: [],
+  isPublic: null,
+  isRemote: null,
+  isAvailable: null,
+};
 
 const initialColumnsOrder: string[] = [
   'id',
@@ -52,7 +65,7 @@ const initialPaging: Paging = { take: 15, skip: 0 };
 const initialSort: Sort = { sortBy: 'created', sortDirection: 'desc' };
 
 const initialState: State = {
-  filter: {},
+  filter: initialFilter,
   paging: initialPaging,
   sort: initialSort,
   columnsIds: initialColumnsIds,

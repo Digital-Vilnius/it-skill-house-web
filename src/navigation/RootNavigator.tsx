@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthLayout, AdminLayout } from 'layouts';
 import { LoginPage } from 'features/auth/pages';
-import { AddContractorPage, ContractorsPage } from 'features/contractors/pages';
+import { ContractorsPage } from 'features/contractors/pages';
 import RequireAuth from './RequireAuth';
 import { RecruitersPage, AddRecruiterPage } from 'features/recruiters/pages';
 import { UsersPage, AddUserPage } from 'features/users/pages';
@@ -20,14 +20,6 @@ const RootNavigator: FC = () => {
             element={
               <RequireAuth>
                 <ContractorsPage />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path='contractors/add'
-            element={
-              <RequireAuth>
-                <AddContractorPage />
               </RequireAuth>
             }
           />

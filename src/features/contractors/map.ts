@@ -1,16 +1,28 @@
-import { Contractor as ApiContractor } from 'api/clients/contractors/types';
-import { Contractor } from './types';
+import {
+  Contractor as ApiContractor,
+  ContractorsFilter as ApiContractorFilter,
+} from 'api/clients/contractors/types';
+import { Contractor, ContractorsFilter } from './types';
 import { mapRecruiter } from 'features/recruiters/map';
 import { mapTechnology } from 'features/technologies/map';
-import { Column } from 'components/DataTable';
+import { DateUtils } from 'utils';
 
 export const mapContractor = (contractor: ApiContractor): Contractor => ({
   ...contractor,
   recruiter: mapRecruiter(contractor.recruiter),
+  availableFrom: DateUtils.formatDateString(contractor.availableFrom),
   technologies: contractor.technologies.map(mapTechnology),
 });
 
-export const mapColumnToOption = (column: Column<Contractor>) => ({
-  label: column.label,
-  value: column.id,
+export const mapContractorFilter = (filter: ContractorsFilter): ApiContractorFilter => ({
+  availableFrom: filter.availableFrom ?? undefined,
+  availableTo: filter.availableTo ?? undefined,
+  isRemote: filter.isRemote ?? undefined,
+  isPublic: filter.isPublic ?? undefined,
+  isAvailable: filter.isAvailable ?? undefined,
+  rateTo: filter.rateTo ?? undefined,
+  rateFrom: filter.rateFrom ?? undefined,
+  keyword: filter.keyword ?? undefined,
+  recruitersIds: filter.recruitersIds ?? undefined,
+  technologiesIds: filter.technologiesIds ?? undefined,
 });

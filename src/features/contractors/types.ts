@@ -13,7 +13,7 @@ export interface Contractor extends BaseModel {
   recruiter: Recruiter;
   rate: number;
   isPublic: boolean;
-  availableFrom: string;
+  availableFrom: string | null;
 }
 
 export interface ContractorFormData {
@@ -28,4 +28,17 @@ export interface ContractorFormData {
   isRemote: boolean;
   isPublic: boolean;
   availableFrom: string;
+}
+
+export interface ContractorsFilter {
+  keyword: string | null;
+  rateFrom: number | null;
+  rateTo: number | null;
+  availableFrom: string | null;
+  availableTo: string | null;
+  recruitersIds: string[];
+  technologiesIds: string[];
+  isRemote: boolean | null;
+  isPublic: boolean | null;
+  isAvailable: boolean | null;
 }

@@ -1,14 +1,14 @@
 import React, { FC } from 'react';
-import { FormControlProps } from './types';
+import { SelectControlProps } from './types';
 import { default as ReactDatePicker } from 'react-datepicker';
 import { DateUtils } from 'utils';
 import { Form, InputGroup } from 'react-bootstrap';
 import classNames from 'classnames';
 import Icon from '@ailibs/feather-react-ts';
 
-type ValueType = string | null | undefined;
+type ValueType = string | null;
 
-const DatePicker: FC<FormControlProps<ValueType>> = (props) => {
+const DatePicker: FC<SelectControlProps<ValueType>> = (props) => {
   const { value, onChange, onBlur, className, isInvalid, name } = props;
 
   const handleOnChange = (date: Date | null) => {

@@ -44,6 +44,6 @@ export interface ContractorsFilter {
   isRemote?: boolean;
   isPublic?: boolean;
   isAvailable?: boolean;
-  rateFrom?: number;
-  rateTo?: number;
+  rateFrom?: number | null;
+  rateTo?: number | null;
 }

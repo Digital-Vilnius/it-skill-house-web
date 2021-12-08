@@ -1,11 +1,17 @@
 import moment from 'moment';
 
-type DateStringType = string | null | undefined;
-type DateType = Date | null | undefined;
+type DateStringType = string | null;
+type DateType = Date | null;
 const dateTimeFormat = 'YYYY-MM-DD hh:mm:ss';
 const dateFormat = 'YYYY-MM-DD';
 
 export const formatDate = (date: DateType): DateStringType => {
+  if (!date) return null;
+
+  return moment(date).format(dateFormat);
+};
+
+export const formatDateString = (date: DateStringType): string | null => {
   if (!date) return null;
 
   return moment(date).format(dateFormat);

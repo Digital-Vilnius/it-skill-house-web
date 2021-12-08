@@ -1,11 +1,9 @@
 import { useAppDispatch } from 'core/store';
-import { ContractorsFilter } from 'api/clients/contractors/types';
+import { ContractorsFilter } from '../types';
 import { resetContractorsFilterAction, setContractorsFilterAction } from '../actions';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { NumberUtils } from 'utils';
-import { identity, pickBy } from 'lodash';
 
 interface Props {
   filter: ContractorsFilter;
@@ -14,14 +12,14 @@ interface Props {
 
 const getSchema = () => {
   const schema = yup.object().shape({
-    rateFrom: yup.number().positive().transform(NumberUtils.formatNumber).nullable(),
-    rateTo: yup.number().positive().transform(NumberUtils.formatNumber).nullable(),
+    rateFrom: yup.number().positive().nullable(),
+    rateTo: yup.number().positive().nullable(),
     technologiesIds: yup.array().of(yup.string()).nullable(),
     recruitersIds: yup.array().of(yup.string()).nullable(),
     keyword: yup.string().trim().nullable(),
-    isPublic: yup.boolean().required(),
-    isRemote: yup.boolean().required(),
-    isAvailable: yup.boolean().required(),
+    isPublic: yup.boolean().nullable(),
+    isRemote: yup.boolean().nullable(),
+    isAvailable: yup.boolean().nullable(),
     availableFrom: yup.string().trim().nullable(),
     availableTo: yup.string().trim().nullable(),
   });
@@ -43,8 +41,7 @@ const useContractorsFilterForm = (props: Props) => {
   });
 
   const save = (data: ContractorsFilter) => {
-    const cleanedFilter = pickBy(data, identity);
-    dispatch(setContractorsFilterAction({ filter: cleanedFilter }));
+    dispatch(setContractorsFilterAction({ filter: data }));
     onSuccess();
   };
 
