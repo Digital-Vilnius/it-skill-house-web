@@ -1,3 +1,4 @@
+import TechnologiesMultiSelect from './TechnologiesMultiSelect';
 import TechnologiesSelect from './TechnologiesSelect';
 
-export { TechnologiesSelect };
+export { TechnologiesMultiSelect, TechnologiesSelect };

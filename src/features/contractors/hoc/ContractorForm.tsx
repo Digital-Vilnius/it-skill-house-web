@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Button, Card, Col, Form, Modal, Row } from 'react-bootstrap';
-import { TechnologiesSelect } from 'features/technologies/hoc';
+import { TechnologiesMultiSelect, TechnologiesSelect } from 'features/technologies/hoc';
 import { Controller } from 'react-hook-form';
 import { useContractorForm } from '../hooks';
 import { RecruitersSelect } from 'features/recruiters/hoc';
@@ -163,17 +163,39 @@ const ContractorForm: FC<Props> = (props) => {
         </Row>
         <hr className='my-4' />
         <Row>
-          <Col>
+          <Col xs={12} md={6}>
+            <Controller
+              control={control}
+              name='mainTechnologyId'
+              render={({ field, fieldState }) => (
+                <div className='form-group mb-0'>
+                  <Form.Label>Main technology</Form.Label>
+                  <Form.Text className='text-muted'>
+                    This is how others will learn about the project, so make it good!
+                  </Form.Text>
+                  <TechnologiesSelect
+                    isInvalid={!!fieldState.error}
+                    value={field.value}
+                    onChange={field.onChange}
+                  />
+                  <Form.Control.Feedback type='invalid'>
+                    {fieldState.error?.message}
+                  </Form.Control.Feedback>
+                </div>
+              )}
+            />
+          </Col>
+          <Col xs={12} md={6}>
             <Controller
               control={control}
               name='technologiesIds'
               render={({ field, fieldState }) => (
                 <div className='form-group mb-0'>
-                  <Form.Label>Technologies</Form.Label>
+                  <Form.Label>Other technologies</Form.Label>
                   <Form.Text className='text-muted'>
                     This is how others will learn about the project, so make it good!
                   </Form.Text>
-                  <TechnologiesSelect
+                  <TechnologiesMultiSelect
                     isInvalid={!!fieldState.error}
                     value={field.value}
                     onChange={field.onChange}

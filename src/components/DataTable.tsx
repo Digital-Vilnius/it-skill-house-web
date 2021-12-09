@@ -11,12 +11,19 @@ export interface Column<T> {
   className?: string;
   sortable?: boolean;
   Header?: () => React.ReactElement;
-  Cell?: (cell: T) => React.ReactElement | string;
+  Cell?: (cell: T) => React.ReactElement | string | null;
+}
+
+export interface Action<T> {
+  label: string;
+  onClick: (id: T) => void;
 }
 
 interface Props {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   columns: Column<any>[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  actions?: Action<any>[];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data: any[];
   onSort: (sort: Sort) => void;
@@ -24,7 +31,7 @@ interface Props {
 }
 
 const DataTable: FC<Props> = (props) => {
-  const { columns, data, onSort, sort } = props;
+  const { columns, data, onSort, sort, actions } = props;
 
   const handleSort = (column: Column<unknown>) => {
     if (!column.sortable) return;
@@ -50,7 +57,7 @@ const DataTable: FC<Props> = (props) => {
               {column.Header ? column.Header() : column.label}
             </th>
           ))}
-          <th className='text-center'>Actions</th>
+          {!!actions && <th className='text-center'>Actions</th>}
         </tr>
       </thead>
       <tbody>
@@ -64,18 +71,22 @@ const DataTable: FC<Props> = (props) => {
                 {cell.Cell ? cell.Cell(item) : item[cell.id]}
               </td>
             ))}
-            <td className='text-center'>
-              <Dropdown align='end'>
-                <Dropdown.Toggle as='span' className='dropdown-ellipses' role='button'>
-                  <Icon name='more-vertical' size='17' />
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                  <Dropdown.Item href='#!'>Action</Dropdown.Item>
-                  <Dropdown.Item href='#!'>Another action</Dropdown.Item>
-                  <Dropdown.Item href='#!'>Something else here</Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
-            </td>
+            {!!actions && (
+              <td className='text-center'>
+                <Dropdown align='end'>
+                  <Dropdown.Toggle as='span' className='dropdown-ellipses' role='button'>
+                    <Icon name='more-vertical' size='17' />
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu>
+                    {actions.map((action, index) => (
+                      <Dropdown.Item key={index} onClick={() => action.onClick(item.id)}>
+                        {action.label}
+                      </Dropdown.Item>
+                    ))}
+                  </Dropdown.Menu>
+                </Dropdown>
+              </td>
+            )}
           </tr>
         ))}
       </tbody>

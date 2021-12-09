@@ -12,6 +12,7 @@ export interface Contractor extends BaseModel {
   rate: number;
   recruiter: Recruiter;
   technologies: Technology[];
+  mainTechnology: Technology;
   isPublic: boolean;
   availableFrom: string;
 }

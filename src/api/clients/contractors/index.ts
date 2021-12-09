@@ -1,11 +1,6 @@
-import { ListRequest, ListResponse } from '../../types';
+import { ListRequest, ListResponse, ResultResponse } from '../../types';
 import httpClient from '../../httpClient';
-import {
-  Contractor,
-  AddContractorRequest,
-  EditContractorRequest,
-  ContractorsFilter,
-} from './types';
+import { Contractor, AddContractorRequest, EditContractorRequest, ContractorsFilter } from './types';
 
 const baseUrl = '/contractors';
 
@@ -15,7 +10,7 @@ export const getContractors = async (request?: ListRequest<ContractorsFilter>) =
 };
 
 export const getContractor = async (id: string) => {
-  return httpClient.get<void, Contractor>(`${baseUrl}/${id}`);
+  return httpClient.get<void, ResultResponse<Contractor>>(`${baseUrl}/${id}`);
 };
 
 export const deleteContractor = async (id: string) => {

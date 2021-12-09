@@ -3,8 +3,8 @@ import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
 import { ContractorsFilter as ContractorsFilterType } from '../types';
 import { useContractorsFilterForm } from '../hooks';
 import { Controller } from 'react-hook-form';
-import { TechnologiesSelect } from 'features/technologies/hoc';
-import { DatePicker, MoneyInput, SearchInput } from 'components';
+import { TechnologiesMultiSelect } from 'features/technologies/hoc';
+import { DatePicker, MoneyInput, SearchInput, SwitchInput } from 'components';
 import { RecruitersMultiSelect } from 'features/recruiters/hoc';
 
 interface Props {
@@ -38,6 +38,7 @@ const ContractorsFilter: FC<Props> = (props) => {
                     This is how others will learn about the project, so make it good!
                   </Form.Text>
                   <SearchInput
+                    placeholder='Keywords'
                     isInvalid={!!fieldState.error}
                     onInput={field.onChange}
                     onBlur={field.onBlur}
@@ -64,9 +65,9 @@ const ContractorsFilter: FC<Props> = (props) => {
                   <Form.Text className='text-muted mb-3'>
                     This is how others will learn about the project, so make it good!
                   </Form.Text>
-                  <TechnologiesSelect
+                  <TechnologiesMultiSelect
                     isInvalid={!!fieldState.error}
-                    value={field.value ?? []}
+                    value={field.value}
                     onChange={field.onChange}
                   />
                   <Form.Control.Feedback type='invalid'>
@@ -92,7 +93,7 @@ const ContractorsFilter: FC<Props> = (props) => {
                   <RecruitersMultiSelect
                     id='recruiters'
                     isInvalid={!!fieldState.error}
-                    value={field.value ?? []}
+                    value={field.value}
                     onChange={field.onChange}
                   />
                   <Form.Control.Feedback type='invalid'>
@@ -117,7 +118,7 @@ const ContractorsFilter: FC<Props> = (props) => {
                     onChange={field.onChange}
                     onBlur={field.onBlur}
                     name={field.name}
-                    value={field.value ?? null}
+                    value={field.value}
                   />
                   <Form.Control.Feedback type='invalid'>
                     {fieldState.error?.message}
@@ -205,8 +206,8 @@ const ContractorsFilter: FC<Props> = (props) => {
                   <Form.Text className='text-muted mb-3'>
                     This is how others will learn about the project, so make it good!
                   </Form.Text>
-                  <Form.Switch
-                    checked={field.value ?? false}
+                  <SwitchInput
+                    value={field.value}
                     onChange={field.onChange}
                     name={field.name}
                     onBlur={field.onBlur}
@@ -229,8 +230,8 @@ const ContractorsFilter: FC<Props> = (props) => {
                   <Form.Text className='text-muted mb-3'>
                     This is how others will learn about the project, so make it good!
                   </Form.Text>
-                  <Form.Switch
-                    checked={field.value ?? false}
+                  <SwitchInput
+                    value={field.value}
                     onChange={field.onChange}
                     name={field.name}
                     onBlur={field.onBlur}
@@ -255,8 +256,8 @@ const ContractorsFilter: FC<Props> = (props) => {
                   <Form.Text className='text-muted mb-3'>
                     This is how others will learn about the project, so make it good!
                   </Form.Text>
-                  <Form.Switch
-                    checked={field.value ?? false}
+                  <SwitchInput
+                    value={field.value}
                     onChange={field.onChange}
                     name={field.name}
                     onBlur={field.onBlur}

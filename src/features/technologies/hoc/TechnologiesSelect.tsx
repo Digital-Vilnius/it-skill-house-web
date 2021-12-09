@@ -1,29 +1,17 @@
 import React, { FC } from 'react';
-import { MultiSelect } from 'components';
-import { useTechnologies, useTechnologyAdd } from '../hooks';
+import { Select } from 'components';
+import { useTechnologies } from '../hooks';
 import { mapTechnologyOption } from '../map';
-import { queryClient } from 'core/query';
-import { getQueryKey } from '../hooks/useTechnologies';
-import { MultiSelectProps } from 'components/Select/MultiSelect';
+import { SelectProps } from 'components/Select/Select';
 
-type Props = Omit<MultiSelectProps, 'options' | 'id' | 'onOptionAdd'>;
+type Props = Omit<SelectProps, 'options' | 'id'>;
 
 const TechnologiesSelect: FC<Props> = (props) => {
   const { value, onChange, ...rest } = props;
   const { technologies } = useTechnologies();
-  const { addTechnology } = useTechnologyAdd();
-
-  const handleOptionAdd = (name: string) => {
-    addTechnology({ name }).then(async (technology) => {
-      await queryClient.refetchQueries(getQueryKey());
-      onChange([...value, technology.id]);
-    });
-  };
 
   return (
-    <MultiSelect
-      onOptionAdd={handleOptionAdd}
-      id='technologies'
+    <Select
       options={technologies.map(mapTechnologyOption)}
       value={value}
       onChange={onChange}

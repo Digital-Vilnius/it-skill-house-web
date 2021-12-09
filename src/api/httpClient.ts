@@ -2,9 +2,11 @@ import axios from 'axios';
 import { store } from 'core/store';
 import ToastService from 'core/toast';
 import { logoutAction, refreshTokenAction } from 'features/auth/actions';
+import { stringify } from 'qs';
 
 const httpClient = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
+  paramsSerializer: (params) => stringify(params, { arrayFormat: 'repeat' }),
 });
 
 httpClient.interceptors.request.use(

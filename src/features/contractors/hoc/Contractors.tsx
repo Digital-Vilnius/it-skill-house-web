@@ -3,7 +3,7 @@ import { useContractors, useContractorsColumns } from '../hooks';
 import { useAppDispatch, useAppSelector } from 'core/store';
 import { ColumnsSelect } from '../components';
 import { getAllColumns, getVisibleColumns } from '../utils';
-import { Column } from 'components/DataTable';
+import { Action, Column } from 'components/DataTable';
 import { Contractor } from '../types';
 import { DataTable, Pagination } from 'components';
 import { Paging, Sort } from 'api/types';
@@ -15,9 +15,11 @@ import {
 import { Button, Card, Form, InputGroup } from 'react-bootstrap';
 import Icon from '@ailibs/feather-react-ts';
 import ContractorsFilter from './ContractorsFilter';
+import { useNavigate } from 'react-router-dom';
 
 const Contractors: FC = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { filter, paging, sort } = useAppSelector((state) => state.contractors);
   const { contractors, count } = useContractors({ filter, paging, sort });
   const [filterVisible, setFilterVisible] = useState<boolean>(false);
@@ -49,8 +51,15 @@ const Contractors: FC = () => {
     dispatch(setContractorsFilterAction({ filter: newFilter }));
   };
 
+  const getActions = (): Action<string>[] => {
+    return [
+      { label: 'Details', onClick: (id) => navigate(`/admin/contractors/${id}`) },
+      { label: 'Delete', onClick: (id) => navigate(`/admin/contractors/${id}`) },
+    ];
+  };
+
   return (
-    <div>
+    <>
       <Card>
         <Card.Header>
           <InputGroup className='input-group-merge input-group-flush input-group-reverse'>
@@ -76,6 +85,7 @@ const Contractors: FC = () => {
           </Button>
         </Card.Header>
         <DataTable
+          actions={getActions()}
           onSort={handleSortChange}
           sort={sort}
           columns={visibleColumns}
@@ -90,7 +100,7 @@ const Contractors: FC = () => {
         visible={filterVisible}
         filter={filter}
       />
-    </div>
+    </>
   );
 };
 

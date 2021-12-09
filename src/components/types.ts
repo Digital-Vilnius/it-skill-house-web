@@ -12,6 +12,7 @@ export interface SelectControlProps<T> extends FormControlProps<T> {
 
 export interface InputControlProps<T> extends FormControlProps<T> {
   onInput: (value: T) => void;
+  placeholder?: string;
 }
 
 export interface SwitchControlProps<T> extends FormControlProps<T> {

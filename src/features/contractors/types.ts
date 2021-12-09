@@ -10,6 +10,7 @@ export interface Contractor extends BaseModel {
   location: string;
   isRemote: boolean;
   technologies: Technology[];
+  mainTechnology: Technology;
   recruiter: Recruiter;
   rate: number;
   isPublic: boolean;
@@ -28,6 +29,7 @@ export interface ContractorFormData {
   isRemote: boolean;
   isPublic: boolean;
   availableFrom: string;
+  mainTechnologyId: string;
 }
 
 export interface ContractorsFilter {

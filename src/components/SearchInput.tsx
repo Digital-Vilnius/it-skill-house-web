@@ -22,7 +22,6 @@ const SearchInput: FC<InputControlProps<ValueType>> = (props) => {
         <Form.Control
           {...rest}
           value={value ?? ''}
-          placeholder='Search...'
           onInput={handleOnInput}
           className={classNames('form-control', className)}
           isInvalid={isInvalid}

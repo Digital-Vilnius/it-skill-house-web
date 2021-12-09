@@ -1,6 +1,6 @@
 import { Column } from 'components/DataTable';
 import { Contractor } from './types';
-import { Form } from 'react-bootstrap';
+import { Badge, Form } from 'react-bootstrap';
 import React from 'react';
 
 export const contractorColumns: Column<Contractor>[] = [
@@ -51,5 +51,24 @@ export const contractorColumns: Column<Contractor>[] = [
     className: 'text-center',
     Cell: (cell) => `${cell.rate.toFixed(2)} €`,
     sortable: true,
+  },
+  {
+    id: 'mainTechnology',
+    label: 'Main technology',
+    Cell: (cell) => <Badge>{cell.mainTechnology.name}</Badge>,
+    sortable: true,
+  },
+  {
+    id: 'technologies',
+    label: 'Technologies',
+    Cell: (cell) => (
+      <div className='technologies'>
+        {cell.technologies.map((technology) => (
+          <Badge className='me-1' key={technology.id}>
+            {technology.name}
+          </Badge>
+        ))}
+      </div>
+    ),
   },
 ];
