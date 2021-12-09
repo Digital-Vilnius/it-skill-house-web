@@ -1,6 +1,7 @@
 import { Recruiter } from 'features/recruiters/types';
 import { Technology } from 'features/technologies/types';
 import { BaseModel } from 'api/types';
+import { Tag } from 'features/tags/types';
 
 export interface Contractor extends BaseModel {
   firstName: string;
@@ -14,7 +15,11 @@ export interface Contractor extends BaseModel {
   recruiter: Recruiter;
   rate: number;
   isPublic: boolean;
-  availableFrom: string | null;
+  availableFrom: string;
+  experienceSince: string;
+  codaId: number;
+  cinodeId: number;
+  tags: Tag[];
 }
 
 export interface ContractorFormData {
@@ -22,14 +27,18 @@ export interface ContractorFormData {
   lastName: string;
   email: string;
   phone: string;
-  technologiesIds: string[];
-  recruiterId: string;
+  technologiesIds: number[];
+  tagsIds: number[];
+  recruiterId: number;
   rate: number;
   location: string;
   isRemote: boolean;
   isPublic: boolean;
   availableFrom: string;
-  mainTechnologyId: string;
+  mainTechnologyId: number;
+  experienceSince: string;
+  codaId: number;
+  cinodeId: number;
 }
 
 export interface ContractorsFilter {
@@ -38,8 +47,11 @@ export interface ContractorsFilter {
   rateTo: number | null;
   availableFrom: string | null;
   availableTo: string | null;
-  recruitersIds: string[];
-  technologiesIds: string[];
+  experienceFrom: string | null;
+  experienceTo: string | null;
+  recruitersIds: number[];
+  technologiesIds: number[];
+  tagsIds: number[];
   isRemote: boolean | null;
   isPublic: boolean | null;
   isAvailable: boolean | null;

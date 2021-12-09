@@ -9,11 +9,11 @@ export const getUsers = async (request?: ListRequest<UsersFilter>) => {
   return httpClient.get<ListRequest, ListResponse<User>>(baseUrl, { params });
 };
 
-export const getUser = async (id: string) => {
+export const getUser = async (id: number) => {
   return httpClient.get<void, User>(`${baseUrl}/${id}`);
 };
 
-export const deleteUser = async (id: string) => {
+export const deleteUser = async (id: number) => {
   return httpClient.delete(`${baseUrl}/${id}`);
 };
 
@@ -21,6 +21,6 @@ export const addUser = async (request: AddUserRequest) => {
   return httpClient.post<AddUserRequest, User>(baseUrl, request);
 };
 
-export const editUser = async (id: string, request: EditUserRequest) => {
+export const editUser = async (id: number, request: EditUserRequest) => {
   return httpClient.put<EditUserRequest, User>(`${baseUrl}/${id}`, request);
 };

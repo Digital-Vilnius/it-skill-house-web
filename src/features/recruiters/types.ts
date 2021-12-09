@@ -1,11 +1,10 @@
-export interface Recruiter {
-  id: string;
+import { BaseModel } from 'api/types';
+
+export interface Recruiter extends BaseModel {
   email: string;
   phone: string;
   firstName: string;
   lastName: string;
-  updated: string | null;
-  created: string;
 }
 
 export interface RecruiterFormData {

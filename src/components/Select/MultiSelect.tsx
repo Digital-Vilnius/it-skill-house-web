@@ -8,19 +8,19 @@ import { Option } from './types';
 export interface MultiSelectProps {
   id: string;
   options: Option[];
-  value: string[];
-  onChange: (value: string[]) => void;
+  value: number[];
+  onChange: (value: number[]) => void;
   onOptionAdd?: (value: string) => void;
   isInvalid?: boolean;
 }
 
-export const getOption = (value: string, options: Option[]): Option => {
+export const getOption = (value: number, options: Option[]): Option => {
   const option = options.find((item) => item.value === value);
   if (option) return option;
   return { value, label: 'Unknown' };
 };
 
-export const getIsSelected = (value: string, selectedValues: string[]): boolean => {
+export const getIsSelected = (value: number, selectedValues: number[]): boolean => {
   return !!selectedValues.find((id) => id === value);
 };
 
@@ -34,15 +34,15 @@ const MultiSelect: FC<MultiSelectProps> = (props) => {
     setFilteredOptions(options.filter((option) => option.label.includes(query)));
   }, [query, options]);
 
-  const clearOption = (optionValue: string) => {
+  const clearOption = (optionValue: number) => {
     onChange(value.filter((val) => val !== optionValue));
   };
 
-  const selectOption = (optionValue: string) => {
+  const selectOption = (optionValue: number) => {
     onChange(xor(value, [optionValue]));
   };
 
-  const renderSelectedOption = (optionValue: string, index: number) => {
+  const renderSelectedOption = (optionValue: number, index: number) => {
     const option = getOption(optionValue, options);
 
     return (

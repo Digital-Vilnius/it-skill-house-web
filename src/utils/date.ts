@@ -11,10 +11,14 @@ export const formatDate = (date: DateType): DateStringType => {
   return moment(date).format(dateFormat);
 };
 
+export const formatDateStringStrict = (date: string): string => {
+  return moment(date).format(dateFormat);
+};
+
 export const formatDateString = (date: DateStringType): string | null => {
   if (!date) return null;
 
-  return moment(date).format(dateFormat);
+  return formatDateStringStrict(date);
 };
 
 export const formatDateTime = (date: DateType): DateStringType => {

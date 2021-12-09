@@ -7,6 +7,7 @@ import { RecruitersSelect } from 'features/recruiters/hoc';
 import { Contractor } from '../types';
 import { DatePicker, MoneyInput } from 'components';
 import Icon from '@ailibs/feather-react-ts';
+import { TagsMultiSelect } from 'features/tags/hoc';
 
 interface Props {
   contractor?: Contractor;
@@ -24,6 +25,54 @@ const ContractorForm: FC<Props> = (props) => {
         <Modal.Title>Contractor</Modal.Title>
       </Modal.Header>
       <Modal.Body>
+        <Row>
+          <Col xs={12} md={6}>
+            <Controller
+              control={control}
+              name='codaId'
+              render={({ field, fieldState }) => (
+                <div className='form-group'>
+                  <Form.Label>Coda id</Form.Label>
+                  <Form.Control
+                    isInvalid={!!fieldState.error}
+                    onInput={field.onChange}
+                    onBlur={field.onBlur}
+                    name={field.name}
+                    value={field.value}
+                    placeholder='12345'
+                    type='number'
+                  />
+                  <Form.Control.Feedback type='invalid'>
+                    {fieldState.error?.message}
+                  </Form.Control.Feedback>
+                </div>
+              )}
+            />
+          </Col>
+          <Col xs={12} md={6}>
+            <Controller
+              control={control}
+              name='cinodeId'
+              render={({ field, fieldState }) => (
+                <div className='form-group'>
+                  <Form.Label>Cinode id</Form.Label>
+                  <Form.Control
+                    isInvalid={!!fieldState.error}
+                    onInput={field.onChange}
+                    onBlur={field.onBlur}
+                    name={field.name}
+                    value={field.value}
+                    placeholder='12345'
+                    type='number'
+                  />
+                  <Form.Control.Feedback type='invalid'>
+                    {fieldState.error?.message}
+                  </Form.Control.Feedback>
+                </div>
+              )}
+            />
+          </Col>
+        </Row>
         <Row>
           <Col xs={12} md={6}>
             <Controller
@@ -125,7 +174,7 @@ const ContractorForm: FC<Props> = (props) => {
               control={control}
               name='recruiterId'
               render={({ field, fieldState }) => (
-                <div className='form-group mb-0'>
+                <div className='form-group'>
                   <Form.Label>Recruiter</Form.Label>
                   <RecruitersSelect
                     isInvalid={!!fieldState.error}
@@ -144,8 +193,31 @@ const ContractorForm: FC<Props> = (props) => {
               control={control}
               name='availableFrom'
               render={({ field, fieldState }) => (
-                <div className='form-group mb-0'>
+                <div className='form-group'>
                   <Form.Label>Available from</Form.Label>
+                  <DatePicker
+                    isInvalid={!!fieldState.error}
+                    onChange={field.onChange}
+                    onBlur={field.onBlur}
+                    name={field.name}
+                    value={field.value}
+                  />
+                  <Form.Control.Feedback type='invalid'>
+                    {fieldState.error?.message}
+                  </Form.Control.Feedback>
+                </div>
+              )}
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={12} md={6}>
+            <Controller
+              control={control}
+              name='experienceSince'
+              render={({ field, fieldState }) => (
+                <div className='form-group mb-0'>
+                  <Form.Label>Experience since</Form.Label>
                   <DatePicker
                     isInvalid={!!fieldState.error}
                     onChange={field.onChange}
@@ -196,6 +268,31 @@ const ContractorForm: FC<Props> = (props) => {
                     This is how others will learn about the project, so make it good!
                   </Form.Text>
                   <TechnologiesMultiSelect
+                    isInvalid={!!fieldState.error}
+                    value={field.value}
+                    onChange={field.onChange}
+                  />
+                  <Form.Control.Feedback type='invalid'>
+                    {fieldState.error?.message}
+                  </Form.Control.Feedback>
+                </div>
+              )}
+            />
+          </Col>
+        </Row>
+        <hr className='my-4' />
+        <Row>
+          <Col>
+            <Controller
+              control={control}
+              name='tagsIds'
+              render={({ field, fieldState }) => (
+                <div className='form-group mb-0'>
+                  <Form.Label>Tags</Form.Label>
+                  <Form.Text className='text-muted'>
+                    This is how others will learn about the project, so make it good!
+                  </Form.Text>
+                  <TagsMultiSelect
                     isInvalid={!!fieldState.error}
                     value={field.value}
                     onChange={field.onChange}

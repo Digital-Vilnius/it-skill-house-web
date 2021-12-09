@@ -9,11 +9,11 @@ export const getContractors = async (request?: ListRequest<ContractorsFilter>) =
   return httpClient.get<ListRequest, ListResponse<Contractor>>(baseUrl, { params });
 };
 
-export const getContractor = async (id: string) => {
+export const getContractor = async (id: number) => {
   return httpClient.get<void, ResultResponse<Contractor>>(`${baseUrl}/${id}`);
 };
 
-export const deleteContractor = async (id: string) => {
+export const deleteContractor = async (id: number) => {
   return httpClient.delete(`${baseUrl}/${id}`);
 };
 
@@ -21,6 +21,6 @@ export const addContractor = async (request: AddContractorRequest) => {
   return httpClient.post<AddContractorRequest, Contractor>(baseUrl, request);
 };
 
-export const editContractor = async (id: string, request: EditContractorRequest) => {
+export const editContractor = async (id: number, request: EditContractorRequest) => {
   return httpClient.put<EditContractorRequest, Contractor>(`${baseUrl}/${id}`, request);
 };

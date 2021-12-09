@@ -26,6 +26,9 @@ const initialFilter: ContractorsFilter = {
   keyword: null,
   technologiesIds: [],
   recruitersIds: [],
+  tagsIds: [],
+  experienceTo: null,
+  experienceFrom: null,
   isPublic: null,
   isRemote: null,
   isAvailable: null,
@@ -33,6 +36,8 @@ const initialFilter: ContractorsFilter = {
 
 const initialColumnsOrder: string[] = [
   'id',
+  'codaId',
+  'cinodeId',
   'fullName',
   'email',
   'phone',
@@ -41,6 +46,8 @@ const initialColumnsOrder: string[] = [
   'recruiter',
   'mainTechnology',
   'technologies',
+  'tags',
+  'experienceSince',
   'availableFrom',
   'location',
   'isRemote',
@@ -51,11 +58,14 @@ const initialColumnsOrder: string[] = [
 ];
 
 const initialColumnsIds: string[] = [
+  'id',
   'fullName',
   'email',
   'phone',
   'recruiter',
   'mainTechnology',
+  'tags',
+  'experienceSince',
   'availableFrom',
   'location',
   'isRemote',

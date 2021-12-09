@@ -1,10 +1,9 @@
-export interface User {
-  id: string;
+import { BaseModel } from '../../types';
+
+export interface User extends BaseModel {
   email: string;
   firstName: string;
   lastName: string;
-  updated: string | null;
-  created: string;
 }
 
 export interface AddUserRequest {

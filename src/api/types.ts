@@ -25,7 +25,7 @@ export interface ResultResponse<T> {
 }
 
 export interface BaseModel {
-  id: string;
+  id: number;
   created: string;
   updated: string | null;
 }

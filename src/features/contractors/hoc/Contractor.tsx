@@ -3,7 +3,7 @@ import { useContractor } from '../hooks';
 import { Col, Row } from 'react-bootstrap';
 
 interface Props {
-  id: string;
+  id: number;
 }
 
 const Contractor: FC<Props> = (props) => {

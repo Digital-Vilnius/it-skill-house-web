@@ -3,10 +3,10 @@ import { useQuery } from 'react-query';
 import { mapContractor } from '../map';
 
 interface Props {
-  id: string;
+  id: number;
 }
 
-export const getQueryKey = (id: string) => {
+export const getQueryKey = (id: number) => {
   return ['contractor', id];
 };
 

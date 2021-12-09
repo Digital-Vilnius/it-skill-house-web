@@ -28,7 +28,7 @@ const ContractorPage: FC = () => {
                 </Row>
               </div>
             </div>
-            <Contractor id={id} />
+            <Contractor id={Number(id)} />
           </Col>
         </Row>
       </Container>

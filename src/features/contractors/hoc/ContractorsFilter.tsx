@@ -6,6 +6,7 @@ import { Controller } from 'react-hook-form';
 import { TechnologiesMultiSelect } from 'features/technologies/hoc';
 import { DatePicker, MoneyInput, SearchInput, SwitchInput } from 'components';
 import { RecruitersMultiSelect } from 'features/recruiters/hoc';
+import { TagsMultiSelect } from '../../tags/hoc';
 
 interface Props {
   filter: ContractorsFilterType;
@@ -83,6 +84,31 @@ const ContractorsFilter: FC<Props> = (props) => {
           <Col>
             <Controller
               control={control}
+              name='tagsIds'
+              render={({ field, fieldState }) => (
+                <div className='form-group mb-0'>
+                  <Form.Label>Tags</Form.Label>
+                  <Form.Text className='text-muted mb-3'>
+                    This is how others will learn about the project, so make it good!
+                  </Form.Text>
+                  <TagsMultiSelect
+                    isInvalid={!!fieldState.error}
+                    value={field.value}
+                    onChange={field.onChange}
+                  />
+                  <Form.Control.Feedback type='invalid'>
+                    {fieldState.error?.message}
+                  </Form.Control.Feedback>
+                </div>
+              )}
+            />
+          </Col>
+        </Row>
+        <hr className='my-4' />
+        <Row>
+          <Col>
+            <Controller
+              control={control}
               name='recruitersIds'
               render={({ field, fieldState }) => (
                 <div className='form-group mb-0'>
@@ -134,6 +160,51 @@ const ContractorsFilter: FC<Props> = (props) => {
               render={({ field, fieldState }) => (
                 <div className='form-group mb-0'>
                   <Form.Label>Available to</Form.Label>
+                  <DatePicker
+                    isInvalid={!!fieldState.error}
+                    onChange={field.onChange}
+                    onBlur={field.onBlur}
+                    name={field.name}
+                    value={field.value}
+                  />
+                  <Form.Control.Feedback type='invalid'>
+                    {fieldState.error?.message}
+                  </Form.Control.Feedback>
+                </div>
+              )}
+            />
+          </Col>
+        </Row>
+        <hr className='my-4' />
+        <Row>
+          <Col>
+            <Controller
+              control={control}
+              name='experienceFrom'
+              render={({ field, fieldState }) => (
+                <div className='form-group mb-0'>
+                  <Form.Label>Experience from</Form.Label>
+                  <DatePicker
+                    isInvalid={!!fieldState.error}
+                    onChange={field.onChange}
+                    onBlur={field.onBlur}
+                    name={field.name}
+                    value={field.value}
+                  />
+                  <Form.Control.Feedback type='invalid'>
+                    {fieldState.error?.message}
+                  </Form.Control.Feedback>
+                </div>
+              )}
+            />
+          </Col>
+          <Col>
+            <Controller
+              control={control}
+              name='experienceTo'
+              render={({ field, fieldState }) => (
+                <div className='form-group mb-0'>
+                  <Form.Label>Experience to</Form.Label>
                   <DatePicker
                     isInvalid={!!fieldState.error}
                     onChange={field.onChange}

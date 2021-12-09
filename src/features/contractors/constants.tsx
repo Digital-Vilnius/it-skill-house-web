@@ -8,10 +8,13 @@ export const contractorColumns: Column<Contractor>[] = [
   { id: 'email', label: 'Email', sortable: true, sticky: true },
   { id: 'phone', label: 'Phone' },
   { id: 'firstName', label: 'First name', sortable: true },
+  { id: 'codaId', label: 'Coda id', sortable: true },
+  { id: 'cinodeId', label: 'Cinode id', sortable: true },
   { id: 'lastName', label: 'Last name', sortable: true },
   { id: 'location', label: 'Location', sortable: true },
   { id: 'updated', label: 'Updated', className: 'text-center', sortable: true },
   { id: 'availableFrom', label: 'Available from', className: 'text-center', sortable: true },
+  { id: 'experienceSince', label: 'Experience since', className: 'text-center', sortable: true },
   {
     id: 'created',
     label: 'Created',
@@ -66,6 +69,19 @@ export const contractorColumns: Column<Contractor>[] = [
         {cell.technologies.map((technology) => (
           <Badge className='me-1' key={technology.id}>
             {technology.name}
+          </Badge>
+        ))}
+      </div>
+    ),
+  },
+  {
+    id: 'tags',
+    label: 'Tags',
+    Cell: (cell) => (
+      <div className='tags'>
+        {cell.tags.map((tag) => (
+          <Badge className='me-1' key={tag.id}>
+            {tag.name}
           </Badge>
         ))}
       </div>

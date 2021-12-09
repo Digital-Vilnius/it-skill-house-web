@@ -1,8 +1,7 @@
-export interface Technology {
-  id: string;
+import { BaseModel } from '../../types';
+
+export interface Technology extends BaseModel {
   name: string;
-  updated: string | null;
-  created: string;
 }
 
 export interface AddTechnologyRequest {
