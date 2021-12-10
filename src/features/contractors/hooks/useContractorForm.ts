@@ -6,42 +6,62 @@ import { useMutation } from 'react-query';
 import { ContractorsClient } from 'api/clients';
 
 const initialFormData: ContractorFormData = {
-  email: '',
   firstName: '',
   lastName: '',
-  technologiesIds: [],
-  tagsIds: [],
-  cinodeId: 0,
-  codaId: 0,
-  mainTechnologyId: 0,
-  recruiterId: 0,
-  rate: 0,
+  email: '',
+  phone: '',
+
   isRemote: false,
   isPublic: false,
+  hasContract: false,
+  isOnSite: false,
+
   location: '',
+  rate: 0,
+
+  professionId: 0,
+  recruiterId: 0,
+  mainTechnologyId: 0,
+
+  technologiesIds: [],
+  tagsIds: [],
+
   availableFrom: '',
   experienceSince: '',
-  phone: '',
+
+  linkedInUrl: '',
+  codaId: 0,
+  cinodeId: 0,
 };
 
 const getSchema = () => {
   const schema = yup.object().shape({
-    rate: yup.number().positive().required(),
-    cinodeId: yup.number().required(),
-    codaId: yup.number().required(),
     firstName: yup.string().required(),
     lastName: yup.string().required(),
     email: yup.string().email().required(),
-    technologiesIds: yup.array().min(1).of(yup.number()),
-    tagsIds: yup.array().min(1).of(yup.number()),
-    mainTechnologyId: yup.string().required(),
-    recruiterId: yup.string().required(),
-    location: yup.string().required(),
+    phone: yup.string().required(),
+
     isRemote: yup.boolean().required(),
     isPublic: yup.boolean().required(),
+    hasContract: yup.boolean().required(),
+    isOnSite: yup.boolean().required(),
+
+    location: yup.string().required(),
+    rate: yup.number().positive().required(),
+
+    professionId: yup.number().required(),
+    recruiterId: yup.number().required(),
+    mainTechnologyId: yup.number().required(),
+
+    technologiesIds: yup.array().min(1).of(yup.number()),
+    tagsIds: yup.array().min(1).of(yup.number()),
+
     availableFrom: yup.string().trim().required(),
     experienceSince: yup.string().trim().required(),
-    phone: yup.string().required(),
+
+    linkedInUrl: yup.string(),
+    codaId: yup.number().required(),
+    cinodeId: yup.number().required(),
   });
 
   return schema.required();
@@ -54,10 +74,12 @@ interface Props {
 const useRecruiterForm = (props: Props) => {
   const { successCallback } = props;
 
-  const { control, handleSubmit, reset } = useForm<ContractorFormData>({
+  const { control, handleSubmit, reset, formState } = useForm<ContractorFormData>({
     defaultValues: initialFormData,
     resolver: yupResolver(getSchema()),
   });
+
+  console.log(formState.errors);
 
   const mutationFn = (data: ContractorFormData) => {
     return ContractorsClient.addContractor(data);

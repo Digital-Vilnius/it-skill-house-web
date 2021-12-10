@@ -1,4 +1,4 @@
-export type SortDirection = 'asc' | 'desc';
+import { SortDirections } from './constants';
 
 export interface ListRequest<T = undefined> {
   sort?: Sort;
@@ -12,7 +12,7 @@ export interface ListResponse<T> extends ResultResponse<T[]> {
 
 export interface Sort {
   sortBy: string;
-  sortDirection: SortDirection;
+  sortDirection: SortDirections;
 }
 
 export interface Paging {

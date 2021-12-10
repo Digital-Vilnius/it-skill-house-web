@@ -1,5 +1,5 @@
 export interface FormControlProps<T> {
-  value: T;
+  value: T | null;
   name?: string;
   onBlur?: () => void;
   className?: string;
@@ -15,6 +15,7 @@ export interface InputControlProps<T> extends FormControlProps<T> {
   placeholder?: string;
 }
 
-export interface SwitchControlProps<T> extends FormControlProps<T> {
-  onChange: (value: T) => void;
+export interface SwitchControlProps extends FormControlProps<boolean> {
+  onChange: (value: boolean) => void;
+  label?: string;
 }

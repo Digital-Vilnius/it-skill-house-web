@@ -6,9 +6,8 @@ export const resetContractorsFilterAction = createAction<void>('resetContractors
 export const setContractorsSortAction = createAction<{ sort: Sort }>('setContractorsSort');
 export const setContractorsPagingAction = createAction<{ paging: Paging }>('setContractorsPaging');
 
-export const setContractorsColumnsIdsAction = createAction<{ ids: string[] }>(
-  'setContractorsColumnsIds'
-);
+export const setContractorsColumnsIdsAction =
+  createAction<{ ids: string[] }>('setContractorsColumnsIds');
 
 export const setContractorsColumnsOrderAction = createAction<{ ids: string[] }>(
   'setContractorsColumnsOrder'

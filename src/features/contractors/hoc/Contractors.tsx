@@ -16,6 +16,7 @@ import { Button, Card, Form, InputGroup } from 'react-bootstrap';
 import Icon from '@ailibs/feather-react-ts';
 import ContractorsFilter from './ContractorsFilter';
 import { useNavigate } from 'react-router-dom';
+import ContractorsQuickFilter from './ContractorsQuickFilter';
 
 const Contractors: FC = () => {
   const dispatch = useAppDispatch();
@@ -60,6 +61,8 @@ const Contractors: FC = () => {
 
   return (
     <>
+      <ContractorsQuickFilter />
+      <hr className='my-4' />
       <Card>
         <Card.Header>
           <InputGroup className='input-group-merge input-group-flush input-group-reverse'>

@@ -16,17 +16,24 @@ export const mapContractor = (contractor: ApiContractor): Contractor => ({
 });
 
 export const mapContractorFilter = (filter: ContractorsFilter): ApiContractorFilter => ({
-  availableFrom: filter.availableFrom ?? undefined,
-  availableTo: filter.availableTo ?? undefined,
+  keyword: filter.keyword ?? undefined,
+
   isRemote: filter.isRemote ?? undefined,
   isPublic: filter.isPublic ?? undefined,
   isAvailable: filter.isAvailable ?? undefined,
-  rateTo: filter.rateTo ?? undefined,
-  rateFrom: filter.rateFrom ?? undefined,
-  keyword: filter.keyword ?? undefined,
+  hasContract: filter.hasContract ?? undefined,
+
+  professionsIds: filter.professionsIds ?? undefined,
   recruitersIds: filter.recruitersIds ?? undefined,
   technologiesIds: filter.technologiesIds ?? undefined,
   tagsIds: filter.tagsIds ?? undefined,
+
+  rateFrom: filter.rateFrom ?? undefined,
+  rateTo: filter.rateTo ?? undefined,
+
   experienceFrom: filter.experienceFrom ?? undefined,
   experienceTo: filter.experienceTo ?? undefined,
+
+  availableFrom: filter.availableFrom ?? undefined,
+  availableTo: filter.availableTo ?? undefined,
 });

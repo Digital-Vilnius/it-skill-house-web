@@ -1,6 +1,6 @@
 import { Column } from 'components/DataTable';
 import { Contractor } from './types';
-import { contractorColumns } from './constants';
+import { contractorColumns } from './columns';
 
 export const getAllColumns = (order: string[]) => {
   const orderedColumns: Column<Contractor>[] = [];

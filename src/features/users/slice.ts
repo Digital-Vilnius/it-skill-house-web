@@ -7,6 +7,7 @@ import {
 } from './actions';
 import { UsersFilter } from 'api/clients/users/types';
 import { Paging, Sort } from 'api/types';
+import { initialPaging, initialSort } from './constants';
 
 interface State {
   paging: Paging;
@@ -16,8 +17,8 @@ interface State {
 
 const initialState: State = {
   filter: {},
-  paging: { take: 15, skip: 0 },
-  sort: { sortBy: 'created', sortDirection: 'desc' },
+  paging: initialPaging,
+  sort: initialSort,
 };
 
 const usersSlice = createSlice({

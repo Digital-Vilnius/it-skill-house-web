@@ -1,17 +1,21 @@
 import React, { ChangeEvent, FC } from 'react';
 import { SwitchControlProps } from './types';
 import { Form } from 'react-bootstrap';
+import classNames from 'classnames';
 
-type ValueType = boolean | null;
-
-const SwitchInput: FC<SwitchControlProps<ValueType>> = (props) => {
-  const { className, onChange, value, ...rest } = props;
+const SwitchInput: FC<SwitchControlProps> = (props) => {
+  const { className, onChange, value, label, ...rest } = props;
 
   const handleOnChange = ($event: ChangeEvent<HTMLInputElement>) => {
-    onChange($event.target.checked ?? null);
+    onChange($event.target.checked);
   };
 
-  return <Form.Switch {...rest} checked={value ?? false} onChange={handleOnChange} />;
+  return (
+    <div className={classNames('form-control-container d-flex align-items-center', className)}>
+      <Form.Switch {...rest} checked={value ?? false} onChange={handleOnChange} />
+      {!!label && <small className='text-muted'>{label}</small>}
+    </div>
+  );
 };
 
 export default SwitchInput;

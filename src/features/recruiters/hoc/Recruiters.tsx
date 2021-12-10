@@ -8,18 +8,19 @@ import { Card, Form, InputGroup } from 'react-bootstrap';
 import Icon from '@ailibs/feather-react-ts';
 import { Paging, Sort } from 'api/types';
 import { setRecruitersPagingAction, setRecruitersSortAction } from '../actions';
+import { RecruiterKeys } from '../constants';
 
 export const columns: Column<Recruiter>[] = [
   {
-    id: 'fullName',
+    id: RecruiterKeys.fullName,
     label: 'Full name',
     Cell: (cell) => `${cell.firstName} ${cell.lastName}`,
     sortable: true,
   },
-  { id: 'email', label: 'Email', sortable: true },
-  { id: 'phone', label: 'Phone', sortable: true },
-  { id: 'updated', label: 'Updated', className: 'text-center', sortable: true },
-  { id: 'created', label: 'Created', className: 'text-center', sortable: true },
+  { id: RecruiterKeys.email, label: 'Email', sortable: true },
+  { id: RecruiterKeys.phone, label: 'Phone', sortable: true },
+  { id: RecruiterKeys.updated, label: 'Updated', className: 'text-center', sortable: true },
+  { id: RecruiterKeys.created, label: 'Created', className: 'text-center', sortable: true },
 ];
 
 const Recruiters: FC = () => {

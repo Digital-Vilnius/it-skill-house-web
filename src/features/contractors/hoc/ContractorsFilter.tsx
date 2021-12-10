@@ -22,7 +22,7 @@ const ContractorsFilter: FC<Props> = (props) => {
   });
 
   return (
-    <Modal centered size='lg' show={visible}>
+    <Modal size='lg' centered show={visible}>
       <Modal.Header onHide={onClose} closeButton>
         <Modal.Title>Filter</Modal.Title>
       </Modal.Header>
@@ -35,9 +35,6 @@ const ContractorsFilter: FC<Props> = (props) => {
               render={({ field, fieldState }) => (
                 <div className='form-group mb-0'>
                   <Form.Label>Keyword</Form.Label>
-                  <Form.Text className='text-muted mb-3'>
-                    This is how others will learn about the project, so make it good!
-                  </Form.Text>
                   <SearchInput
                     placeholder='Keywords'
                     isInvalid={!!fieldState.error}
@@ -63,9 +60,6 @@ const ContractorsFilter: FC<Props> = (props) => {
               render={({ field, fieldState }) => (
                 <div className='form-group mb-0'>
                   <Form.Label>Technologies</Form.Label>
-                  <Form.Text className='text-muted mb-3'>
-                    This is how others will learn about the project, so make it good!
-                  </Form.Text>
                   <TechnologiesMultiSelect
                     isInvalid={!!fieldState.error}
                     value={field.value}
@@ -88,9 +82,6 @@ const ContractorsFilter: FC<Props> = (props) => {
               render={({ field, fieldState }) => (
                 <div className='form-group mb-0'>
                   <Form.Label>Tags</Form.Label>
-                  <Form.Text className='text-muted mb-3'>
-                    This is how others will learn about the project, so make it good!
-                  </Form.Text>
                   <TagsMultiSelect
                     isInvalid={!!fieldState.error}
                     value={field.value}
@@ -113,9 +104,6 @@ const ContractorsFilter: FC<Props> = (props) => {
               render={({ field, fieldState }) => (
                 <div className='form-group mb-0'>
                   <Form.Label>Recruiters</Form.Label>
-                  <Form.Text className='text-muted mb-3'>
-                    This is how others will learn about the project, so make it good!
-                  </Form.Text>
                   <RecruitersMultiSelect
                     id='recruiters'
                     isInvalid={!!fieldState.error}
@@ -266,17 +254,14 @@ const ContractorsFilter: FC<Props> = (props) => {
           </Col>
         </Row>
         <hr className='my-4' />
-        <Row>
-          <Col sm={12} lg={6}>
+        <Row className='mb-4'>
+          <Col>
             <Controller
               control={control}
-              name='isPublic'
+              name='isRemote'
               render={({ field, fieldState }) => (
                 <div className='form-group'>
-                  <Form.Label>Public</Form.Label>
-                  <Form.Text className='text-muted mb-3'>
-                    This is how others will learn about the project, so make it good!
-                  </Form.Text>
+                  <Form.Label>Remote</Form.Label>
                   <SwitchInput
                     value={field.value}
                     onChange={field.onChange}
@@ -291,16 +276,57 @@ const ContractorsFilter: FC<Props> = (props) => {
               )}
             />
           </Col>
-          <Col sm={12} lg={6}>
+          <Col>
             <Controller
               control={control}
-              name='isRemote'
+              name='isOnSite'
               render={({ field, fieldState }) => (
                 <div className='form-group'>
-                  <Form.Label>Remote</Form.Label>
-                  <Form.Text className='text-muted mb-3'>
-                    This is how others will learn about the project, so make it good!
-                  </Form.Text>
+                  <Form.Label>On site</Form.Label>
+                  <SwitchInput
+                    value={field.value}
+                    onChange={field.onChange}
+                    name={field.name}
+                    onBlur={field.onBlur}
+                    isInvalid={!!fieldState.error}
+                  />
+                  <Form.Control.Feedback type='invalid'>
+                    {fieldState.error?.message}
+                  </Form.Control.Feedback>
+                </div>
+              )}
+            />
+          </Col>
+        </Row>
+        <Row className='mb-4'>
+          <Col>
+            <Controller
+              control={control}
+              name='isAvailable'
+              render={({ field, fieldState }) => (
+                <div className='form-group'>
+                  <Form.Label>Available</Form.Label>
+                  <SwitchInput
+                    value={field.value}
+                    onChange={field.onChange}
+                    name={field.name}
+                    onBlur={field.onBlur}
+                    isInvalid={!!fieldState.error}
+                  />
+                  <Form.Control.Feedback type='invalid'>
+                    {fieldState.error?.message}
+                  </Form.Control.Feedback>
+                </div>
+              )}
+            />
+          </Col>
+          <Col>
+            <Controller
+              control={control}
+              name='hasContract'
+              render={({ field, fieldState }) => (
+                <div className='form-group'>
+                  <Form.Label>Has contract</Form.Label>
                   <SwitchInput
                     value={field.value}
                     onChange={field.onChange}
@@ -317,16 +343,13 @@ const ContractorsFilter: FC<Props> = (props) => {
           </Col>
         </Row>
         <Row>
-          <Col sm={12} lg={6}>
+          <Col lg={6}>
             <Controller
               control={control}
-              name='isAvailable'
+              name='isPublic'
               render={({ field, fieldState }) => (
                 <div className='form-group'>
-                  <Form.Label>Available</Form.Label>
-                  <Form.Text className='text-muted mb-3'>
-                    This is how others will learn about the project, so make it good!
-                  </Form.Text>
+                  <Form.Label>Public</Form.Label>
                   <SwitchInput
                     value={field.value}
                     onChange={field.onChange}

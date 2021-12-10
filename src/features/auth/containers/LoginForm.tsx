@@ -11,7 +11,7 @@ const LoginForm: FC = () => {
       <h1 className='display-4 text-center mb-3'>Sign in</h1>
       <p className='text-muted text-center mb-5'>Free access to our dashboard.</p>
       <form onSubmit={handleSubmit(login)}>
-        <div className='form-group'>
+        <div className='form-group mb-3'>
           <Form.Label>Email Address</Form.Label>
           <Controller
             control={control}
@@ -29,7 +29,7 @@ const LoginForm: FC = () => {
             )}
           />
         </div>
-        <div className='form-group'>
+        <div className='form-group mb-4'>
           <Form.Label>Password</Form.Label>
           <InputGroup className='input-group-merge'>
             <Controller

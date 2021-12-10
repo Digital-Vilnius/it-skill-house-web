@@ -9,6 +9,13 @@ import {
 } from './actions';
 import { ContractorsFilter } from './types';
 import { Paging, Sort } from 'api/types';
+import {
+  initialColumnsIds,
+  initialColumnsOrder,
+  initialFilter,
+  initialPaging,
+  initialSort,
+} from './constants';
 
 interface State {
   paging: Paging;
@@ -17,65 +24,6 @@ interface State {
   columnsIds: string[];
   columnsOrder: string[];
 }
-
-const initialFilter: ContractorsFilter = {
-  rateFrom: null,
-  rateTo: null,
-  availableFrom: null,
-  availableTo: null,
-  keyword: null,
-  technologiesIds: [],
-  recruitersIds: [],
-  tagsIds: [],
-  experienceTo: null,
-  experienceFrom: null,
-  isPublic: null,
-  isRemote: null,
-  isAvailable: null,
-};
-
-const initialColumnsOrder: string[] = [
-  'id',
-  'codaId',
-  'cinodeId',
-  'fullName',
-  'email',
-  'phone',
-  'firstName',
-  'lastName',
-  'recruiter',
-  'mainTechnology',
-  'technologies',
-  'tags',
-  'experienceSince',
-  'availableFrom',
-  'location',
-  'isRemote',
-  'isPublic',
-  'rate',
-  'updated',
-  'created',
-];
-
-const initialColumnsIds: string[] = [
-  'id',
-  'fullName',
-  'email',
-  'phone',
-  'recruiter',
-  'mainTechnology',
-  'tags',
-  'experienceSince',
-  'availableFrom',
-  'location',
-  'isRemote',
-  'isPublic',
-  'rate',
-  'created',
-];
-
-const initialPaging: Paging = { take: 15, skip: 0 };
-const initialSort: Sort = { sortBy: 'created', sortDirection: 'desc' };
 
 const initialState: State = {
   filter: initialFilter,

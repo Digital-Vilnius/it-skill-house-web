@@ -3,6 +3,7 @@ import { Dropdown, Form, Table } from 'react-bootstrap';
 import Icon from '@ailibs/feather-react-ts';
 import classNames from 'classnames';
 import { Sort } from 'api/types';
+import { SortDirections } from '../api/constants';
 
 export interface Column<T> {
   id: string;
@@ -37,7 +38,11 @@ const DataTable: FC<Props> = (props) => {
     if (!column.sortable) return;
 
     const sortDirection =
-      column.id != sort.sortBy ? 'desc' : sort.sortDirection == 'asc' ? 'desc' : 'asc';
+      column.id != sort.sortBy
+        ? SortDirections.desc
+        : sort.sortDirection == SortDirections.asc
+        ? SortDirections.desc
+        : SortDirections.asc;
     onSort({ sortBy: column.id, sortDirection });
   };
 

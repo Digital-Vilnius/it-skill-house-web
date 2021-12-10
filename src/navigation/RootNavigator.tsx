@@ -5,7 +5,7 @@ import { LoginPage } from 'features/auth/pages';
 import { ContractorPage, ContractorsPage } from 'features/contractors/pages';
 import RequireAuth from './RequireAuth';
 import { RecruitersPage, AddRecruiterPage } from 'features/recruiters/pages';
-import { UsersPage, AddUserPage } from 'features/users/pages';
+import { UsersPage } from 'features/users/pages';
 
 const RootNavigator: FC = () => {
   return (
@@ -52,14 +52,6 @@ const RootNavigator: FC = () => {
             element={
               <RequireAuth>
                 <UsersPage />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path='users/add'
-            element={
-              <RequireAuth>
-                <AddUserPage />
               </RequireAuth>
             }
           />

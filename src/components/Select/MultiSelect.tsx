@@ -1,9 +1,9 @@
 import React, { FC, useEffect, useState } from 'react';
-import Icon from '@ailibs/feather-react-ts';
 import { Dropdown, Form } from 'react-bootstrap';
 import xor from 'lodash/xor';
 import classNames from 'classnames';
 import { Option } from './types';
+import ClearableBadge from '../ClearableBadge';
 
 export interface MultiSelectProps {
   id: string;
@@ -12,6 +12,7 @@ export interface MultiSelectProps {
   onChange: (value: number[]) => void;
   onOptionAdd?: (value: string) => void;
   isInvalid?: boolean;
+  className?: string;
 }
 
 export const getOption = (value: number, options: Option[]): Option => {
@@ -25,7 +26,7 @@ export const getIsSelected = (value: number, selectedValues: number[]): boolean 
 };
 
 const MultiSelect: FC<MultiSelectProps> = (props) => {
-  const { value, options, onChange, id, onOptionAdd, isInvalid } = props;
+  const { value, options, onChange, id, onOptionAdd, isInvalid, className } = props;
   const [query, setQuery] = useState<string>('');
   const [filteredOptions, setFilteredOptions] = useState<Option[]>(options);
 
@@ -45,14 +46,7 @@ const MultiSelect: FC<MultiSelectProps> = (props) => {
   const renderSelectedOption = (optionValue: number, index: number) => {
     const option = getOption(optionValue, options);
 
-    return (
-      <div key={index} className='it-select-selected-option'>
-        <span className='it-select-selected-option-label'>{option.label}</span>
-        <span onClick={() => clearOption(option.value)} className='it-select-selected-option-clear'>
-          <Icon name='x' size={12} />
-        </span>
-      </div>
-    );
+    return <ClearableBadge key={index} onClear={() => clearOption(option.value)} label={option.label} />;
   };
 
   const renderOption = (option: Option, index: number) => {
@@ -81,7 +75,7 @@ const MultiSelect: FC<MultiSelectProps> = (props) => {
   };
 
   return (
-    <Dropdown className={classNames('it-select-container', { 'is-invalid': isInvalid })}>
+    <Dropdown className={classNames('it-select-container', className, { 'is-invalid': isInvalid })}>
       <Dropdown.Toggle as='div' className='it-select-control'>
         <Form.Control isInvalid={isInvalid} as='div'>
           {value.map(renderSelectedOption)}

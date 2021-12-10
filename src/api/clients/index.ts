@@ -4,5 +4,14 @@ import * as RecruitersClient from './recruiters';
 import * as UsersClient from './users';
 import * as TechnologiesClient from './technologies';
 import * as TagsClient from './tags';
+import * as ProfessionsClient from './professions';
 
-export { AuthClient, ContractorsClient, RecruitersClient, UsersClient, TechnologiesClient, TagsClient };
+export {
+  AuthClient,
+  ContractorsClient,
+  RecruitersClient,
+  UsersClient,
+  TechnologiesClient,
+  TagsClient,
+  ProfessionsClient,
+};
