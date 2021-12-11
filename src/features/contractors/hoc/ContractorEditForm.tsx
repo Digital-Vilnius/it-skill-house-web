@@ -1,79 +1,39 @@
 import React, { FC } from 'react';
 import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
 import { Controller } from 'react-hook-form';
-import { useContractorForm } from '../hooks';
-import { Contractor } from '../types';
+import { useContractorEditForm } from '../hooks';
 import { DatePicker, MoneyInput, Select } from 'components';
 import { useTechnologiesOptions } from 'features/technologies/hooks';
 import { useRecruitersOptions } from 'features/recruiters/hooks';
 import { useTagsOptions } from 'features/tags/hooks';
 import { useProfessionsOptions } from 'features/professions/hooks';
+import { Contractor } from '../types';
 
 interface Props {
-  contractor?: Contractor;
+  contractor: Contractor;
   onClose: () => void;
   visible: boolean;
 }
 
-const ContractorForm: FC<Props> = (props) => {
-  const { onClose, visible } = props;
-  const { control, handleSubmit, save } = useContractorForm({ successCallback: onClose });
+const ContractorEditForm: FC<Props> = (props) => {
+  const { onClose, visible, contractor } = props;
+
+  const { control, handleSubmit, save } = useContractorEditForm({
+    successCallback: onClose,
+    contractor,
+  });
   const { technologiesOptions, isLoading: isTechLoading, addTechnology } = useTechnologiesOptions();
   const { professionsOptions, isLoading: isProfLoading, addProfession } = useProfessionsOptions();
   const { recruitersOptions, isLoading: isRecruitersLoading } = useRecruitersOptions();
   const { tagsOptions, isLoading: isTagsLoading, addTag } = useTagsOptions();
 
   return (
-    <Modal dialogClassName='extra-lg' centered show={visible}>
+    <Modal size='lg' centered show={visible}>
       <Modal.Header onHide={onClose} closeButton>
-        <Modal.Title>Contractor</Modal.Title>
+        <Modal.Title>Edit contractor</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Row className='mb-4'>
-          <Col>
-            <Controller
-              control={control}
-              name='firstName'
-              render={({ field, fieldState }) => (
-                <div className='form-group'>
-                  <Form.Label>First name</Form.Label>
-                  <Form.Control
-                    isInvalid={!!fieldState.error}
-                    onInput={field.onChange}
-                    onBlur={field.onBlur}
-                    name={field.name}
-                    value={field.value}
-                    placeholder='John'
-                  />
-                  <Form.Control.Feedback type='invalid'>
-                    {fieldState.error?.message}
-                  </Form.Control.Feedback>
-                </div>
-              )}
-            />
-          </Col>
-          <Col>
-            <Controller
-              control={control}
-              name='lastName'
-              render={({ field, fieldState }) => (
-                <div className='form-group'>
-                  <Form.Label>Last name</Form.Label>
-                  <Form.Control
-                    isInvalid={!!fieldState.error}
-                    onInput={field.onChange}
-                    onBlur={field.onBlur}
-                    name={field.name}
-                    value={field.value}
-                    placeholder='Doe'
-                  />
-                  <Form.Control.Feedback type='invalid'>
-                    {fieldState.error?.message}
-                  </Form.Control.Feedback>
-                </div>
-              )}
-            />
-          </Col>
+        <Row>
           <Col>
             <Controller
               control={control}
@@ -97,54 +57,6 @@ const ContractorForm: FC<Props> = (props) => {
               )}
             />
           </Col>
-        </Row>
-        <Row>
-          <Col>
-            <Controller
-              control={control}
-              name='email'
-              render={({ field, fieldState }) => (
-                <div className='form-group'>
-                  <Form.Label>Email</Form.Label>
-                  <Form.Control
-                    isInvalid={!!fieldState.error}
-                    onInput={field.onChange}
-                    onBlur={field.onBlur}
-                    name={field.name}
-                    value={field.value}
-                    autoComplete='email'
-                    type='email'
-                    placeholder='name@example.com'
-                  />
-                  <Form.Control.Feedback type='invalid'>
-                    {fieldState.error?.message}
-                  </Form.Control.Feedback>
-                </div>
-              )}
-            />
-          </Col>
-          <Col>
-            <Controller
-              control={control}
-              name='phone'
-              render={({ field, fieldState }) => (
-                <div className='form-group'>
-                  <Form.Label>Phone</Form.Label>
-                  <Form.Control
-                    isInvalid={!!fieldState.error}
-                    onInput={field.onChange}
-                    onBlur={field.onBlur}
-                    name={field.name}
-                    value={field.value}
-                    placeholder='+370 000 000000'
-                  />
-                  <Form.Control.Feedback type='invalid'>
-                    {fieldState.error?.message}
-                  </Form.Control.Feedback>
-                </div>
-              )}
-            />
-          </Col>
           <Col>
             <Controller
               control={control}
@@ -160,6 +72,80 @@ const ContractorForm: FC<Props> = (props) => {
                     value={field.value}
                     placeholder='12345'
                     type='number'
+                  />
+                  <Form.Control.Feedback type='invalid'>
+                    {fieldState.error?.message}
+                  </Form.Control.Feedback>
+                </div>
+              )}
+            />
+          </Col>
+        </Row>
+        <hr className='my-4' />
+        <Row className='mb-4'>
+          <Col>
+            <div className='form-group'>
+              <Form.Label>First name</Form.Label>
+              <Form.Control disabled readOnly value={contractor.firstName} />
+            </div>
+          </Col>
+          <Col>
+            <div className='form-group'>
+              <Form.Label>Last name</Form.Label>
+              <Form.Control disabled readOnly value={contractor.lastName} />
+            </div>
+          </Col>
+        </Row>
+        <Row className='mb-4'>
+          <Col>
+            <div className='form-group'>
+              <Form.Label>Email</Form.Label>
+              <Form.Control disabled readOnly value={contractor.email} />
+            </div>
+          </Col>
+          <Col>
+            <div className='form-group'>
+              <Form.Label>Phone</Form.Label>
+              <Form.Control disabled readOnly value={contractor.phone} />
+            </div>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Controller
+              control={control}
+              name='location'
+              render={({ field, fieldState }) => (
+                <div className='form-group'>
+                  <Form.Label>Location</Form.Label>
+                  <Form.Control
+                    isInvalid={!!fieldState.error}
+                    onInput={field.onChange}
+                    onBlur={field.onBlur}
+                    name={field.name}
+                    value={field.value}
+                    placeholder='Vilnius, Lithuania'
+                  />
+                  <Form.Control.Feedback type='invalid'>
+                    {fieldState.error?.message}
+                  </Form.Control.Feedback>
+                </div>
+              )}
+            />
+          </Col>
+          <Col>
+            <Controller
+              control={control}
+              name='linkedInUrl'
+              render={({ field, fieldState }) => (
+                <div className='form-group'>
+                  <Form.Label>LinkedIn</Form.Label>
+                  <Form.Control
+                    value={field.value}
+                    onChange={field.onChange}
+                    name={field.name}
+                    onBlur={field.onBlur}
+                    isInvalid={!!fieldState.error}
                   />
                   <Form.Control.Feedback type='invalid'>
                     {fieldState.error?.message}
@@ -198,37 +184,21 @@ const ContractorForm: FC<Props> = (props) => {
           <Col>
             <Controller
               control={control}
-              name='isPublic'
+              name='professionId'
               render={({ field, fieldState }) => (
                 <div className='form-group'>
-                  <Form.Label>Public</Form.Label>
-                  <Form.Switch
-                    checked={field.value}
-                    onChange={field.onChange}
+                  <Form.Label>Profession</Form.Label>
+                  <Select
+                    searchable
+                    clearable
+                    creatable
+                    onCreate={addProfession}
                     name={field.name}
                     onBlur={field.onBlur}
-                    isInvalid={!!fieldState.error}
-                  />
-                  <Form.Control.Feedback type='invalid'>
-                    {fieldState.error?.message}
-                  </Form.Control.Feedback>
-                </div>
-              )}
-            />
-          </Col>
-          <Col>
-            <Controller
-              control={control}
-              name='hasContract'
-              render={({ field, fieldState }) => (
-                <div className='form-group'>
-                  <Form.Label>Has contract</Form.Label>
-                  <Form.Switch
-                    checked={field.value}
+                    loading={isProfLoading}
+                    options={professionsOptions}
+                    value={field.value}
                     onChange={field.onChange}
-                    name={field.name}
-                    onBlur={field.onBlur}
-                    isInvalid={!!fieldState.error}
                   />
                   <Form.Control.Feedback type='invalid'>
                     {fieldState.error?.message}
@@ -293,57 +263,9 @@ const ContractorForm: FC<Props> = (props) => {
               )}
             />
           </Col>
-          <Col>
-            <Controller
-              control={control}
-              name='tagsIds'
-              render={({ field, fieldState }) => (
-                <div className='form-group'>
-                  <Form.Label>Tags</Form.Label>
-                  <Select
-                    multi
-                    clearable
-                    searchable
-                    creatable
-                    onCreate={addTag}
-                    name={field.name}
-                    onBlur={field.onBlur}
-                    loading={isTagsLoading}
-                    options={tagsOptions}
-                    value={field.value}
-                    onChange={field.onChange}
-                  />
-                  <Form.Control.Feedback type='invalid'>
-                    {fieldState.error?.message}
-                  </Form.Control.Feedback>
-                </div>
-              )}
-            />
-          </Col>
         </Row>
         <hr className='my-4' />
         <Row>
-          <Col>
-            <Controller
-              control={control}
-              name='rate'
-              render={({ field, fieldState }) => (
-                <div className='form-group'>
-                  <Form.Label>Rate</Form.Label>
-                  <MoneyInput
-                    isInvalid={!!fieldState.error}
-                    onInput={field.onChange}
-                    onBlur={field.onBlur}
-                    name={field.name}
-                    value={field.value}
-                  />
-                  <Form.Control.Feedback type='invalid'>
-                    {fieldState.error?.message}
-                  </Form.Control.Feedback>
-                </div>
-              )}
-            />
-          </Col>
           <Col>
             <Controller
               control={control}
@@ -392,17 +314,16 @@ const ContractorForm: FC<Props> = (props) => {
           <Col>
             <Controller
               control={control}
-              name='location'
+              name='rate'
               render={({ field, fieldState }) => (
                 <div className='form-group'>
-                  <Form.Label>Location</Form.Label>
-                  <Form.Control
+                  <Form.Label>Rate</Form.Label>
+                  <MoneyInput
                     isInvalid={!!fieldState.error}
                     onInput={field.onChange}
                     onBlur={field.onBlur}
                     name={field.name}
                     value={field.value}
-                    placeholder='Vilnius, Lithuania'
                   />
                   <Form.Control.Feedback type='invalid'>
                     {fieldState.error?.message}
@@ -414,10 +335,94 @@ const ContractorForm: FC<Props> = (props) => {
           <Col>
             <Controller
               control={control}
+              name='tagsIds'
+              render={({ field, fieldState }) => (
+                <div className='form-group'>
+                  <Form.Label>Tags</Form.Label>
+                  <Select
+                    multi
+                    clearable
+                    searchable
+                    creatable
+                    onCreate={addTag}
+                    name={field.name}
+                    onBlur={field.onBlur}
+                    loading={isTagsLoading}
+                    options={tagsOptions}
+                    value={field.value}
+                    onChange={field.onChange}
+                  />
+                  <Form.Control.Feedback type='invalid'>
+                    {fieldState.error?.message}
+                  </Form.Control.Feedback>
+                </div>
+              )}
+            />
+          </Col>
+        </Row>
+        <hr className='my-4' />
+        <Row>
+          <Col>
+            <Controller
+              control={control}
+              name='isPublic'
+              render={({ field, fieldState }) => (
+                <div className='form-group'>
+                  <Form.Label>Public</Form.Label>
+                  <Form.Text className='small text-muted'>
+                    This contact will be shown to others publicly, so choose it carefully.
+                  </Form.Text>
+                  <Form.Switch
+                    checked={field.value}
+                    onChange={field.onChange}
+                    name={field.name}
+                    onBlur={field.onBlur}
+                    isInvalid={!!fieldState.error}
+                  />
+                  <Form.Control.Feedback type='invalid'>
+                    {fieldState.error?.message}
+                  </Form.Control.Feedback>
+                </div>
+              )}
+            />
+          </Col>
+          <Col>
+            <Controller
+              control={control}
+              name='hasContract'
+              render={({ field, fieldState }) => (
+                <div className='form-group'>
+                  <Form.Label>Has contract</Form.Label>
+                  <Form.Text className='small text-muted'>
+                    This contact will be shown to others publicly, so choose it carefully.
+                  </Form.Text>
+                  <Form.Switch
+                    checked={field.value}
+                    onChange={field.onChange}
+                    name={field.name}
+                    onBlur={field.onBlur}
+                    isInvalid={!!fieldState.error}
+                  />
+                  <Form.Control.Feedback type='invalid'>
+                    {fieldState.error?.message}
+                  </Form.Control.Feedback>
+                </div>
+              )}
+            />
+          </Col>
+        </Row>
+        <hr className='my-4' />
+        <Row>
+          <Col>
+            <Controller
+              control={control}
               name='isOnSite'
               render={({ field, fieldState }) => (
                 <div className='form-group'>
                   <Form.Label>On site</Form.Label>
+                  <Form.Text className='small text-muted'>
+                    This contact will be shown to others publicly, so choose it carefully.
+                  </Form.Text>
                   <Form.Switch
                     checked={field.value}
                     onChange={field.onChange}
@@ -439,62 +444,15 @@ const ContractorForm: FC<Props> = (props) => {
               render={({ field, fieldState }) => (
                 <div className='form-group'>
                   <Form.Label>Remote</Form.Label>
+                  <Form.Text className='small text-muted'>
+                    This contact will be shown to others publicly, so choose it carefully.
+                  </Form.Text>
                   <Form.Switch
                     checked={field.value}
                     onChange={field.onChange}
                     name={field.name}
                     onBlur={field.onBlur}
                     isInvalid={!!fieldState.error}
-                  />
-                  <Form.Control.Feedback type='invalid'>
-                    {fieldState.error?.message}
-                  </Form.Control.Feedback>
-                </div>
-              )}
-            />
-          </Col>
-        </Row>
-        <hr className='my-4' />
-        <Row>
-          <Col lg={4}>
-            <Controller
-              control={control}
-              name='linkedInUrl'
-              render={({ field, fieldState }) => (
-                <div className='form-group'>
-                  <Form.Label>LinkedIn</Form.Label>
-                  <Form.Control
-                    value={field.value}
-                    onChange={field.onChange}
-                    name={field.name}
-                    onBlur={field.onBlur}
-                    isInvalid={!!fieldState.error}
-                  />
-                  <Form.Control.Feedback type='invalid'>
-                    {fieldState.error?.message}
-                  </Form.Control.Feedback>
-                </div>
-              )}
-            />
-          </Col>
-          <Col lg={4}>
-            <Controller
-              control={control}
-              name='professionId'
-              render={({ field, fieldState }) => (
-                <div className='form-group'>
-                  <Form.Label>Profession</Form.Label>
-                  <Select
-                    searchable
-                    clearable
-                    creatable
-                    onCreate={addProfession}
-                    name={field.name}
-                    onBlur={field.onBlur}
-                    loading={isProfLoading}
-                    options={professionsOptions}
-                    value={field.value}
-                    onChange={field.onChange}
                   />
                   <Form.Control.Feedback type='invalid'>
                     {fieldState.error?.message}
@@ -517,4 +475,4 @@ const ContractorForm: FC<Props> = (props) => {
   );
 };
 
-export default ContractorForm;
+export default ContractorEditForm;

@@ -10,6 +10,7 @@ const SearchInput: FC<InputControlProps<ValueType>> = (props) => {
   const { className, isInvalid, onInput, value, ...rest } = props;
 
   const handleOnInput = ($event: FormEvent<HTMLInputElement>) => {
+    if (!onInput) return;
     onInput($event.currentTarget.value ?? null);
   };
 

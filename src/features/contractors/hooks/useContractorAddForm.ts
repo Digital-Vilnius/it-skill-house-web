@@ -1,11 +1,14 @@
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
-import { ContractorFormData } from '../types';
+import { ContractorAddFormData } from '../types';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation } from 'react-query';
 import { ContractorsClient } from 'api/clients';
+import { queryClient } from 'core/query';
+import { getQueryKey } from './useContractors';
+import { useAppSelector } from 'core/store';
 
-const initialFormData: ContractorFormData = {
+const initialFormData: ContractorAddFormData = {
   firstName: '',
   lastName: '',
   email: '',
@@ -19,9 +22,9 @@ const initialFormData: ContractorFormData = {
   location: '',
   rate: 0,
 
-  professionId: null,
-  recruiterId: null,
-  mainTechnologyId: null,
+  professionId: 0,
+  recruiterId: 0,
+  mainTechnologyId: 0,
 
   technologiesIds: [],
   tagsIds: [],
@@ -71,22 +74,24 @@ interface Props {
   successCallback: () => void;
 }
 
-const useRecruiterForm = (props: Props) => {
+const useRecruiterAddForm = (props: Props) => {
   const { successCallback } = props;
+  const { filter, paging, sort } = useAppSelector((state) => state.contractors);
 
-  const { control, handleSubmit, reset } = useForm<ContractorFormData>({
+  const { control, handleSubmit, reset } = useForm<ContractorAddFormData>({
     defaultValues: initialFormData,
     resolver: yupResolver(getSchema()),
   });
 
-  const mutationFn = (data: ContractorFormData) => {
-    return ContractorsClient.addContractor(data);
+  const mutationFn = async (request: ContractorAddFormData) => {
+    await ContractorsClient.addContractor(request);
+    return queryClient.refetchQueries(getQueryKey(filter, paging, sort));
   };
 
-  const { mutateAsync } = useMutation<unknown, unknown, ContractorFormData>(mutationFn);
+  const { mutateAsync } = useMutation(mutationFn);
 
-  const save = async (data: ContractorFormData) => {
-    await mutateAsync(data).then(() => {
+  const save = async (request: ContractorAddFormData) => {
+    await mutateAsync(request).then(() => {
       successCallback();
       reset(initialFormData);
     });
@@ -95,4 +100,4 @@ const useRecruiterForm = (props: Props) => {
   return { control, handleSubmit, save };
 };
 
-export default useRecruiterForm;
+export default useRecruiterAddForm;

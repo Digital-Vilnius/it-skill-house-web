@@ -3,7 +3,7 @@ import { useRecruiters } from '../hooks';
 import { useAppDispatch, useAppSelector } from 'core/store';
 import { Column } from 'components/DataTable';
 import { Recruiter } from '../types';
-import { DataTable, Pagination } from 'components';
+import { DataTable } from 'components';
 import { Card, Form, InputGroup } from 'react-bootstrap';
 import Icon from '@ailibs/feather-react-ts';
 import { Paging, Sort } from 'api/types';
@@ -46,10 +46,15 @@ const Recruiters: FC = () => {
           </InputGroup.Text>
         </InputGroup>
       </Card.Header>
-      <DataTable onSort={handleSortChange} sort={sort} columns={columns} data={recruiters} />
-      <Card.Footer className='d-flex justify-content-between'>
-        <Pagination paging={paging} count={count} onChange={handlePagingChange} />
-      </Card.Footer>
+      <DataTable
+        paging={paging}
+        count={count}
+        onPaging={handlePagingChange}
+        onSort={handleSortChange}
+        sort={sort}
+        columns={columns}
+        data={recruiters}
+      />
     </Card>
   );
 };

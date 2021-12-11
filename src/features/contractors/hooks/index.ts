@@ -1,13 +1,15 @@
 import useContractors from './useContractors';
 import useContractorsColumns from './useContractorsColumns';
 import useContractorsFilterForm from './useContractorsFilterForm';
-import useContractorForm from './useContractorForm';
+import useContractorAddForm from './useContractorAddForm';
+import useContractorEditForm from './useContractorEditForm';
 import useContractor from './useContractor';
 
 export {
   useContractors,
   useContractorsColumns,
   useContractorsFilterForm,
-  useContractorForm,
+  useContractorAddForm,
+  useContractorEditForm,
   useContractor,
 };

@@ -4,18 +4,20 @@ export interface FormControlProps<T> {
   onBlur?: () => void;
   className?: string;
   isInvalid?: boolean;
+  readOnly?: boolean;
+  disabled?: boolean;
 }
 
 export interface SelectControlProps<T> extends FormControlProps<T> {
-  onChange: (value: T) => void;
+  onChange?: (value: T) => void;
 }
 
 export interface InputControlProps<T> extends FormControlProps<T> {
-  onInput: (value: T) => void;
+  onInput?: (value: T) => void;
   placeholder?: string;
 }
 
 export interface SwitchControlProps extends FormControlProps<boolean> {
-  onChange: (value: boolean) => void;
+  onChange?: (value: boolean) => void;
   label?: string;
 }

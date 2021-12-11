@@ -5,18 +5,19 @@ import { ColumnsSelect } from '../components';
 import { getAllColumns, getVisibleColumns } from '../utils';
 import { Action, Column } from 'components/DataTable';
 import { Contractor } from '../types';
-import { DataTable, Pagination } from 'components';
+import { DataTable } from 'components';
 import { Paging, Sort } from 'api/types';
 import {
   setContractorsFilterAction,
   setContractorsPagingAction,
   setContractorsSortAction,
 } from '../actions';
-import { Button, Card, Form, InputGroup } from 'react-bootstrap';
+import { Button, Card, Col, Form, InputGroup, Row } from 'react-bootstrap';
 import Icon from '@ailibs/feather-react-ts';
 import ContractorsFilter from './ContractorsFilter';
 import { useNavigate } from 'react-router-dom';
-import ContractorsQuickFilter from './ContractorsQuickFilter';
+import ContractorAddForm from './ContractorAddForm';
+import ContractorEditFormModal from './ContractorEditFormModal';
 
 const Contractors: FC = () => {
   const dispatch = useAppDispatch();
@@ -24,6 +25,8 @@ const Contractors: FC = () => {
   const { filter, paging, sort } = useAppSelector((state) => state.contractors);
   const { contractors, count } = useContractors({ filter, paging, sort });
   const [filterVisible, setFilterVisible] = useState<boolean>(false);
+  const [formVisible, setFormVisible] = useState<boolean>(false);
+  const [editableId, setEditableId] = useState<number | null>(null);
 
   const { setColumnsIds, columnsIds, setColumnsOrder, columnsOrder } = useContractorsColumns();
   const [allColumns, setAllColumns] = useState<Column<Contractor>[]>(getAllColumns(columnsOrder));
@@ -52,8 +55,9 @@ const Contractors: FC = () => {
     dispatch(setContractorsFilterAction({ filter: newFilter }));
   };
 
-  const getActions = (): Action<string>[] => {
+  const getActions = (): Action<number>[] => {
     return [
+      { label: 'Edit', onClick: (id) => setEditableId(id) },
       { label: 'Details', onClick: (id) => navigate(`/admin/contractors/${id}`) },
       { label: 'Delete', onClick: (id) => navigate(`/admin/contractors/${id}`) },
     ];
@@ -61,8 +65,21 @@ const Contractors: FC = () => {
 
   return (
     <>
-      <ContractorsQuickFilter />
-      <hr className='my-4' />
+      <div className='header mt-md-5'>
+        <div className='header-body'>
+          <Row className='align-items-center'>
+            <Col>
+              <h6 className='header-pretitle'>Overview</h6>
+              <h1 className='header-title text-truncate'>Contractors</h1>
+            </Col>
+            <Col xs='auto'>
+              <Button onClick={() => setFormVisible(true)} className='ms-2'>
+                Add contractor
+              </Button>
+            </Col>
+          </Row>
+        </div>
+      </div>
       <Card>
         <Card.Header>
           <InputGroup className='input-group-merge input-group-flush input-group-reverse'>
@@ -88,21 +105,23 @@ const Contractors: FC = () => {
           </Button>
         </Card.Header>
         <DataTable
+          count={count}
+          paging={paging}
+          onPaging={handlePagingChange}
           actions={getActions()}
           onSort={handleSortChange}
           sort={sort}
           columns={visibleColumns}
           data={contractors}
         />
-        <Card.Footer className='d-flex justify-content-between'>
-          <Pagination paging={paging} count={count} onChange={handlePagingChange} />
-        </Card.Footer>
       </Card>
       <ContractorsFilter
         onClose={() => setFilterVisible(false)}
         visible={filterVisible}
         filter={filter}
       />
+      <ContractorAddForm onClose={() => setFormVisible(false)} visible={formVisible} />
+      {editableId && <ContractorEditFormModal onClose={() => setEditableId(null)} id={editableId} />}
     </>
   );
 };

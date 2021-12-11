@@ -9,6 +9,7 @@ const MoneyInput: FC<InputControlProps<ValueType>> = (props) => {
   const { className, isInvalid, onInput, value, ...rest } = props;
 
   const handleOnChange = ($event: ChangeEvent<HTMLInputElement>) => {
+    if (!onInput) return;
     onInput(Number($event.target.value) ?? null);
   };
 

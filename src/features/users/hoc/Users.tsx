@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
 import { useUsers } from '../hooks';
 import { useAppDispatch, useAppSelector } from 'core/store';
-import { DataTable, Pagination } from 'components';
+import { DataTable } from 'components';
 import { Column } from 'components/DataTable';
 import { User } from '../types';
 import { Paging, Sort } from 'api/types';
@@ -62,10 +62,15 @@ const Users: FC = () => {
                 </InputGroup.Text>
               </InputGroup>
             </Card.Header>
-            <DataTable onSort={handleSortChange} sort={sort} columns={columns} data={users} />
-            <Card.Footer className='d-flex justify-content-between'>
-              <Pagination paging={paging} count={count} onChange={handlePagingChange} />
-            </Card.Footer>
+            <DataTable
+              paging={paging}
+              onPaging={handlePagingChange}
+              count={count}
+              onSort={handleSortChange}
+              sort={sort}
+              columns={columns}
+              data={users}
+            />
           </Card>
         </Col>
       </Row>

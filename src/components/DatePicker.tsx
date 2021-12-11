@@ -12,14 +12,15 @@ const DatePicker: FC<SelectControlProps<ValueType>> = (props) => {
   const { value, onChange, onBlur, className, isInvalid, name } = props;
 
   const handleOnChange = (date: Date | null) => {
+    if (!onChange) return;
     onChange(DateUtils.formatDate(date));
   };
 
   const renderInput = () => (
     <InputGroup>
       <Form.Control
-        readOnly
         name={name}
+        onChange={console.log}
         className={classNames('form-control', className)}
         value={value ?? ''}
         isInvalid={isInvalid}

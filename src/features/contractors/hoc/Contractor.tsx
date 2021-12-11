@@ -8,7 +8,7 @@ interface Props {
 
 const Contractor: FC<Props> = (props) => {
   const { id } = props;
-  const { isLoading, contractor } = useContractor({ id });
+  const { isLoading, contractor } = useContractor(id);
 
   if (isLoading || !contractor) return <span>Loading...</span>;
 
@@ -19,7 +19,6 @@ const Contractor: FC<Props> = (props) => {
           <h4 className='mg-b-2'>{`${contractor.firstName} ${contractor.lastName}`}</h4>
           <span>{contractor.email}</span>
         </Col>
-        <Col md={8} xs={12}></Col>
       </Row>
     </>
   );

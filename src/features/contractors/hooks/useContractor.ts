@@ -2,17 +2,11 @@ import { ContractorsClient } from 'api/clients';
 import { useQuery } from 'react-query';
 import { mapContractor } from '../map';
 
-interface Props {
-  id: number;
-}
-
 export const getQueryKey = (id: number) => {
   return ['contractor', id];
 };
 
-const useContractor = (props: Props) => {
-  const { id } = props;
-
+const useContractor = (id: number) => {
   const getContractorFn = () => ContractorsClient.getContractor(id);
   const { isLoading, data } = useQuery(getQueryKey(id), getContractorFn);
 

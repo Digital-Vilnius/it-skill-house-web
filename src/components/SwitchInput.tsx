@@ -7,6 +7,7 @@ const SwitchInput: FC<SwitchControlProps> = (props) => {
   const { className, onChange, value, label, ...rest } = props;
 
   const handleOnChange = ($event: ChangeEvent<HTMLInputElement>) => {
+    if (!onChange) return;
     onChange($event.target.checked);
   };
 

@@ -64,7 +64,7 @@ export const contractorColumns: Column<Contractor>[] = [
   {
     id: ContractKeys.profession,
     label: 'Profession',
-    Cell: (cell) => <Badge>{cell.profession.name}</Badge>,
+    Cell: (cell) => cell.profession.name,
     sortable: true,
   },
   {
@@ -76,7 +76,7 @@ export const contractorColumns: Column<Contractor>[] = [
   {
     id: ContractKeys.mainTechnology,
     label: 'Main technology',
-    Cell: (cell) => <Badge>{cell.mainTechnology.name}</Badge>,
+    Cell: (cell) => cell.mainTechnology.name,
     sortable: true,
   },
   {

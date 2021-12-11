@@ -34,48 +34,21 @@ export interface Contractor extends BaseModel {
   cinodeId: number;
 }
 
-export interface AddContractorRequest {
+export interface AddContractorRequest extends EditContractorRequest {
   firstName: string;
   lastName: string;
   email: string;
   phone: string;
-
-  isRemote: boolean;
-  isPublic: boolean;
-  hasContract: boolean;
-  isOnSite: boolean;
-
-  location: string;
   rate: number;
-
-  professionId: number | null;
-  recruiterId: number | null;
-  mainTechnologyId: number | null;
-
-  technologiesIds: number[] | null;
-  tagsIds: number[] | null;
-
-  availableFrom: string;
-  experienceSince: string;
-
-  linkedInUrl: string;
-  codaId: number;
-  cinodeId: number;
 }
 
 export interface EditContractorRequest {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-
   isRemote: boolean;
   isPublic: boolean;
   hasContract: boolean;
   isOnSite: boolean;
 
   location: string;
-  rate: number;
 
   professionId: number;
   recruiterId: number;

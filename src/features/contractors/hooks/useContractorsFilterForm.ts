@@ -47,7 +47,7 @@ const useContractorsFilterForm = (props: Props) => {
 
   const reset = () => {
     dispatch(resetContractorsFilterAction());
-    resetForm({});
+    resetForm(filter);
     onSuccess();
   };
 

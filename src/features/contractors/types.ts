@@ -34,12 +34,15 @@ export interface Contractor extends BaseModel {
   cinodeId: number;
 }
 
-export interface ContractorFormData {
+export interface ContractorAddFormData extends ContractorEditFormData {
   firstName: string;
   lastName: string;
   email: string;
   phone: string;
+  rate: number;
+}
 
+export interface ContractorEditFormData {
   isRemote: boolean;
   isPublic: boolean;
   hasContract: boolean;
@@ -48,9 +51,9 @@ export interface ContractorFormData {
   location: string;
   rate: number;
 
-  professionId: number | null;
-  recruiterId: number | null;
-  mainTechnologyId: number | null;
+  professionId: number;
+  recruiterId: number;
+  mainTechnologyId: number;
 
   technologiesIds: number[];
   tagsIds: number[];
