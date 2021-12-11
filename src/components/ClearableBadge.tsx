@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, MouseEvent } from 'react';
 import Icon from '@ailibs/feather-react-ts';
 
 interface Props {
@@ -9,10 +9,15 @@ interface Props {
 const ClearableBadge: FC<Props> = (props) => {
   const { onClear, label } = props;
 
+  const handleOnClear = ($event: MouseEvent<HTMLSpanElement>) => {
+    $event.stopPropagation();
+    onClear();
+  };
+
   return (
     <div className='clearable-badge'>
       <span className='clearable-badge-label'>{label}</span>
-      <span onClick={onClear} className='clearable-badge-clear'>
+      <span onClick={handleOnClear} className='clearable-badge-clear'>
         <Icon name='x' size={12} />
       </span>
     </div>

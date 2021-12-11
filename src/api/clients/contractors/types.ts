@@ -48,12 +48,12 @@ export interface AddContractorRequest {
   location: string;
   rate: number;
 
-  professionId: number;
-  recruiterId: number;
-  mainTechnologyId: number;
+  professionId: number | null;
+  recruiterId: number | null;
+  mainTechnologyId: number | null;
 
-  technologiesIds: number[];
-  tagsIds: number[];
+  technologiesIds: number[] | null;
+  tagsIds: number[] | null;
 
   availableFrom: string;
   experienceSince: string;

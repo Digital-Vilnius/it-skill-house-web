@@ -1,10 +1,11 @@
 import { Tag as ApiTag } from 'api/clients/tags/types';
 import { Tag } from './types';
-import { Option } from 'components/Select/types';
+import { SelectOption } from 'components/Select';
 
 export const mapTag = (tag: ApiTag): Tag => tag;
 
-export const mapTagOption = (tag: Tag): Option => ({
+export const mapTagOption = (tag: Tag): SelectOption => ({
   value: tag.id,
   label: tag.name,
+  count: tag.count,
 });

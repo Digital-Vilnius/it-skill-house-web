@@ -3,10 +3,10 @@ import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
 import { ContractorsFilter as ContractorsFilterType } from '../types';
 import { useContractorsFilterForm } from '../hooks';
 import { Controller } from 'react-hook-form';
-import { TechnologiesMultiSelect } from 'features/technologies/hoc';
-import { DatePicker, MoneyInput, SearchInput, SwitchInput } from 'components';
-import { RecruitersMultiSelect } from 'features/recruiters/hoc';
-import { TagsMultiSelect } from '../../tags/hoc';
+import { DatePicker, MoneyInput, SearchInput, Select, SwitchInput } from 'components';
+import { useTechnologiesOptions } from 'features/technologies/hooks';
+import { useRecruitersOptions } from 'features/recruiters/hooks';
+import { useTagsOptions } from 'features/tags/hooks';
 
 interface Props {
   filter: ContractorsFilterType;
@@ -20,6 +20,9 @@ const ContractorsFilter: FC<Props> = (props) => {
     filter,
     onSuccess: onClose,
   });
+  const { technologiesOptions, isLoading: isTechnologiesLoading } = useTechnologiesOptions();
+  const { recruitersOptions, isLoading: isRecruitersLoading } = useRecruitersOptions();
+  const { tagsOptions, isLoading: isTagsLoading } = useTagsOptions();
 
   return (
     <Modal size='lg' centered show={visible}>
@@ -60,8 +63,12 @@ const ContractorsFilter: FC<Props> = (props) => {
               render={({ field, fieldState }) => (
                 <div className='form-group mb-0'>
                   <Form.Label>Technologies</Form.Label>
-                  <TechnologiesMultiSelect
-                    isInvalid={!!fieldState.error}
+                  <Select
+                    multi
+                    name={field.name}
+                    onBlur={field.onBlur}
+                    loading={isTechnologiesLoading}
+                    options={technologiesOptions}
                     value={field.value}
                     onChange={field.onChange}
                   />
@@ -82,8 +89,12 @@ const ContractorsFilter: FC<Props> = (props) => {
               render={({ field, fieldState }) => (
                 <div className='form-group mb-0'>
                   <Form.Label>Tags</Form.Label>
-                  <TagsMultiSelect
-                    isInvalid={!!fieldState.error}
+                  <Select
+                    multi
+                    name={field.name}
+                    onBlur={field.onBlur}
+                    loading={isTagsLoading}
+                    options={tagsOptions}
                     value={field.value}
                     onChange={field.onChange}
                   />
@@ -104,9 +115,12 @@ const ContractorsFilter: FC<Props> = (props) => {
               render={({ field, fieldState }) => (
                 <div className='form-group mb-0'>
                   <Form.Label>Recruiters</Form.Label>
-                  <RecruitersMultiSelect
-                    id='recruiters'
-                    isInvalid={!!fieldState.error}
+                  <Select
+                    multi
+                    name={field.name}
+                    onBlur={field.onBlur}
+                    loading={isRecruitersLoading}
+                    options={recruitersOptions}
                     value={field.value}
                     onChange={field.onChange}
                   />

@@ -1,4 +1,4 @@
-import { ListRequest, ListResponse } from '../../types';
+import { ListRequest, ListResponse, ResultResponse } from '../../types';
 import httpClient from '../../httpClient';
 import { Profession, AddProfessionRequest } from './types';
 
@@ -9,5 +9,5 @@ export const getProfessions = async () => {
 };
 
 export const addProfession = async (request: AddProfessionRequest) => {
-  return httpClient.post<AddProfessionRequest, Profession>(baseUrl, request);
+  return httpClient.post<AddProfessionRequest, ResultResponse<Profession>>(baseUrl, request);
 };

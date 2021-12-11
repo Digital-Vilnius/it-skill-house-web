@@ -1,12 +1,13 @@
 import React, { FC } from 'react';
 import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
-import { TechnologiesMultiSelect, TechnologiesSelect } from 'features/technologies/hoc';
 import { Controller } from 'react-hook-form';
 import { useContractorForm } from '../hooks';
-import { RecruitersSelect } from 'features/recruiters/hoc';
 import { Contractor } from '../types';
-import { DatePicker, MoneyInput } from 'components';
-import { TagsMultiSelect } from 'features/tags/hoc';
+import { DatePicker, MoneyInput, Select } from 'components';
+import { useTechnologiesOptions } from 'features/technologies/hooks';
+import { useRecruitersOptions } from 'features/recruiters/hooks';
+import { useTagsOptions } from 'features/tags/hooks';
+import { useProfessionsOptions } from 'features/professions/hooks';
 
 interface Props {
   contractor?: Contractor;
@@ -17,6 +18,10 @@ interface Props {
 const ContractorForm: FC<Props> = (props) => {
   const { onClose, visible } = props;
   const { control, handleSubmit, save } = useContractorForm({ successCallback: onClose });
+  const { technologiesOptions, isLoading: isTechLoading, addTechnology } = useTechnologiesOptions();
+  const { professionsOptions, isLoading: isProfLoading, addProfession } = useProfessionsOptions();
+  const { recruitersOptions, isLoading: isRecruitersLoading } = useRecruitersOptions();
+  const { tagsOptions, isLoading: isTagsLoading, addTag } = useTagsOptions();
 
   return (
     <Modal dialogClassName='extra-lg' centered show={visible}>
@@ -173,8 +178,13 @@ const ContractorForm: FC<Props> = (props) => {
               render={({ field, fieldState }) => (
                 <div className='form-group'>
                   <Form.Label>Recruiter</Form.Label>
-                  <RecruitersSelect
-                    isInvalid={!!fieldState.error}
+                  <Select
+                    searchable
+                    clearable
+                    name={field.name}
+                    onBlur={field.onBlur}
+                    loading={isRecruitersLoading}
+                    options={recruitersOptions}
                     value={field.value}
                     onChange={field.onChange}
                   />
@@ -237,8 +247,15 @@ const ContractorForm: FC<Props> = (props) => {
               render={({ field, fieldState }) => (
                 <div className='form-group'>
                   <Form.Label>Main technology</Form.Label>
-                  <TechnologiesSelect
-                    isInvalid={!!fieldState.error}
+                  <Select
+                    clearable
+                    searchable
+                    creatable
+                    onCreate={addTechnology}
+                    name={field.name}
+                    onBlur={field.onBlur}
+                    loading={isTechLoading}
+                    options={technologiesOptions}
                     value={field.value}
                     onChange={field.onChange}
                   />
@@ -256,8 +273,16 @@ const ContractorForm: FC<Props> = (props) => {
               render={({ field, fieldState }) => (
                 <div className='form-group'>
                   <Form.Label>Other technologies</Form.Label>
-                  <TechnologiesMultiSelect
-                    isInvalid={!!fieldState.error}
+                  <Select
+                    multi
+                    clearable
+                    searchable
+                    creatable
+                    onCreate={addTechnology}
+                    name={field.name}
+                    onBlur={field.onBlur}
+                    loading={isTechLoading}
+                    options={technologiesOptions}
                     value={field.value}
                     onChange={field.onChange}
                   />
@@ -275,8 +300,16 @@ const ContractorForm: FC<Props> = (props) => {
               render={({ field, fieldState }) => (
                 <div className='form-group'>
                   <Form.Label>Tags</Form.Label>
-                  <TagsMultiSelect
-                    isInvalid={!!fieldState.error}
+                  <Select
+                    multi
+                    clearable
+                    searchable
+                    creatable
+                    onCreate={addTag}
+                    name={field.name}
+                    onBlur={field.onBlur}
+                    loading={isTagsLoading}
+                    options={tagsOptions}
                     value={field.value}
                     onChange={field.onChange}
                   />
@@ -436,6 +469,32 @@ const ContractorForm: FC<Props> = (props) => {
                     name={field.name}
                     onBlur={field.onBlur}
                     isInvalid={!!fieldState.error}
+                  />
+                  <Form.Control.Feedback type='invalid'>
+                    {fieldState.error?.message}
+                  </Form.Control.Feedback>
+                </div>
+              )}
+            />
+          </Col>
+          <Col lg={4}>
+            <Controller
+              control={control}
+              name='professionId'
+              render={({ field, fieldState }) => (
+                <div className='form-group'>
+                  <Form.Label>Profession</Form.Label>
+                  <Select
+                    searchable
+                    clearable
+                    creatable
+                    onCreate={addProfession}
+                    name={field.name}
+                    onBlur={field.onBlur}
+                    loading={isProfLoading}
+                    options={professionsOptions}
+                    value={field.value}
+                    onChange={field.onChange}
                   />
                   <Form.Control.Feedback type='invalid'>
                     {fieldState.error?.message}

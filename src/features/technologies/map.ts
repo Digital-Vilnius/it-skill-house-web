@@ -1,10 +1,11 @@
 import { Technology as ApiTechnology } from 'api/clients/technologies/types';
 import { Technology } from './types';
-import { Option } from 'components/Select/types';
+import { SelectOption } from 'components/Select';
 
 export const mapTechnology = (technology: ApiTechnology): Technology => technology;
 
-export const mapTechnologyOption = (technology: Technology): Option => ({
+export const mapTechnologyOption = (technology: Technology): SelectOption => ({
   value: technology.id,
   label: technology.name,
+  count: technology.count,
 });

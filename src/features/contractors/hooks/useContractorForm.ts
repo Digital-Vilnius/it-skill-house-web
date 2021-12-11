@@ -19,9 +19,9 @@ const initialFormData: ContractorFormData = {
   location: '',
   rate: 0,
 
-  professionId: 0,
-  recruiterId: 0,
-  mainTechnologyId: 0,
+  professionId: null,
+  recruiterId: null,
+  mainTechnologyId: null,
 
   technologiesIds: [],
   tagsIds: [],
@@ -74,12 +74,10 @@ interface Props {
 const useRecruiterForm = (props: Props) => {
   const { successCallback } = props;
 
-  const { control, handleSubmit, reset, formState } = useForm<ContractorFormData>({
+  const { control, handleSubmit, reset } = useForm<ContractorFormData>({
     defaultValues: initialFormData,
     resolver: yupResolver(getSchema()),
   });
-
-  console.log(formState.errors);
 
   const mutationFn = (data: ContractorFormData) => {
     return ContractorsClient.addContractor(data);

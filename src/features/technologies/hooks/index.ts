@@ -1,4 +1,3 @@
-import useTechnologies from './useTechnologies';
-import useTechnologyAdd from './useTechnologyAdd';
+import useTechnologiesOptions from './useTechnologiesOptions';
 
-export { useTechnologies, useTechnologyAdd };
+export { useTechnologiesOptions };

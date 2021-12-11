@@ -1,7 +1,6 @@
 import Avatar from './Avatar';
 import TextEditor from './TextEditor';
-import MultiSelect from './Select/MultiSelect';
-import Select from './Select/Select';
+import Select from './Select';
 import DataTable from './DataTable';
 import Pagination from './Pagination';
 import DatePicker from './DatePicker';
@@ -12,7 +11,6 @@ import SwitchInput from './SwitchInput';
 export {
   Avatar,
   TextEditor,
-  MultiSelect,
   Select,
   DataTable,
   Pagination,

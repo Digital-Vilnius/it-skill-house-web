@@ -1,4 +1,4 @@
-import { ListRequest, ListResponse } from '../../types';
+import { ListRequest, ListResponse, ResultResponse } from '../../types';
 import httpClient from '../../httpClient';
 import { Technology, AddTechnologyRequest } from './types';
 
@@ -9,5 +9,5 @@ export const getTechnologies = async () => {
 };
 
 export const addTechnology = async (request: AddTechnologyRequest) => {
-  return httpClient.post<AddTechnologyRequest, Technology>(baseUrl, request);
+  return httpClient.post<AddTechnologyRequest, ResultResponse<Technology>>(baseUrl, request);
 };

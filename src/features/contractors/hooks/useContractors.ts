@@ -18,8 +18,7 @@ const useContractors = (props: Props) => {
   const { filter, paging, sort } = props;
   const apiFilter = mapContractorFilter(filter);
 
-  const getContractorsFn = () =>
-    ContractorsClient.getContractors({ filter: apiFilter, paging, sort });
+  const getContractorsFn = () => ContractorsClient.getContractors({ filter: apiFilter, paging, sort });
   const { isLoading, data } = useQuery(getQueryKey(filter, paging, sort), getContractorsFn, {
     keepPreviousData: true,
   });

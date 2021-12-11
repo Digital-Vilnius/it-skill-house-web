@@ -1,4 +1,3 @@
-import useTags from './useTags';
-import useTagAdd from './useTagAdd';
+import useTagsOptions from './useTagsOptions';
 
-export { useTags, useTagAdd };
+export { useTagsOptions };

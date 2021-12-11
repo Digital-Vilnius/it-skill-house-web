@@ -3,7 +3,6 @@ import { useAppDispatch, useAppSelector } from 'core/store';
 import { SwitchInput } from 'components';
 import { setContractorsFilterAction } from '../actions';
 import classNames from 'classnames';
-import { TechnologiesMultiSelect } from 'features/technologies/hoc';
 
 interface Props {
   className?: string;
@@ -24,11 +23,6 @@ const ContractorsQuickFilter: FC<Props> = (props) => {
     dispatch(setContractorsFilterAction({ filter: newFilter }));
   };
 
-  const handleTechnologiesChange = (technologiesIds: number[]) => {
-    const newFilter = { ...filter, technologiesIds };
-    dispatch(setContractorsFilterAction({ filter: newFilter }));
-  };
-
   return (
     <div className={classNames('d-flex align-items-center', className)}>
       <SwitchInput
@@ -42,11 +36,6 @@ const ContractorsQuickFilter: FC<Props> = (props) => {
         label='Available'
         value={filter.isAvailable}
         onChange={handleIsAvailableChange}
-      />
-      <TechnologiesMultiSelect
-        className='me-4'
-        value={filter.technologiesIds}
-        onChange={handleTechnologiesChange}
       />
     </div>
   );

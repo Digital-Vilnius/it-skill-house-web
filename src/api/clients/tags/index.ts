@@ -1,4 +1,4 @@
-import { ListRequest, ListResponse } from '../../types';
+import { ListRequest, ListResponse, ResultResponse } from '../../types';
 import httpClient from '../../httpClient';
 import { Tag, AddTagRequest } from './types';
 
@@ -9,5 +9,5 @@ export const getTags = async () => {
 };
 
 export const addTag = async (request: AddTagRequest) => {
-  return httpClient.post<AddTagRequest, Tag>(baseUrl, request);
+  return httpClient.post<AddTagRequest, ResultResponse<Tag>>(baseUrl, request);
 };
