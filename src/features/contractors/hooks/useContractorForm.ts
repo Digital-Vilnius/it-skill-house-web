@@ -1,14 +1,16 @@
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
-import { ContractorAddFormData } from '../types';
+import { ContractorFormData } from '../types';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation } from 'react-query';
 import { ContractorsClient } from 'api/clients';
 import { queryClient } from 'core/query';
 import { getQueryKey } from './useContractors';
 import { useAppSelector } from 'core/store';
+import { useEffect } from 'react';
+import { mapContractor, mapContractorFormData } from '../map';
 
-const initialFormData: ContractorAddFormData = {
+const initialFormData: ContractorFormData = {
   firstName: '',
   lastName: '',
   email: '',
@@ -37,13 +39,8 @@ const initialFormData: ContractorAddFormData = {
   cinodeId: 0,
 };
 
-const getSchema = () => {
-  const schema = yup.object().shape({
-    firstName: yup.string().required(),
-    lastName: yup.string().required(),
-    email: yup.string().email().required(),
-    phone: yup.string().required(),
-
+const getSchema = (isEdit: boolean) => {
+  const editShape = {
     isRemote: yup.boolean().required(),
     isPublic: yup.boolean().required(),
     hasContract: yup.boolean().required(),
@@ -65,39 +62,61 @@ const getSchema = () => {
     linkedInUrl: yup.string(),
     codaId: yup.number().required(),
     cinodeId: yup.number().required(),
-  });
+  };
 
-  return schema.required();
+  const addShape = {
+    ...editShape,
+    firstName: yup.string().required(),
+    lastName: yup.string().required(),
+    email: yup.string().email().required(),
+    phone: yup.string().required(),
+  };
+
+  return yup
+    .object()
+    .shape(isEdit ? editShape : addShape)
+    .required();
 };
 
 interface Props {
+  id?: number;
   successCallback: () => void;
 }
 
-const useRecruiterAddForm = (props: Props) => {
-  const { successCallback } = props;
+const useContractorForm = (props: Props) => {
+  const { successCallback, id } = props;
   const { filter, paging, sort } = useAppSelector((state) => state.contractors);
 
-  const { control, handleSubmit, reset } = useForm<ContractorAddFormData>({
+  const { control, handleSubmit, reset } = useForm<ContractorFormData>({
+    resolver: yupResolver(getSchema(!!id)),
     defaultValues: initialFormData,
-    resolver: yupResolver(getSchema()),
   });
 
-  const mutationFn = async (request: ContractorAddFormData) => {
-    await ContractorsClient.addContractor(request);
+  useEffect(() => {
+    if (id) {
+      ContractorsClient.getContractor(id).then((response) => {
+        const contractor = mapContractor(response.result);
+        const data = mapContractorFormData(contractor);
+        reset(data);
+      });
+    } else {
+      reset(initialFormData);
+    }
+  }, [id, reset]);
+
+  const mutationFn = async (data: ContractorFormData) => {
+    if (id) await ContractorsClient.editContractor(id, data);
+    else await ContractorsClient.addContractor(data);
     return queryClient.refetchQueries(getQueryKey(filter, paging, sort));
   };
 
   const { mutateAsync } = useMutation(mutationFn);
 
-  const save = async (request: ContractorAddFormData) => {
-    await mutateAsync(request).then(() => {
-      successCallback();
-      reset(initialFormData);
-    });
+  const save = async (request: ContractorFormData) => {
+    await mutateAsync(request).then(successCallback);
   };
 
   return { control, handleSubmit, save };
 };
 
-export default useRecruiterAddForm;
+export default useContractorForm;

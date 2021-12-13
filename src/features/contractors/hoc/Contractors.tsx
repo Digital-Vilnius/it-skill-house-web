@@ -16,8 +16,7 @@ import { Button, Card, Col, Form, InputGroup, Row } from 'react-bootstrap';
 import Icon from '@ailibs/feather-react-ts';
 import ContractorsFilter from './ContractorsFilter';
 import { useNavigate } from 'react-router-dom';
-import ContractorAddForm from './ContractorAddForm';
-import ContractorEditFormModal from './ContractorEditFormModal';
+import ContractorForm from './ContractorForm';
 
 const Contractors: FC = () => {
   const dispatch = useAppDispatch();
@@ -26,7 +25,7 @@ const Contractors: FC = () => {
   const { contractors, count } = useContractors({ filter, paging, sort });
   const [filterVisible, setFilterVisible] = useState<boolean>(false);
   const [formVisible, setFormVisible] = useState<boolean>(false);
-  const [editableId, setEditableId] = useState<number | null>(null);
+  const [editableId, setEditableId] = useState<number | undefined>();
 
   const { setColumnsIds, columnsIds, setColumnsOrder, columnsOrder } = useContractorsColumns();
   const [allColumns, setAllColumns] = useState<Column<Contractor>[]>(getAllColumns(columnsOrder));
@@ -53,6 +52,11 @@ const Contractors: FC = () => {
   const handleKeywordChange = (event: ChangeEvent<HTMLInputElement>) => {
     const newFilter = { ...filter, keyword: event.target.value };
     dispatch(setContractorsFilterAction({ filter: newFilter }));
+  };
+
+  const handleOnFormClose = () => {
+    setEditableId(undefined);
+    setFormVisible(false);
   };
 
   const getActions = (): Action<number>[] => {
@@ -120,8 +124,11 @@ const Contractors: FC = () => {
         visible={filterVisible}
         filter={filter}
       />
-      <ContractorAddForm onClose={() => setFormVisible(false)} visible={formVisible} />
-      {editableId && <ContractorEditFormModal onClose={() => setEditableId(null)} id={editableId} />}
+      <ContractorForm
+        id={editableId}
+        onClose={handleOnFormClose}
+        visible={formVisible || !!editableId}
+      />
     </>
   );
 };

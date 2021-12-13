@@ -77,6 +77,7 @@ export interface ContractorsFilter {
   professionsIds?: number[];
   recruitersIds?: number[];
   technologiesIds?: number[];
+  mainTechnologiesIds?: number[];
   tagsIds?: number[];
 
   rateFrom?: number;

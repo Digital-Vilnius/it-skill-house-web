@@ -1,27 +1,29 @@
 import React, { FC } from 'react';
 import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
 import { Controller } from 'react-hook-form';
-import { useContractorEditForm } from '../hooks';
+import { useContractorForm } from '../hooks';
 import { DatePicker, MoneyInput, Select } from 'components';
 import { useTechnologiesOptions } from 'features/technologies/hooks';
 import { useRecruitersOptions } from 'features/recruiters/hooks';
 import { useTagsOptions } from 'features/tags/hooks';
 import { useProfessionsOptions } from 'features/professions/hooks';
-import { Contractor } from '../types';
+import ToastService from 'core/toast';
 
 interface Props {
-  contractor: Contractor;
   onClose: () => void;
   visible: boolean;
+  id?: number;
 }
 
-const ContractorEditForm: FC<Props> = (props) => {
-  const { onClose, visible, contractor } = props;
+const ContractorForm: FC<Props> = (props) => {
+  const { onClose, visible, id } = props;
 
-  const { control, handleSubmit, save } = useContractorEditForm({
-    successCallback: onClose,
-    contractor,
-  });
+  const successCallback = () => {
+    ToastService.showSuccess('Contractor successfully saved');
+    onClose();
+  };
+
+  const { control, handleSubmit, save } = useContractorForm({ successCallback, id });
   const { technologiesOptions, isLoading: isTechLoading, addTechnology } = useTechnologiesOptions();
   const { professionsOptions, isLoading: isProfLoading, addProfession } = useProfessionsOptions();
   const { recruitersOptions, isLoading: isRecruitersLoading } = useRecruitersOptions();
@@ -30,7 +32,7 @@ const ContractorEditForm: FC<Props> = (props) => {
   return (
     <Modal size='lg' centered show={visible}>
       <Modal.Header onHide={onClose} closeButton>
-        <Modal.Title>Edit contractor</Modal.Title>
+        <Modal.Title>Contractor</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Row>
@@ -84,30 +86,100 @@ const ContractorEditForm: FC<Props> = (props) => {
         <hr className='my-4' />
         <Row className='mb-4'>
           <Col>
-            <div className='form-group'>
-              <Form.Label>First name</Form.Label>
-              <Form.Control disabled readOnly value={contractor.firstName} />
-            </div>
+            <Controller
+              control={control}
+              name='firstName'
+              render={({ field, fieldState }) => (
+                <div className='form-group'>
+                  <Form.Label>First name</Form.Label>
+                  <Form.Control
+                    disabled={!!id}
+                    isInvalid={!!fieldState.error}
+                    onInput={field.onChange}
+                    onBlur={field.onBlur}
+                    name={field.name}
+                    value={field.value}
+                    placeholder='John'
+                  />
+                  <Form.Control.Feedback type='invalid'>
+                    {fieldState.error?.message}
+                  </Form.Control.Feedback>
+                </div>
+              )}
+            />
           </Col>
           <Col>
-            <div className='form-group'>
-              <Form.Label>Last name</Form.Label>
-              <Form.Control disabled readOnly value={contractor.lastName} />
-            </div>
+            <Controller
+              control={control}
+              name='lastName'
+              render={({ field, fieldState }) => (
+                <div className='form-group'>
+                  <Form.Label>Last name</Form.Label>
+                  <Form.Control
+                    disabled={!!id}
+                    isInvalid={!!fieldState.error}
+                    onInput={field.onChange}
+                    onBlur={field.onBlur}
+                    name={field.name}
+                    value={field.value}
+                    placeholder='Doe'
+                  />
+                  <Form.Control.Feedback type='invalid'>
+                    {fieldState.error?.message}
+                  </Form.Control.Feedback>
+                </div>
+              )}
+            />
           </Col>
         </Row>
         <Row className='mb-4'>
           <Col>
-            <div className='form-group'>
-              <Form.Label>Email</Form.Label>
-              <Form.Control disabled readOnly value={contractor.email} />
-            </div>
+            <Controller
+              control={control}
+              name='email'
+              render={({ field, fieldState }) => (
+                <div className='form-group'>
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control
+                    disabled={!!id}
+                    isInvalid={!!fieldState.error}
+                    onInput={field.onChange}
+                    onBlur={field.onBlur}
+                    name={field.name}
+                    value={field.value}
+                    autoComplete='email'
+                    type='email'
+                    placeholder='name@example.com'
+                  />
+                  <Form.Control.Feedback type='invalid'>
+                    {fieldState.error?.message}
+                  </Form.Control.Feedback>
+                </div>
+              )}
+            />
           </Col>
           <Col>
-            <div className='form-group'>
-              <Form.Label>Phone</Form.Label>
-              <Form.Control disabled readOnly value={contractor.phone} />
-            </div>
+            <Controller
+              control={control}
+              name='phone'
+              render={({ field, fieldState }) => (
+                <div className='form-group'>
+                  <Form.Label>Phone</Form.Label>
+                  <Form.Control
+                    disabled={!!id}
+                    isInvalid={!!fieldState.error}
+                    onInput={field.onChange}
+                    onBlur={field.onBlur}
+                    name={field.name}
+                    value={field.value}
+                    placeholder='+370 000 000000'
+                  />
+                  <Form.Control.Feedback type='invalid'>
+                    {fieldState.error?.message}
+                  </Form.Control.Feedback>
+                </div>
+              )}
+            />
           </Col>
         </Row>
         <Row>
@@ -475,4 +547,4 @@ const ContractorEditForm: FC<Props> = (props) => {
   );
 };
 
-export default ContractorEditForm;
+export default ContractorForm;

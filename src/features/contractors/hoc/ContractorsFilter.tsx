@@ -55,6 +55,31 @@ const ContractorsFilter: FC<Props> = (props) => {
               )}
             />
           </Col>
+          <Col>
+            <Controller
+              control={control}
+              name='professionsIds'
+              render={({ field, fieldState }) => (
+                <div className='form-group'>
+                  <Form.Label>Professions</Form.Label>
+                  <Select
+                    multi
+                    searchable
+                    clearable
+                    name={field.name}
+                    onBlur={field.onBlur}
+                    loading={isProfessionsLoading}
+                    options={professionsOptions}
+                    value={field.value}
+                    onChange={field.onChange}
+                  />
+                  <Form.Control.Feedback type='invalid'>
+                    {fieldState.error?.message}
+                  </Form.Control.Feedback>
+                </div>
+              )}
+            />
+          </Col>
         </Row>
         <hr className='my-4' />
         <Row>
@@ -86,18 +111,18 @@ const ContractorsFilter: FC<Props> = (props) => {
           <Col>
             <Controller
               control={control}
-              name='professionsIds'
+              name='mainTechnologiesIds'
               render={({ field, fieldState }) => (
                 <div className='form-group'>
-                  <Form.Label>Professions</Form.Label>
+                  <Form.Label>Main technologies</Form.Label>
                   <Select
                     multi
                     searchable
                     clearable
                     name={field.name}
                     onBlur={field.onBlur}
-                    loading={isProfessionsLoading}
-                    options={professionsOptions}
+                    loading={isTechnologiesLoading}
+                    options={technologiesOptions}
                     value={field.value}
                     onChange={field.onChange}
                   />

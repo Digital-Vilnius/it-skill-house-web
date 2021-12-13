@@ -1,7 +1,7 @@
 import Contractors from './Contractors';
-import ContractorAddForm from './ContractorAddForm';
-import ContractorEditForm from './ContractorEditForm';
+import ContractorForm from './ContractorForm';
 import ContractorsFilter from './ContractorsFilter';
 import Contractor from './Contractor';
+import ContractorsQuickFilter from './ContractorsQuickFilter';
 
-export { Contractors, ContractorAddForm, ContractorsFilter, Contractor, ContractorEditForm };
+export { Contractors, ContractorForm, ContractorsFilter, Contractor, ContractorsQuickFilter };

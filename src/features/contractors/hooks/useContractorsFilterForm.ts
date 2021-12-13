@@ -14,8 +14,9 @@ const getSchema = () => {
   const schema = yup.object().shape({
     rateFrom: yup.number().positive().nullable(),
     rateTo: yup.number().positive().nullable(),
-    technologiesIds: yup.array().of(yup.string()).nullable(),
-    recruitersIds: yup.array().of(yup.string()).nullable(),
+    technologiesIds: yup.array().of(yup.number()).nullable(),
+    mainTechnologiesIds: yup.array().of(yup.number()).nullable(),
+    recruitersIds: yup.array().of(yup.number()).nullable(),
     keyword: yup.string().trim().nullable(),
     isPublic: yup.boolean().nullable(),
     isRemote: yup.boolean().nullable(),
