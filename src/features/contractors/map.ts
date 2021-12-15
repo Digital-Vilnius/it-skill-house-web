@@ -5,6 +5,7 @@ import {
 import { Contractor, ContractorFormData, ContractorsFilter } from './types';
 import { mapRecruiter } from 'features/recruiters/map';
 import { mapTechnology } from 'features/technologies/map';
+import { mapEvent } from 'features/events/map';
 import { DateUtils } from 'utils';
 
 export const mapContractor = (contractor: ApiContractor): Contractor => ({
@@ -13,6 +14,7 @@ export const mapContractor = (contractor: ApiContractor): Contractor => ({
   availableFrom: DateUtils.formatDateStringStrict(contractor.availableFrom),
   experienceSince: DateUtils.formatDateStringStrict(contractor.experienceSince),
   technologies: contractor.technologies.map(mapTechnology),
+  nearestEvent: contractor.nearestEvent ? mapEvent(contractor.nearestEvent) : null,
 });
 
 export const mapContractorFormData = (contractor: Contractor): ContractorFormData => ({

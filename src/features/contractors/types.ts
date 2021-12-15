@@ -2,6 +2,7 @@ import { Recruiter } from 'features/recruiters/types';
 import { Technology } from 'features/technologies/types';
 import { BaseModel } from 'api/types';
 import { Tag } from 'features/tags/types';
+import { Event } from 'features/events/types';
 import { Profession } from 'features/professions/types';
 
 export interface Contractor extends BaseModel {
@@ -19,6 +20,7 @@ export interface Contractor extends BaseModel {
   location: string;
   rate: number;
 
+  nearestEvent: Event | null;
   profession: Profession;
   recruiter: Recruiter;
   mainTechnology: Technology;

@@ -13,7 +13,7 @@ export interface Column<T> {
   className?: string;
   sortable?: boolean;
   Header?: () => React.ReactElement;
-  Cell?: (cell: T) => React.ReactElement | string | null;
+  Cell?: (cell: T) => React.ReactElement | string | null | undefined;
 }
 
 export interface Action<T> {

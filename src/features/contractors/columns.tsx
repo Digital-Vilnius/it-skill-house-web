@@ -80,6 +80,13 @@ export const contractorColumns: Column<Contractor>[] = [
     sortable: true,
   },
   {
+    id: ContractKeys.nearestEvent,
+    label: 'Nearest event',
+    className: 'text-center',
+    Cell: (cell) => cell.nearestEvent?.date,
+    sortable: true,
+  },
+  {
     id: ContractKeys.technologies,
     label: 'Technologies',
     Cell: (cell) => (

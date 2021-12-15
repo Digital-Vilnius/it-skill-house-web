@@ -47,6 +47,7 @@ export enum ContractKeys {
   location = 'location',
   rate = 'rate',
 
+  nearestEvent = 'nearestEvent',
   profession = 'profession',
   recruiter = 'recruiter',
   mainTechnology = 'mainTechnology',
@@ -72,6 +73,7 @@ export const initialColumnsOrder: string[] = [
   ContractKeys.email,
   ContractKeys.phone,
   ContractKeys.recruiter,
+  ContractKeys.nearestEvent,
   ContractKeys.profession,
   ContractKeys.mainTechnology,
   ContractKeys.technologies,

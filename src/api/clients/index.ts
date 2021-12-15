@@ -5,6 +5,7 @@ import * as UsersClient from './users';
 import * as TechnologiesClient from './technologies';
 import * as TagsClient from './tags';
 import * as ProfessionsClient from './professions';
+import * as EventsClient from './events';
 
 export {
   AuthClient,
@@ -14,4 +15,5 @@ export {
   TechnologiesClient,
   TagsClient,
   ProfessionsClient,
+  EventsClient,
 };

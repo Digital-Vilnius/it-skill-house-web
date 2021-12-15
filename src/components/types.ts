@@ -8,6 +8,10 @@ export interface FormControlProps<T> {
   disabled?: boolean;
 }
 
+export interface TextEditorProps extends FormControlProps<string> {
+  onChange?: (value: string) => void;
+}
+
 export interface SelectControlProps<T> extends FormControlProps<T> {
   onChange?: (value: T) => void;
 }

@@ -1,3 +1,9 @@
+@import "mixins/scrollbar";
+
+* {
+  @include scrollbar(0.25rem, $gray-400);
+}
+
 @import "select";
 @import "clearable-badge";
 @import "modal";

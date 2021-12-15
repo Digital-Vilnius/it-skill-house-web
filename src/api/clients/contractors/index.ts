@@ -22,5 +22,5 @@ export const addContractor = async (request: AddContractorRequest) => {
 };
 
 export const editContractor = async (id: number, request: EditContractorRequest) => {
-  return httpClient.put<EditContractorRequest, Contractor>(`${baseUrl}/${id}`, request);
+  return httpClient.put<EditContractorRequest, ResultResponse<Contractor>>(`${baseUrl}/${id}`, request);
 };
