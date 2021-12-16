@@ -21,8 +21,11 @@ const initialFormData: ContractorFormData = {
   hasContract: false,
   isOnSite: false,
 
-  location: '',
+  countryCode: 'LT',
+  city: '',
+
   rate: 0,
+  currency: 'EUR',
 
   professionId: 0,
   recruiterId: 0,
@@ -46,8 +49,11 @@ const getSchema = (isEdit: boolean) => {
     hasContract: yup.boolean().required(),
     isOnSite: yup.boolean().required(),
 
-    location: yup.string().required(),
+    countryCode: yup.string().required(),
+    city: yup.string().required(),
+
     rate: yup.number().positive().required(),
+    currency: yup.string().required(),
 
     professionId: yup.number().required(),
     recruiterId: yup.number().required(),

@@ -14,36 +14,17 @@ export const mapContractor = (contractor: ApiContractor): Contractor => ({
   availableFrom: DateUtils.formatDateStringStrict(contractor.availableFrom),
   experienceSince: DateUtils.formatDateStringStrict(contractor.experienceSince),
   technologies: contractor.technologies.map(mapTechnology),
+  events: contractor.events.map(mapEvent),
   nearestEvent: contractor.nearestEvent ? mapEvent(contractor.nearestEvent) : null,
 });
 
 export const mapContractorFormData = (contractor: Contractor): ContractorFormData => ({
-  firstName: contractor.firstName,
-  lastName: contractor.lastName,
-  email: contractor.email,
-  phone: contractor.phone,
-
-  isRemote: contractor.isRemote,
-  isPublic: contractor.isPublic,
-  hasContract: contractor.hasContract,
-  isOnSite: contractor.isOnSite,
-
-  location: contractor.location,
-  rate: contractor.rate,
-
+  ...contractor,
   professionId: contractor.profession.id,
   recruiterId: contractor.recruiter.id,
   mainTechnologyId: contractor.mainTechnology.id,
-
   technologiesIds: contractor.technologies.map((technology) => technology.id),
   tagsIds: contractor.tags.map((tag) => tag.id),
-
-  availableFrom: contractor.availableFrom,
-  experienceSince: contractor.experienceSince,
-
-  linkedInUrl: contractor.linkedInUrl,
-  codaId: contractor.codaId,
-  cinodeId: contractor.cinodeId,
 });
 
 export const mapContractorFilter = (filter: ContractorsFilter): ApiContractorFilter => ({
@@ -54,6 +35,7 @@ export const mapContractorFilter = (filter: ContractorsFilter): ApiContractorFil
   isAvailable: filter.isAvailable ?? undefined,
   hasContract: filter.hasContract ?? undefined,
 
+  countriesCodes: filter.countriesCodes ?? undefined,
   professionsIds: filter.professionsIds ?? undefined,
   recruitersIds: filter.recruitersIds ?? undefined,
   technologiesIds: filter.technologiesIds ?? undefined,

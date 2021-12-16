@@ -8,6 +8,7 @@ import { useTechnologiesOptions } from 'features/technologies/hooks';
 import { useRecruitersOptions } from 'features/recruiters/hooks';
 import { useTagsOptions } from 'features/tags/hooks';
 import { useProfessionsOptions } from 'features/professions/hooks';
+import { Countries } from 'utils';
 
 interface Props {
   filter: ContractorsFilterType;
@@ -313,6 +314,33 @@ const ContractorsFilter: FC<Props> = (props) => {
                     onBlur={field.onBlur}
                     name={field.name}
                     value={field.value}
+                  />
+                  <Form.Control.Feedback type='invalid'>
+                    {fieldState.error?.message}
+                  </Form.Control.Feedback>
+                </div>
+              )}
+            />
+          </Col>
+        </Row>
+        <hr className='my-4' />
+        <Row>
+          <Col lg={6}>
+            <Controller
+              control={control}
+              name='countriesCodes'
+              render={({ field, fieldState }) => (
+                <div className='form-group'>
+                  <Form.Label>Countries</Form.Label>
+                  <Select
+                    searchable
+                    clearable
+                    multi
+                    name={field.name}
+                    onBlur={field.onBlur}
+                    options={Countries.countriesOptions}
+                    value={field.value}
+                    onChange={field.onChange}
                   />
                   <Form.Control.Feedback type='invalid'>
                     {fieldState.error?.message}

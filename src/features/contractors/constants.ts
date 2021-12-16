@@ -11,6 +11,7 @@ export const initialFilter: ContractorsFilter = {
   hasContract: null,
   isOnSite: null,
 
+  countriesCodes: [],
   mainTechnologiesIds: [],
   professionsIds: [],
   recruitersIds: [],

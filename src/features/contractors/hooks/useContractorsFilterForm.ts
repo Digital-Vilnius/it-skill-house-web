@@ -17,6 +17,7 @@ const getSchema = () => {
     technologiesIds: yup.array().of(yup.number()).nullable(),
     mainTechnologiesIds: yup.array().of(yup.number()).nullable(),
     recruitersIds: yup.array().of(yup.number()).nullable(),
+    countriesCodes: yup.array().of(yup.string()).nullable(),
     keyword: yup.string().trim().nullable(),
     isPublic: yup.boolean().nullable(),
     isRemote: yup.boolean().nullable(),

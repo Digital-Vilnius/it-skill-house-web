@@ -17,8 +17,11 @@ export interface Contractor extends BaseModel {
   hasContract: boolean;
   isOnSite: boolean;
 
-  location: string;
+  countryCode: string;
+  city: string;
+
   rate: number;
+  currency: string;
 
   nearestEvent: Event | null;
   profession: Profession;
@@ -27,6 +30,7 @@ export interface Contractor extends BaseModel {
 
   technologies: Technology[];
   tags: Tag[];
+  events: Event[];
 
   availableFrom: string;
   experienceSince: string;
@@ -47,8 +51,11 @@ export interface ContractorFormData {
   hasContract: boolean;
   isOnSite: boolean;
 
-  location: string;
+  countryCode: string;
+  city: string;
+
   rate: number;
+  currency: string;
 
   professionId: number;
   recruiterId: number;
@@ -74,6 +81,7 @@ export interface ContractorsFilter {
   hasContract: boolean | null;
   isOnSite: boolean | null;
 
+  countriesCodes: string[];
   professionsIds: number[];
   recruitersIds: number[];
   technologiesIds: number[];

@@ -3,6 +3,7 @@ import { Contractor } from './types';
 import { Badge, Form } from 'react-bootstrap';
 import React from 'react';
 import { ContractKeys } from './constants';
+import { Countries, CurrencyUtils } from '../../utils';
 
 export const contractorColumns: Column<Contractor>[] = [
   { id: ContractKeys.id, label: 'Id', className: 'text-center', sortable: true },
@@ -53,12 +54,17 @@ export const contractorColumns: Column<Contractor>[] = [
     sortable: true,
     Cell: (cell) => <Form.Check readOnly checked={cell.isOnSite} type='checkbox' />,
   },
-  { id: ContractKeys.location, label: 'Location', sortable: true },
+  {
+    id: ContractKeys.location,
+    label: 'Location',
+    sortable: true,
+    Cell: (cell) => `${Countries.getCountryName(cell.countryCode)}, ${cell.city}`,
+  },
   {
     id: ContractKeys.rate,
     label: 'Rate',
     className: 'text-center',
-    Cell: (cell) => `${cell.rate.toFixed(2)} €`,
+    Cell: (cell) => `${cell.rate.toFixed(2)} ${CurrencyUtils.getCurrencySymbol(cell.currency)}`,
     sortable: true,
   },
   {

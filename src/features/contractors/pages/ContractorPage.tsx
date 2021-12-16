@@ -17,7 +17,7 @@ const ContractorPage: FC = () => {
     <div className='main-content'>
       <Container fluid>
         <Row className='justify-content-center'>
-          <Col xs={12}>
+          <Col md={8} xs={12}>
             <div className='header mt-md-5'>
               <div className='header-body'>
                 <Row className='align-items-center'>

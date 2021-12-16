@@ -8,6 +8,7 @@ import { useRecruitersOptions } from 'features/recruiters/hooks';
 import { useTagsOptions } from 'features/tags/hooks';
 import { useProfessionsOptions } from 'features/professions/hooks';
 import ToastService from 'core/toast';
+import { Countries } from 'utils';
 
 interface Props {
   onClose: () => void;
@@ -182,21 +183,22 @@ const ContractorForm: FC<Props> = (props) => {
             />
           </Col>
         </Row>
-        <Row>
+        <Row className='mb-4'>
           <Col>
             <Controller
               control={control}
-              name='location'
+              name='countryCode'
               render={({ field, fieldState }) => (
                 <div className='form-group'>
-                  <Form.Label>Location</Form.Label>
-                  <Form.Control
-                    isInvalid={!!fieldState.error}
-                    onInput={field.onChange}
-                    onBlur={field.onBlur}
+                  <Form.Label>Country</Form.Label>
+                  <Select
+                    searchable
+                    clearable
                     name={field.name}
+                    onBlur={field.onBlur}
+                    options={Countries.countriesOptions}
                     value={field.value}
-                    placeholder='Vilnius, Lithuania'
+                    onChange={field.onChange}
                   />
                   <Form.Control.Feedback type='invalid'>
                     {fieldState.error?.message}
@@ -206,6 +208,29 @@ const ContractorForm: FC<Props> = (props) => {
             />
           </Col>
           <Col>
+            <Controller
+              control={control}
+              name='city'
+              render={({ field, fieldState }) => (
+                <div className='form-group'>
+                  <Form.Label>City</Form.Label>
+                  <Form.Control
+                    isInvalid={!!fieldState.error}
+                    onInput={field.onChange}
+                    onBlur={field.onBlur}
+                    name={field.name}
+                    value={field.value}
+                  />
+                  <Form.Control.Feedback type='invalid'>
+                    {fieldState.error?.message}
+                  </Form.Control.Feedback>
+                </div>
+              )}
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col lg={6}>
             <Controller
               control={control}
               name='linkedInUrl'
