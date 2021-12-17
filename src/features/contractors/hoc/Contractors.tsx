@@ -18,6 +18,7 @@ import ContractorsFilter from './ContractorsFilter';
 import { useNavigate } from 'react-router-dom';
 import ContractorForm from './ContractorForm';
 import { EventForm } from '../../events/hoc';
+import { NoteForm } from '../../notes/hoc';
 
 const Contractors: FC = () => {
   const dispatch = useAppDispatch();
@@ -28,6 +29,7 @@ const Contractors: FC = () => {
   const [formVisible, setFormVisible] = useState<boolean>(false);
   const [editableId, setEditableId] = useState<number | undefined>();
   const [contractorId, setContractorId] = useState<number | undefined>();
+  const [noteContractorId, setNoteContractorId] = useState<number | undefined>();
 
   const { setColumnsIds, columnsIds, setColumnsOrder, columnsOrder } = useContractorsColumns();
   const [allColumns, setAllColumns] = useState<Column<Contractor>[]>(getAllColumns(columnsOrder));
@@ -63,6 +65,7 @@ const Contractors: FC = () => {
 
   const getActions = (): Action<number>[] => {
     return [
+      { label: 'Add note', onClick: (id) => setNoteContractorId(id) },
       { label: 'Add event', onClick: (id) => setContractorId(id) },
       { label: 'Edit', onClick: (id) => setEditableId(id) },
       { label: 'Details', onClick: (id) => navigate(`/admin/contractors/${id}`) },
@@ -134,6 +137,13 @@ const Contractors: FC = () => {
       />
       {!!contractorId && (
         <EventForm onClose={() => setContractorId(undefined)} contractorId={contractorId} visible />
+      )}
+      {!!noteContractorId && (
+        <NoteForm
+          onClose={() => setNoteContractorId(undefined)}
+          contractorId={noteContractorId}
+          visible
+        />
       )}
     </>
   );

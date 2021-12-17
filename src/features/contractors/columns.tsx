@@ -118,6 +118,19 @@ export const contractorColumns: Column<Contractor>[] = [
       </div>
     ),
   },
+  {
+    id: ContractKeys.notes,
+    label: 'Notes',
+    Cell: (cell) => (
+      <div className='notes'>
+        {cell.notes.map((note) => (
+          <Badge bg='light' className='me-1' key={note.id}>
+            {note.date}
+          </Badge>
+        ))}
+      </div>
+    ),
+  },
   { id: ContractKeys.availableFrom, label: 'Available from', className: 'text-center', sortable: true },
   {
     id: ContractKeys.experienceSince,

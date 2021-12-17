@@ -1,6 +1,6 @@
 import httpClient from '../../httpClient';
-import { ResultResponse } from '../../types';
-import { AddEventRequest, EditEventRequest, Event } from './types';
+import { ListRequest, ListResponse, ResultResponse } from '../../types';
+import { AddEventRequest, EditEventRequest, Event, EventsFilter } from './types';
 
 const baseUrl = '/events';
 
@@ -14,4 +14,9 @@ export const getEvent = async (id: number) => {
 
 export const editEvent = async (id: number, request: EditEventRequest) => {
   return httpClient.put<EditEventRequest, ResultResponse<Event>>(`${baseUrl}/${id}`, request);
+};
+
+export const getEvents = async (request?: ListRequest<EventsFilter>) => {
+  const params = { ...request?.filter };
+  return httpClient.get<ListRequest, ListResponse<Event>>(baseUrl, { params });
 };

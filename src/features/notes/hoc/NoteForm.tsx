@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
 import { Controller } from 'react-hook-form';
-import { useEventForm } from '../hooks';
+import { useNoteForm } from '../hooks';
 import { DatePicker, TextEditor } from 'components';
 import ToastService from 'core/toast';
 
@@ -12,20 +12,20 @@ interface Props {
   id?: number;
 }
 
-const EventForm: FC<Props> = (props) => {
+const NoteForm: FC<Props> = (props) => {
   const { onClose, visible, id, contractorId } = props;
 
   const successCallback = () => {
-    ToastService.showSuccess('Event successfully saved');
+    ToastService.showSuccess('Note successfully saved');
     onClose();
   };
 
-  const { control, handleSubmit, save } = useEventForm({ successCallback, id, contractorId });
+  const { control, handleSubmit, save } = useNoteForm({ successCallback, id, contractorId });
 
   return (
     <Modal size='lg' centered show={visible}>
       <Modal.Header onHide={onClose} closeButton>
-        <Modal.Title>Event</Modal.Title>
+        <Modal.Title>Note</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Row className='mb-4'>
@@ -72,7 +72,7 @@ const EventForm: FC<Props> = (props) => {
             />
           </Col>
         </Row>
-        <Row className='mb-4'>
+        <Row>
           <Col>
             <Controller
               control={control}
@@ -82,50 +82,6 @@ const EventForm: FC<Props> = (props) => {
                   <Form.Label>Content</Form.Label>
                   <TextEditor
                     onChange={field.onChange}
-                    onBlur={field.onBlur}
-                    name={field.name}
-                    value={field.value}
-                  />
-                  <Form.Control.Feedback type='invalid'>
-                    {fieldState.error?.message}
-                  </Form.Control.Feedback>
-                </div>
-              )}
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <Controller
-              control={control}
-              name='location'
-              render={({ field, fieldState }) => (
-                <div className='form-group'>
-                  <Form.Label>Location</Form.Label>
-                  <Form.Control
-                    isInvalid={!!fieldState.error}
-                    onInput={field.onChange}
-                    onBlur={field.onBlur}
-                    name={field.name}
-                    value={field.value}
-                  />
-                  <Form.Control.Feedback type='invalid'>
-                    {fieldState.error?.message}
-                  </Form.Control.Feedback>
-                </div>
-              )}
-            />
-          </Col>
-          <Col>
-            <Controller
-              control={control}
-              name='link'
-              render={({ field, fieldState }) => (
-                <div className='form-group'>
-                  <Form.Label>Link</Form.Label>
-                  <Form.Control
-                    isInvalid={!!fieldState.error}
-                    onInput={field.onChange}
                     onBlur={field.onBlur}
                     name={field.name}
                     value={field.value}
@@ -151,4 +107,4 @@ const EventForm: FC<Props> = (props) => {
   );
 };
 
-export default EventForm;
+export default NoteForm;

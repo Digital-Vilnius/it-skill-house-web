@@ -55,6 +55,7 @@ export enum ContractKeys {
 
   technologies = 'technologies',
   tags = 'tags',
+  notes = 'notes',
 
   availableFrom = 'availableFrom',
   experienceSince = 'experienceSince',
@@ -79,6 +80,7 @@ export const initialColumnsOrder: string[] = [
   ContractKeys.mainTechnology,
   ContractKeys.technologies,
   ContractKeys.tags,
+  ContractKeys.notes,
   ContractKeys.experienceSince,
   ContractKeys.availableFrom,
   ContractKeys.location,

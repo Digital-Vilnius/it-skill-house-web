@@ -1,30 +1,24 @@
 import { BaseModel } from '../../types';
 
-export interface Event extends BaseModel {
+export interface Note extends BaseModel {
   title: string;
   content: string;
   date: string;
-  link: string;
-  location: string;
 }
 
-export interface AddEventRequest {
+export interface AddNoteRequest {
   title: string;
   content: string;
   date: string;
-  link: string;
-  location: string;
   contractorId: number;
 }
 
-export interface EditEventRequest {
+export interface EditNoteRequest {
   title: string;
   content: string;
   date: string;
-  link: string;
-  location: string;
 }
 
-export interface EventsFilter {
+export interface NotesFilter {
   contractorId: number;
 }

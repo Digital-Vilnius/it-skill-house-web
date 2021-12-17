@@ -4,6 +4,7 @@ import { BaseModel } from 'api/types';
 import { Tag } from 'features/tags/types';
 import { Event } from 'features/events/types';
 import { Profession } from 'features/professions/types';
+import { Note } from 'features/notes/types';
 
 export interface Contractor extends BaseModel {
   firstName: string;
@@ -30,7 +31,7 @@ export interface Contractor extends BaseModel {
 
   technologies: Technology[];
   tags: Tag[];
-  events: Event[];
+  notes: Note[];
 
   availableFrom: string;
   experienceSince: string;

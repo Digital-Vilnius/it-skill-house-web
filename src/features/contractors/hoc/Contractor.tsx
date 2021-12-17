@@ -1,7 +1,9 @@
 import { FC } from 'react';
 import { useContractor } from '../hooks';
-import { Badge, Button, Card, Col, Form, ListGroup, Row } from 'react-bootstrap';
+import { Badge, Card, Col, Form, ListGroup, Row } from 'react-bootstrap';
 import { Countries, CurrencyUtils } from 'utils';
+import ContractorEvents from './ContractorEvents';
+import ContractorNotes from './ContractorNotes';
 
 interface Props {
   id: number;
@@ -36,32 +38,8 @@ const Contractor: FC<Props> = (props) => {
       </Card>
       <Row>
         <Col md={8} xs={12}>
-          <Card>
-            <Card.Header>
-              <h4 className='card-header-title'>Events</h4>
-            </Card.Header>
-            <Card.Body>
-              <ListGroup className='list-group-flush list-group-activity my-n3'>
-                {contractor.events.map((event) => (
-                  <ListGroup.Item key={event.id}>
-                    <Row>
-                      <Col xs='auto'>
-                        <small className='text-muted date'>{event.date}</small>
-                      </Col>
-                      <Col className='ms-n2'>
-                        <h3 className='mb-4'>{event.title}</h3>
-                        <p
-                          dangerouslySetInnerHTML={{ __html: event.content }}
-                          className='small html-content mb-2'
-                        />
-                        <small className='text-muted'>{event.location}</small>
-                      </Col>
-                    </Row>
-                  </ListGroup.Item>
-                ))}
-              </ListGroup>
-            </Card.Body>
-          </Card>
+          <ContractorEvents contractorId={id} />
+          <ContractorNotes notes={contractor.notes} />
         </Col>
         <Col md={4} xs={12}>
           <Card>
