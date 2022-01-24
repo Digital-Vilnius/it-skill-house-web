@@ -19,5 +19,5 @@ export interface EditUserRequest {
 }
 
 export interface UsersFilter {
-  amountFrom?: number;
+  keyword?: string;
 }

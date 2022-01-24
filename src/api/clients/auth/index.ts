@@ -9,9 +9,15 @@ export const login = async (request: LoginRequest) => {
 };
 
 export const refreshToken = async (request: RefreshTokenRequest) => {
-  return httpClient.post<LoginRequest, ResultResponse<AuthResponse>>(`${baseUrl}/refresh-token`, request);
+  return httpClient.post<LoginRequest, ResultResponse<AuthResponse>>(
+    `${baseUrl}/refresh-token`,
+    request
+  );
 };
 
 export const register = async (request: RegistrationRequest) => {
-  return httpClient.post<RegistrationRequest, ResultResponse<AuthResponse>>(`${baseUrl}/register`, request);
+  return httpClient.post<RegistrationRequest, ResultResponse<AuthResponse>>(
+    `${baseUrl}/register`,
+    request
+  );
 };

@@ -7,7 +7,7 @@ import { DataTable } from 'components';
 import { Card, Form, InputGroup } from 'react-bootstrap';
 import Icon from '@ailibs/feather-react-ts';
 import { Paging, Sort } from 'api/types';
-import { setRecruitersPagingAction, setRecruitersSortAction } from '../actions';
+import { setPagingAction, setSortAction, setSelectedAction } from '../actions';
 import { RecruiterKeys } from '../constants';
 
 export const columns: Column<Recruiter>[] = [
@@ -25,15 +25,19 @@ export const columns: Column<Recruiter>[] = [
 
 const Recruiters: FC = () => {
   const dispatch = useAppDispatch();
-  const { filter, paging, sort } = useAppSelector((state) => state.recruiters);
+  const { filter, paging, sort, selected } = useAppSelector((state) => state.recruiters);
   const { recruiters, count } = useRecruiters({ filter, paging, sort });
 
   const handlePagingChange = (newPaging: Paging) => {
-    dispatch(setRecruitersPagingAction({ paging: newPaging }));
+    dispatch(setPagingAction({ paging: newPaging }));
+  };
+
+  const handleSelectedChange = (selectedRecruiters: Recruiter[]) => {
+    dispatch(setSelectedAction({ recruiters: selectedRecruiters }));
   };
 
   const handleSortChange = (newSort: Sort) => {
-    dispatch(setRecruitersSortAction({ sort: newSort }));
+    dispatch(setSortAction({ sort: newSort }));
   };
 
   return (
@@ -47,6 +51,8 @@ const Recruiters: FC = () => {
         </InputGroup>
       </Card.Header>
       <DataTable
+        selectedRows={selected}
+        onSelectedRowsChange={handleSelectedChange}
         paging={paging}
         count={count}
         onPaging={handlePagingChange}

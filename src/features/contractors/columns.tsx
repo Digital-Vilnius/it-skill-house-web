@@ -3,7 +3,7 @@ import { Contractor } from './types';
 import { Badge, Form } from 'react-bootstrap';
 import React from 'react';
 import { ContractKeys } from './constants';
-import { Countries, CurrencyUtils } from '../../utils';
+import { Countries, CurrencyUtils, DateUtils } from '../../utils';
 
 export const contractorColumns: Column<Contractor>[] = [
   { id: ContractKeys.id, label: 'Id', className: 'text-center', sortable: true },
@@ -83,6 +83,15 @@ export const contractorColumns: Column<Contractor>[] = [
     id: ContractKeys.mainTechnology,
     label: 'Main technology',
     Cell: (cell) => cell.mainTechnology.name,
+    sortable: true,
+  },
+  {
+    id: ContractKeys.mailed,
+    label: 'Mailed',
+    className: 'text-center',
+    Cell: (cell) => {
+      return cell.lastEmail ? DateUtils.formatDateStringStrict(cell.lastEmail.created) : undefined;
+    },
     sortable: true,
   },
   {

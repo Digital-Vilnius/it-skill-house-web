@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import { Paging, Sort } from 'api/types';
 import { SortDirections } from '../api/constants';
 import { Pagination } from './index';
+import xorBy from 'lodash/xorBy';
 
 export interface Column<T> {
   id: string;
@@ -33,10 +34,25 @@ interface Props {
   sort: Sort;
   paging: Paging;
   count: number;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  selectedRows: any[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onSelectedRowsChange: (rows: any[]) => void;
 }
 
 const DataTable: FC<Props> = (props) => {
-  const { columns, data, onSort, sort, actions, paging, onPaging, count } = props;
+  const {
+    columns,
+    data,
+    onSort,
+    sort,
+    actions,
+    paging,
+    onPaging,
+    count,
+    onSelectedRowsChange,
+    selectedRows,
+  } = props;
 
   const handleSort = (column: Column<unknown>) => {
     if (!column.sortable) return;
@@ -50,13 +66,29 @@ const DataTable: FC<Props> = (props) => {
     onSort({ sortBy: column.id, sortDirection });
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleRowSelect = (row: any) => {
+    const newSelectedRows = xorBy(selectedRows, [row], 'id');
+    onSelectedRowsChange(newSelectedRows);
+  };
+
+  const handleSelectAll = () => {
+    const newSelectedRows = data.length === selectedRows.length ? [] : data;
+    onSelectedRowsChange(newSelectedRows);
+  };
+
   return (
     <>
       <Table size='sm' className='card-table table-nowrap'>
         <thead>
           <tr>
             <th className='text-center'>
-              <Form.Check value='all' type='checkbox' />
+              <Form.Check
+                onChange={handleSelectAll}
+                checked={data.length === selectedRows.length}
+                value='all'
+                type='checkbox'
+              />
             </th>
             {columns.map((column) => (
               <th
@@ -74,7 +106,11 @@ const DataTable: FC<Props> = (props) => {
           {data.map((item) => (
             <tr key={item.id}>
               <td className='text-center'>
-                <Form.Check type='checkbox' />
+                <Form.Check
+                  checked={!!selectedRows.find((row) => item.id === row.id)}
+                  onChange={() => handleRowSelect(item)}
+                  type='checkbox'
+                />
               </td>
               {columns.map((cell, index) => (
                 <td key={index} className={cell.className}>

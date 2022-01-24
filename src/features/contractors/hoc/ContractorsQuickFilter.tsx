@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { useAppDispatch, useAppSelector } from 'core/store';
 import { SwitchInput } from 'components';
-import { setContractorsFilterAction } from '../actions';
+import { setFilterAction } from '../actions';
 import classNames from 'classnames';
 
 interface Props {
@@ -15,12 +15,12 @@ const ContractorsQuickFilter: FC<Props> = (props) => {
 
   const handleHasContractsChange = (hasContract: boolean) => {
     const newFilter = { ...filter, hasContract };
-    dispatch(setContractorsFilterAction({ filter: newFilter }));
+    dispatch(setFilterAction({ filter: newFilter }));
   };
 
   const handleIsAvailableChange = (isAvailable: boolean) => {
     const newFilter = { ...filter, isAvailable };
-    dispatch(setContractorsFilterAction({ filter: newFilter }));
+    dispatch(setFilterAction({ filter: newFilter }));
   };
 
   return (

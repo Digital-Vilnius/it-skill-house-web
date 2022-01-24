@@ -1,13 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
-  setContractorsFilterAction,
-  setContractorsSortAction,
-  setContractorsPagingAction,
-  resetContractorsFilterAction,
-  setContractorsColumnsIdsAction,
-  setContractorsColumnsOrderAction,
+  setFilterAction,
+  setSortAction,
+  setPagingAction,
+  resetFilterAction,
+  setColumnsIdsAction,
+  setColumnsOrderAction,
+  setSelectedAction,
 } from './actions';
-import { ContractorsFilter } from './types';
+import { Contractor, ContractorsFilter } from './types';
 import { Paging, Sort } from 'api/types';
 import {
   initialColumnsIds,
@@ -23,6 +24,7 @@ interface State {
   filter: ContractorsFilter;
   columnsIds: string[];
   columnsOrder: string[];
+  selected: Contractor[];
 }
 
 const initialState: State = {
@@ -31,6 +33,7 @@ const initialState: State = {
   sort: initialSort,
   columnsIds: initialColumnsIds,
   columnsOrder: initialColumnsOrder,
+  selected: [],
 };
 
 const contractorsSlice = createSlice({
@@ -38,26 +41,33 @@ const contractorsSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(setContractorsPagingAction, (state, action) => {
+    builder.addCase(setPagingAction, (state, action) => {
       state.paging = action.payload.paging;
+      state.selected = [];
     });
-    builder.addCase(setContractorsSortAction, (state, action) => {
+    builder.addCase(setSortAction, (state, action) => {
       state.sort = action.payload.sort;
       state.paging = { ...state.paging, skip: 0 };
+      state.selected = [];
     });
-    builder.addCase(setContractorsFilterAction, (state, action) => {
+    builder.addCase(setFilterAction, (state, action) => {
       state.filter = action.payload.filter;
       state.paging = { ...state.paging, skip: 0 };
+      state.selected = [];
     });
-    builder.addCase(setContractorsColumnsIdsAction, (state, action) => {
+    builder.addCase(setColumnsIdsAction, (state, action) => {
       state.columnsIds = action.payload.ids;
     });
-    builder.addCase(setContractorsColumnsOrderAction, (state, action) => {
+    builder.addCase(setColumnsOrderAction, (state, action) => {
       state.columnsOrder = action.payload.ids;
     });
-    builder.addCase(resetContractorsFilterAction, (state) => {
+    builder.addCase(resetFilterAction, (state) => {
       state.filter = initialState.filter;
       state.paging = { ...state.paging, skip: 0 };
+      state.selected = [];
+    });
+    builder.addCase(setSelectedAction, (state, action) => {
+      state.selected = action.payload.contractors;
     });
   },
 });

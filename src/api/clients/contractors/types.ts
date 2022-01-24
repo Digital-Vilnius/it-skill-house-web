@@ -5,8 +5,10 @@ import { BaseModel } from '../../types';
 import { Tag } from '../tags/types';
 import { Profession } from '../professions/types';
 import { Note } from '../notes/types';
+import { Email } from '../emails/types';
 
 export interface Contractor extends BaseModel {
+  userId: number;
   firstName: string;
   lastName: string;
   email: string;
@@ -23,6 +25,8 @@ export interface Contractor extends BaseModel {
 
   rate: number;
   currency: string;
+
+  lastEmail: Email | null;
 
   nearestEvent: Event | null;
   profession: Profession;

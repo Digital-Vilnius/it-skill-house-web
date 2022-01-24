@@ -7,29 +7,27 @@ import { Action, Column } from 'components/DataTable';
 import { Contractor } from '../types';
 import { DataTable } from 'components';
 import { Paging, Sort } from 'api/types';
-import {
-  setContractorsFilterAction,
-  setContractorsPagingAction,
-  setContractorsSortAction,
-} from '../actions';
-import { Button, Card, Col, Form, InputGroup, Row } from 'react-bootstrap';
+import { setFilterAction, setPagingAction, setSortAction, setSelectedAction } from '../actions';
+import { Alert, Button, Card, CloseButton, Col, Form, InputGroup, Row } from 'react-bootstrap';
 import Icon from '@ailibs/feather-react-ts';
 import ContractorsFilter from './ContractorsFilter';
 import { useNavigate } from 'react-router-dom';
 import ContractorForm from './ContractorForm';
 import { EventForm } from '../../events/hoc';
 import { NoteForm } from '../../notes/hoc';
+import { SendEmailModal } from 'features/emails/hoc';
 
 const Contractors: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { filter, paging, sort } = useAppSelector((state) => state.contractors);
+  const { filter, paging, sort, selected } = useAppSelector((state) => state.contractors);
   const { contractors, count } = useContractors({ filter, paging, sort });
   const [filterVisible, setFilterVisible] = useState<boolean>(false);
   const [formVisible, setFormVisible] = useState<boolean>(false);
   const [editableId, setEditableId] = useState<number | undefined>();
   const [contractorId, setContractorId] = useState<number | undefined>();
   const [noteContractorId, setNoteContractorId] = useState<number | undefined>();
+  const [isEmailFormVisible, setIsEmailFormVisible] = useState<boolean>(false);
 
   const { setColumnsIds, columnsIds, setColumnsOrder, columnsOrder } = useContractorsColumns();
   const [allColumns, setAllColumns] = useState<Column<Contractor>[]>(getAllColumns(columnsOrder));
@@ -45,17 +43,21 @@ const Contractors: FC = () => {
     setVisibleColumns(getVisibleColumns(allColumns, columnsIds));
   }, [allColumns, columnsIds]);
 
+  const handleSelectedChange = (selectedContractors: Contractor[]) => {
+    dispatch(setSelectedAction({ contractors: selectedContractors }));
+  };
+
   const handlePagingChange = (newPaging: Paging) => {
-    dispatch(setContractorsPagingAction({ paging: newPaging }));
+    dispatch(setPagingAction({ paging: newPaging }));
   };
 
   const handleSortChange = (newSort: Sort) => {
-    dispatch(setContractorsSortAction({ sort: newSort }));
+    dispatch(setSortAction({ sort: newSort }));
   };
 
   const handleKeywordChange = (event: ChangeEvent<HTMLInputElement>) => {
     const newFilter = { ...filter, keyword: event.target.value };
-    dispatch(setContractorsFilterAction({ filter: newFilter }));
+    dispatch(setFilterAction({ filter: newFilter }));
   };
 
   const handleOnFormClose = () => {
@@ -115,6 +117,8 @@ const Contractors: FC = () => {
           </Button>
         </Card.Header>
         <DataTable
+          onSelectedRowsChange={handleSelectedChange}
+          selectedRows={selected}
           count={count}
           paging={paging}
           onPaging={handlePagingChange}
@@ -125,6 +129,29 @@ const Contractors: FC = () => {
           data={contractors}
         />
       </Card>
+      {selected.length > 0 && (
+        <Alert variant='dark' className='list-alert alert-dismissible border'>
+          <Row className='align-items-center'>
+            <Col>
+              <Form.Check type='checkbox' label={`${selected.length} selected`} checked disabled />
+            </Col>
+            <Col xs='auto' className='me-n3'>
+              <Button onClick={() => setIsEmailFormVisible(true)} variant='white-20' size='sm'>
+                Send email
+              </Button>
+              <Button variant='white-20' size='sm' className='ms-1'>
+                Delete
+              </Button>
+            </Col>
+          </Row>
+          <CloseButton onClick={() => handleSelectedChange([])} />
+        </Alert>
+      )}
+      <SendEmailModal
+        visible={isEmailFormVisible}
+        recipients={selected}
+        onClose={() => setIsEmailFormVisible(false)}
+      />
       <ContractorsFilter
         onClose={() => setFilterVisible(false)}
         visible={filterVisible}

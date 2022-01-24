@@ -6,16 +6,16 @@ import {
   resetFilterAction,
   setSelectedAction,
 } from './actions';
-import { UsersFilter } from 'api/clients/users/types';
 import { Paging, Sort } from 'api/types';
 import { initialPaging, initialSort } from './constants';
-import { User } from './types';
+import { TechnologiesFilter } from 'api/clients/technologies/types';
+import { Technology } from './types';
 
 interface State {
   paging: Paging;
   sort: Sort;
-  filter: UsersFilter;
-  selected: User[];
+  filter: TechnologiesFilter;
+  selected: Technology[];
 }
 
 const initialState: State = {
@@ -25,34 +25,34 @@ const initialState: State = {
   selected: [],
 };
 
-const usersSlice = createSlice({
-  name: 'users',
+const technologiesSlice = createSlice({
+  name: 'technologies',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(setPagingAction, (state, action) => {
-      state.selected = [];
       state.paging = action.payload.paging;
+      state.selected = [];
     });
     builder.addCase(setSortAction, (state, action) => {
-      state.selected = [];
       state.sort = action.payload.sort;
       state.paging = { ...state.paging, skip: 0 };
+      state.selected = [];
     });
     builder.addCase(setFilterAction, (state, action) => {
-      state.selected = [];
       state.filter = action.payload.filter;
       state.paging = { ...state.paging, skip: 0 };
+      state.selected = [];
     });
     builder.addCase(resetFilterAction, (state) => {
-      state.selected = [];
       state.filter = initialState.filter;
       state.paging = { ...state.paging, skip: 0 };
+      state.selected = [];
     });
     builder.addCase(setSelectedAction, (state, action) => {
-      state.selected = action.payload.users;
+      state.selected = action.payload.technologies;
     });
   },
 });
 
-export const { reducer } = usersSlice;
+export const { reducer } = technologiesSlice;

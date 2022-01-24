@@ -16,4 +16,9 @@ export const SideNavigationItems: NavigationItem[] = [
     title: 'Users',
     url: '/admin/users',
   },
+  {
+    icon: 'package',
+    title: 'Technologies',
+    url: '/admin/technologies',
+  },
 ];

@@ -6,6 +6,7 @@ import { ContractorPage, ContractorsPage } from 'features/contractors/pages';
 import RequireAuth from './RequireAuth';
 import { RecruitersPage, AddRecruiterPage } from 'features/recruiters/pages';
 import { UsersPage } from 'features/users/pages';
+import { TechnologiesPage } from 'features/technologies/pages';
 
 const RootNavigator: FC = () => {
   return (
@@ -52,6 +53,14 @@ const RootNavigator: FC = () => {
             element={
               <RequireAuth>
                 <UsersPage />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path='technologies'
+            element={
+              <RequireAuth>
+                <TechnologiesPage />
               </RequireAuth>
             }
           />

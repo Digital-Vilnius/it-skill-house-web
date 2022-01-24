@@ -1,16 +1,16 @@
 import { useAppDispatch, useAppSelector } from 'core/store';
-import { setContractorsColumnsIdsAction, setContractorsColumnsOrderAction } from '../actions';
+import { setColumnsIdsAction, setColumnsOrderAction } from '../actions';
 
 const useContractorsColumns = () => {
   const dispatch = useAppDispatch();
   const { columnsIds, columnsOrder } = useAppSelector((state) => state.contractors);
 
   const setColumnsIds = (ids: string[]) => {
-    dispatch(setContractorsColumnsIdsAction({ ids }));
+    dispatch(setColumnsIdsAction({ ids }));
   };
 
   const setColumnsOrder = (ids: string[]) => {
-    dispatch(setContractorsColumnsOrderAction({ ids }));
+    dispatch(setColumnsOrderAction({ ids }));
   };
 
   return { setColumnsIds, columnsIds, setColumnsOrder, columnsOrder };

@@ -1,30 +1,27 @@
-import React, { FC, useState } from 'react';
-import { useUsers } from '../hooks';
+import React, { FC } from 'react';
+import { useTechnologies } from '../hooks';
 import { useAppDispatch, useAppSelector } from 'core/store';
 import { DataTable } from 'components';
 import { Column } from 'components/DataTable';
-import { User } from '../types';
+import { Technology } from '../types';
 import { Paging, Sort } from 'api/types';
 import { setPagingAction, setSortAction, setSelectedAction } from '../actions';
 import { Button, Card, Col, Form, InputGroup, Row } from 'react-bootstrap';
 import Icon from '@ailibs/feather-react-ts';
-import UserForm from './UserForm';
+import { TechnologyKeys } from '../constants';
 
-export const columns: Column<User>[] = [
-  { id: 'id', label: 'Id', sortable: true },
-  { id: 'firstName', label: 'First name', sortable: true },
-  { id: 'lastName', label: 'Last name', sortable: true },
-  { id: 'email', label: 'Email', sortable: true },
-  { id: 'phone', label: 'Phone', sortable: true },
-  { id: 'lastLoginDate', label: 'Last login', className: 'text-center', sortable: true },
-  { id: 'created', label: 'Created', className: 'text-center', sortable: true },
+export const columns: Column<Technology>[] = [
+  { id: TechnologyKeys.id, label: 'Id', sortable: true },
+  { id: TechnologyKeys.name, label: 'Name', sortable: true },
+  { id: TechnologyKeys.count, label: 'Count', sortable: true },
+  { id: TechnologyKeys.updated, label: 'Updated', className: 'text-center', sortable: true },
+  { id: TechnologyKeys.created, label: 'Created', className: 'text-center', sortable: true },
 ];
 
-const Users: FC = () => {
+const Technologies: FC = () => {
   const dispatch = useAppDispatch();
-  const { filter, paging, sort, selected } = useAppSelector((state) => state.users);
-  const { users, count } = useUsers({ filter, paging, sort });
-  const [formVisible, setFormVisible] = useState<boolean>(false);
+  const { filter, paging, sort, selected } = useAppSelector((state) => state.technologies);
+  const { technologies, count } = useTechnologies({ filter, paging, sort });
 
   const handlePagingChange = (newPaging: Paging) => {
     dispatch(setPagingAction({ paging: newPaging }));
@@ -34,8 +31,8 @@ const Users: FC = () => {
     dispatch(setSortAction({ sort: newSort }));
   };
 
-  const handleSelectedChange = (selectedUsers: User[]) => {
-    dispatch(setSelectedAction({ users: selectedUsers }));
+  const handleSelectedChange = (selectedTechnologies: Technology[]) => {
+    dispatch(setSelectedAction({ technologies: selectedTechnologies }));
   };
 
   return (
@@ -47,12 +44,10 @@ const Users: FC = () => {
               <Row className='align-items-center'>
                 <Col>
                   <h6 className='header-pretitle'>Overview</h6>
-                  <h1 className='header-title text-truncate'>Users</h1>
+                  <h1 className='header-title text-truncate'>Technologies</h1>
                 </Col>
                 <Col xs='auto'>
-                  <Button onClick={() => setFormVisible(true)} className='ms-2'>
-                    Add user
-                  </Button>
+                  <Button className='ms-2'>Add technology</Button>
                 </Col>
               </Row>
             </div>
@@ -67,22 +62,21 @@ const Users: FC = () => {
               </InputGroup>
             </Card.Header>
             <DataTable
-              onSelectedRowsChange={handleSelectedChange}
               selectedRows={selected}
+              onSelectedRowsChange={handleSelectedChange}
               paging={paging}
               onPaging={handlePagingChange}
               count={count}
               onSort={handleSortChange}
               sort={sort}
               columns={columns}
-              data={users}
+              data={technologies}
             />
           </Card>
         </Col>
       </Row>
-      <UserForm onClose={() => setFormVisible(false)} visible={formVisible} />
     </>
   );
 };
 
-export default Users;
+export default Technologies;
