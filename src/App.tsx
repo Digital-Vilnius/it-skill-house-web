@@ -16,8 +16,8 @@ const App: FC = () => {
         <PersistGate loading={null} persistor={persistor}>
           <ModalProvider>
             <RootNavigator />
-            <ToastContainer />
           </ModalProvider>
+          <ToastContainer />
         </PersistGate>
       </Provider>
     </QueryClientProvider>
