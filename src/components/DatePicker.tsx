@@ -37,7 +37,7 @@ const DatePicker: FC<SelectControlProps<ValueType>> = (props) => {
         dateFormat='yyyy-MM-dd'
         name={name}
         onBlur={onBlur}
-        selected={DateUtils.parseDate(value)}
+        selected={value ? DateUtils.parseDate(value) : undefined}
         onChange={handleOnChange}
         customInput={renderInput()}
       />

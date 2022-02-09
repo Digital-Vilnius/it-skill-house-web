@@ -12,3 +12,7 @@ export interface SendEmailRequest {
   body: string;
   recipientsIds: number[];
 }
+
+export interface EmailsFilter {
+  contractorId: number;
+}

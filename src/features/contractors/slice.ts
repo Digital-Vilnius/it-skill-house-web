@@ -1,37 +1,24 @@
-import { createSlice } from '@reduxjs/toolkit';
-import {
-  setFilterAction,
-  setSortAction,
-  setPagingAction,
-  resetFilterAction,
-  setColumnsIdsAction,
-  setColumnsOrderAction,
-  setSelectedAction,
-} from './actions';
-import { Contractor, ContractorsFilter } from './types';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Paging, Sort } from 'api/types';
-import {
-  initialColumnsIds,
-  initialColumnsOrder,
-  initialFilter,
-  initialPaging,
-  initialSort,
-} from './constants';
+import { ContractorsFilter } from 'api/clients/contractors/types';
+import { Contractor } from './types';
+import { initialColumnsIds, initialColumnsOrder, initialPaging, initialSort } from './constants';
+import { logoutAction } from 'features/auth/actions';
 
 interface State {
   paging: Paging;
   sort: Sort;
   filter: ContractorsFilter;
-  columnsIds: string[];
+  visibleColumnsIds: string[];
   columnsOrder: string[];
   selected: Contractor[];
 }
 
 const initialState: State = {
-  filter: initialFilter,
+  filter: {},
   paging: initialPaging,
   sort: initialSort,
-  columnsIds: initialColumnsIds,
+  visibleColumnsIds: initialColumnsIds,
   columnsOrder: initialColumnsOrder,
   selected: [],
 };
@@ -39,37 +26,49 @@ const initialState: State = {
 const contractorsSlice = createSlice({
   name: 'contractors',
   initialState,
-  reducers: {},
-  extraReducers: (builder) => {
-    builder.addCase(setPagingAction, (state, action) => {
-      state.paging = action.payload.paging;
+  reducers: {
+    setPaging(state, action: PayloadAction<Paging>) {
+      state.paging = action.payload;
       state.selected = [];
-    });
-    builder.addCase(setSortAction, (state, action) => {
-      state.sort = action.payload.sort;
+    },
+    setSort(state, action: PayloadAction<Sort>) {
+      state.sort = action.payload;
       state.paging = { ...state.paging, skip: 0 };
       state.selected = [];
-    });
-    builder.addCase(setFilterAction, (state, action) => {
-      state.filter = action.payload.filter;
+    },
+    setFilter(state, action: PayloadAction<ContractorsFilter>) {
+      state.filter = action.payload;
       state.paging = { ...state.paging, skip: 0 };
       state.selected = [];
-    });
-    builder.addCase(setColumnsIdsAction, (state, action) => {
-      state.columnsIds = action.payload.ids;
-    });
-    builder.addCase(setColumnsOrderAction, (state, action) => {
-      state.columnsOrder = action.payload.ids;
-    });
-    builder.addCase(resetFilterAction, (state) => {
+    },
+    resetFilter(state) {
       state.filter = initialState.filter;
       state.paging = { ...state.paging, skip: 0 };
       state.selected = [];
-    });
-    builder.addCase(setSelectedAction, (state, action) => {
-      state.selected = action.payload.contractors;
-    });
+    },
+    setVisibleColumnsIds(state, action: PayloadAction<string[]>) {
+      state.visibleColumnsIds = action.payload;
+    },
+    setColumnsOrder(state, action: PayloadAction<string[]>) {
+      state.columnsOrder = action.payload;
+    },
+    setSelectedContractors(state, action: PayloadAction<Contractor[]>) {
+      state.selected = action.payload;
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(logoutAction, () => initialState);
   },
 });
+
+export const {
+  setPaging,
+  setSort,
+  setFilter,
+  resetFilter,
+  setVisibleColumnsIds,
+  setColumnsOrder,
+  setSelectedContractors,
+} = contractorsSlice.actions;
 
 export const { reducer } = contractorsSlice;

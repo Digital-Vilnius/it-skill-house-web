@@ -6,19 +6,4 @@ export const SideNavigationItems: NavigationItem[] = [
     title: 'Contractors',
     url: '/admin/contractors',
   },
-  {
-    icon: 'users',
-    title: 'Recruiters',
-    url: '/admin/recruiters',
-  },
-  {
-    icon: 'users',
-    title: 'Users',
-    url: '/admin/users',
-  },
-  {
-    icon: 'package',
-    title: 'Technologies',
-    url: '/admin/technologies',
-  },
 ];

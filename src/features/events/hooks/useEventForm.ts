@@ -10,14 +10,6 @@ import { queryClient } from 'core/query';
 import { getQueryKey } from 'features/contractors/hooks/useContractors';
 import { useAppSelector } from 'core/store';
 
-const initialFormData: EventFormData = {
-  title: '',
-  date: '',
-  content: '',
-  location: '',
-  link: '',
-};
-
 const getSchema = () => {
   return yup.object().default({
     title: yup.string().required(),
@@ -31,15 +23,14 @@ const getSchema = () => {
 interface Props {
   id?: number;
   contractorId: number;
-  successCallback: () => void;
+  onSuccess: () => void;
 }
 
 const useEventForm = (props: Props) => {
-  const { id, successCallback, contractorId } = props;
+  const { id, onSuccess, contractorId } = props;
   const { filter, paging, sort } = useAppSelector((state) => state.contractors);
 
   const { control, handleSubmit, reset } = useForm<EventFormData>({
-    defaultValues: initialFormData,
     resolver: yupResolver(getSchema()),
   });
 
@@ -51,7 +42,7 @@ const useEventForm = (props: Props) => {
         reset(data);
       });
     } else {
-      reset(initialFormData);
+      reset({});
     }
   }, [id, reset]);
 
@@ -64,7 +55,7 @@ const useEventForm = (props: Props) => {
   const { mutateAsync } = useMutation(mutationFn);
 
   const save = async (request: EventFormData) => {
-    await mutateAsync(request).then(successCallback);
+    await mutateAsync(request).then(onSuccess);
   };
 
   return { control, handleSubmit, save };

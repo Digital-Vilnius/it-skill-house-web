@@ -5,9 +5,6 @@ import storage from 'redux-persist/lib/storage';
 import { persistStore, persistReducer } from 'redux-persist';
 import { reducer as authReducer } from 'features/auth/slice';
 import { reducer as contractorsReducer } from 'features/contractors/slice';
-import { reducer as recruitersReducer } from 'features/recruiters/slice';
-import { reducer as usersReducer } from 'features/users/slice';
-import { reducer as technologiesReducer } from 'features/technologies/slice';
 import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE } from 'redux-persist/es/constants';
 
 const persistConfig = {
@@ -18,9 +15,6 @@ const persistConfig = {
 const rootReducer = combineReducers({
   auth: authReducer,
   contractors: contractorsReducer,
-  recruiters: recruitersReducer,
-  users: usersReducer,
-  technologies: technologiesReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -1,31 +1,21 @@
-import { RecruitersFilter } from 'api/clients/recruiters/types';
-import { Paging, Sort } from 'api/types';
 import { RecruitersClient } from 'api/clients';
 import { useQuery } from 'react-query';
 import { mapRecruiter } from '../map';
 
-interface Props {
-  filter?: RecruitersFilter;
-  paging?: Paging;
-  sort?: Sort;
-}
-
-export const getQueryKey = (filter?: RecruitersFilter, paging?: Paging, sort?: Sort) => {
-  return ['recruiters', filter, paging, sort];
+export const getQueryKey = () => {
+  return ['recruiters'];
 };
 
-const useRecruiters = (props: Props) => {
-  const { filter, paging, sort } = props;
-
-  const getRecruitersFn = () => RecruitersClient.getRecruiters({ filter, paging, sort });
-  const { isLoading, data } = useQuery(getQueryKey(filter, paging, sort), getRecruitersFn, {
-    keepPreviousData: true,
-  });
+const useRecruiters = () => {
+  const getRecruitersFn = () => RecruitersClient.getRecruiters();
+  const { isLoading, data } = useQuery(getQueryKey(), getRecruitersFn);
+  const recruiters = data?.result?.map(mapRecruiter) ?? [];
+  const count = data?.count ?? 0;
 
   return {
     isLoading,
-    count: data?.count ?? 0,
-    recruiters: data?.result?.map(mapRecruiter) ?? [],
+    count,
+    recruiters,
   };
 };
 

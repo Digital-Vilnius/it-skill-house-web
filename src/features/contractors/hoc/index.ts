@@ -1,7 +1,15 @@
-import Contractors from './Contractors';
 import ContractorForm from './ContractorForm';
 import ContractorsFilter from './ContractorsFilter';
-import Contractor from './Contractor';
-import ContractorsQuickFilter from './ContractorsQuickFilter';
+import ContractorsSearch from './ContractorsSearch';
+import ContractorsDataTable from './ContractorsDataTable';
+import ColumnsSelect from './ColumnsSelect';
+import ContractorsActions from './ContractorsActions';
 
-export { Contractors, ContractorForm, ContractorsFilter, Contractor, ContractorsQuickFilter };
+export {
+  ContractorForm,
+  ContractorsFilter,
+  ContractorsSearch,
+  ContractorsDataTable,
+  ColumnsSelect,
+  ContractorsActions,
+};

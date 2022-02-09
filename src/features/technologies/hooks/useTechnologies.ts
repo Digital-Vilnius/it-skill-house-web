@@ -1,34 +1,32 @@
-import { ListResponse, Paging, Sort } from 'api/types';
 import { TechnologiesClient } from 'api/clients';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { mapTechnology } from '../map';
-import { Technology } from '../types';
-import { TechnologiesFilter } from 'api/clients/technologies/types';
+import { queryClient } from 'core/query';
 
-interface Props {
-  filter: TechnologiesFilter;
-  paging: Paging;
-  sort: Sort;
-}
-
-export const getQueryKey = (filter: TechnologiesFilter, paging: Paging, sort: Sort) => {
-  return ['users', filter, paging, sort];
+export const getQueryKey = () => {
+  return ['technologies'];
 };
 
-const useTechnologies = (props: Props) => {
-  const { filter, paging, sort } = props;
+const useTechnologies = () => {
+  const getTechnologiesFn = () => TechnologiesClient.getTechnologies();
 
-  const getTechnologiesFn = () => TechnologiesClient.getTechnologies({ filter, paging, sort });
-  const { isLoading, data } = useQuery<ListResponse<Technology>>(
-    getQueryKey(filter, paging, sort),
-    getTechnologiesFn,
-    { keepPreviousData: true }
-  );
+  const addTechnologyFn = async (name: string) => {
+    const technology = await TechnologiesClient.addTechnology({ name });
+    await queryClient.refetchQueries(getQueryKey());
+    return technology.result.id;
+  };
+
+  const { isLoading, data } = useQuery(getQueryKey(), getTechnologiesFn);
+  const { mutateAsync: addTechnology } = useMutation(addTechnologyFn);
+
+  const technologies = data?.result?.map(mapTechnology) ?? [];
+  const count = data?.count ?? 0;
 
   return {
+    addTechnology,
     isLoading,
-    count: data?.count ?? 0,
-    technologies: data?.result?.map(mapTechnology) ?? [],
+    count,
+    technologies,
   };
 };
 

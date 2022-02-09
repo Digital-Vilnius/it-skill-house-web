@@ -4,7 +4,6 @@ import { EmailFormData, Recipient } from '../types';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation } from 'react-query';
 import { EmailsClient } from 'api/clients';
-import { useEffect } from 'react';
 
 const initialFormData: EmailFormData = {
   subject: '',
@@ -22,20 +21,21 @@ const getSchema = () => {
 
 interface Props {
   recipients: Recipient[];
-  successCallback: () => void;
+  onSuccess: () => void;
 }
 
 const useEmailForm = (props: Props) => {
-  const { successCallback, recipients } = props;
+  const { onSuccess, recipients } = props;
+  const recipientsIds = recipients.map((recipient) => recipient.id);
 
-  const { control, handleSubmit, reset } = useForm<EmailFormData>({
-    defaultValues: { ...initialFormData, recipientsIds: recipients.map((recipient) => recipient.id) },
+  const {
+    control,
+    handleSubmit,
+    reset: resetForm,
+  } = useForm<EmailFormData>({
+    defaultValues: { ...initialFormData, recipientsIds },
     resolver: yupResolver(getSchema()),
   });
-
-  useEffect(() => {
-    reset(initialFormData);
-  }, [reset]);
 
   const mutationFn = async (data: EmailFormData) => {
     await EmailsClient.sendEmail(data);
@@ -44,10 +44,14 @@ const useEmailForm = (props: Props) => {
   const { mutateAsync } = useMutation(mutationFn);
 
   const save = async (request: EmailFormData) => {
-    await mutateAsync(request).then(successCallback);
+    await mutateAsync(request).then(onSuccess);
   };
 
-  return { control, handleSubmit, save };
+  const reset = () => {
+    resetForm({});
+  };
+
+  return { control, handleSubmit, save, reset };
 };
 
 export default useEmailForm;

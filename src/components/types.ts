@@ -1,5 +1,5 @@
 export interface FormControlProps<T> {
-  value: T | null;
+  value?: T | null;
   name?: string;
   onBlur?: () => void;
   className?: string;

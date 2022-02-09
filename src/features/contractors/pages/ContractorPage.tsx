@@ -1,7 +1,9 @@
 import React, { FC } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
-import { Contractor } from '../hoc';
 import { useNavigate, useParams } from 'react-router-dom';
+import { EventsList } from 'features/events/hoc';
+import { NotesList } from 'features/notes/hoc';
+import { EmailsList } from 'features/emails/hoc';
 
 const ContractorPage: FC = () => {
   const params = useParams();
@@ -10,7 +12,7 @@ const ContractorPage: FC = () => {
 
   if (!id) {
     navigate('/contractors');
-    return <></>;
+    return null;
   }
 
   return (
@@ -28,7 +30,9 @@ const ContractorPage: FC = () => {
                 </Row>
               </div>
             </div>
-            <Contractor id={Number(id)} />
+            <EventsList filter={{ contractorId: Number(id) }} />
+            <NotesList filter={{ contractorId: Number(id) }} />
+            <EmailsList filter={{ contractorId: Number(id) }} />
           </Col>
         </Row>
       </Container>

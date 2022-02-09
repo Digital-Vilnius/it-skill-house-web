@@ -8,7 +8,3 @@ export interface Technology extends BaseModel {
 export interface AddTechnologyRequest {
   name: string;
 }
-
-export interface TechnologiesFilter {
-  keyword?: string;
-}

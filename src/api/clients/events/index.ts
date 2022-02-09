@@ -16,7 +16,7 @@ export const editEvent = async (id: number, request: EditEventRequest) => {
   return httpClient.put<EditEventRequest, ResultResponse<Event>>(`${baseUrl}/${id}`, request);
 };
 
-export const getEvents = async (request?: ListRequest<EventsFilter>) => {
-  const params = { ...request?.filter };
-  return httpClient.get<ListRequest, ListResponse<Event>>(baseUrl, { params });
+export const getEvents = async (request: ListRequest<EventsFilter>) => {
+  const params = { ...request.filter };
+  return httpClient.get<ListRequest<EventsFilter>, ListResponse<Event>>(baseUrl, { params });
 };

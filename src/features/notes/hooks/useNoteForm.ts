@@ -11,15 +11,11 @@ import { getQueryKey } from 'features/contractors/hooks/useContractors';
 import { useAppSelector } from 'core/store';
 
 const initialFormData: NoteFormData = {
-  title: '',
-  date: '',
   content: '',
 };
 
 const getSchema = () => {
   return yup.object().default({
-    title: yup.string().required(),
-    date: yup.string().trim().required(),
     content: yup.string().required(),
   });
 };
@@ -27,11 +23,11 @@ const getSchema = () => {
 interface Props {
   id?: number;
   contractorId: number;
-  successCallback: () => void;
+  onSuccess: () => void;
 }
 
 const useNoteForm = (props: Props) => {
-  const { id, successCallback, contractorId } = props;
+  const { id, onSuccess, contractorId } = props;
   const { filter, paging, sort } = useAppSelector((state) => state.contractors);
 
   const { control, handleSubmit, reset } = useForm<NoteFormData>({
@@ -60,7 +56,7 @@ const useNoteForm = (props: Props) => {
   const { mutateAsync } = useMutation(mutationFn);
 
   const save = async (request: NoteFormData) => {
-    await mutateAsync(request).then(successCallback);
+    await mutateAsync(request).then(onSuccess);
   };
 
   return { control, handleSubmit, save };

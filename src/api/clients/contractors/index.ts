@@ -4,9 +4,9 @@ import { Contractor, AddContractorRequest, EditContractorRequest, ContractorsFil
 
 const baseUrl = '/contractors';
 
-export const getContractors = async (request?: ListRequest<ContractorsFilter>) => {
-  const params = { ...request?.paging, ...request?.sort, ...request?.filter };
-  return httpClient.get<ListRequest, ListResponse<Contractor>>(baseUrl, { params });
+export const getContractors = async (request: ListRequest<ContractorsFilter>) => {
+  const params = { ...request.paging, ...request.sort, ...request.filter };
+  return httpClient.get<ListRequest<ContractorsFilter>, ListResponse<Contractor>>(baseUrl, { params });
 };
 
 export const getContractor = async (id: number) => {

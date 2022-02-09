@@ -55,22 +55,25 @@ export const contractorColumns: Column<Contractor>[] = [
     Cell: (cell) => <Form.Check readOnly checked={cell.isOnSite} type='checkbox' />,
   },
   {
-    id: ContractKeys.location,
-    label: 'Location',
+    id: ContractKeys.country,
+    label: 'Country',
     sortable: true,
-    Cell: (cell) => `${Countries.getCountryName(cell.countryCode)}, ${cell.city}`,
+    Cell: (cell) => Countries.getCountryName(cell.countryCode),
   },
   {
     id: ContractKeys.rate,
     label: 'Rate',
     className: 'text-center',
-    Cell: (cell) => `${cell.rate.toFixed(2)} ${CurrencyUtils.getCurrencySymbol(cell.currency)}`,
+    Cell: (cell) =>
+      cell.rate && cell.currency
+        ? `${cell.rate.toFixed(2)} ${CurrencyUtils.getCurrencySymbol(cell.currency)}`
+        : undefined,
     sortable: true,
   },
   {
     id: ContractKeys.profession,
     label: 'Profession',
-    Cell: (cell) => cell.profession.name,
+    Cell: (cell) => (cell.profession ? cell.profession.name : undefined),
     sortable: true,
   },
   {
@@ -80,10 +83,17 @@ export const contractorColumns: Column<Contractor>[] = [
     Cell: (cell) => `${cell.recruiter.firstName} ${cell.recruiter.lastName}`,
   },
   {
-    id: ContractKeys.mainTechnology,
-    label: 'Main technology',
-    Cell: (cell) => cell.mainTechnology.name,
-    sortable: true,
+    id: ContractKeys.mainTechnologies,
+    label: 'Main technologies',
+    Cell: (cell) => (
+      <div className='technologies'>
+        {cell.mainTechnologies.map((technology) => (
+          <Badge className='me-1' key={technology.id}>
+            {technology.name}
+          </Badge>
+        ))}
+      </div>
+    ),
   },
   {
     id: ContractKeys.mailed,
@@ -134,7 +144,7 @@ export const contractorColumns: Column<Contractor>[] = [
       <div className='notes'>
         {cell.notes.map((note) => (
           <Badge bg='light' className='me-1' key={note.id}>
-            {note.date}
+            {note.created}
           </Badge>
         ))}
       </div>

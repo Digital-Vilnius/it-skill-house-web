@@ -1,12 +1,11 @@
-import { ListRequest, ListResponse, ResultResponse } from '../../types';
+import { ListResponse, ResultResponse } from '../../types';
 import httpClient from '../../httpClient';
-import { Technology, AddTechnologyRequest, TechnologiesFilter } from './types';
+import { Technology, AddTechnologyRequest } from './types';
 
 const baseUrl = '/technologies';
 
-export const getTechnologies = async (request?: ListRequest<TechnologiesFilter>) => {
-  const params = { ...request?.paging, ...request?.sort };
-  return httpClient.get<ListRequest, ListResponse<Technology>>(baseUrl, { params });
+export const getTechnologies = async () => {
+  return httpClient.get<void, ListResponse<Technology>>(baseUrl);
 };
 
 export const addTechnology = async (request: AddTechnologyRequest) => {

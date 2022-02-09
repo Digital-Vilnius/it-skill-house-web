@@ -1,3 +1,3 @@
-import Technologies from './Technologies';
+import TechnologiesSelect from './TechnologiesSelect';
 
-export { Technologies };
+export { TechnologiesSelect };

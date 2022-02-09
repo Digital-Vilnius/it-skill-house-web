@@ -1,66 +1,32 @@
-import { ContractorsFilter } from './types';
 import { Paging, Sort } from 'api/types';
 import { SortDirections } from 'api/constants';
-
-export const initialFilter: ContractorsFilter = {
-  keyword: null,
-
-  isRemote: null,
-  isPublic: null,
-  isAvailable: null,
-  hasContract: null,
-  isOnSite: null,
-
-  countriesCodes: [],
-  mainTechnologiesIds: [],
-  professionsIds: [],
-  recruitersIds: [],
-  technologiesIds: [],
-  tagsIds: [],
-
-  rateFrom: null,
-  rateTo: null,
-
-  experienceFrom: null,
-  experienceTo: null,
-
-  availableFrom: null,
-  availableTo: null,
-};
 
 export enum ContractKeys {
   id = 'id',
   codaId = 'codaId',
   cinodeId = 'cinodeId',
-
   fullName = 'fullName',
   firstName = 'firstName',
   lastName = 'lastName',
   email = 'email',
   phone = 'phone',
-
   isRemote = 'isRemote',
   isPublic = 'isPublic',
   isAvailable = 'isAvailable',
   hasContract = 'hasContract',
   isOnSite = 'isOnSite',
-
-  location = 'location',
+  country = 'country',
   rate = 'rate',
-
   mailed = 'mailed',
   nearestEvent = 'nearestEvent',
   profession = 'profession',
   recruiter = 'recruiter',
-  mainTechnology = 'mainTechnology',
-
+  mainTechnologies = 'mainTechnologies',
   technologies = 'technologies',
   tags = 'tags',
   notes = 'notes',
-
   availableFrom = 'availableFrom',
   experienceSince = 'experienceSince',
-
   linkedInUrl = 'linkedInUrl',
   updated = 'updated',
   created = 'created',
@@ -79,13 +45,13 @@ export const initialColumnsOrder: string[] = [
   ContractKeys.mailed,
   ContractKeys.nearestEvent,
   ContractKeys.profession,
-  ContractKeys.mainTechnology,
+  ContractKeys.mainTechnologies,
   ContractKeys.technologies,
   ContractKeys.tags,
   ContractKeys.notes,
   ContractKeys.experienceSince,
   ContractKeys.availableFrom,
-  ContractKeys.location,
+  ContractKeys.country,
   ContractKeys.isRemote,
   ContractKeys.isPublic,
   ContractKeys.isAvailable,
@@ -107,15 +73,13 @@ export const initialColumnsIds: string[] = [
   ContractKeys.id,
   ContractKeys.fullName,
   ContractKeys.email,
-  ContractKeys.phone,
   ContractKeys.recruiter,
-  ContractKeys.mainTechnology,
-  ContractKeys.tags,
+  ContractKeys.mainTechnologies,
   ContractKeys.mailed,
+  ContractKeys.notes,
   ContractKeys.experienceSince,
   ContractKeys.availableFrom,
-  ContractKeys.location,
-  ContractKeys.hasContract,
+  ContractKeys.country,
   ContractKeys.isAvailable,
   ContractKeys.rate,
   ContractKeys.created,

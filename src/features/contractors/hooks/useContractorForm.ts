@@ -10,64 +10,11 @@ import { useAppSelector } from 'core/store';
 import { useEffect } from 'react';
 import { mapContractor, mapContractorFormData } from '../map';
 
-const initialFormData: ContractorFormData = {
-  firstName: '',
-  lastName: '',
-  email: '',
-  phone: '',
-
-  isRemote: false,
-  isPublic: false,
-  hasContract: false,
-  isOnSite: false,
-
-  countryCode: 'LT',
-  city: '',
-
-  rate: 0,
-  currency: 'EUR',
-
-  professionId: 0,
-  recruiterId: 0,
-  mainTechnologyId: 0,
-
-  technologiesIds: [],
-  tagsIds: [],
-
-  availableFrom: '',
-  experienceSince: '',
-
-  linkedInUrl: '',
-  codaId: 0,
-  cinodeId: 0,
-};
-
 const getSchema = (isEdit: boolean) => {
   const editShape = {
-    isRemote: yup.boolean().required(),
-    isPublic: yup.boolean().required(),
-    hasContract: yup.boolean().required(),
-    isOnSite: yup.boolean().required(),
-
     countryCode: yup.string().required(),
-    city: yup.string().required(),
-
-    rate: yup.number().positive().required(),
-    currency: yup.string().required(),
-
-    professionId: yup.number().required(),
     recruiterId: yup.number().required(),
-    mainTechnologyId: yup.number().required(),
-
-    technologiesIds: yup.array().min(1).of(yup.number()),
-    tagsIds: yup.array().min(1).of(yup.number()),
-
-    availableFrom: yup.string().trim().required(),
-    experienceSince: yup.string().trim().required(),
-
-    linkedInUrl: yup.string(),
-    codaId: yup.number().required(),
-    cinodeId: yup.number().required(),
+    mainTechnologiesIds: yup.array().of(yup.number()).min(1).required(),
   };
 
   const addShape = {
@@ -75,7 +22,6 @@ const getSchema = (isEdit: boolean) => {
     firstName: yup.string().required(),
     lastName: yup.string().required(),
     email: yup.string().email().required(),
-    phone: yup.string().required(),
   };
 
   return yup
@@ -86,16 +32,19 @@ const getSchema = (isEdit: boolean) => {
 
 interface Props {
   id?: number;
-  successCallback: () => void;
+  onSuccess: () => void;
 }
 
 const useContractorForm = (props: Props) => {
-  const { successCallback, id } = props;
+  const { onSuccess, id } = props;
   const { filter, paging, sort } = useAppSelector((state) => state.contractors);
 
-  const { control, handleSubmit, reset } = useForm<ContractorFormData>({
+  const {
+    control,
+    handleSubmit,
+    reset: resetForm,
+  } = useForm<ContractorFormData>({
     resolver: yupResolver(getSchema(!!id)),
-    defaultValues: initialFormData,
   });
 
   useEffect(() => {
@@ -103,12 +52,12 @@ const useContractorForm = (props: Props) => {
       ContractorsClient.getContractor(id).then((response) => {
         const contractor = mapContractor(response.result);
         const data = mapContractorFormData(contractor);
-        reset(data);
+        resetForm(data);
       });
     } else {
-      reset(initialFormData);
+      resetForm({});
     }
-  }, [id, reset]);
+  }, [id, resetForm]);
 
   const mutationFn = async (data: ContractorFormData) => {
     if (id) await ContractorsClient.editContractor(id, data);
@@ -119,10 +68,14 @@ const useContractorForm = (props: Props) => {
   const { mutateAsync } = useMutation(mutationFn);
 
   const save = async (request: ContractorFormData) => {
-    await mutateAsync(request).then(successCallback);
+    await mutateAsync(request).then(onSuccess);
   };
 
-  return { control, handleSubmit, save };
+  const reset = () => {
+    resetForm({});
+  };
+
+  return { control, handleSubmit, save, reset };
 };
 
 export default useContractorForm;

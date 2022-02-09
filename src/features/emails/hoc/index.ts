@@ -1,3 +1,4 @@
-import SendEmailModal from './SendEmailModal';
+import EmailForm from './EmailForm';
+import EmailsList from './EmailsList';
 
-export { SendEmailModal };
+export { EmailForm, EmailsList };

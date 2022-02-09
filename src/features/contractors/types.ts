@@ -8,96 +8,49 @@ import { Note } from 'features/notes/types';
 import { Email } from 'features/emails/types';
 
 export interface Contractor extends BaseModel {
+  linkedInUrl: string | null;
+
+  codaId: number | null;
+  cinodeId: number | null;
+
   userId: number;
   firstName: string;
   lastName: string;
   email: string;
-  phone: string;
+  phone: string | null;
 
+  countryCode: string;
+  city: string | null;
+
+  rate: number | null;
+  currency: string | null;
+
+  availableFrom: string | null;
+  experienceSince: string | null;
+
+  isAvailable: boolean;
   isRemote: boolean;
   isPublic: boolean;
-  isAvailable: boolean;
   hasContract: boolean;
   isOnSite: boolean;
 
-  countryCode: string;
-  city: string;
-
-  rate: number;
-  currency: string;
-
   lastEmail: Email | null;
   nearestEvent: Event | null;
-  profession: Profession;
+  profession: Profession | null;
   recruiter: Recruiter;
-  mainTechnology: Technology;
 
-  technologies: Technology[];
-  tags: Tag[];
   notes: Note[];
-
-  availableFrom: string;
-  experienceSince: string;
-
-  linkedInUrl: string;
-  codaId: number;
-  cinodeId: number;
+  tags: Tag[];
+  technologies: Technology[];
+  mainTechnologies: Technology[];
 }
 
 export interface ContractorFormData {
   firstName: string;
   lastName: string;
   email: string;
-  phone: string;
-
-  isRemote: boolean;
-  isPublic: boolean;
-  hasContract: boolean;
-  isOnSite: boolean;
-
   countryCode: string;
-  city: string;
-
-  rate: number;
-  currency: string;
-
-  professionId: number;
   recruiterId: number;
-  mainTechnologyId: number;
-
-  technologiesIds: number[];
-  tagsIds: number[];
-
-  availableFrom: string;
-  experienceSince: string;
-
-  linkedInUrl: string;
-  codaId: number;
-  cinodeId: number;
-}
-
-export interface ContractorsFilter {
-  keyword: string | null;
-
-  isRemote: boolean | null;
-  isPublic: boolean | null;
-  isAvailable: boolean | null;
-  hasContract: boolean | null;
-  isOnSite: boolean | null;
-
-  countriesCodes: string[];
-  professionsIds: number[];
-  recruitersIds: number[];
-  technologiesIds: number[];
-  tagsIds: number[];
+  note: string;
   mainTechnologiesIds: number[];
-
-  rateFrom: number | null;
-  rateTo: number | null;
-
-  experienceFrom: string | null;
-  experienceTo: string | null;
-
-  availableFrom: string | null;
-  availableTo: string | null;
 }

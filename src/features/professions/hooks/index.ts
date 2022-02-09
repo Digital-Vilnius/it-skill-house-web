@@ -1,3 +1,3 @@
-import useProfessionsOptions from './useProfessionsOptions';
+import useProfessions from './useProfessions';
 
-export { useProfessionsOptions };
+export { useProfessions };

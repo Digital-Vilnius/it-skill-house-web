@@ -4,7 +4,3 @@ export interface Profession extends BaseModel {
   name: string;
   count: number;
 }
-
-export interface ProfessionFormData {
-  name: string;
-}

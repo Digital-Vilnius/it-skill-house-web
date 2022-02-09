@@ -8,7 +8,7 @@ import xor from 'lodash/xor';
 import ClearableBadge from '../ClearableBadge';
 
 const Select: FC<SelectProps> = (props) => {
-  const { value, clearable, creatable, searchable, options, multi, onCreate } = props;
+  const { value, clearable, creatable, searchable, options = [], multi, onCreate } = props;
   const [visible, setVisible] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
   useOnClickOutside({ ref, callback: () => setVisible(false) });

@@ -4,7 +4,3 @@ export interface Tag extends BaseModel {
   name: string;
   count: number;
 }
-
-export interface TagFormData {
-  name: string;
-}

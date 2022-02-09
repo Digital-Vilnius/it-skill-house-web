@@ -7,6 +7,7 @@ import DatePicker from './DatePicker';
 import MoneyInput from './MoneyInput';
 import SearchInput from './SearchInput';
 import SwitchInput from './SwitchInput';
+import Dropzone from './Dropzone';
 
 export {
   Avatar,
@@ -18,4 +19,5 @@ export {
   MoneyInput,
   SearchInput,
   SwitchInput,
+  Dropzone,
 };

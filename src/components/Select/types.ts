@@ -3,7 +3,7 @@ export type ValueType = string | number;
 export type SelectProps = SingleSelectProps | MultiSelectProps;
 
 export interface CommonSelectProps {
-  options: SelectOption[];
+  options?: SelectOption[];
   clearable?: boolean;
   loading?: boolean;
   onBlur?: () => void;

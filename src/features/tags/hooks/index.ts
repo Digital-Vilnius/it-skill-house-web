@@ -1,3 +1,3 @@
-import useTagsOptions from './useTagsOptions';
+import useTags from './useTags';
 
-export { useTagsOptions };
+export { useTags };

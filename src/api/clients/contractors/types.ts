@@ -8,99 +8,73 @@ import { Note } from '../notes/types';
 import { Email } from '../emails/types';
 
 export interface Contractor extends BaseModel {
+  linkedInUrl: string | null;
+
+  codaId: number | null;
+  cinodeId: number | null;
+
   userId: number;
   firstName: string;
   lastName: string;
   email: string;
-  phone: string;
+  phone: string | null;
 
+  countryCode: string;
+  city: string | null;
+
+  rate: number | null;
+  currency: string | null;
+
+  availableFrom: string | null;
+  experienceSince: string | null;
+
+  isAvailable: boolean;
   isRemote: boolean;
   isPublic: boolean;
-  isAvailable: boolean;
   hasContract: boolean;
   isOnSite: boolean;
 
-  countryCode: string;
-  city: string;
-
-  rate: number;
-  currency: string;
-
   lastEmail: Email | null;
-
   nearestEvent: Event | null;
-  profession: Profession;
+  profession: Profession | null;
   recruiter: Recruiter;
-  mainTechnology: Technology;
 
-  technologies: Technology[];
-  tags: Tag[];
   notes: Note[];
-
-  availableFrom: string;
-  experienceSince: string;
-
-  linkedInUrl: string;
-  codaId: number;
-  cinodeId: number;
+  tags: Tag[];
+  technologies: Technology[];
+  mainTechnologies: Technology[];
 }
 
 export interface AddContractorRequest extends EditContractorRequest {
   firstName: string;
   lastName: string;
   email: string;
-  phone: string;
+  note: string;
 }
 
 export interface EditContractorRequest {
-  isRemote: boolean;
-  isPublic: boolean;
-  hasContract: boolean;
-  isOnSite: boolean;
-
-  rate: number;
-  currency: string;
-
   countryCode: string;
-  city: string;
-
-  professionId: number;
   recruiterId: number;
-  mainTechnologyId: number;
-
-  technologiesIds: number[];
-  tagsIds: number[];
-
-  availableFrom: string;
-  experienceSince: string;
-
-  linkedInUrl: string;
-  codaId: number;
-  cinodeId: number;
+  mainTechnologiesIds: number[];
 }
 
 export interface ContractorsFilter {
   keyword?: string;
-
   isRemote?: boolean;
   isPublic?: boolean;
   isAvailable?: boolean;
   hasContract?: boolean;
   isOnSite?: boolean;
-
   countriesCodes?: string[];
   professionsIds?: number[];
   recruitersIds?: number[];
   technologiesIds?: number[];
   mainTechnologiesIds?: number[];
   tagsIds?: number[];
-
   rateFrom?: number;
   rateTo?: number;
-
   experienceFrom?: string;
   experienceTo?: string;
-
   availableFrom?: string;
   availableTo?: string;
 }

@@ -1,8 +1,8 @@
-import { ContractorsFilter } from '../types';
 import { Paging, Sort } from 'api/types';
 import { ContractorsClient } from 'api/clients';
 import { useQuery } from 'react-query';
-import { mapContractor, mapContractorFilter } from '../map';
+import { mapContractor } from '../map';
+import { ContractorsFilter } from 'api/clients/contractors/types';
 
 interface Props {
   filter: ContractorsFilter;
@@ -16,9 +16,8 @@ export const getQueryKey = (filter: ContractorsFilter, paging: Paging, sort: Sor
 
 const useContractors = (props: Props) => {
   const { filter, paging, sort } = props;
-  const apiFilter = mapContractorFilter(filter);
 
-  const getContractorsFn = () => ContractorsClient.getContractors({ filter: apiFilter, paging, sort });
+  const getContractorsFn = () => ContractorsClient.getContractors({ filter, paging, sort });
   const { isLoading, data } = useQuery(getQueryKey(filter, paging, sort), getContractorsFn, {
     keepPreviousData: true,
   });

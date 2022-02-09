@@ -1,9 +1,9 @@
 import { useAppDispatch } from 'core/store';
-import { ContractorsFilter } from '../types';
-import { resetFilterAction, setFilterAction } from '../actions';
+import { setFilter, resetFilter } from '../slice';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { ContractorsFilter } from 'api/clients/contractors/types';
 
 interface Props {
   filter: ContractorsFilter;
@@ -43,12 +43,12 @@ const useContractorsFilterForm = (props: Props) => {
   });
 
   const save = (data: ContractorsFilter) => {
-    dispatch(setFilterAction({ filter: data }));
+    dispatch(setFilter(data));
     onSuccess();
   };
 
   const reset = () => {
-    dispatch(resetFilterAction());
+    dispatch(resetFilter());
     resetForm(filter);
     onSuccess();
   };

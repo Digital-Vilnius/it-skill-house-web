@@ -4,9 +4,6 @@ import { AuthLayout, AdminLayout } from 'layouts';
 import { LoginPage } from 'features/auth/pages';
 import { ContractorPage, ContractorsPage } from 'features/contractors/pages';
 import RequireAuth from './RequireAuth';
-import { RecruitersPage, AddRecruiterPage } from 'features/recruiters/pages';
-import { UsersPage } from 'features/users/pages';
-import { TechnologiesPage } from 'features/technologies/pages';
 
 const RootNavigator: FC = () => {
   return (
@@ -29,38 +26,6 @@ const RootNavigator: FC = () => {
             element={
               <RequireAuth>
                 <ContractorPage />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path='recruiters'
-            element={
-              <RequireAuth>
-                <RecruitersPage />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path='recruiters/add'
-            element={
-              <RequireAuth>
-                <AddRecruiterPage />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path='users'
-            element={
-              <RequireAuth>
-                <UsersPage />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path='technologies'
-            element={
-              <RequireAuth>
-                <TechnologiesPage />
               </RequireAuth>
             }
           />

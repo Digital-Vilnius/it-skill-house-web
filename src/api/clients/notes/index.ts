@@ -16,7 +16,7 @@ export const editNote = async (id: number, request: EditNoteRequest) => {
   return httpClient.put<EditNoteRequest, ResultResponse<Note>>(`${baseUrl}/${id}`, request);
 };
 
-export const getNotes = async (request?: ListRequest<NotesFilter>) => {
-  const params = { ...request?.filter };
-  return httpClient.get<ListRequest, ListResponse<Note>>(baseUrl, { params });
+export const getNotes = async (request: ListRequest<NotesFilter>) => {
+  const params = { ...request.filter };
+  return httpClient.get<ListRequest<NotesFilter>, ListResponse<Note>>(baseUrl, { params });
 };

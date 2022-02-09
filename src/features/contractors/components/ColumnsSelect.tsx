@@ -6,29 +6,30 @@ import xor from 'lodash/xor';
 import { Contractor } from '../types';
 
 interface Props {
-  columns: Column<Contractor>[];
-  value: string[];
-  onChange: (ids: string[]) => void;
-  order: string[];
-  onOrderChange: (ids: string[]) => void;
+  allColumns: Column<Contractor>[];
+  visibleColumns: string[];
+  onVisibleColumnsChange: (ids: string[]) => void;
+  columnsOrder: string[];
+  onColumnsOrderChange: (ids: string[]) => void;
 }
 
 const ColumnsSelect: FC<Props> = (props) => {
-  const { columns, value, onChange, onOrderChange, order } = props;
+  const { allColumns, visibleColumns, onVisibleColumnsChange, onColumnsOrderChange, columnsOrder } =
+    props;
 
   const handleOnChange = (id: string) => {
-    onChange(xor(value, [id]));
+    onVisibleColumnsChange(xor(visibleColumns, [id]));
   };
 
   const onDragEnd = (result: DropResult) => {
     const { destination, source } = result;
     if (!destination || destination.index === source.index) return;
 
-    const newOrder = [...order];
+    const newOrder = [...columnsOrder];
     newOrder.splice(source.index, 1);
-    newOrder.splice(destination.index, 0, order[source.index]);
+    newOrder.splice(destination.index, 0, columnsOrder[source.index]);
 
-    onOrderChange(newOrder);
+    onColumnsOrderChange(newOrder);
   };
 
   return (
@@ -46,7 +47,7 @@ const ColumnsSelect: FC<Props> = (props) => {
                   ref={droppableProvided.innerRef}
                   {...droppableProvided.droppableProps}
                 >
-                  {columns.map((column, index) => (
+                  {allColumns.map((column, index) => (
                     <Draggable draggableId={column.id} key={column.id} index={index}>
                       {(draggableProvided) => (
                         <div
@@ -57,7 +58,7 @@ const ColumnsSelect: FC<Props> = (props) => {
                           <Form.Check type='checkbox' id={column.id}>
                             <Form.Check.Input
                               onChange={() => handleOnChange(column.id)}
-                              checked={value.includes(column.id)}
+                              checked={visibleColumns.includes(column.id)}
                               type='checkbox'
                               className='me-3'
                             />
