@@ -1,13 +1,15 @@
 import React, { FC } from 'react';
 import { useTags } from '../hooks';
 import { mapTagOption } from '../map';
-import { Select } from 'components';
-import { SelectProps } from 'components/Select';
+import { FormSelect } from 'components';
+import { FormSelectProps } from 'components/FormSelect';
 
-const TagsSelect: FC<SelectProps> = (props) => {
+const TagsSelect: FC<FormSelectProps> = (props) => {
   const { isLoading, addTag, tags } = useTags();
 
-  return <Select {...props} onCreate={addTag} loading={isLoading} options={tags.map(mapTagOption)} />;
+  return (
+    <FormSelect {...props} onCreate={addTag} loading={isLoading} options={tags.map(mapTagOption)} />
+  );
 };
 
 export default TagsSelect;

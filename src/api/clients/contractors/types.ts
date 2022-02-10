@@ -45,16 +45,37 @@ export interface Contractor extends BaseModel {
   mainTechnologies: Technology[];
 }
 
-export interface AddContractorRequest extends EditContractorRequest {
+export interface SaveContractorRequest {
   firstName: string;
   lastName: string;
   email: string;
-  note: string;
-}
+  phone: string | null;
 
-export interface EditContractorRequest {
+  note: string;
+  linkedInUrl: string | null;
+
+  codaId: number | null;
+  cinodeId: number | null;
+
   countryCode: string;
+  city: string | null;
+
+  rate: number | null;
+  currency: string | null;
+
+  availableFrom: string | null;
+  experienceSince: string | null;
+
+  isRemote: boolean;
+  isPublic: boolean;
+  hasContract: boolean;
+  isOnSite: boolean;
+
+  professionId: number | null;
   recruiterId: number;
+
+  tagsIds: number[];
+  technologiesIds: number[];
   mainTechnologiesIds: number[];
 }
 

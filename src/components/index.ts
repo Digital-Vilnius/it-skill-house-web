@@ -8,6 +8,10 @@ import MoneyInput from './MoneyInput';
 import SearchInput from './SearchInput';
 import SwitchInput from './SwitchInput';
 import Dropzone from './Dropzone';
+import FormInput from './FormInput';
+import FormSelect from './FormSelect';
+import FormDatePicker from './FormDatePicker';
+import FormSwitch from './FormSwitch';
 
 export {
   Avatar,
@@ -20,4 +24,8 @@ export {
   SearchInput,
   SwitchInput,
   Dropzone,
+  FormInput,
+  FormSelect,
+  FormDatePicker,
+  FormSwitch,
 };

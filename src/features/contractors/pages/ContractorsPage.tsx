@@ -5,8 +5,8 @@ import {
   ColumnsSelect,
   ContractorsDataTable,
   ContractorsActions,
-  ContractorForm,
   ContractorsFilter,
+  ContractorForm,
 } from '../hoc';
 import { useModal } from 'core/modal/hooks';
 
@@ -14,7 +14,7 @@ const ContractorsPage: FC = () => {
   const { showModal } = useModal();
 
   const openContractorAddForm = () => {
-    showModal(ContractorForm, { title: 'Add contractor' });
+    showModal(ContractorForm, { title: 'Add contractor', size: 'xl' });
   };
 
   const openContractorsFilter = () => {

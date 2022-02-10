@@ -17,13 +17,13 @@ export interface CommonSelectProps {
 
 export interface SingleSelectProps extends CommonSelectProps {
   multi?: false;
-  value: SingleSelectValueType;
+  value?: SingleSelectValueType;
   onChange: (value: SingleSelectValueType) => void;
 }
 
 export interface MultiSelectProps extends CommonSelectProps {
   multi: true;
-  value: ValueType[];
+  value?: ValueType[];
   onChange: (value: ValueType[]) => void;
 }
 

@@ -8,7 +8,7 @@ import xor from 'lodash/xor';
 import ClearableBadge from '../ClearableBadge';
 
 const Select: FC<SelectProps> = (props) => {
-  const { value, clearable, creatable, searchable, options = [], multi, onCreate } = props;
+  const { clearable, creatable, searchable, options = [], multi, onCreate } = props;
   const [visible, setVisible] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
   useOnClickOutside({ ref, callback: () => setVisible(false) });
@@ -35,8 +35,8 @@ const Select: FC<SelectProps> = (props) => {
   };
 
   const hasValue = () => {
-    if (props.multi) return props.value.length > 0;
-    else return !!value;
+    if (props.multi) return (props.value ?? []).length > 0;
+    else return !!props.value;
   };
 
   const isSelected = (optionValue: ValueType) => {
@@ -65,7 +65,7 @@ const Select: FC<SelectProps> = (props) => {
         clearable={clearable}
       >
         {!props.multi && props.value ? getOption(props.value)?.label : null}
-        {props.multi && props.value.map(renderMultiSelectOption)}
+        {props.multi && (props.value ?? []).map(renderMultiSelectOption)}
       </SelectValue>
       <SelectOptions
         visible={visible}

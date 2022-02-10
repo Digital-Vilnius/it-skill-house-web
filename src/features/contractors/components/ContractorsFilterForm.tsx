@@ -16,7 +16,7 @@ interface Props {
   control: Control<ContractorsFilterType>;
 }
 
-const ContractorsFilter: FC<Props> = (props) => {
+const ContractorsFilterForm: FC<Props> = (props) => {
   const { onClose, onSubmit, onReset, control } = props;
 
   return (
@@ -50,21 +50,14 @@ const ContractorsFilter: FC<Props> = (props) => {
               control={control}
               name='professionsIds'
               render={({ field, fieldState }) => (
-                <div className='form-group'>
-                  <Form.Label>Professions</Form.Label>
-                  <ProfessionsSelect
-                    multi
-                    searchable
-                    clearable
-                    name={field.name}
-                    onBlur={field.onBlur}
-                    value={field.value ?? []}
-                    onChange={field.onChange}
-                  />
-                  <Form.Control.Feedback type='invalid'>
-                    {fieldState.error?.message}
-                  </Form.Control.Feedback>
-                </div>
+                <ProfessionsSelect
+                  label='Professions'
+                  multi
+                  searchable
+                  clearable
+                  error={fieldState.error?.message}
+                  {...field}
+                />
               )}
             />
           </Col>
@@ -76,21 +69,14 @@ const ContractorsFilter: FC<Props> = (props) => {
               control={control}
               name='technologiesIds'
               render={({ field, fieldState }) => (
-                <div className='form-group'>
-                  <Form.Label>Technologies</Form.Label>
-                  <TechnologiesSelect
-                    multi
-                    searchable
-                    clearable
-                    name={field.name}
-                    onBlur={field.onBlur}
-                    value={field.value ?? []}
-                    onChange={field.onChange}
-                  />
-                  <Form.Control.Feedback type='invalid'>
-                    {fieldState.error?.message}
-                  </Form.Control.Feedback>
-                </div>
+                <TechnologiesSelect
+                  label='Technologies'
+                  multi
+                  searchable
+                  clearable
+                  error={fieldState.error?.message}
+                  {...field}
+                />
               )}
             />
           </Col>
@@ -99,21 +85,14 @@ const ContractorsFilter: FC<Props> = (props) => {
               control={control}
               name='mainTechnologiesIds'
               render={({ field, fieldState }) => (
-                <div className='form-group'>
-                  <Form.Label>Main technologies</Form.Label>
-                  <TechnologiesSelect
-                    multi
-                    searchable
-                    clearable
-                    name={field.name}
-                    onBlur={field.onBlur}
-                    value={field.value ?? []}
-                    onChange={field.onChange}
-                  />
-                  <Form.Control.Feedback type='invalid'>
-                    {fieldState.error?.message}
-                  </Form.Control.Feedback>
-                </div>
+                <TechnologiesSelect
+                  label='Main technologies'
+                  multi
+                  searchable
+                  clearable
+                  error={fieldState.error?.message}
+                  {...field}
+                />
               )}
             />
           </Col>
@@ -125,21 +104,14 @@ const ContractorsFilter: FC<Props> = (props) => {
               control={control}
               name='recruitersIds'
               render={({ field, fieldState }) => (
-                <div className='form-group'>
-                  <Form.Label>Recruiters</Form.Label>
-                  <RecruitersSelect
-                    multi
-                    searchable
-                    clearable
-                    name={field.name}
-                    onBlur={field.onBlur}
-                    value={field.value ?? []}
-                    onChange={field.onChange}
-                  />
-                  <Form.Control.Feedback type='invalid'>
-                    {fieldState.error?.message}
-                  </Form.Control.Feedback>
-                </div>
+                <RecruitersSelect
+                  label='Recruiters'
+                  multi
+                  searchable
+                  clearable
+                  error={fieldState.error?.message}
+                  {...field}
+                />
               )}
             />
           </Col>
@@ -148,21 +120,14 @@ const ContractorsFilter: FC<Props> = (props) => {
               control={control}
               name='tagsIds'
               render={({ field, fieldState }) => (
-                <div className='form-group'>
-                  <Form.Label>Tags</Form.Label>
-                  <TagsSelect
-                    multi
-                    searchable
-                    clearable
-                    name={field.name}
-                    onBlur={field.onBlur}
-                    value={field.value ?? []}
-                    onChange={field.onChange}
-                  />
-                  <Form.Control.Feedback type='invalid'>
-                    {fieldState.error?.message}
-                  </Form.Control.Feedback>
-                </div>
+                <TagsSelect
+                  label='Tags'
+                  multi
+                  searchable
+                  clearable
+                  error={fieldState.error?.message}
+                  {...field}
+                />
               )}
             />
           </Col>
@@ -472,4 +437,4 @@ const ContractorsFilter: FC<Props> = (props) => {
   );
 };
 
-export default ContractorsFilter;
+export default ContractorsFilterForm;

@@ -1,21 +1,23 @@
 import React, { FC } from 'react';
 import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
 import { Control, Controller } from 'react-hook-form';
-import { Dropzone, Select, TextEditor } from 'components';
+import { FormDatePicker, FormInput, FormSelect, FormSwitch, TextEditor } from 'components';
 import { Countries } from 'utils';
-import { ContractorFormData } from '../types';
 import { RecruitersSelect } from 'features/recruiters/hoc';
 import { TechnologiesSelect } from 'features/technologies/hoc';
+import { ProfessionsSelect } from 'features/professions/hoc';
+import { SaveContractorRequest } from 'api/clients/contractors/types';
+import { TagsSelect } from 'features/tags/hoc';
 
 interface Props {
   onClose: () => void;
   onSubmit: () => void;
-  editMode: boolean;
-  control: Control<ContractorFormData>;
+  isEdit: boolean;
+  control: Control<SaveContractorRequest>;
 }
 
 const ContractorForm: FC<Props> = (props) => {
-  const { onClose, control, onSubmit, editMode } = props;
+  const { onClose, control, onSubmit, isEdit } = props;
 
   return (
     <>
@@ -23,47 +25,211 @@ const ContractorForm: FC<Props> = (props) => {
         <Row className='mb-4'>
           <Col>
             <Controller
-              control={control}
+              control={props.control}
               name='firstName'
-              render={({ field, fieldState }) => (
-                <div className='form-group'>
-                  <Form.Label>First name</Form.Label>
-                  <Form.Control
-                    disabled={editMode}
-                    isInvalid={!!fieldState.error}
-                    onInput={field.onChange}
-                    onBlur={field.onBlur}
-                    name={field.name}
-                    value={field.value}
-                    placeholder='John'
-                  />
-                  <Form.Control.Feedback type='invalid'>
-                    {fieldState.error?.message}
-                  </Form.Control.Feedback>
-                </div>
+              render={({ field: { ref, ...rest }, fieldState }) => (
+                <FormInput
+                  label='First name'
+                  placeholder='John'
+                  error={fieldState.error?.message}
+                  {...rest}
+                />
+              )}
+            />
+          </Col>
+          <Col>
+            <Controller
+              control={props.control}
+              name='lastName'
+              render={({ field: { ref, ...rest }, fieldState }) => (
+                <FormInput
+                  label='Last name'
+                  placeholder='Doe'
+                  error={fieldState.error?.message}
+                  {...rest}
+                />
+              )}
+            />
+          </Col>
+        </Row>
+        <Row className='mb-4'>
+          <Col>
+            <Controller
+              control={props.control}
+              name='email'
+              render={({ field: { ref, ...rest }, fieldState }) => (
+                <FormInput
+                  label='Email'
+                  placeholder='john.doe@example.com'
+                  error={fieldState.error?.message}
+                  {...rest}
+                />
+              )}
+            />
+          </Col>
+          <Col>
+            <Controller
+              control={props.control}
+              name='phone'
+              render={({ field: { ref, ...rest }, fieldState }) => (
+                <FormInput
+                  label='Phone'
+                  placeholder='+370# ## #####'
+                  error={fieldState.error?.message}
+                  {...rest}
+                />
+              )}
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Controller
+              control={props.control}
+              name='countryCode'
+              render={({ field: { ref, ...rest }, fieldState }) => (
+                <FormSelect
+                  label='Country'
+                  options={Countries.countriesOptions}
+                  error={fieldState.error?.message}
+                  {...rest}
+                />
               )}
             />
           </Col>
           <Col>
             <Controller
               control={control}
-              name='lastName'
-              render={({ field, fieldState }) => (
-                <div className='form-group'>
-                  <Form.Label>Last name</Form.Label>
-                  <Form.Control
-                    disabled={editMode}
-                    isInvalid={!!fieldState.error}
-                    onInput={field.onChange}
-                    onBlur={field.onBlur}
-                    name={field.name}
-                    value={field.value}
-                    placeholder='Doe'
-                  />
-                  <Form.Control.Feedback type='invalid'>
-                    {fieldState.error?.message}
-                  </Form.Control.Feedback>
-                </div>
+              name='city'
+              render={({ field: { ref, ...rest }, fieldState }) => (
+                <FormInput
+                  label='City'
+                  placeholder='Vilnius'
+                  error={fieldState.error?.message}
+                  {...rest}
+                />
+              )}
+            />
+          </Col>
+        </Row>
+        <hr className='my-4' />
+        <Row className='mb-4'>
+          <Col>
+            <Controller
+              control={control}
+              name='recruiterId'
+              render={({ field: { ref, ...rest }, fieldState }) => (
+                <RecruitersSelect
+                  label='Recruiter'
+                  searchable
+                  clearable
+                  error={fieldState.error?.message}
+                  {...rest}
+                />
+              )}
+            />
+          </Col>
+          <Col>
+            <Controller
+              control={props.control}
+              name='professionId'
+              render={({ field: { ref, ...rest }, fieldState }) => (
+                <ProfessionsSelect
+                  label='Role'
+                  clearable
+                  searchable
+                  creatable
+                  error={fieldState.error?.message}
+                  {...rest}
+                />
+              )}
+            />
+          </Col>
+        </Row>
+        <Row className='mb-4'>
+          <Col>
+            <Controller
+              control={props.control}
+              name='mainTechnologiesIds'
+              render={({ field: { ref, ...rest }, fieldState }) => (
+                <TechnologiesSelect
+                  label='Main technologies'
+                  clearable
+                  searchable
+                  creatable
+                  multi
+                  error={fieldState.error?.message}
+                  {...rest}
+                />
+              )}
+            />
+          </Col>
+          <Col>
+            <Controller
+              control={props.control}
+              name='technologiesIds'
+              render={({ field: { ref, ...rest }, fieldState }) => (
+                <TechnologiesSelect
+                  label='Technologies'
+                  clearable
+                  searchable
+                  creatable
+                  multi
+                  error={fieldState.error?.message}
+                  {...rest}
+                />
+              )}
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Controller
+              control={control}
+              name='rate'
+              render={({ field: { ref, ...rest }, fieldState }) => (
+                <FormInput
+                  label='Rate'
+                  type='number'
+                  placeholder='30.00'
+                  error={fieldState.error?.message}
+                  {...rest}
+                />
+              )}
+            />
+          </Col>
+          <Col>
+            <Controller
+              control={control}
+              name='currency'
+              render={({ field: { ref, ...rest }, fieldState }) => (
+                <FormInput
+                  label='Currency'
+                  placeholder='EUR'
+                  error={fieldState.error?.message}
+                  {...rest}
+                />
+              )}
+            />
+          </Col>
+        </Row>
+        <hr className='my-4' />
+        <Row className='mb-4'>
+          <Col>
+            <Controller
+              control={control}
+              name='availableFrom'
+              render={({ field: { ref, ...rest }, fieldState }) => (
+                <FormDatePicker label='Available from' error={fieldState.error?.message} {...rest} />
+              )}
+            />
+          </Col>
+          <Col>
+            <Controller
+              control={control}
+              name='experienceSince'
+              render={({ field: { ref, ...rest }, fieldState }) => (
+                <FormDatePicker label='Experience since' error={fieldState.error?.message} {...rest} />
               )}
             />
           </Col>
@@ -72,48 +238,28 @@ const ContractorForm: FC<Props> = (props) => {
           <Col>
             <Controller
               control={control}
-              name='email'
-              render={({ field, fieldState }) => (
-                <div className='form-group'>
-                  <Form.Label>Email</Form.Label>
-                  <Form.Control
-                    disabled={editMode}
-                    isInvalid={!!fieldState.error}
-                    onInput={field.onChange}
-                    onBlur={field.onBlur}
-                    name={field.name}
-                    value={field.value}
-                    autoComplete='email'
-                    type='email'
-                    placeholder='name@example.com'
-                  />
-                  <Form.Control.Feedback type='invalid'>
-                    {fieldState.error?.message}
-                  </Form.Control.Feedback>
-                </div>
+              name='codaId'
+              render={({ field: { ref, ...rest }, fieldState }) => (
+                <FormInput
+                  label='Coda ID'
+                  placeholder='1234'
+                  error={fieldState.error?.message}
+                  {...rest}
+                />
               )}
             />
           </Col>
           <Col>
             <Controller
               control={control}
-              name='countryCode'
-              render={({ field, fieldState }) => (
-                <div className='form-group'>
-                  <Form.Label>Country</Form.Label>
-                  <Select
-                    searchable
-                    clearable
-                    name={field.name}
-                    onBlur={field.onBlur}
-                    options={Countries.countriesOptions}
-                    value={field.value}
-                    onChange={field.onChange}
-                  />
-                  <Form.Control.Feedback type='invalid'>
-                    {fieldState.error?.message}
-                  </Form.Control.Feedback>
-                </div>
+              name='cinodeId'
+              render={({ field: { ref, ...rest }, fieldState }) => (
+                <FormInput
+                  label='Cinode ID'
+                  placeholder='1234'
+                  error={fieldState.error?.message}
+                  {...rest}
+                />
               )}
             />
           </Col>
@@ -121,83 +267,96 @@ const ContractorForm: FC<Props> = (props) => {
         <Row>
           <Col>
             <Controller
-              control={control}
-              name='recruiterId'
-              render={({ field, fieldState }) => (
-                <div className='form-group'>
-                  <Form.Label>Recruiter</Form.Label>
-                  <RecruitersSelect
-                    searchable
-                    clearable
-                    name={field.name}
-                    onBlur={field.onBlur}
-                    value={field.value}
-                    onChange={field.onChange}
-                  />
-                  <Form.Control.Feedback type='invalid'>
-                    {fieldState.error?.message}
-                  </Form.Control.Feedback>
-                </div>
+              control={props.control}
+              name='tagsIds'
+              render={({ field: { ref, ...rest }, fieldState }) => (
+                <TagsSelect
+                  label='Tags'
+                  clearable
+                  searchable
+                  creatable
+                  multi
+                  error={fieldState.error?.message}
+                  {...rest}
+                />
               )}
             />
           </Col>
           <Col>
             <Controller
               control={control}
-              name='mainTechnologiesIds'
-              render={({ field, fieldState }) => (
-                <div className='form-group'>
-                  <Form.Label>Main technologies</Form.Label>
-                  <TechnologiesSelect
-                    clearable
-                    searchable
-                    creatable
-                    multi
-                    name={field.name}
-                    onBlur={field.onBlur}
-                    value={field.value ?? []}
-                    onChange={field.onChange}
-                  />
-                  <Form.Control.Feedback type='invalid'>
-                    {fieldState.error?.message}
-                  </Form.Control.Feedback>
-                </div>
+              name='linkedInUrl'
+              render={({ field: { ref, ...rest }, fieldState }) => (
+                <FormInput
+                  label='LinkedIn'
+                  placeholder='https://www.linkedin.com/'
+                  error={fieldState.error?.message}
+                  {...rest}
+                />
               )}
             />
           </Col>
         </Row>
         <hr className='my-4' />
-        <Row>
+        <Row className='mb-4'>
           <Col>
             <Controller
               control={control}
-              name='note'
-              render={({ field, fieldState }) => (
-                <div className='form-group'>
-                  <Form.Label>Note</Form.Label>
-                  <TextEditor
-                    onChange={field.onChange}
-                    onBlur={field.onBlur}
-                    name={field.name}
-                    value={field.value}
-                  />
-                  <Form.Control.Feedback type='invalid'>
-                    {fieldState.error?.message}
-                  </Form.Control.Feedback>
-                </div>
+              name='isRemote'
+              render={({ field: { ref, ...rest }, fieldState }) => (
+                <FormSwitch label='Remote' error={fieldState.error?.message} {...rest} />
+              )}
+            />
+          </Col>
+          <Col>
+            <Controller
+              control={control}
+              name='isOnSite'
+              render={({ field: { ref, ...rest }, fieldState }) => (
+                <FormSwitch label='On site' error={fieldState.error?.message} {...rest} />
               )}
             />
           </Col>
         </Row>
-        <hr className='my-4' />
-        <Row>
+        <Row className='mb-4'>
           <Col>
-            <div className='form-group'>
-              <Form.Label>Attachments</Form.Label>
-              <Dropzone multiple onDrop={console.log} />
-            </div>
+            <Controller
+              control={control}
+              name='hasContract'
+              render={({ field: { ref, ...rest }, fieldState }) => (
+                <FormSwitch label='Has contract' error={fieldState.error?.message} {...rest} />
+              )}
+            />
+          </Col>
+          <Col>
+            <Controller
+              control={control}
+              name='isPublic'
+              render={({ field: { ref, ...rest }, fieldState }) => (
+                <FormSwitch label='Public' error={fieldState.error?.message} {...rest} />
+              )}
+            />
           </Col>
         </Row>
+        {!isEdit && (
+          <Row>
+            <Col>
+              <Controller
+                control={props.control}
+                name='note'
+                render={({ field: { ref, ...rest }, fieldState }) => (
+                  <div className='form-group'>
+                    <Form.Label className='large-label'>Note</Form.Label>
+                    <TextEditor {...rest} />
+                    <Form.Control.Feedback type='invalid'>
+                      {fieldState.error?.message}
+                    </Form.Control.Feedback>
+                  </div>
+                )}
+              />
+            </Col>
+          </Row>
+        )}
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={onClose} variant='secondary'>

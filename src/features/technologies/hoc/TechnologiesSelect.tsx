@@ -1,14 +1,14 @@
 import React, { FC } from 'react';
 import { useTechnologies } from '../hooks';
 import { mapTechnologyOption } from '../map';
-import { Select } from 'components';
-import { SelectProps } from 'components/Select';
+import { FormSelect } from 'components';
+import { FormSelectProps } from 'components/FormSelect';
 
-const TechnologiesSelect: FC<SelectProps> = (props) => {
+const TechnologiesSelect: FC<FormSelectProps> = (props) => {
   const { isLoading, addTechnology, technologies } = useTechnologies();
 
   return (
-    <Select
+    <FormSelect
       {...props}
       onCreate={addTechnology}
       loading={isLoading}

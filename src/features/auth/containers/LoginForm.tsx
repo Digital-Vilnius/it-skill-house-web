@@ -47,9 +47,6 @@ const LoginForm: FC = () => {
                 />
               )}
             />
-            <InputGroup.Text>
-              <span>Icon eye</span>
-            </InputGroup.Text>
           </InputGroup>
         </div>
         <Button type='submit' size='lg' className='w-100 mb-3'>

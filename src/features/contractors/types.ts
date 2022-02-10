@@ -44,13 +44,3 @@ export interface Contractor extends BaseModel {
   technologies: Technology[];
   mainTechnologies: Technology[];
 }
-
-export interface ContractorFormData {
-  firstName: string;
-  lastName: string;
-  email: string;
-  countryCode: string;
-  recruiterId: number;
-  note: string;
-  mainTechnologiesIds: number[];
-}

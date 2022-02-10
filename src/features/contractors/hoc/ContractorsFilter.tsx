@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { useContractorsFilterForm } from '../hooks';
 import { useAppSelector } from 'core/store';
-import { ContractorsFilter as ControlledContractorsFilter } from '../components';
+import { ContractorsFilterForm as ControlledContractorsFilter } from '../components';
 import { useModal } from 'core/modal/hooks';
 
 const ContractorsFilter: FC = () => {

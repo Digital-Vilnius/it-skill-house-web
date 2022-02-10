@@ -6,7 +6,7 @@ import { Form, InputGroup } from 'react-bootstrap';
 import classNames from 'classnames';
 import Icon from '@ailibs/feather-react-ts';
 
-type ValueType = string | null;
+export type ValueType = string | null;
 
 const DatePicker: FC<SelectControlProps<ValueType>> = (props) => {
   const { value, onChange, onBlur, className, isInvalid, name } = props;
@@ -20,6 +20,7 @@ const DatePicker: FC<SelectControlProps<ValueType>> = (props) => {
     <InputGroup>
       <Form.Control
         name={name}
+        autoComplete='none'
         onChange={console.log}
         className={classNames('form-control', className)}
         value={value ?? ''}

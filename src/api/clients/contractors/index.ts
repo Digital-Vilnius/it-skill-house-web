@@ -1,6 +1,6 @@
 import { ListRequest, ListResponse, ResultResponse } from '../../types';
 import httpClient from '../../httpClient';
-import { Contractor, AddContractorRequest, EditContractorRequest, ContractorsFilter } from './types';
+import { Contractor, SaveContractorRequest, ContractorsFilter } from './types';
 
 const baseUrl = '/contractors';
 
@@ -17,10 +17,10 @@ export const deleteContractor = async (id: number) => {
   return httpClient.delete(`${baseUrl}/${id}`);
 };
 
-export const addContractor = async (request: AddContractorRequest) => {
-  return httpClient.post<AddContractorRequest, Contractor>(baseUrl, request);
+export const addContractor = async (request: SaveContractorRequest) => {
+  return httpClient.post<SaveContractorRequest, Contractor>(baseUrl, request);
 };
 
-export const editContractor = async (id: number, request: EditContractorRequest) => {
-  return httpClient.put<EditContractorRequest, ResultResponse<Contractor>>(`${baseUrl}/${id}`, request);
+export const editContractor = async (id: number, request: SaveContractorRequest) => {
+  return httpClient.put<SaveContractorRequest, ResultResponse<Contractor>>(`${baseUrl}/${id}`, request);
 };

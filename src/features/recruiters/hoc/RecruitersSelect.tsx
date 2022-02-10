@@ -1,13 +1,13 @@
 import React, { FC } from 'react';
 import { useRecruiters } from '../hooks';
 import { mapRecruiterOption } from '../map';
-import { Select } from 'components';
-import { SelectProps } from 'components/Select';
+import { FormSelect } from 'components';
+import { FormSelectProps } from 'components/FormSelect';
 
-const RecruitersSelect: FC<SelectProps> = (props) => {
+const RecruitersSelect: FC<FormSelectProps> = (props) => {
   const { isLoading, recruiters } = useRecruiters();
 
-  return <Select {...props} loading={isLoading} options={recruiters.map(mapRecruiterOption)} />;
+  return <FormSelect {...props} loading={isLoading} options={recruiters.map(mapRecruiterOption)} />;
 };
 
 export default RecruitersSelect;

@@ -1,14 +1,14 @@
 import React, { FC } from 'react';
 import { useProfessions } from '../hooks';
 import { mapProfessionOption } from '../map';
-import { Select } from 'components';
-import { SelectProps } from 'components/Select';
+import { FormSelect } from 'components';
+import { FormSelectProps } from 'components/FormSelect';
 
-const ProfessionsSelect: FC<SelectProps> = (props) => {
+const ProfessionsSelect: FC<FormSelectProps> = (props) => {
   const { isLoading, professions, addProfession } = useProfessions();
 
   return (
-    <Select
+    <FormSelect
       {...props}
       loading={isLoading}
       onCreate={addProfession}

@@ -1,5 +1,5 @@
-import { Contractor as ApiContractor } from 'api/clients/contractors/types';
-import { Contractor, ContractorFormData } from './types';
+import { Contractor as ApiContractor, SaveContractorRequest } from 'api/clients/contractors/types';
+import { Contractor } from './types';
 import { mapRecruiter } from 'features/recruiters/map';
 import { mapTechnology } from 'features/technologies/map';
 import { mapEvent } from 'features/events/map';
@@ -17,9 +17,12 @@ export const mapContractor = (contractor: ApiContractor): Contractor => ({
   nearestEvent: contractor.nearestEvent ? mapEvent(contractor.nearestEvent) : null,
 });
 
-export const mapContractorFormData = (contractor: Contractor): ContractorFormData => ({
+export const mapContractorFormData = (contractor: Contractor): SaveContractorRequest => ({
   ...contractor,
-  recruiterId: contractor.recruiter.id,
   mainTechnologiesIds: contractor.mainTechnologies.map((technology) => technology.id),
+  technologiesIds: contractor.technologies.map((technology) => technology.id),
+  tagsIds: contractor.tags.map((technology) => technology.id),
+  recruiterId: contractor.recruiter.id,
+  professionId: contractor.profession?.id ?? null,
   note: '',
 });

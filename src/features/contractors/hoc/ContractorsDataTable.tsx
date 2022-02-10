@@ -32,7 +32,7 @@ const ContractorsDataTable: FC = () => {
   };
 
   const openContractorEditForm = (id: number) => {
-    showModal<ContractorFormProps>(ContractorForm, { title: 'Edit contractor' }, { id });
+    showModal<ContractorFormProps>(ContractorForm, { title: 'Edit contractor', size: 'xl' }, { id });
   };
 
   return (

@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, PropsWithChildren, useState } from 'react';
 import { ModalContext } from './context';
 import { ModalOptions, ModalState } from './types';
 import { Modal } from 'react-bootstrap';
@@ -7,11 +7,16 @@ const ModalProvider: FC = (props) => {
   const { children } = props;
   const [state, setState] = useState<ModalState>({ visible: false });
 
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  const showModal = <T extends {}>(Component: FC, options: ModalOptions, componentProps?: T) => {
+  const showModal = <T,>(
+    Component: FC<T>,
+    options: ModalOptions,
+    componentProps?: PropsWithChildren<T>
+  ) => {
     const { size = 'lg', centered = true, title } = options;
 
     setState({
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       Component,
       componentProps,
       options: { size, centered, title },

@@ -1,81 +1,90 @@
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
-import { ContractorFormData } from '../types';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation } from 'react-query';
 import { ContractorsClient } from 'api/clients';
-import { queryClient } from 'core/query';
-import { getQueryKey } from './useContractors';
-import { useAppSelector } from 'core/store';
+import { SaveContractorRequest } from 'api/clients/contractors/types';
 import { useEffect } from 'react';
-import { mapContractor, mapContractorFormData } from '../map';
+import { mapContractor } from '../map';
 
-const getSchema = (isEdit: boolean) => {
-  const editShape = {
-    countryCode: yup.string().required(),
-    recruiterId: yup.number().required(),
-    mainTechnologiesIds: yup.array().of(yup.number()).min(1).required(),
-  };
+const defaultValues: SaveContractorRequest = {
+  firstName: '',
+  lastName: '',
+  email: '',
+  phone: '',
+  note: '',
 
-  const addShape = {
-    ...editShape,
-    firstName: yup.string().required(),
-    lastName: yup.string().required(),
-    email: yup.string().email().required(),
-  };
+  countryCode: 'LT',
+  city: null,
 
+  codaId: null,
+  cinodeId: null,
+
+  rate: null,
+  currency: 'EUR',
+
+  availableFrom: null,
+  experienceSince: null,
+
+  hasContract: false,
+  isOnSite: false,
+  isPublic: false,
+  isRemote: false,
+
+  professionId: null,
+  recruiterId: 0,
+
+  linkedInUrl: null,
+
+  tagsIds: [],
+  technologiesIds: [],
+  mainTechnologiesIds: [],
+};
+
+const getSchema = () => {
   return yup
     .object()
-    .shape(isEdit ? editShape : addShape)
+    .shape({
+      countryCode: yup.string().required(),
+      recruiterId: yup.number().required(),
+      mainTechnologiesIds: yup.array().of(yup.number()).min(1).required(),
+    })
     .required();
 };
 
 interface Props {
   id?: number;
   onSuccess: () => void;
+  onError: (message: string) => void;
 }
 
 const useContractorForm = (props: Props) => {
-  const { onSuccess, id } = props;
-  const { filter, paging, sort } = useAppSelector((state) => state.contractors);
+  const { onSuccess, onError, id } = props;
 
-  const {
-    control,
-    handleSubmit,
-    reset: resetForm,
-  } = useForm<ContractorFormData>({
-    resolver: yupResolver(getSchema(!!id)),
+  const { control, handleSubmit, reset } = useForm<SaveContractorRequest>({
+    resolver: yupResolver(getSchema()),
+    defaultValues,
   });
 
   useEffect(() => {
     if (id) {
       ContractorsClient.getContractor(id).then((response) => {
         const contractor = mapContractor(response.result);
-        const data = mapContractorFormData(contractor);
-        resetForm(data);
+        reset(contractor);
       });
-    } else {
-      resetForm({});
     }
-  }, [id, resetForm]);
+  }, [id, reset]);
 
-  const mutationFn = async (data: ContractorFormData) => {
-    if (id) await ContractorsClient.editContractor(id, data);
-    else await ContractorsClient.addContractor(data);
-    return queryClient.refetchQueries(getQueryKey(filter, paging, sort));
+  const { mutateAsync } = useMutation(async (request: SaveContractorRequest) => {
+    if (!id) await ContractorsClient.addContractor(request);
+    else await ContractorsClient.editContractor(id, request);
+  });
+
+  const save = async (request: SaveContractorRequest) => {
+    await mutateAsync(request).then(onSuccess).catch(onError);
   };
 
-  const { mutateAsync } = useMutation(mutationFn);
-
-  const save = async (request: ContractorFormData) => {
-    await mutateAsync(request).then(onSuccess);
-  };
-
-  const reset = () => {
-    resetForm({});
-  };
-
-  return { control, handleSubmit, save, reset };
+  return { control, handleSubmit, save };
 };
 
 export default useContractorForm;
