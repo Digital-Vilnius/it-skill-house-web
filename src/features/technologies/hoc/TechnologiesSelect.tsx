@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { useTechnologies } from '../hooks';
 import { mapTechnologyOption } from '../map';
 import { FormSelect } from 'components';
-import { FormSelectProps } from 'components/FormSelect';
+import { FormSelectProps } from 'components/Form/FormSelect';
 
 const TechnologiesSelect: FC<FormSelectProps> = (props) => {
   const { isLoading, addTechnology, technologies } = useTechnologies();

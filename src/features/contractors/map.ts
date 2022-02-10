@@ -17,7 +17,7 @@ export const mapContractor = (contractor: ApiContractor): Contractor => ({
   nearestEvent: contractor.nearestEvent ? mapEvent(contractor.nearestEvent) : null,
 });
 
-export const mapContractorFormData = (contractor: Contractor): SaveContractorRequest => ({
+export const mapSaveContractorRequest = (contractor: Contractor): SaveContractorRequest => ({
   ...contractor,
   mainTechnologiesIds: contractor.mainTechnologies.map((technology) => technology.id),
   technologiesIds: contractor.technologies.map((technology) => technology.id),

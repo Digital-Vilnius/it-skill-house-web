@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { useRecruiters } from '../hooks';
 import { mapRecruiterOption } from '../map';
 import { FormSelect } from 'components';
-import { FormSelectProps } from 'components/FormSelect';
+import { FormSelectProps } from 'components/Form/FormSelect';
 
 const RecruitersSelect: FC<FormSelectProps> = (props) => {
   const { isLoading, recruiters } = useRecruiters();

@@ -14,7 +14,7 @@ const ContractorsPage: FC = () => {
   const { showModal } = useModal();
 
   const openContractorAddForm = () => {
-    showModal(ContractorForm, { title: 'Add contractor', size: 'xl' });
+    showModal(ContractorForm, { title: 'Add contractor' });
   };
 
   const openContractorsFilter = () => {

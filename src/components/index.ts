@@ -1,17 +1,18 @@
 import Avatar from './Avatar';
-import TextEditor from './TextEditor';
+import TextEditor from './Form/TextEditor';
 import Select from './Select';
 import DataTable from './DataTable';
 import Pagination from './Pagination';
-import DatePicker from './DatePicker';
-import MoneyInput from './MoneyInput';
-import SearchInput from './SearchInput';
-import SwitchInput from './SwitchInput';
+import DatePicker from './Form/DatePicker';
+import MoneyInput from './Form/MoneyInput';
+import SearchInput from './Form/SearchInput';
+import SwitchInput from './Form/SwitchInput';
 import Dropzone from './Dropzone';
-import FormInput from './FormInput';
-import FormSelect from './FormSelect';
-import FormDatePicker from './FormDatePicker';
-import FormSwitch from './FormSwitch';
+import FormInput from './Form/FormInput';
+import FormSelect from './Form/FormSelect';
+import FormDatePicker from './Form/FormDatePicker';
+import FormSwitch from './Form/FormSwitch';
+import FormTextEditor from './Form/FormTextEditor';
 
 export {
   Avatar,
@@ -28,4 +29,5 @@ export {
   FormSelect,
   FormDatePicker,
   FormSwitch,
+  FormTextEditor,
 };

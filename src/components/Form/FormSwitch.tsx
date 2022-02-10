@@ -1,23 +1,22 @@
 import React, { FC } from 'react';
 import { Form } from 'react-bootstrap';
-import { SwitchControlProps } from './types';
 import SwitchInput from './SwitchInput';
+import { SwitchControlProps } from './types';
 
 interface Props extends SwitchControlProps {
   label: string;
+  help?: string;
   error?: string;
 }
 
 const FormSwitch: FC<Props> = (props) => {
-  const { label, error, value, ...rest } = props;
+  const { label, error, value, help, ...rest } = props;
 
   return (
-    <div className='form-group d-flex align-items-center'>
+    <div className='form-group d-flex'>
       <div>
         <Form.Label>{label}</Form.Label>
-        <Form.Text className='small text-muted'>
-          This contact will be shown to others publicly, so choose it carefully.
-        </Form.Text>
+        <Form.Text className='small text-muted'>{help}</Form.Text>
       </div>
       <div className='flex-grow-1 d-flex justify-content-end'>
         <SwitchInput {...rest} />

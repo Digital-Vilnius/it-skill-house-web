@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Form } from 'react-bootstrap';
-import Select, { SelectProps } from './Select';
+import Select, { SelectProps } from '../Select';
 
 export type FormSelectProps = SelectProps & {
   label: string;
@@ -11,7 +11,7 @@ const FormSelect: FC<FormSelectProps> = (props) => {
   const { label, error, ...rest } = props;
 
   return (
-    <div className='form-group d-flex align-items-center'>
+    <div className='form-group d-flex'>
       <Form.Label>{label}</Form.Label>
       <div className='flex-grow-1'>
         <Select {...rest} />

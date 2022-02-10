@@ -5,41 +5,7 @@ import { useMutation } from 'react-query';
 import { ContractorsClient } from 'api/clients';
 import { SaveContractorRequest } from 'api/clients/contractors/types';
 import { useEffect } from 'react';
-import { mapContractor } from '../map';
-
-const defaultValues: SaveContractorRequest = {
-  firstName: '',
-  lastName: '',
-  email: '',
-  phone: '',
-  note: '',
-
-  countryCode: 'LT',
-  city: null,
-
-  codaId: null,
-  cinodeId: null,
-
-  rate: null,
-  currency: 'EUR',
-
-  availableFrom: null,
-  experienceSince: null,
-
-  hasContract: false,
-  isOnSite: false,
-  isPublic: false,
-  isRemote: false,
-
-  professionId: null,
-  recruiterId: 0,
-
-  linkedInUrl: null,
-
-  tagsIds: [],
-  technologiesIds: [],
-  mainTechnologiesIds: [],
-};
+import { mapContractor, mapSaveContractorRequest } from '../map';
 
 const getSchema = () => {
   return yup
@@ -61,16 +27,16 @@ interface Props {
 const useContractorForm = (props: Props) => {
   const { onSuccess, onError, id } = props;
 
-  const { control, handleSubmit, reset } = useForm<SaveContractorRequest>({
+  const { handleSubmit, reset, control } = useForm<SaveContractorRequest>({
     resolver: yupResolver(getSchema()),
-    defaultValues,
   });
 
   useEffect(() => {
     if (id) {
       ContractorsClient.getContractor(id).then((response) => {
         const contractor = mapContractor(response.result);
-        reset(contractor);
+        const request = mapSaveContractorRequest(contractor);
+        reset(request);
       });
     }
   }, [id, reset]);
@@ -84,7 +50,7 @@ const useContractorForm = (props: Props) => {
     await mutateAsync(request).then(onSuccess).catch(onError);
   };
 
-  return { control, handleSubmit, save };
+  return { handleSubmit, save, control };
 };
 
 export default useContractorForm;

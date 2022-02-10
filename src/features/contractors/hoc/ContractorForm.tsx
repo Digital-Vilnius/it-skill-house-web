@@ -11,7 +11,7 @@ const ContractorForm: FC<ContractorFormProps> = (props) => {
   const { id } = props;
   const { hideModal } = useModal();
 
-  const { control, handleSubmit, save } = useContractorForm({
+  const { handleSubmit, save, control } = useContractorForm({
     onSuccess: hideModal,
     onError: console.log,
     id,
@@ -20,8 +20,8 @@ const ContractorForm: FC<ContractorFormProps> = (props) => {
   return (
     <ControlledContractorForm
       isEdit={!!id}
-      control={control}
       onClose={hideModal}
+      control={control}
       onSubmit={handleSubmit(save)}
     />
   );

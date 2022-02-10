@@ -1,13 +1,18 @@
 .modal-dialog {
-  &.extra-lg {
-    max-width: 1200px;
+
+  &.modal-lg {
+    max-width: 900px;
   }
 
   .form-label:not(.large-label) {
     margin-bottom: 0;
-    width: 140px;
+    width: 130px;
     font-size: 13px;
     padding-right: 10px;
+    flex-shrink: 0;
+    display: block;
+    height: 39px;
+    line-height: 39px;
   }
 
   .form-control {
@@ -16,6 +21,6 @@
 
   .form-text {
     margin-bottom: 0;
-    padding-right: 100px;
+    padding-right: 50px;
   }
 }
