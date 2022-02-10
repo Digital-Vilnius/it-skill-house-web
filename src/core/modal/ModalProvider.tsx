@@ -12,7 +12,7 @@ const ModalProvider: FC = (props) => {
     options: ModalOptions,
     componentProps?: PropsWithChildren<T>
   ) => {
-    const { size = 'lg', centered = true, title } = options;
+    const { size, centered = true, title } = options;
 
     setState({
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment

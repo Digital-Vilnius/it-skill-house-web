@@ -16,14 +16,13 @@ const ContractorsActions: FC = () => {
   };
 
   const openSendEmailForm = () => {
-    showModal(EmailForm, { title: 'Send email' });
+    showModal(EmailForm, { title: 'Send email', size: 'lg' });
   };
 
   return (
     <ControlledContractorsActions
       selectedCount={selected.length}
       onClose={handleClose}
-      onDelete={console.log}
       onSendEmail={openSendEmailForm}
     />
   );

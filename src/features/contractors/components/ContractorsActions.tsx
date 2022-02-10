@@ -5,11 +5,10 @@ interface Props {
   selectedCount: number;
   onClose: () => void;
   onSendEmail: () => void;
-  onDelete: () => void;
 }
 
 const ContractorsActions: FC<Props> = (props) => {
-  const { selectedCount, onClose, onSendEmail, onDelete } = props;
+  const { selectedCount, onClose, onSendEmail } = props;
 
   if (selectedCount === 0) return null;
 
@@ -22,9 +21,6 @@ const ContractorsActions: FC<Props> = (props) => {
         <Col xs='auto' className='me-n3'>
           <Button onClick={onSendEmail} variant='white-20' size='sm'>
             Send email
-          </Button>
-          <Button onClick={onDelete} variant='white-20' size='sm' className='ms-1'>
-            Delete
           </Button>
         </Col>
       </Row>

@@ -7,16 +7,13 @@ import { queryClient } from 'core/query';
 import 'assets/scss/theme.scss';
 import { PersistGate } from 'redux-persist/integration/react';
 import { ToastContainer } from 'react-toastify';
-import ModalProvider from 'core/modal/ModalProvider';
 
 const App: FC = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <ModalProvider>
-            <RootNavigator />
-          </ModalProvider>
+          <RootNavigator />
           <ToastContainer />
         </PersistGate>
       </Provider>

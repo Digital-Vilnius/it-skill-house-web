@@ -8,6 +8,9 @@ import { Paging, Sort } from 'api/types';
 import { Contractor } from '../types';
 import { useModal } from 'core/modal/hooks';
 import ContractorForm, { ContractorFormProps } from './ContractorForm';
+import ContractorDeleteConfirmation, {
+  ContractorDeleteConfirmationProps,
+} from './ContractorDeleteConfirmation';
 
 const ContractorsDataTable: FC = () => {
   const dispatch = useAppDispatch();
@@ -32,7 +35,15 @@ const ContractorsDataTable: FC = () => {
   };
 
   const openContractorEditForm = (id: number) => {
-    showModal<ContractorFormProps>(ContractorForm, { title: 'Edit contractor' }, { id });
+    showModal<ContractorFormProps>(ContractorForm, { title: 'Edit contractor', size: 'xl' }, { id });
+  };
+
+  const openContractorDeleteConfirmation = (id: number) => {
+    showModal<ContractorDeleteConfirmationProps>(
+      ContractorDeleteConfirmation,
+      { title: 'Are you sure that you want to delete this contractor?' },
+      { id }
+    );
   };
 
   return (
@@ -46,7 +57,7 @@ const ContractorsDataTable: FC = () => {
       setPaging={handlePagingChange}
       selectedContractors={selected}
       onSelectedContractorsChange={handleSelectedContractorsChange}
-      onDelete={console.log}
+      onDelete={openContractorDeleteConfirmation}
       onEdit={openContractorEditForm}
       onDetails={(id) => window.open(`/admin/contractors/${id}`)}
     />

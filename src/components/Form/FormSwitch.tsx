@@ -13,7 +13,7 @@ const FormSwitch: FC<Props> = (props) => {
   const { label, error, value, help, ...rest } = props;
 
   return (
-    <div className='form-group d-flex'>
+    <div className='form-group d-flex align-items-center'>
       <div>
         <Form.Label>{label}</Form.Label>
         <Form.Text className='small text-muted'>{help}</Form.Text>

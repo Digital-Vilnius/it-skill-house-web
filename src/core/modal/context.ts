@@ -2,7 +2,7 @@ import { createContext } from 'react';
 import { ModalContextValue } from './types';
 
 const defaultContextValue: ModalContextValue = {
-  showModal: () => {},
+  showModal: () => Promise.resolve(),
   hideModal: () => {},
 };
 
