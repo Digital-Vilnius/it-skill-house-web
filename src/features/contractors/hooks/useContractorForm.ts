@@ -21,7 +21,7 @@ const getSchema = () => {
 interface Props {
   id?: number;
   onSuccess: () => void;
-  onError: (message: string) => void;
+  onError?: (message: string) => void;
 }
 
 const useContractorForm = (props: Props) => {

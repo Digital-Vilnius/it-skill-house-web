@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { useContractor, useContractorDelete } from '../hooks';
+import { useContractor, useContractorDelete, useContractorsRefetch } from '../hooks';
 import { useModal } from 'core/modal/hooks';
 import { ContractorDeleteConfirmation as ControlledContractorDeleteConfirmation } from '../components';
 
@@ -11,10 +11,13 @@ const ContractorDeleteConfirmation: FC<ContractorDeleteConfirmationProps> = (pro
   const { id } = props;
   const { hideModal } = useModal();
   const { deleteContractor } = useContractorDelete();
+  const { refetch } = useContractorsRefetch();
   const { contractor } = useContractor(id);
 
-  const handleOnSubmit = () => {
-    deleteContractor(id).then(hideModal);
+  const handleOnSubmit = async () => {
+    await deleteContractor(id);
+    await refetch();
+    hideModal();
   };
 
   return (

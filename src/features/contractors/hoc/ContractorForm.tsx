@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { useContractorForm } from '../hooks';
+import { useContractorForm, useContractorsRefetch } from '../hooks';
 import { useModal } from 'core/modal/hooks';
 import { ContractorForm as ControlledContractorForm } from '../components';
 
@@ -10,12 +10,14 @@ export interface ContractorFormProps {
 const ContractorForm: FC<ContractorFormProps> = (props) => {
   const { id } = props;
   const { hideModal } = useModal();
+  const { refetch } = useContractorsRefetch();
 
-  const { handleSubmit, save, control } = useContractorForm({
-    onSuccess: hideModal,
-    onError: console.log,
-    id,
-  });
+  const onSuccess = async () => {
+    await refetch();
+    hideModal();
+  };
+
+  const { handleSubmit, save, control } = useContractorForm({ onSuccess, id });
 
   return (
     <ControlledContractorForm

@@ -2,7 +2,7 @@ import React, { ComponentPropsWithoutRef } from 'react';
 import classNames from 'classnames';
 
 interface Props extends ComponentPropsWithoutRef<'div'> {
-  ratio: '4by3';
+  ratio?: '4by3';
   size: 'xs' | 'sm' | 'lg' | 'xl' | 'xxl';
   status: 'online' | 'offline';
 }
