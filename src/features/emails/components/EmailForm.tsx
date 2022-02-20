@@ -2,18 +2,19 @@ import React, { FC } from 'react';
 import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
 import { Control, Controller } from 'react-hook-form';
 import { Dropzone, Select, TextEditor } from 'components';
-import { EmailFormData, Recipient } from '../types';
-import { mapRecipientToOption } from '../map';
+import { EmailFormData } from '../types';
+import { Contractor } from 'features/contractors/types';
+import { mapContractorToOption } from 'features/contractors/map';
 
 interface Props {
   onClose: () => void;
   onSubmit: () => void;
   control: Control<EmailFormData>;
-  recipients: Recipient[];
+  contractors: Contractor[];
 }
 
 const EmailForm: FC<Props> = (props) => {
-  const { onClose, onSubmit, control, recipients } = props;
+  const { onClose, onSubmit, control, contractors } = props;
 
   return (
     <>
@@ -22,14 +23,14 @@ const EmailForm: FC<Props> = (props) => {
           <Col>
             <Controller
               control={control}
-              name='recipientsIds'
+              name='contractorsIds'
               render={({ field, fieldState }) => (
                 <div className='form-group'>
-                  <Form.Label>Recipients</Form.Label>
+                  <Form.Label>Contractors</Form.Label>
                   <Select
                     multi
                     clearable
-                    options={recipients.map(mapRecipientToOption)}
+                    options={contractors.map(mapContractorToOption)}
                     searchable
                     name={field.name}
                     onBlur={field.onBlur}

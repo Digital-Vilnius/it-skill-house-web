@@ -5,3 +5,17 @@
 .form-control-container {
   height: 39px;
 }
+
+.input-group-text {
+  &.is-invalid {
+    border-color: #E63757;
+  }
+}
+
+.quill {
+  &.is-invalid {
+    .ql-toolbar, .ql-editor {
+      border-color: #E63757;
+    }
+  }
+}

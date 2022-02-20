@@ -9,6 +9,7 @@ export interface CommonSelectProps {
   onBlur?: () => void;
   id?: string;
   name?: string;
+  isInvalid?: boolean;
   className?: string;
   searchable?: boolean;
   creatable?: boolean;

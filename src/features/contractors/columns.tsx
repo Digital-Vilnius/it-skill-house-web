@@ -3,7 +3,7 @@ import { Contractor } from './types';
 import { Badge, Form } from 'react-bootstrap';
 import React from 'react';
 import { ContractKeys } from './constants';
-import { Countries, CurrencyUtils, DateUtils } from '../../utils';
+import { CountryUtils, CurrencyUtils, DateUtils } from '../../utils';
 
 export const contractorColumns: Column<Contractor>[] = [
   { id: ContractKeys.id, label: 'Id', className: 'text-center', sortable: true },
@@ -58,7 +58,7 @@ export const contractorColumns: Column<Contractor>[] = [
     id: ContractKeys.country,
     label: 'Country',
     sortable: true,
-    Cell: (cell) => Countries.getCountryName(cell.countryCode),
+    Cell: (cell) => CountryUtils.getCountryName(cell.countryCode),
   },
   {
     id: ContractKeys.rate,
@@ -144,7 +144,7 @@ export const contractorColumns: Column<Contractor>[] = [
       <div className='notes'>
         {cell.notes.map((note) => (
           <Badge bg='light' className='me-1' key={note.id}>
-            {note.created}
+            {DateUtils.formatDateStringStrict(note.created)}
           </Badge>
         ))}
       </div>

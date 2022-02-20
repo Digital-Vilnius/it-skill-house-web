@@ -14,7 +14,7 @@ const FormSelect: FC<FormSelectProps> = (props) => {
     <div className='form-group d-flex'>
       <Form.Label>{label}</Form.Label>
       <div className='flex-grow-1'>
-        <Select {...rest} />
+        <Select isInvalid={!!error} {...rest} />
         <Form.Control.Feedback type='invalid'>{error}</Form.Control.Feedback>
       </div>
     </div>

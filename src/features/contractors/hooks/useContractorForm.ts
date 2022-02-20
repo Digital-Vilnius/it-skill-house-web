@@ -11,9 +11,25 @@ const getSchema = () => {
   return yup
     .object()
     .shape({
-      countryCode: yup.string().required(),
-      recruiterId: yup.number().required(),
-      mainTechnologiesIds: yup.array().of(yup.number()).min(1).required(),
+      firstName: yup.string().required('Field is required'),
+      lastName: yup.string().required('Field is required'),
+      email: yup.string().email('Field is invalid').required('Field is required'),
+      countryCode: yup.string().required('Field is required'),
+      recruiterId: yup.number().required('Field is required'),
+      mainTechnologiesIds: yup.array().of(yup.number()).min(1).required('Field is required'),
+      note: yup.string().required('Field is required'),
+      phone: yup.string(),
+      city: yup.string(),
+      professionId: yup.number(),
+      technologiesIds: yup.array().of(yup.number()),
+      rate: yup.number().min(1),
+      currency: yup.string(),
+      availableFrom: yup.string(),
+      experienceSince: yup.string(),
+      codaId: yup.string(),
+      cinodeId: yup.string(),
+      tagsIds: yup.array().of(yup.number()),
+      linkedInUrl: yup.string().url(),
     })
     .required();
 };

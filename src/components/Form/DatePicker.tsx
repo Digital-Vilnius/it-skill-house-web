@@ -20,8 +20,8 @@ const DatePicker: FC<SelectControlProps<ValueType>> = (props) => {
     <InputGroup>
       <Form.Control
         name={name}
+        readOnly
         autoComplete='none'
-        onChange={console.log}
         className={classNames('form-control', className)}
         value={value ?? ''}
         isInvalid={isInvalid}

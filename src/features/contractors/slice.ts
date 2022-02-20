@@ -3,7 +3,6 @@ import { Paging, Sort } from 'api/types';
 import { ContractorsFilter } from 'api/clients/contractors/types';
 import { Contractor } from './types';
 import { initialColumnsIds, initialColumnsOrder, initialPaging, initialSort } from './constants';
-import { logoutAction } from 'features/auth/actions';
 
 interface State {
   paging: Paging;
@@ -55,9 +54,6 @@ const contractorsSlice = createSlice({
     setSelectedContractors(state, action: PayloadAction<Contractor[]>) {
       state.selected = action.payload;
     },
-  },
-  extraReducers: (builder) => {
-    builder.addCase(logoutAction, () => initialState);
   },
 });
 

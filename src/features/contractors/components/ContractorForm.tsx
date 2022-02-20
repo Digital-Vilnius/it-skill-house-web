@@ -2,8 +2,8 @@ import React, { FC } from 'react';
 import { Button, Col, Modal, Row } from 'react-bootstrap';
 import { Control, Controller } from 'react-hook-form';
 import { FormDatePicker, FormInput, FormSelect, FormSwitch, FormTextEditor } from 'components';
-import { Countries } from 'utils';
-import { RecruitersSelect } from 'features/recruiters/hoc';
+import { CountryUtils, CurrencyUtils } from 'utils';
+import { UsersSelect } from 'features/users/hoc';
 import { TechnologiesSelect } from 'features/technologies/hoc';
 import { ProfessionsSelect } from 'features/professions/hoc';
 import { SaveContractorRequest } from 'api/clients/contractors/types';
@@ -69,8 +69,10 @@ const ContractorForm: FC<Props> = (props) => {
               name='countryCode'
               render={({ field: { ref, ...rest }, fieldState: { error } }) => (
                 <FormSelect
+                  searchable
+                  clearable
                   label='Country'
-                  options={Countries.countriesOptions}
+                  options={CountryUtils.countriesOptions}
                   {...rest}
                   error={error?.message}
                 />
@@ -94,13 +96,7 @@ const ContractorForm: FC<Props> = (props) => {
               control={control}
               name='recruiterId'
               render={({ field: { ref, ...rest }, fieldState: { error } }) => (
-                <RecruitersSelect
-                  label='Recruiter'
-                  searchable
-                  clearable
-                  {...rest}
-                  error={error?.message}
-                />
+                <UsersSelect label='Recruiter' searchable clearable {...rest} error={error?.message} />
               )}
             />
           </Col>
@@ -167,8 +163,8 @@ const ContractorForm: FC<Props> = (props) => {
                   label='Rate'
                   type='number'
                   placeholder='30.00'
-                  {...rest}
                   error={error?.message}
+                  {...rest}
                 />
               )}
             />
@@ -178,7 +174,14 @@ const ContractorForm: FC<Props> = (props) => {
               control={control}
               name='currency'
               render={({ field: { ref, ...rest }, fieldState: { error } }) => (
-                <FormInput label='Currency' placeholder='EUR' {...rest} error={error?.message} />
+                <FormSelect
+                  searchable
+                  clearable
+                  label='Currency'
+                  options={CurrencyUtils.currenciesOptions}
+                  {...rest}
+                  error={error?.message}
+                />
               )}
             />
           </Col>
@@ -327,8 +330,8 @@ const ContractorForm: FC<Props> = (props) => {
                 <FormSwitch
                   label='Public'
                   help='This contact will be shown to others publicly, so choose it carefully.'
-                  {...rest}
                   error={error?.message}
+                  {...rest}
                 />
               )}
             />

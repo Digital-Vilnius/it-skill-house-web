@@ -3,7 +3,6 @@ import logger from 'redux-logger';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import storage from 'redux-persist/lib/storage';
 import { persistStore, persistReducer } from 'redux-persist';
-import { reducer as authReducer } from 'features/auth/slice';
 import { reducer as contractorsReducer } from 'features/contractors/slice';
 import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE } from 'redux-persist/es/constants';
 
@@ -13,7 +12,6 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
-  auth: authReducer,
   contractors: contractorsReducer,
 });
 

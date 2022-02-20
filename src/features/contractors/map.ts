@@ -1,14 +1,15 @@
 import { Contractor as ApiContractor, SaveContractorRequest } from 'api/clients/contractors/types';
 import { Contractor } from './types';
-import { mapRecruiter } from 'features/recruiters/map';
+import { mapUser } from 'features/users/map';
 import { mapTechnology } from 'features/technologies/map';
 import { mapEvent } from 'features/events/map';
 import { mapNote } from 'features/notes/map';
 import { DateUtils } from 'utils';
+import { SelectOption } from 'components/Select';
 
 export const mapContractor = (contractor: ApiContractor): Contractor => ({
   ...contractor,
-  recruiter: mapRecruiter(contractor.recruiter),
+  recruiter: mapUser(contractor.recruiter),
   availableFrom: DateUtils.formatDateString(contractor.availableFrom),
   experienceSince: DateUtils.formatDateString(contractor.experienceSince),
   notes: contractor.notes.map(mapNote),
@@ -25,4 +26,9 @@ export const mapSaveContractorRequest = (contractor: Contractor): SaveContractor
   recruiterId: contractor.recruiter.id,
   professionId: contractor.profession?.id ?? null,
   note: '',
+});
+
+export const mapContractorToOption = (contractor: Contractor): SelectOption => ({
+  value: contractor.id,
+  label: contractor.email,
 });

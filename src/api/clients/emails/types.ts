@@ -10,7 +10,7 @@ export interface Email extends BaseModel {
 export interface SendEmailRequest {
   subject: string;
   body: string;
-  recipientsIds: number[];
+  contractorsIds: number[];
 }
 
 export interface EmailsFilter {

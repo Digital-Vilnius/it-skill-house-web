@@ -6,9 +6,10 @@ import Option from './Option';
 import SelectOptions from './SelectOptions';
 import xor from 'lodash/xor';
 import ClearableBadge from '../ClearableBadge';
+import classNames from 'classnames';
 
 const Select: FC<SelectProps> = (props) => {
-  const { clearable, creatable, searchable, options = [], multi, onCreate } = props;
+  const { clearable, creatable, searchable, options = [], multi, onCreate, isInvalid } = props;
   const [visible, setVisible] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
   useOnClickOutside({ ref, callback: () => setVisible(false) });
@@ -57,8 +58,9 @@ const Select: FC<SelectProps> = (props) => {
   };
 
   return (
-    <div className='position-relative' ref={ref}>
+    <div className={classNames('position-relative', { 'is-invalid': isInvalid })} ref={ref}>
       <SelectValue
+        isInvalid={isInvalid}
         hasValue={hasValue()}
         onClick={() => setVisible((focus) => !focus)}
         onClear={handleOnClear}

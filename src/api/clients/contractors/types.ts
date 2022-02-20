@@ -1,4 +1,4 @@
-import { Recruiter } from '../recruiters/types';
+import { User } from '../users/types';
 import { Technology } from '../technologies/types';
 import { Event } from '../events/types';
 import { BaseModel } from '../../types';
@@ -37,7 +37,7 @@ export interface Contractor extends BaseModel {
   lastEmail: Email | null;
   nearestEvent: Event | null;
   profession: Profession | null;
-  recruiter: Recruiter;
+  recruiter: User;
 
   notes: Note[];
   tags: Tag[];

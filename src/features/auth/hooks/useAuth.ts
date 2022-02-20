@@ -1,7 +1,7 @@
-import { useAppSelector } from 'core/store';
+import { useIsAuthenticated } from '@azure/msal-react';
 
 const useAuth = () => {
-  const { isLoggedIn } = useAppSelector((state) => state.auth);
+  const isLoggedIn = useIsAuthenticated();
 
   return { isLoggedIn };
 };

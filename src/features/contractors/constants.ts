@@ -63,8 +63,6 @@ export const initialColumnsOrder: string[] = [
   ContractKeys.created,
 ];
 
-console.log(Object.keys(ContractKeys).length, initialColumnsOrder.length);
-
 if (Object.keys(ContractKeys).length !== initialColumnsOrder.length) {
   throw new Error('Initial contractor columns missing');
 }

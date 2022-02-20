@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
-import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
+import { Button, Col, Modal, Row } from 'react-bootstrap';
 import { Control, Controller } from 'react-hook-form';
-import { DatePicker, MoneyInput, SearchInput, Select, SwitchInput } from 'components';
-import { Countries } from 'utils';
+import { FormDatePicker, FormInput, FormSelect, FormSwitch } from 'components';
+import { CountryUtils } from 'utils';
 import { ContractorsFilter as ContractorsFilterType } from 'api/clients/contractors/types';
 import { TechnologiesSelect } from 'features/technologies/hoc';
-import { RecruitersSelect } from 'features/recruiters/hoc';
+import { UsersSelect } from 'features/users/hoc';
 import { TagsSelect } from 'features/tags/hoc';
 import { ProfessionsSelect } from 'features/professions/hoc';
 
@@ -22,26 +22,13 @@ const ContractorsFilterForm: FC<Props> = (props) => {
   return (
     <>
       <Modal.Body>
-        <Row>
+        <Row className='mb-4'>
           <Col>
             <Controller
               control={control}
               name='keyword'
-              render={({ field, fieldState }) => (
-                <div className='form-group'>
-                  <Form.Label>Keyword</Form.Label>
-                  <SearchInput
-                    placeholder='Keywords'
-                    isInvalid={!!fieldState.error}
-                    onInput={field.onChange}
-                    onBlur={field.onBlur}
-                    name={field.name}
-                    value={field.value}
-                  />
-                  <Form.Control.Feedback type='invalid'>
-                    {fieldState.error?.message}
-                  </Form.Control.Feedback>
-                </div>
+              render={({ field: { ref, ...rest }, fieldState: { error } }) => (
+                <FormInput label='Keywords' {...rest} error={error?.message} />
               )}
             />
           </Col>
@@ -49,33 +36,32 @@ const ContractorsFilterForm: FC<Props> = (props) => {
             <Controller
               control={control}
               name='professionsIds'
-              render={({ field, fieldState }) => (
+              render={({ field: { ref, ...rest }, fieldState }) => (
                 <ProfessionsSelect
                   label='Professions'
                   multi
                   searchable
                   clearable
                   error={fieldState.error?.message}
-                  {...field}
+                  {...rest}
                 />
               )}
             />
           </Col>
         </Row>
-        <hr className='my-4' />
-        <Row>
+        <Row className='mb-4'>
           <Col>
             <Controller
               control={control}
               name='technologiesIds'
-              render={({ field, fieldState }) => (
+              render={({ field: { ref, ...rest }, fieldState }) => (
                 <TechnologiesSelect
                   label='Technologies'
                   multi
                   searchable
                   clearable
                   error={fieldState.error?.message}
-                  {...field}
+                  {...rest}
                 />
               )}
             />
@@ -84,33 +70,32 @@ const ContractorsFilterForm: FC<Props> = (props) => {
             <Controller
               control={control}
               name='mainTechnologiesIds'
-              render={({ field, fieldState }) => (
+              render={({ field: { ref, ...rest }, fieldState }) => (
                 <TechnologiesSelect
                   label='Main technologies'
                   multi
                   searchable
                   clearable
                   error={fieldState.error?.message}
-                  {...field}
+                  {...rest}
                 />
               )}
             />
           </Col>
         </Row>
-        <hr className='my-4' />
         <Row>
           <Col>
             <Controller
               control={control}
               name='recruitersIds'
-              render={({ field, fieldState }) => (
-                <RecruitersSelect
+              render={({ field: { ref, ...rest }, fieldState }) => (
+                <UsersSelect
                   label='Recruiters'
                   multi
                   searchable
                   clearable
                   error={fieldState.error?.message}
-                  {...field}
+                  {...rest}
                 />
               )}
             />
@@ -119,39 +104,27 @@ const ContractorsFilterForm: FC<Props> = (props) => {
             <Controller
               control={control}
               name='tagsIds'
-              render={({ field, fieldState }) => (
+              render={({ field: { ref, ...rest }, fieldState }) => (
                 <TagsSelect
                   label='Tags'
                   multi
                   searchable
                   clearable
                   error={fieldState.error?.message}
-                  {...field}
+                  {...rest}
                 />
               )}
             />
           </Col>
         </Row>
         <hr className='my-4' />
-        <Row>
+        <Row className='mb-4'>
           <Col>
             <Controller
               control={control}
               name='availableFrom'
-              render={({ field, fieldState }) => (
-                <div className='form-group'>
-                  <Form.Label>Available from</Form.Label>
-                  <DatePicker
-                    isInvalid={!!fieldState.error}
-                    onChange={field.onChange}
-                    onBlur={field.onBlur}
-                    name={field.name}
-                    value={field.value}
-                  />
-                  <Form.Control.Feedback type='invalid'>
-                    {fieldState.error?.message}
-                  </Form.Control.Feedback>
-                </div>
+              render={({ field: { ref, ...rest }, fieldState: { error } }) => (
+                <FormDatePicker label='Available from' {...rest} error={error?.message} />
               )}
             />
           </Col>
@@ -159,44 +132,19 @@ const ContractorsFilterForm: FC<Props> = (props) => {
             <Controller
               control={control}
               name='availableTo'
-              render={({ field, fieldState }) => (
-                <div className='form-group'>
-                  <Form.Label>Available to</Form.Label>
-                  <DatePicker
-                    isInvalid={!!fieldState.error}
-                    onChange={field.onChange}
-                    onBlur={field.onBlur}
-                    name={field.name}
-                    value={field.value}
-                  />
-                  <Form.Control.Feedback type='invalid'>
-                    {fieldState.error?.message}
-                  </Form.Control.Feedback>
-                </div>
+              render={({ field: { ref, ...rest }, fieldState: { error } }) => (
+                <FormDatePicker label='Available to' {...rest} error={error?.message} />
               )}
             />
           </Col>
         </Row>
-        <hr className='my-4' />
-        <Row>
+        <Row className='mb-4'>
           <Col>
             <Controller
               control={control}
               name='experienceFrom'
-              render={({ field, fieldState }) => (
-                <div className='form-group'>
-                  <Form.Label>Experience from</Form.Label>
-                  <DatePicker
-                    isInvalid={!!fieldState.error}
-                    onChange={field.onChange}
-                    onBlur={field.onBlur}
-                    name={field.name}
-                    value={field.value}
-                  />
-                  <Form.Control.Feedback type='invalid'>
-                    {fieldState.error?.message}
-                  </Form.Control.Feedback>
-                </div>
+              render={({ field: { ref, ...rest }, fieldState: { error } }) => (
+                <FormDatePicker label='Experience from' {...rest} error={error?.message} />
               )}
             />
           </Col>
@@ -204,44 +152,19 @@ const ContractorsFilterForm: FC<Props> = (props) => {
             <Controller
               control={control}
               name='experienceTo'
-              render={({ field, fieldState }) => (
-                <div className='form-group'>
-                  <Form.Label>Experience to</Form.Label>
-                  <DatePicker
-                    isInvalid={!!fieldState.error}
-                    onChange={field.onChange}
-                    onBlur={field.onBlur}
-                    name={field.name}
-                    value={field.value}
-                  />
-                  <Form.Control.Feedback type='invalid'>
-                    {fieldState.error?.message}
-                  </Form.Control.Feedback>
-                </div>
+              render={({ field: { ref, ...rest }, fieldState: { error } }) => (
+                <FormDatePicker label='Experience to' {...rest} error={error?.message} />
               )}
             />
           </Col>
         </Row>
-        <hr className='my-4' />
         <Row>
           <Col>
             <Controller
               control={control}
               name='rateFrom'
-              render={({ field, fieldState }) => (
-                <div className='form-group'>
-                  <Form.Label>Rate from</Form.Label>
-                  <MoneyInput
-                    isInvalid={!!fieldState.error}
-                    onInput={field.onChange}
-                    onBlur={field.onBlur}
-                    name={field.name}
-                    value={field.value}
-                  />
-                  <Form.Control.Feedback type='invalid'>
-                    {fieldState.error?.message}
-                  </Form.Control.Feedback>
-                </div>
+              render={({ field: { ref, ...rest }, fieldState: { error } }) => (
+                <FormInput label='Rate from' type='number' error={error?.message} {...rest} />
               )}
             />
           </Col>
@@ -249,20 +172,8 @@ const ContractorsFilterForm: FC<Props> = (props) => {
             <Controller
               control={control}
               name='rateTo'
-              render={({ field, fieldState }) => (
-                <div className='form-group'>
-                  <Form.Label>Rate to</Form.Label>
-                  <MoneyInput
-                    isInvalid={!!fieldState.error}
-                    onInput={field.onChange}
-                    onBlur={field.onBlur}
-                    name={field.name}
-                    value={field.value}
-                  />
-                  <Form.Control.Feedback type='invalid'>
-                    {fieldState.error?.message}
-                  </Form.Control.Feedback>
-                </div>
+              render={({ field: { ref, ...rest }, fieldState: { error } }) => (
+                <FormInput label='Rate to' type='number' error={error?.message} {...rest} />
               )}
             />
           </Col>
@@ -273,23 +184,16 @@ const ContractorsFilterForm: FC<Props> = (props) => {
             <Controller
               control={control}
               name='countriesCodes'
-              render={({ field, fieldState }) => (
-                <div className='form-group'>
-                  <Form.Label>Countries</Form.Label>
-                  <Select
-                    searchable
-                    clearable
-                    multi
-                    name={field.name}
-                    onBlur={field.onBlur}
-                    options={Countries.countriesOptions}
-                    value={field.value ?? []}
-                    onChange={field.onChange}
-                  />
-                  <Form.Control.Feedback type='invalid'>
-                    {fieldState.error?.message}
-                  </Form.Control.Feedback>
-                </div>
+              render={({ field: { ref, ...rest }, fieldState: { error } }) => (
+                <FormSelect
+                  searchable
+                  clearable
+                  multi
+                  label='Countries'
+                  options={CountryUtils.countriesOptions}
+                  {...rest}
+                  error={error?.message}
+                />
               )}
             />
           </Col>
@@ -300,23 +204,14 @@ const ContractorsFilterForm: FC<Props> = (props) => {
             <Controller
               control={control}
               name='isRemote'
-              render={({ field, fieldState }) => (
-                <div className='form-group'>
-                  <Form.Label>Remote</Form.Label>
-                  <Form.Text className='small text-muted'>
-                    This contact will be shown to others publicly, so choose it carefully.
-                  </Form.Text>
-                  <SwitchInput
-                    value={field.value}
-                    onChange={field.onChange}
-                    name={field.name}
-                    onBlur={field.onBlur}
-                    isInvalid={!!fieldState.error}
-                  />
-                  <Form.Control.Feedback type='invalid'>
-                    {fieldState.error?.message}
-                  </Form.Control.Feedback>
-                </div>
+              render={({ field: { ref, onChange, ...rest }, fieldState: { error } }) => (
+                <FormSwitch
+                  label='Remote'
+                  help='This contact will be shown to others publicly, so choose it carefully.'
+                  error={error?.message}
+                  onChange={onChange}
+                  {...rest}
+                />
               )}
             />
           </Col>
@@ -324,23 +219,14 @@ const ContractorsFilterForm: FC<Props> = (props) => {
             <Controller
               control={control}
               name='isOnSite'
-              render={({ field, fieldState }) => (
-                <div className='form-group'>
-                  <Form.Label>On site</Form.Label>
-                  <Form.Text className='small text-muted'>
-                    This contact will be shown to others publicly, so choose it carefully.
-                  </Form.Text>
-                  <SwitchInput
-                    value={field.value}
-                    onChange={field.onChange}
-                    name={field.name}
-                    onBlur={field.onBlur}
-                    isInvalid={!!fieldState.error}
-                  />
-                  <Form.Control.Feedback type='invalid'>
-                    {fieldState.error?.message}
-                  </Form.Control.Feedback>
-                </div>
+              render={({ field: { ref, onChange, ...rest }, fieldState: { error } }) => (
+                <FormSwitch
+                  label='On site'
+                  help='This contact will be shown to others publicly, so choose it carefully.'
+                  error={error?.message}
+                  onChange={onChange}
+                  {...rest}
+                />
               )}
             />
           </Col>
@@ -350,23 +236,14 @@ const ContractorsFilterForm: FC<Props> = (props) => {
             <Controller
               control={control}
               name='isAvailable'
-              render={({ field, fieldState }) => (
-                <div className='form-group'>
-                  <Form.Label>Available</Form.Label>
-                  <Form.Text className='small text-muted'>
-                    This contact will be shown to others publicly, so choose it carefully.
-                  </Form.Text>
-                  <SwitchInput
-                    value={field.value}
-                    onChange={field.onChange}
-                    name={field.name}
-                    onBlur={field.onBlur}
-                    isInvalid={!!fieldState.error}
-                  />
-                  <Form.Control.Feedback type='invalid'>
-                    {fieldState.error?.message}
-                  </Form.Control.Feedback>
-                </div>
+              render={({ field: { ref, onChange, ...rest }, fieldState: { error } }) => (
+                <FormSwitch
+                  label='Available'
+                  help='This contact will be shown to others publicly, so choose it carefully.'
+                  error={error?.message}
+                  onChange={onChange}
+                  {...rest}
+                />
               )}
             />
           </Col>
@@ -374,23 +251,14 @@ const ContractorsFilterForm: FC<Props> = (props) => {
             <Controller
               control={control}
               name='hasContract'
-              render={({ field, fieldState }) => (
-                <div className='form-group'>
-                  <Form.Label>Has contract</Form.Label>
-                  <Form.Text className='small text-muted'>
-                    This contact will be shown to others publicly, so choose it carefully.
-                  </Form.Text>
-                  <SwitchInput
-                    value={field.value}
-                    onChange={field.onChange}
-                    name={field.name}
-                    onBlur={field.onBlur}
-                    isInvalid={!!fieldState.error}
-                  />
-                  <Form.Control.Feedback type='invalid'>
-                    {fieldState.error?.message}
-                  </Form.Control.Feedback>
-                </div>
+              render={({ field: { ref, onChange, ...rest }, fieldState: { error } }) => (
+                <FormSwitch
+                  label='Has contract'
+                  help='This contact will be shown to others publicly, so choose it carefully.'
+                  error={error?.message}
+                  onChange={onChange}
+                  {...rest}
+                />
               )}
             />
           </Col>
@@ -400,23 +268,14 @@ const ContractorsFilterForm: FC<Props> = (props) => {
             <Controller
               control={control}
               name='isPublic'
-              render={({ field, fieldState }) => (
-                <div className='form-group'>
-                  <Form.Label>Public</Form.Label>
-                  <Form.Text className='small text-muted'>
-                    This contact will be shown to others publicly, so choose it carefully.
-                  </Form.Text>
-                  <SwitchInput
-                    value={field.value}
-                    onChange={field.onChange}
-                    name={field.name}
-                    onBlur={field.onBlur}
-                    isInvalid={!!fieldState.error}
-                  />
-                  <Form.Control.Feedback type='invalid'>
-                    {fieldState.error?.message}
-                  </Form.Control.Feedback>
-                </div>
+              render={({ field: { ref, onChange, ...rest }, fieldState: { error } }) => (
+                <FormSwitch
+                  label='Public'
+                  help='This contact will be shown to others publicly, so choose it carefully.'
+                  error={error?.message}
+                  onChange={onChange}
+                  {...rest}
+                />
               )}
             />
           </Col>

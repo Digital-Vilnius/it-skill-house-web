@@ -9,7 +9,7 @@ interface Props extends SelectControlProps<ValueType> {
 }
 
 const FormDatePicker: FC<Props> = (props) => {
-  const { label, error, value, ...rest } = props;
+  const { label, error, ...rest } = props;
 
   return (
     <div className='form-group d-flex align-items-center'>

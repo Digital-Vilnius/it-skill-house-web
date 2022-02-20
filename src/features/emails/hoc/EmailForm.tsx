@@ -10,7 +10,7 @@ const EmailForm: FC = () => {
 
   const { control, handleSubmit, save } = useEmailForm({
     onSuccess: hideModal,
-    recipients: selected,
+    contractors: selected,
   });
 
   return (
@@ -18,7 +18,7 @@ const EmailForm: FC = () => {
       control={control}
       onClose={hideModal}
       onSubmit={handleSubmit(save)}
-      recipients={selected}
+      contractors={selected}
     />
   );
 };

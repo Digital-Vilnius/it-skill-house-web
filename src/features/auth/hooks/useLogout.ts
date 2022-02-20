@@ -1,11 +1,8 @@
-import { useAppDispatch } from 'core/store';
-import { logoutAction } from '../actions';
+import { msalInstance } from 'core/msal';
 
 const useLogout = () => {
-  const dispatch = useAppDispatch();
-
   const logout = () => {
-    dispatch(logoutAction());
+    msalInstance.logoutRedirect();
   };
 
   return { logout };

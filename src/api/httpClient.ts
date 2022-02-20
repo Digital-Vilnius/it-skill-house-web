@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { store } from 'core/store';
 import ToastService from 'core/toast';
-import { logoutAction, refreshTokenAction } from 'features/auth/actions';
 import { stringify } from 'qs';
+import { msalInstance } from 'core/msal';
+import { scopes } from 'core/msal/config';
 
 const httpClient = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
@@ -11,11 +11,18 @@ const httpClient = axios.create({
 
 httpClient.interceptors.request.use(
   async (request) => {
-    const token = store.getState().auth.token;
+    const accounts = msalInstance.getAllAccounts();
+    const response = await msalInstance.acquireTokenSilent({
+      scopes,
+      account: accounts[0],
+    });
+    const token = response.accessToken;
+
     if (token) {
       request.headers = request.headers ?? {};
       request.headers.Authorization = `Bearer ${token}`;
     }
+
     return request;
   },
   (error) => Promise.reject(error)
@@ -24,25 +31,13 @@ httpClient.interceptors.request.use(
 httpClient.interceptors.response.use(
   async (response) => response.data,
   async (error) => {
-    const { isRefreshing, refreshToken, token } = store.getState().auth;
-    const { response, config } = error;
+    const { response } = error;
     const { status } = response;
 
     switch (status) {
       case 400: {
         ToastService.showError('Bad request');
         return Promise.reject(error);
-      }
-
-      case 401: {
-        if (!isRefreshing && refreshToken && token) {
-          await store.dispatch(refreshTokenAction({ refreshToken, token })).unwrap();
-          return httpClient(config);
-        }
-
-        ToastService.showError('Token expired');
-        store.dispatch(logoutAction());
-        break;
       }
 
       default: {
