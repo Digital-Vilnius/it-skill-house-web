@@ -18,7 +18,7 @@ export const deleteContractor = async (id: number) => {
 };
 
 export const addContractor = async (request: SaveContractorRequest) => {
-  return httpClient.post<SaveContractorRequest, Contractor>(baseUrl, request);
+  return httpClient.post<SaveContractorRequest, ResultResponse<Contractor>>(baseUrl, request);
 };
 
 export const editContractor = async (id: number, request: SaveContractorRequest) => {

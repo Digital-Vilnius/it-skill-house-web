@@ -2,35 +2,40 @@ import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation } from 'react-query';
-import { ContractorsClient } from 'api/clients';
+import { ContractorsClient, NotesClient } from 'api/clients';
 import { SaveContractorRequest } from 'api/clients/contractors/types';
 import { useEffect } from 'react';
 import { mapContractor, mapSaveContractorRequest } from '../map';
 
-const getSchema = () => {
+const getSchema = (isEdit: boolean) => {
+  const contractorShape = {
+    firstName: yup.string().required('Field is required'),
+    lastName: yup.string().required('Field is required'),
+    email: yup.string().email('Field is invalid').required('Field is required'),
+    countryCode: yup.string().required('Field is required'),
+    recruiterId: yup.number().required('Field is required'),
+    mainTechnologiesIds: yup.array().of(yup.number()).min(1).required('Field is required'),
+    phone: yup.string().nullable(),
+    city: yup.string().nullable(),
+    professionId: yup.number().nullable(),
+    technologiesIds: yup.array().of(yup.number()).nullable(),
+    rate: yup.number().min(1).nullable(),
+    currency: yup.string().nullable(),
+    availableFrom: yup.string().nullable(),
+    experienceSince: yup.number().nullable(),
+    codaId: yup.string().nullable(),
+    cinodeId: yup.string().nullable(),
+    tagsIds: yup.array().of(yup.number()).nullable(),
+    linkedInUrl: yup.string().url().nullable(),
+  };
+
+  const noteShape = {
+    note: yup.string().required('Field is required'),
+  };
+
   return yup
     .object()
-    .shape({
-      firstName: yup.string().required('Field is required'),
-      lastName: yup.string().required('Field is required'),
-      email: yup.string().email('Field is invalid').required('Field is required'),
-      countryCode: yup.string().required('Field is required'),
-      recruiterId: yup.number().required('Field is required'),
-      mainTechnologiesIds: yup.array().of(yup.number()).min(1).required('Field is required'),
-      note: yup.string().required('Field is required'),
-      phone: yup.string(),
-      city: yup.string(),
-      professionId: yup.number(),
-      technologiesIds: yup.array().of(yup.number()),
-      rate: yup.number().min(1),
-      currency: yup.string(),
-      availableFrom: yup.string(),
-      experienceSince: yup.number(),
-      codaId: yup.string(),
-      cinodeId: yup.string(),
-      tagsIds: yup.array().of(yup.number()),
-      linkedInUrl: yup.string().url(),
-    })
+    .shape(isEdit ? contractorShape : { ...contractorShape, ...noteShape })
     .required();
 };
 
@@ -44,7 +49,7 @@ const useContractorForm = (props: Props) => {
   const { onSuccess, onError, id } = props;
 
   const { handleSubmit, reset, control } = useForm<SaveContractorRequest>({
-    resolver: yupResolver(getSchema()),
+    resolver: yupResolver(getSchema(!!id)),
   });
 
   useEffect(() => {
@@ -58,8 +63,10 @@ const useContractorForm = (props: Props) => {
   }, [id, reset]);
 
   const { mutateAsync } = useMutation(async (request: SaveContractorRequest) => {
-    if (!id) await ContractorsClient.addContractor(request);
-    else await ContractorsClient.editContractor(id, request);
+    if (!id) {
+      const response = await ContractorsClient.addContractor(request);
+      await NotesClient.addNote({ contractorId: response.result.id, content: request.note });
+    } else await ContractorsClient.editContractor(id, request);
   });
 
   const save = async (request: SaveContractorRequest) => {

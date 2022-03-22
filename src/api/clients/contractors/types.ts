@@ -51,7 +51,7 @@ export interface SaveContractorRequest {
   email: string;
   phone: string | null;
 
-  note?: string;
+  note: string;
   linkedInUrl: string | null;
 
   codaId: number | null;

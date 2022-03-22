@@ -3,7 +3,6 @@ import { Col, Container, Row } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
 import { EventsList } from 'features/events/hoc';
 import { NotesList } from 'features/notes/hoc';
-import { EmailsList } from 'features/emails/hoc';
 
 const ContractorPage: FC = () => {
   const params = useParams();
@@ -32,7 +31,6 @@ const ContractorPage: FC = () => {
             </div>
             <EventsList filter={{ contractorId: Number(id) }} />
             <NotesList filter={{ contractorId: Number(id) }} />
-            <EmailsList filter={{ contractorId: Number(id) }} />
           </Col>
         </Row>
       </Container>
