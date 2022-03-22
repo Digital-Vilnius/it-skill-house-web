@@ -1,8 +1,8 @@
 export const config = {
   auth: {
-    clientId: '6c2f85c2-0405-4ce2-bb8a-22f521fcb759',
-    authority: 'https://login.microsoftonline.com/b5883439-ab4c-4cb2-910c-3a0a651bd74f',
-    redirectUri: 'http://localhost:3000/',
+    clientId: '0ad07529-d422-4250-b56c-43e8f28a4d6a',
+    authority: 'https://login.microsoftonline.com/5fb7994c-41af-49dc-ad39-ecbddf4f27aa',
+    redirectUri: process.env.REACT_APP_URL,
   },
   cache: {
     cacheLocation: 'sessionStorage',
@@ -10,4 +10,4 @@ export const config = {
   },
 };
 
-export const scopes = ['api://6c2f85c2-0405-4ce2-bb8a-22f521fcb759/access_as_user'];
+export const scopes = ['api://0ad07529-d422-4250-b56c-43e8f28a4d6a/access_as_user'];

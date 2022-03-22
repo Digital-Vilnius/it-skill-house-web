@@ -25,3 +25,8 @@ export interface SwitchControlProps extends FormControlProps<boolean> {
   onChange?: (value: boolean) => void;
   label?: string;
 }
+
+export interface DatePickerProps<T> extends FormControlProps<T> {
+  onChange?: (value: T) => void;
+  showYearPicker?: boolean;
+}

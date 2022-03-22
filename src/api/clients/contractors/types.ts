@@ -26,7 +26,7 @@ export interface Contractor extends BaseModel {
   currency: string | null;
 
   availableFrom: string | null;
-  experienceSince: string | null;
+  experienceSince: number | null;
 
   isAvailable: boolean;
   isRemote: boolean;
@@ -64,7 +64,7 @@ export interface SaveContractorRequest {
   currency: string | null;
 
   availableFrom: string | null;
-  experienceSince: string | null;
+  experienceSince: number | null;
 
   isRemote: boolean;
   isPublic: boolean;
@@ -94,8 +94,8 @@ export interface ContractorsFilter {
   tagsIds?: number[];
   rateFrom?: number;
   rateTo?: number;
-  experienceFrom?: string;
-  experienceTo?: string;
+  experienceFrom?: number;
+  experienceTo?: number;
   availableFrom?: string;
   availableTo?: string;
 }

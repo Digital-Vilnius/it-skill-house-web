@@ -26,7 +26,7 @@ export interface Contractor extends BaseModel {
   currency: string | null;
 
   availableFrom: string | null;
-  experienceSince: string | null;
+  experienceSince: number | null;
 
   isAvailable: boolean;
   isRemote: boolean;

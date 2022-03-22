@@ -13,6 +13,7 @@ import FormSelect from './Form/FormSelect';
 import FormDatePicker from './Form/FormDatePicker';
 import FormSwitch from './Form/FormSwitch';
 import FormTextEditor from './Form/FormTextEditor';
+import FormYearPicker from './Form/FormYearPicker';
 
 export {
   Avatar,
@@ -30,4 +31,5 @@ export {
   FormDatePicker,
   FormSwitch,
   FormTextEditor,
+  FormYearPicker,
 };

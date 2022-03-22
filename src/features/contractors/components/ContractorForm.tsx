@@ -1,7 +1,14 @@
 import React, { FC } from 'react';
 import { Button, Col, Modal, Row } from 'react-bootstrap';
 import { Control, Controller } from 'react-hook-form';
-import { FormDatePicker, FormInput, FormSelect, FormSwitch, FormTextEditor } from 'components';
+import {
+  FormDatePicker,
+  FormInput,
+  FormSelect,
+  FormSwitch,
+  FormTextEditor,
+  FormYearPicker,
+} from 'components';
 import { CountryUtils, CurrencyUtils } from 'utils';
 import { UsersSelect } from 'features/users/hoc';
 import { TechnologiesSelect } from 'features/technologies/hoc';
@@ -202,7 +209,7 @@ const ContractorForm: FC<Props> = (props) => {
               control={control}
               name='experienceSince'
               render={({ field: { ref, ...rest }, fieldState: { error } }) => (
-                <FormDatePicker label='Experience since' {...rest} error={error?.message} />
+                <FormYearPicker label='Experience since' {...rest} error={error?.message} />
               )}
             />
           </Col>

@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { SelectControlProps } from './types';
+import { DatePickerProps } from './types';
 import { default as ReactDatePicker } from 'react-datepicker';
 import { DateUtils } from 'utils';
 import { Form, InputGroup } from 'react-bootstrap';
@@ -8,8 +8,8 @@ import Icon from '@ailibs/feather-react-ts';
 
 export type ValueType = string | null;
 
-const DatePicker: FC<SelectControlProps<ValueType>> = (props) => {
-  const { value, onChange, onBlur, className, isInvalid, name } = props;
+const DatePicker: FC<DatePickerProps<ValueType>> = (props) => {
+  const { value, onChange, onBlur, className, isInvalid, name, showYearPicker } = props;
 
   const handleOnChange = (date: Date | null) => {
     if (!onChange) return;
@@ -19,8 +19,8 @@ const DatePicker: FC<SelectControlProps<ValueType>> = (props) => {
   const renderInput = () => (
     <InputGroup>
       <Form.Control
-        name={name}
         readOnly
+        name={name}
         autoComplete='none'
         className={classNames('form-control', className)}
         value={value ?? ''}
@@ -38,6 +38,7 @@ const DatePicker: FC<SelectControlProps<ValueType>> = (props) => {
         dateFormat='yyyy-MM-dd'
         name={name}
         onBlur={onBlur}
+        showYearPicker={showYearPicker}
         selected={value ? DateUtils.parseDate(value) : undefined}
         onChange={handleOnChange}
         customInput={renderInput()}

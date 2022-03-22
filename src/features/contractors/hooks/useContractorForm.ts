@@ -25,7 +25,7 @@ const getSchema = () => {
       rate: yup.number().min(1),
       currency: yup.string(),
       availableFrom: yup.string(),
-      experienceSince: yup.string(),
+      experienceSince: yup.number(),
       codaId: yup.string(),
       cinodeId: yup.string(),
       tagsIds: yup.array().of(yup.number()),

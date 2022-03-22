@@ -9,7 +9,7 @@ const LoginPage: FC = () => {
   const navigate = useNavigate();
 
   const signIn = async () => {
-    await msalInstance.loginPopup({ scopes });
+    await msalInstance.loginPopup({ scopes, redirectUri: process.env.REACT_APP_URL });
     navigate('/admin/contractors');
   };
 

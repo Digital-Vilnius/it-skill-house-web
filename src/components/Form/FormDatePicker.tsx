@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import { Form } from 'react-bootstrap';
-import { SelectControlProps } from './types';
+import { DatePickerProps } from './types';
 import DatePicker, { ValueType } from './DatePicker';
 
-interface Props extends SelectControlProps<ValueType> {
+interface Props extends DatePickerProps<ValueType> {
   label: string;
   error?: string;
 }

@@ -15,6 +15,7 @@ httpClient.interceptors.request.use(
     const response = await msalInstance.acquireTokenSilent({
       scopes,
       account: accounts[0],
+      redirectUri: process.env.REACT_APP_URL,
     });
     const token = response.accessToken;
 
