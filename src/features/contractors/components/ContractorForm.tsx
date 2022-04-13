@@ -35,7 +35,13 @@ const ContractorForm: FC<Props> = (props) => {
               control={control}
               name='firstName'
               render={({ field: { ref, ...rest }, fieldState: { error } }) => (
-                <FormInput label='First name' placeholder='John' {...rest} error={error?.message} />
+                <FormInput
+                  required
+                  label='First name'
+                  placeholder='John'
+                  {...rest}
+                  error={error?.message}
+                />
               )}
             />
           </Col>
@@ -44,7 +50,13 @@ const ContractorForm: FC<Props> = (props) => {
               control={control}
               name='lastName'
               render={({ field: { ref, ...rest }, fieldState: { error } }) => (
-                <FormInput label='Last name' placeholder='Doe' {...rest} error={error?.message} />
+                <FormInput
+                  required
+                  label='Last name'
+                  placeholder='Doe'
+                  {...rest}
+                  error={error?.message}
+                />
               )}
             />
           </Col>
@@ -55,7 +67,13 @@ const ContractorForm: FC<Props> = (props) => {
               control={control}
               name='email'
               render={({ field: { ref, ...rest }, fieldState: { error } }) => (
-                <FormInput label='Email' placeholder='john@gmail.com' {...rest} error={error?.message} />
+                <FormInput
+                  required
+                  label='Email'
+                  placeholder='john@gmail.com'
+                  {...rest}
+                  error={error?.message}
+                />
               )}
             />
           </Col>
@@ -76,6 +94,7 @@ const ContractorForm: FC<Props> = (props) => {
               name='countryCode'
               render={({ field: { ref, ...rest }, fieldState: { error } }) => (
                 <FormSelect
+                  required
                   searchable
                   clearable
                   label='Country'
@@ -103,7 +122,14 @@ const ContractorForm: FC<Props> = (props) => {
               control={control}
               name='recruiterId'
               render={({ field: { ref, ...rest }, fieldState: { error } }) => (
-                <UsersSelect label='Recruiter' searchable clearable {...rest} error={error?.message} />
+                <UsersSelect
+                  required
+                  label='Recruiter'
+                  searchable
+                  clearable
+                  {...rest}
+                  error={error?.message}
+                />
               )}
             />
           </Col>
@@ -131,11 +157,13 @@ const ContractorForm: FC<Props> = (props) => {
               name='mainTechnologiesIds'
               render={({ field: { ref, ...rest }, fieldState: { error } }) => (
                 <TechnologiesSelect
+                  required
                   label='Main technologies'
                   clearable
                   searchable
                   creatable
                   multi
+                  maxSelected={2}
                   {...rest}
                   error={error?.message}
                 />
@@ -276,7 +304,7 @@ const ContractorForm: FC<Props> = (props) => {
                   control={control}
                   name='note'
                   render={({ field: { ref, ...rest }, fieldState: { error } }) => (
-                    <FormTextEditor label='Note' {...rest} error={error?.message} />
+                    <FormTextEditor required label='Note' {...rest} error={error?.message} />
                   )}
                 />
               </Col>
@@ -292,6 +320,7 @@ const ContractorForm: FC<Props> = (props) => {
               render={({ field: { ref, ...rest }, fieldState: { error } }) => (
                 <FormSwitch
                   label='Remote'
+                  switchClassName='justify-content-end'
                   help='This contact will be shown to others publicly, so choose it carefully.'
                   {...rest}
                   error={error?.message}
@@ -306,6 +335,7 @@ const ContractorForm: FC<Props> = (props) => {
               render={({ field: { ref, ...rest }, fieldState: { error } }) => (
                 <FormSwitch
                   label='On site'
+                  switchClassName='justify-content-end'
                   help='This contact will be shown to others publicly, so choose it carefully.'
                   {...rest}
                   error={error?.message}
@@ -322,6 +352,7 @@ const ContractorForm: FC<Props> = (props) => {
               render={({ field: { ref, ...rest }, fieldState: { error } }) => (
                 <FormSwitch
                   label='Has contract'
+                  switchClassName='justify-content-end'
                   help='This contact will be shown to others publicly, so choose it carefully.'
                   {...rest}
                   error={error?.message}
@@ -336,6 +367,7 @@ const ContractorForm: FC<Props> = (props) => {
               render={({ field: { ref, ...rest }, fieldState: { error } }) => (
                 <FormSwitch
                   label='Public'
+                  switchClassName='justify-content-end'
                   help='This contact will be shown to others publicly, so choose it carefully.'
                   error={error?.message}
                   {...rest}

@@ -1,9 +1,11 @@
 import { Column } from 'components/DataTable';
 import { Contractor } from './types';
-import { Badge, Form } from 'react-bootstrap';
+import { Form, OverlayTrigger, Popover } from 'react-bootstrap';
 import React from 'react';
 import { ContractKeys } from './constants';
-import { CountryUtils, CurrencyUtils, DateUtils } from '../../utils';
+import { CountryUtils, CurrencyUtils, DateUtils, EventUtils } from 'utils';
+import { Badge } from 'components';
+import Initials from '../../components/Initials';
 
 export const contractorColumns: Column<Contractor>[] = [
   { id: ContractKeys.id, label: 'Id', className: 'text-center', sortable: true },
@@ -88,9 +90,7 @@ export const contractorColumns: Column<Contractor>[] = [
     Cell: (cell) => (
       <div className='technologies'>
         {cell.mainTechnologies.map((technology) => (
-          <Badge className='me-1' key={technology.id}>
-            {technology.name}
-          </Badge>
+          <Badge label={technology.name} className='me-1' key={technology.id} />
         ))}
       </div>
     ),
@@ -117,9 +117,7 @@ export const contractorColumns: Column<Contractor>[] = [
     Cell: (cell) => (
       <div className='technologies'>
         {cell.technologies.map((technology) => (
-          <Badge className='me-1' key={technology.id}>
-            {technology.name}
-          </Badge>
+          <Badge label={technology.name} className='me-1' key={technology.id} />
         ))}
       </div>
     ),
@@ -130,25 +128,44 @@ export const contractorColumns: Column<Contractor>[] = [
     Cell: (cell) => (
       <div className='tags'>
         {cell.tags.map((tag) => (
-          <Badge className='me-1' key={tag.id}>
-            {tag.name}
-          </Badge>
+          <Badge label={tag.name} className='me-1' key={tag.id} />
         ))}
       </div>
     ),
   },
   {
-    id: ContractKeys.notes,
-    label: 'Notes',
-    Cell: (cell) => (
-      <div className='notes'>
-        {cell.notes.map((note) => (
-          <Badge bg='light' className='me-1' key={note.id}>
-            {DateUtils.formatDateStringStrict(note.created)}
-          </Badge>
-        ))}
-      </div>
-    ),
+    id: ContractKeys.lastNote,
+    label: 'Last note',
+    Cell: (cell) => {
+      if (!cell.lastNote) return undefined;
+      return (
+        <div onClick={($event) => $event.stopPropagation()}>
+          <OverlayTrigger
+            trigger={['hover', 'focus']}
+            placement='bottom'
+            overlay={
+              <Popover id='popover-basic'>
+                <Popover.Header as='h3'>{`${cell.lastNote.createdBy.firstName} ${cell.lastNote.createdBy.lastName}`}</Popover.Header>
+                <Popover.Body
+                  className='html-content'
+                  dangerouslySetInnerHTML={{ __html: cell.lastNote.content }}
+                />
+              </Popover>
+            }
+          >
+            <div className='d-flex align-items-center'>
+              <Initials
+                className='me-2'
+                secondWord={cell.lastNote.createdBy.lastName}
+                firstWord={cell.lastNote.createdBy.firstName}
+              />
+              <span>{DateUtils.formatDateStringStrict(cell.lastNote.created)}</span>
+            </div>
+          </OverlayTrigger>
+        </div>
+      );
+    },
+    sortable: true,
   },
   { id: ContractKeys.availableFrom, label: 'Available from', className: 'text-center', sortable: true },
   {
@@ -157,7 +174,17 @@ export const contractorColumns: Column<Contractor>[] = [
     className: 'text-center',
     sortable: true,
   },
-  { id: ContractKeys.linkedInUrl, label: 'LinkedIn' },
+  {
+    id: ContractKeys.linkedInUrl,
+    label: 'LinkedIn',
+    className: 'text-center',
+    Cell: (cell) =>
+      cell.linkedInUrl ? (
+        <a onClick={EventUtils.stopPropagation} href={cell.linkedInUrl} target='_blank'>
+          LinkedIn
+        </a>
+      ) : undefined,
+  },
   { id: ContractKeys.updated, label: 'Updated', className: 'text-center', sortable: true },
   {
     id: ContractKeys.created,

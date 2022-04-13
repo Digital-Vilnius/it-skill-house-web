@@ -1,26 +1,19 @@
 import React, { FC } from 'react';
 import { useEventForm } from '../hooks';
 import { EventForm as ControlledEventForm } from '../components';
+import { useModal } from 'core/modal/hooks';
 
-interface Props {
-  onClose: () => void;
-  visible: boolean;
-  contractorId: number;
+export interface EventFormProps {
   id?: number;
+  contractorId: number;
 }
 
-const EventForm: FC<Props> = (props) => {
-  const { onClose, visible, id, contractorId } = props;
-  const { control, handleSubmit, save } = useEventForm({ onSuccess: onClose, id, contractorId });
+const EventForm: FC<EventFormProps> = (props) => {
+  const { id, contractorId } = props;
+  const { hideModal } = useModal();
+  const { control, handleSubmit, save } = useEventForm({ onSuccess: hideModal, id, contractorId });
 
-  return (
-    <ControlledEventForm
-      control={control}
-      onClose={onClose}
-      visible={visible}
-      onSubmit={handleSubmit(save)}
-    />
-  );
+  return <ControlledEventForm control={control} onClose={hideModal} onSubmit={handleSubmit(save)} />;
 };
 
 export default EventForm;

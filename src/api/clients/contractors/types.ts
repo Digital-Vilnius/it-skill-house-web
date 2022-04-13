@@ -9,37 +9,29 @@ import { Email } from '../emails/types';
 
 export interface Contractor extends BaseModel {
   linkedInUrl: string | null;
-
   codaId: number | null;
   cinodeId: number | null;
-
   userId: number;
   firstName: string;
   lastName: string;
   email: string;
   phone: string | null;
-
   countryCode: string;
   city: string | null;
-
   rate: number | null;
   currency: string | null;
-
   availableFrom: string | null;
   experienceSince: number | null;
-
   isAvailable: boolean;
   isRemote: boolean;
   isPublic: boolean;
   hasContract: boolean;
   isOnSite: boolean;
-
   lastEmail: Email | null;
   nearestEvent: Event | null;
   profession: Profession | null;
   recruiter: User;
-
-  notes: Note[];
+  lastNote: Note | null;
   tags: Tag[];
   technologies: Technology[];
   mainTechnologies: Technology[];
@@ -50,30 +42,22 @@ export interface SaveContractorRequest {
   lastName: string;
   email: string;
   phone: string | null;
-
   note: string;
   linkedInUrl: string | null;
-
   codaId: number | null;
   cinodeId: number | null;
-
   countryCode: string;
   city: string | null;
-
   rate: number | null;
   currency: string | null;
-
   availableFrom: string | null;
   experienceSince: number | null;
-
   isRemote: boolean;
   isPublic: boolean;
   hasContract: boolean;
   isOnSite: boolean;
-
   professionId: number | null;
   recruiterId: number;
-
   tagsIds: number[];
   technologiesIds: number[];
   mainTechnologiesIds: number[];
@@ -92,10 +76,7 @@ export interface ContractorsFilter {
   technologiesIds?: number[];
   mainTechnologiesIds?: number[];
   tagsIds?: number[];
-  rateFrom?: number;
   rateTo?: number;
   experienceFrom?: number;
-  experienceTo?: number;
   availableFrom?: string;
-  availableTo?: string;
 }

@@ -1,21 +1,8 @@
-import * as AuthClient from './auth';
-import * as ContractorsClient from './contractors';
-import * as UsersClient from './users';
-import * as TechnologiesClient from './technologies';
-import * as TagsClient from './tags';
-import * as ProfessionsClient from './professions';
-import * as EventsClient from './events';
-import * as NotesClient from './notes';
-import * as EmailsClient from './emails';
-
-export {
-  AuthClient,
-  ContractorsClient,
-  UsersClient,
-  TechnologiesClient,
-  TagsClient,
-  ProfessionsClient,
-  EventsClient,
-  NotesClient,
-  EmailsClient,
-};
+export * as ContractorsClient from './contractors';
+export * as UsersClient from './users';
+export * as TechnologiesClient from './technologies';
+export * as TagsClient from './tags';
+export * as ProfessionsClient from './professions';
+export * as EventsClient from './events';
+export * as NotesClient from './notes';
+export * as EmailsClient from './emails';

@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, MouseEvent } from 'react';
 import { DatePickerProps } from './types';
 import { default as ReactDatePicker } from 'react-datepicker';
 import { DateUtils } from 'utils';
@@ -16,6 +16,11 @@ const DatePicker: FC<DatePickerProps<ValueType>> = (props) => {
     onChange(DateUtils.formatDate(date));
   };
 
+  const handleOnClear = ($event: MouseEvent<HTMLDivElement>) => {
+    $event.stopPropagation();
+    onChange?.(null);
+  };
+
   const renderInput = () => (
     <InputGroup>
       <Form.Control
@@ -26,6 +31,11 @@ const DatePicker: FC<DatePickerProps<ValueType>> = (props) => {
         value={value ?? ''}
         isInvalid={isInvalid}
       />
+      {value && (
+        <div onClick={handleOnClear} className='date-picker-clear'>
+          <Icon name='x' size={15} />
+        </div>
+      )}
       <InputGroup.Text>
         <Icon name='calendar' size={16} />
       </InputGroup.Text>

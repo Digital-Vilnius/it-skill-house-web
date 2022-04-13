@@ -8,7 +8,7 @@ interface Props {
 }
 
 export const getQueryKey = (filter: NotesFilter) => {
-  return ['events', filter];
+  return ['notes', filter];
 };
 
 const useNotes = (props: Props) => {

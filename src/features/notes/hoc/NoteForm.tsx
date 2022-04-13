@@ -1,26 +1,20 @@
 import React, { FC } from 'react';
 import { useNoteForm } from '../hooks';
 import { NoteForm as ControlledNoteForm } from '../components';
+import { useModal } from 'core/modal/hooks';
 
-interface Props {
-  onClose: () => void;
-  visible: boolean;
-  contractorId: number;
+export interface NoteFormProps {
   id?: number;
+  contractorId: number;
 }
 
-const NoteForm: FC<Props> = (props) => {
-  const { onClose, visible, id, contractorId } = props;
-  const { control, handleSubmit, save } = useNoteForm({ onSuccess: onClose, id, contractorId });
+const NoteForm: FC<NoteFormProps> = (props) => {
+  const { id, contractorId } = props;
+  const { hideModal } = useModal();
 
-  return (
-    <ControlledNoteForm
-      control={control}
-      onClose={onClose}
-      visible={visible}
-      onSubmit={handleSubmit(save)}
-    />
-  );
+  const { control, handleSubmit, save } = useNoteForm({ onSuccess: hideModal, id, contractorId });
+
+  return <ControlledNoteForm control={control} onClose={hideModal} onSubmit={handleSubmit(save)} />;
 };
 
 export default NoteForm;

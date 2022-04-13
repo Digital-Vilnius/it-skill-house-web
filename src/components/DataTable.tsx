@@ -6,6 +6,7 @@ import { Paging, Sort } from 'api/types';
 import { SortDirections } from '../api/constants';
 import { Pagination } from './index';
 import xorBy from 'lodash/xorBy';
+import { EventUtils } from 'utils';
 
 export interface Column<T> {
   id: string;
@@ -38,6 +39,8 @@ interface Props {
   selectedRows: any[];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onSelectedRowsChange: (rows: any[]) => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onRowPress?: (id: any) => void;
 }
 
 const DataTable: FC<Props> = (props) => {
@@ -52,6 +55,7 @@ const DataTable: FC<Props> = (props) => {
     count,
     onSelectedRowsChange,
     selectedRows,
+    onRowPress,
   } = props;
 
   const handleSort = (column: Column<unknown>) => {
@@ -104,8 +108,8 @@ const DataTable: FC<Props> = (props) => {
         </thead>
         <tbody>
           {data.map((item) => (
-            <tr key={item.id}>
-              <td className='text-center'>
+            <tr onClick={() => onRowPress?.(item.id)} key={item.id}>
+              <td onClick={EventUtils.stopPropagation} className='text-center'>
                 <Form.Check
                   checked={!!selectedRows.find((row) => item.id === row.id)}
                   onChange={() => handleRowSelect(item)}
@@ -118,7 +122,7 @@ const DataTable: FC<Props> = (props) => {
                 </td>
               ))}
               {!!actions && (
-                <td className='text-center'>
+                <td onClick={EventUtils.stopPropagation} className='text-center'>
                   <Dropdown align='end'>
                     <Dropdown.Toggle as='span' className='dropdown-ellipses' role='button'>
                       <Icon name='more-vertical' size='17' />

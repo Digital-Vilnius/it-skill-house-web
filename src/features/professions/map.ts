@@ -7,5 +7,4 @@ export const mapProfession = (profession: ApiProfession): Profession => professi
 export const mapProfessionOption = (profession: Profession): SelectOption => ({
   value: profession.id,
   label: profession.name,
-  count: profession.count,
 });

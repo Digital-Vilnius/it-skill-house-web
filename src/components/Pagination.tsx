@@ -33,6 +33,9 @@ const Pagination: FC<Props> = (props) => {
           <Icon size={16} className='me-1' name='arrow-left' />
           <span>Prev</span>
         </BootstrapPagination.Item>
+        <div className='d-flex align-items-center justify-content-center px-4'>
+          <span>Total: {count}</span>
+        </div>
       </BootstrapPagination>
       <BootstrapPagination className='card-pagination pagination-tabs'>
         {range(pagesCount).map((page) => (

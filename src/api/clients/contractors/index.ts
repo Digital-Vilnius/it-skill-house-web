@@ -1,11 +1,14 @@
 import { ListRequest, ListResponse, ResultResponse } from '../../types';
 import httpClient from '../../httpClient';
 import { Contractor, SaveContractorRequest, ContractorsFilter } from './types';
+import pickBy from 'lodash/pickBy';
+import identity from 'lodash/identity';
 
 const baseUrl = '/contractors';
 
 export const getContractors = async (request: ListRequest<ContractorsFilter>) => {
-  const params = { ...request.paging, ...request.sort, ...request.filter };
+  const cleanedFilter = pickBy(request.filter, identity);
+  const params = { ...request.paging, ...request.sort, ...cleanedFilter };
   return httpClient.get<ListRequest<ContractorsFilter>, ListResponse<Contractor>>(baseUrl, { params });
 };
 

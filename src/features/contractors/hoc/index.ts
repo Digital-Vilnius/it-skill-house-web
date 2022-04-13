@@ -1,15 +1,7 @@
-import ContractorForm from './ContractorForm';
-import ContractorsFilter from './ContractorsFilter';
-import ContractorsSearch from './ContractorsSearch';
-import ContractorsDataTable from './ContractorsDataTable';
-import ColumnsSelect from './ColumnsSelect';
-import ContractorsActions from './ContractorsActions';
-
-export {
-  ContractorForm,
-  ContractorsFilter,
-  ContractorsSearch,
-  ContractorsDataTable,
-  ColumnsSelect,
-  ContractorsActions,
-};
+export { default as ContractorForm } from './ContractorForm';
+export { default as ContractorsFilter } from './ContractorsFilter';
+export { default as ContractorsSearch } from './ContractorsSearch';
+export { default as ContractorsDataTable } from './ContractorsDataTable';
+export { default as ColumnsSelect } from './ColumnsSelect';
+export { default as ContractorsActions } from './ContractorsActions';
+export { default as ContractorDetails } from './ContractorDetails';

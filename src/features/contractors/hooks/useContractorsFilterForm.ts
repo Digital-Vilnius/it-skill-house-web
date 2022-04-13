@@ -4,6 +4,7 @@ import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ContractorsFilter } from 'api/clients/contractors/types';
+import { YupUtils } from 'utils';
 
 interface Props {
   filter: ContractorsFilter;
@@ -12,8 +13,7 @@ interface Props {
 
 const getSchema = () => {
   const schema = yup.object().shape({
-    rateFrom: yup.number().positive().nullable(),
-    rateTo: yup.number().positive().nullable(),
+    rateTo: yup.number().transform(YupUtils.emptyStringToNull).positive().nullable(),
     technologiesIds: yup.array().of(yup.number()).nullable(),
     mainTechnologiesIds: yup.array().of(yup.number()).nullable(),
     recruitersIds: yup.array().of(yup.number()).nullable(),
@@ -23,7 +23,6 @@ const getSchema = () => {
     isRemote: yup.boolean().nullable(),
     isAvailable: yup.boolean().nullable(),
     availableFrom: yup.string().trim().nullable(),
-    availableTo: yup.string().trim().nullable(),
   });
 
   return schema.required();

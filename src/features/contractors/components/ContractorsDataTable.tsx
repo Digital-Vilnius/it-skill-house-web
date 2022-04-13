@@ -17,6 +17,9 @@ interface Props {
   onDelete: (id: number) => void;
   onEdit: (id: number) => void;
   onDetails: (id: number) => void;
+  onAddEvent: (id: number) => void;
+  onAddNote: (id: number) => void;
+  onSendEmail: (id: number) => void;
 }
 
 const ContractorsDataTable: FC<Props> = (props) => {
@@ -33,6 +36,9 @@ const ContractorsDataTable: FC<Props> = (props) => {
     onDelete,
     onEdit,
     onDetails,
+    onAddNote,
+    onAddEvent,
+    onSendEmail,
   } = props;
 
   return (
@@ -46,7 +52,11 @@ const ContractorsDataTable: FC<Props> = (props) => {
       sort={sort}
       columns={columns}
       data={contractors}
+      onRowPress={onDetails}
       actions={[
+        { label: 'Add note', onClick: onAddNote },
+        { label: 'Add event', onClick: onAddEvent },
+        { label: 'Send email', onClick: onSendEmail },
         { label: 'Edit', onClick: onEdit },
         { label: 'Details', onClick: onDetails },
         { label: 'Delete', onClick: onDelete },

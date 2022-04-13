@@ -4,15 +4,18 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import storage from 'redux-persist/lib/storage';
 import { persistStore, persistReducer } from 'redux-persist';
 import { reducer as contractorsReducer } from 'features/contractors/slice';
+import { reducer as layoutReducer } from 'layouts/slice';
 import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE } from 'redux-persist/es/constants';
 
 const persistConfig = {
   key: 'root',
   storage,
+  whitelist: ['contractors'],
 };
 
 const rootReducer = combineReducers({
   contractors: contractorsReducer,
+  layout: layoutReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

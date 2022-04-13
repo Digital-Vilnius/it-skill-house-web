@@ -131,43 +131,14 @@ const ContractorsFilterForm: FC<Props> = (props) => {
           <Col>
             <Controller
               control={control}
-              name='availableTo'
-              render={({ field: { ref, ...rest }, fieldState: { error } }) => (
-                <FormDatePicker label='Available to' {...rest} error={error?.message} />
-              )}
-            />
-          </Col>
-        </Row>
-        <Row className='mb-4'>
-          <Col>
-            <Controller
-              control={control}
               name='experienceFrom'
               render={({ field: { ref, ...rest }, fieldState: { error } }) => (
                 <FormYearPicker label='Experience from' {...rest} error={error?.message} />
               )}
             />
           </Col>
-          <Col>
-            <Controller
-              control={control}
-              name='experienceTo'
-              render={({ field: { ref, ...rest }, fieldState: { error } }) => (
-                <FormYearPicker label='Experience to' {...rest} error={error?.message} />
-              )}
-            />
-          </Col>
         </Row>
         <Row>
-          <Col>
-            <Controller
-              control={control}
-              name='rateFrom'
-              render={({ field: { ref, ...rest }, fieldState: { error } }) => (
-                <FormInput label='Rate from' type='number' error={error?.message} {...rest} />
-              )}
-            />
-          </Col>
           <Col>
             <Controller
               control={control}
@@ -177,10 +148,7 @@ const ContractorsFilterForm: FC<Props> = (props) => {
               )}
             />
           </Col>
-        </Row>
-        <hr className='my-4' />
-        <Row>
-          <Col lg={6}>
+          <Col>
             <Controller
               control={control}
               name='countriesCodes'
@@ -207,6 +175,7 @@ const ContractorsFilterForm: FC<Props> = (props) => {
               render={({ field: { ref, onChange, ...rest }, fieldState: { error } }) => (
                 <FormSwitch
                   label='Remote'
+                  switchClassName='justify-content-end'
                   help='This contact will be shown to others publicly, so choose it carefully.'
                   error={error?.message}
                   onChange={onChange}
@@ -222,6 +191,7 @@ const ContractorsFilterForm: FC<Props> = (props) => {
               render={({ field: { ref, onChange, ...rest }, fieldState: { error } }) => (
                 <FormSwitch
                   label='On site'
+                  switchClassName='justify-content-end'
                   help='This contact will be shown to others publicly, so choose it carefully.'
                   error={error?.message}
                   onChange={onChange}
@@ -239,6 +209,7 @@ const ContractorsFilterForm: FC<Props> = (props) => {
               render={({ field: { ref, onChange, ...rest }, fieldState: { error } }) => (
                 <FormSwitch
                   label='Available'
+                  switchClassName='justify-content-end'
                   help='This contact will be shown to others publicly, so choose it carefully.'
                   error={error?.message}
                   onChange={onChange}
@@ -254,6 +225,7 @@ const ContractorsFilterForm: FC<Props> = (props) => {
               render={({ field: { ref, onChange, ...rest }, fieldState: { error } }) => (
                 <FormSwitch
                   label='Has contract'
+                  switchClassName='justify-content-end'
                   help='This contact will be shown to others publicly, so choose it carefully.'
                   error={error?.message}
                   onChange={onChange}
@@ -271,6 +243,7 @@ const ContractorsFilterForm: FC<Props> = (props) => {
               render={({ field: { ref, onChange, ...rest }, fieldState: { error } }) => (
                 <FormSwitch
                   label='Public'
+                  switchClassName='justify-content-end'
                   help='This contact will be shown to others publicly, so choose it carefully.'
                   error={error?.message}
                   onChange={onChange}

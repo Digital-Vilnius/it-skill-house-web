@@ -5,13 +5,26 @@ import logo from 'assets/img/logo.png';
 import Icon from '@ailibs/feather-react-ts';
 import { SideNavigationItems } from 'navigation/constants';
 import { useLogout } from 'features/auth/hooks';
+import { useAppDispatch, useAppSelector } from 'core/store';
+import { selectIsSideNavExpanded } from './selectors';
+import { setIsSideNavExpanded } from './slice';
 
 const SideNav: FC = () => {
   const location = useLocation();
   const { logout } = useLogout();
+  const isSideNavExpanded = useAppSelector(selectIsSideNavExpanded);
+  const dispatch = useAppDispatch();
+
+  const toggleIsSideNavExpanded = () => {
+    dispatch(setIsSideNavExpanded({ isSideNavExpanded: !isSideNavExpanded }));
+  };
 
   return (
-    <Navbar expand='md' className='navbar-vertical fixed-start' collapseOnSelect={true}>
+    <Navbar
+      expand={isSideNavExpanded ? 'md' : false}
+      className='navbar-vertical fixed-start'
+      collapseOnSelect={true}
+    >
       <Container fluid>
         <Navbar.Toggle />
         <Link to='/admin'>
@@ -29,10 +42,16 @@ const SideNav: FC = () => {
                 </Nav.Link>
               </Link>
             ))}
-            <Nav.Link as='span' className='mb-3' onClick={logout}>
-              <Icon className='feather' name='log-out' size='17' />
-              Logout
-            </Nav.Link>
+            <div>
+              <Nav.Link as='span' onClick={toggleIsSideNavExpanded}>
+                <Icon className='feather' name={isSideNavExpanded ? 'minimize' : 'maximize'} size='17' />
+                {isSideNavExpanded ? 'Collapse' : 'Expand'}
+              </Nav.Link>
+              <Nav.Link as='span' onClick={logout}>
+                <Icon className='feather' name='log-out' size='17' />
+                Logout
+              </Nav.Link>
+            </div>
           </Nav>
         </Navbar.Collapse>
       </Container>

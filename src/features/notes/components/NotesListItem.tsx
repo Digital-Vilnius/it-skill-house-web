@@ -12,11 +12,9 @@ const NotesListItem: FC<Props> = (props) => {
   return (
     <ListGroup.Item key={note.id}>
       <Row>
-        <Col xs='auto'>
-          <small className='text-muted date'>{note.created}</small>
-        </Col>
-        <Col className='ms-n2'>
-          <p dangerouslySetInnerHTML={{ __html: note.content }} className='small html-content' />
+        <Col>
+          <div className='small html-content mb-3' dangerouslySetInnerHTML={{ __html: note.content }} />
+          <small className='text-muted'>{`${note.createdBy.firstName} ${note.createdBy.lastName}, ${note.created}`}</small>
         </Col>
       </Row>
     </ListGroup.Item>

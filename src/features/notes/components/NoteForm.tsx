@@ -7,18 +7,14 @@ import { NoteFormData } from '../types';
 interface Props {
   onClose: () => void;
   onSubmit: () => void;
-  visible: boolean;
   control: Control<NoteFormData>;
 }
 
 const NoteForm: FC<Props> = (props) => {
-  const { onClose, visible, control, onSubmit } = props;
+  const { onClose, control, onSubmit } = props;
 
   return (
-    <Modal size='lg' centered show={visible}>
-      <Modal.Header onHide={onClose} closeButton>
-        <Modal.Title>Note</Modal.Title>
-      </Modal.Header>
+    <>
       <Modal.Body>
         <Row>
           <Col>
@@ -51,7 +47,7 @@ const NoteForm: FC<Props> = (props) => {
           Save
         </Button>
       </Modal.Footer>
-    </Modal>
+    </>
   );
 };
 

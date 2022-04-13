@@ -7,5 +7,4 @@ export const mapTechnology = (technology: ApiTechnology): Technology => technolo
 export const mapTechnologyOption = (technology: Technology): SelectOption => ({
   value: technology.id,
   label: technology.name,
-  count: technology.count,
 });

@@ -7,18 +7,14 @@ import { EventFormData } from '../types';
 interface Props {
   onClose: () => void;
   onSubmit: () => void;
-  visible: boolean;
   control: Control<EventFormData>;
 }
 
 const EventForm: FC<Props> = (props) => {
-  const { onClose, visible, control, onSubmit } = props;
+  const { onClose, control, onSubmit } = props;
 
   return (
-    <Modal size='lg' centered show={visible}>
-      <Modal.Header onHide={onClose} closeButton>
-        <Modal.Title>Event</Modal.Title>
-      </Modal.Header>
+    <>
       <Modal.Body>
         <Row className='mb-4'>
           <Col>
@@ -139,7 +135,7 @@ const EventForm: FC<Props> = (props) => {
           Save
         </Button>
       </Modal.Footer>
-    </Modal>
+    </>
   );
 };
 

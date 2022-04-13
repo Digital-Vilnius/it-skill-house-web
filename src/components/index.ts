@@ -1,35 +1,17 @@
-import Avatar from './Avatar';
-import TextEditor from './Form/TextEditor';
-import Select from './Select';
-import DataTable from './DataTable';
-import Pagination from './Pagination';
-import DatePicker from './Form/DatePicker';
-import MoneyInput from './Form/MoneyInput';
-import SearchInput from './Form/SearchInput';
-import SwitchInput from './Form/SwitchInput';
-import Dropzone from './Dropzone';
-import FormInput from './Form/FormInput';
-import FormSelect from './Form/FormSelect';
-import FormDatePicker from './Form/FormDatePicker';
-import FormSwitch from './Form/FormSwitch';
-import FormTextEditor from './Form/FormTextEditor';
-import FormYearPicker from './Form/FormYearPicker';
-
-export {
-  Avatar,
-  TextEditor,
-  Select,
-  DataTable,
-  Pagination,
-  DatePicker,
-  MoneyInput,
-  SearchInput,
-  SwitchInput,
-  Dropzone,
-  FormInput,
-  FormSelect,
-  FormDatePicker,
-  FormSwitch,
-  FormTextEditor,
-  FormYearPicker,
-};
+export { default as Avatar } from './Avatar';
+export { default as TextEditor } from './Form/TextEditor';
+export { default as Select } from './Select';
+export { default as DataTable } from './DataTable';
+export { default as Pagination } from './Pagination';
+export { default as DatePicker } from './Form/DatePicker';
+export { default as MoneyInput } from './Form/MoneyInput';
+export { default as SearchInput } from './Form/SearchInput';
+export { default as SwitchInput } from './Form/SwitchInput';
+export { default as Dropzone } from './Dropzone';
+export { default as FormInput } from './Form/FormInput';
+export { default as FormSelect } from './Form/FormSelect';
+export { default as FormDatePicker } from './Form/FormDatePicker';
+export { default as FormSwitch } from './Form/FormSwitch';
+export { default as FormTextEditor } from './Form/FormTextEditor';
+export { default as FormYearPicker } from './Form/FormYearPicker';
+export { default as Badge } from './Badge';

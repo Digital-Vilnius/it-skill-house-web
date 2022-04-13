@@ -10,15 +10,14 @@ const EventsListItem: FC<Props> = (props) => {
   const { event } = props;
 
   return (
-    <ListGroup.Item>
+    <ListGroup.Item key={event.id}>
       <Row>
-        <Col xs='auto'>
-          <small className='text-muted date'>{event.date}</small>
-        </Col>
-        <Col className='ms-n2'>
-          <h3 className='mb-4'>{event.title}</h3>
-          <p dangerouslySetInnerHTML={{ __html: event.content }} className='small html-content mb-2' />
-          <small className='text-muted'>{event.location}</small>
+        <Col>
+          <div className='small mb-3'>
+            <strong className='d-block mb-2'>{event.title}</strong>
+            <div className='html-content' dangerouslySetInnerHTML={{ __html: event.content }} />
+          </div>
+          <small className='text-muted'>{`${event.location}, ${event.date}`}</small>
         </Col>
       </Row>
     </ListGroup.Item>

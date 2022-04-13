@@ -11,10 +11,15 @@ import ContractorForm, { ContractorFormProps } from './ContractorForm';
 import ContractorDeleteConfirmation, {
   ContractorDeleteConfirmationProps,
 } from './ContractorDeleteConfirmation';
+import { EmailForm } from 'features/emails/hoc';
+import EventForm, { EventFormProps } from 'features/events/hoc/EventForm';
+import NoteForm, { NoteFormProps } from 'features/notes/hoc/NoteForm';
+import { useNavigate } from 'react-router-dom';
 
 const ContractorsDataTable: FC = () => {
   const dispatch = useAppDispatch();
   const { showModal } = useModal();
+  const navigate = useNavigate();
 
   const { filter, paging, sort, selected, visibleColumnsIds, columnsOrder } = useAppSelector(
     (state) => state.contractors
@@ -38,6 +43,18 @@ const ContractorsDataTable: FC = () => {
     showModal<ContractorFormProps>(ContractorForm, { title: 'Edit contractor', size: 'xl' }, { id });
   };
 
+  const openAddNoteForm = (id: number) => {
+    showModal<NoteFormProps>(NoteForm, { title: 'Add note', size: 'lg' }, { contractorId: id });
+  };
+
+  const openAddEventForm = (id: number) => {
+    showModal<EventFormProps>(EventForm, { title: 'Add event', size: 'lg' }, { contractorId: id });
+  };
+
+  const openSendEmailForm = () => {
+    showModal(EmailForm, { title: 'Send email', size: 'lg' });
+  };
+
   const openContractorDeleteConfirmation = (id: number) => {
     showModal<ContractorDeleteConfirmationProps>(
       ContractorDeleteConfirmation,
@@ -59,7 +76,10 @@ const ContractorsDataTable: FC = () => {
       onSelectedContractorsChange={handleSelectedContractorsChange}
       onDelete={openContractorDeleteConfirmation}
       onEdit={openContractorEditForm}
-      onDetails={(id) => window.open(`/admin/contractors/${id}`)}
+      onDetails={(id) => navigate(`/admin/contractors/${id}`)}
+      onAddEvent={openAddEventForm}
+      onSendEmail={openSendEmailForm}
+      onAddNote={openAddNoteForm}
     />
   );
 };

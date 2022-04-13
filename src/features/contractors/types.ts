@@ -9,37 +9,29 @@ import { Email } from 'features/emails/types';
 
 export interface Contractor extends BaseModel {
   linkedInUrl: string | null;
-
   codaId: number | null;
   cinodeId: number | null;
-
   userId: number;
   firstName: string;
   lastName: string;
   email: string;
   phone: string | null;
-
   countryCode: string;
   city: string | null;
-
   rate: number | null;
   currency: string | null;
-
   availableFrom: string | null;
   experienceSince: number | null;
-
   isAvailable: boolean;
   isRemote: boolean;
   isPublic: boolean;
   hasContract: boolean;
   isOnSite: boolean;
-
   lastEmail: Email | null;
   nearestEvent: Event | null;
   profession: Profession | null;
   recruiter: User;
-
-  notes: Note[];
+  lastNote: Note | null;
   tags: Tag[];
   technologies: Technology[];
   mainTechnologies: Technology[];

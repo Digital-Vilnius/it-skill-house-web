@@ -2,6 +2,7 @@ import React, { FC, PropsWithChildren, useState } from 'react';
 import { ModalContext } from './context';
 import { ModalOptions, ModalState } from './types';
 import { Modal } from 'react-bootstrap';
+import { queryClient } from '../query';
 
 const ModalProvider: FC = (props) => {
   const { children } = props;
@@ -26,6 +27,7 @@ const ModalProvider: FC = (props) => {
 
   const hideModal = () => {
     setState({ ...state, visible: false });
+    queryClient.refetchQueries();
   };
 
   return (

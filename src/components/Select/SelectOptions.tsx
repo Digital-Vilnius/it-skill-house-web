@@ -11,10 +11,11 @@ interface SelectOptionsProps {
   options: SelectOption[];
   renderOption: (option: SelectOption) => React.ReactNode;
   onCreate?: (name: string) => Promise<ValueType>;
+  onCreated?: (value: ValueType) => void;
 }
 
 const SelectOptions: FC<SelectOptionsProps> = (props) => {
-  const { options, renderOption, searchable, onCreate, creatable, visible } = props;
+  const { options, renderOption, searchable, onCreate, creatable, visible, onCreated } = props;
   const [filteredOptions, setFilteredOptions] = useState<SelectOption[]>(options);
   const [query, setQuery] = useState<string>('');
 
@@ -34,7 +35,8 @@ const SelectOptions: FC<SelectOptionsProps> = (props) => {
 
   const handleOnCreateClick = async () => {
     if (!onCreate) throw new Error('onCreate property is missing');
-    await onCreate(query);
+    const createdOptionValue = await onCreate(query);
+    if (onCreated) onCreated(createdOptionValue);
     setQuery('');
   };
 

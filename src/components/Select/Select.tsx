@@ -9,28 +9,34 @@ import ClearableBadge from '../ClearableBadge';
 import classNames from 'classnames';
 
 const Select: FC<SelectProps> = (props) => {
-  const { clearable, creatable, searchable, options = [], multi, onCreate, isInvalid } = props;
+  const {
+    clearable,
+    creatable,
+    searchable,
+    options = [],
+    multi,
+    onCreate,
+    isInvalid,
+    disabledOptionsValues = [],
+  } = props;
+
   const [visible, setVisible] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
   useOnClickOutside({ ref, callback: () => setVisible(false) });
-
-  const handleOnCreate = (query: string) => {
-    if (!onCreate) throw new Error('onCreate property is missing');
-    return onCreate(query);
-  };
 
   const handleOnClear = () => {
     if (props.multi) props.onChange([]);
     else props.onChange(null);
   };
 
-  const handleOnClick = (option: SelectOption) => {
+  const handleOnClick = (clickedValue: ValueType) => {
     if (!props.multi) {
-      props.onChange(option.value);
+      props.onChange(clickedValue);
       setVisible(false);
     } else {
       const currentValue = props.value ?? [];
-      const newValue = xor(currentValue, [option.value]);
+      const newValue = xor(currentValue, [clickedValue]);
+      if (props.maxSelected && newValue.length > props.maxSelected) return;
       props.onChange(newValue);
     }
   };
@@ -53,7 +59,11 @@ const Select: FC<SelectProps> = (props) => {
     const option = getOption(optionValue) ?? { value: optionValue, label: 'Unknown' };
 
     return (
-      <ClearableBadge key={option.value} onClear={() => handleOnClick(option)} label={option.label} />
+      <ClearableBadge
+        key={option.value}
+        onClear={() => handleOnClick(option.value)}
+        label={option.label}
+      />
     );
   };
 
@@ -72,15 +82,16 @@ const Select: FC<SelectProps> = (props) => {
       <SelectOptions
         visible={visible}
         creatable={creatable}
-        onCreate={handleOnCreate}
+        onCreate={onCreate}
         searchable={searchable}
-        options={options}
+        options={options.filter((option) => !disabledOptionsValues.includes(option.value))}
+        onCreated={handleOnClick}
         renderOption={(option: SelectOption) => (
           <Option
             multi={multi}
             key={option.value}
             selected={isSelected(option.value)}
-            onClick={() => handleOnClick(option)}
+            onClick={() => handleOnClick(option.value)}
             {...option}
           />
         )}

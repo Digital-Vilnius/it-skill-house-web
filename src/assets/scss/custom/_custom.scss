@@ -4,9 +4,19 @@
   @include scrollbar(0.25rem, $gray-400);
 }
 
+.required:after {
+  content:" *";
+  color: red;
+}
+
 @import "select";
 @import "clearable-badge";
 @import "modal";
 @import "form";
 @import "content";
 @import "sidebar";
+@import "badge";
+@import "table";
+@import "datepicker";
+@import "initials";
+@import "technologies";

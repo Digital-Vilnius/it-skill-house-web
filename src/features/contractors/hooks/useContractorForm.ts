@@ -6,6 +6,7 @@ import { ContractorsClient, NotesClient } from 'api/clients';
 import { SaveContractorRequest } from 'api/clients/contractors/types';
 import { useEffect } from 'react';
 import { mapContractor, mapSaveContractorRequest } from '../map';
+import { YupUtils } from 'utils';
 
 const getSchema = (isEdit: boolean) => {
   const contractorShape = {
@@ -14,12 +15,12 @@ const getSchema = (isEdit: boolean) => {
     email: yup.string().email('Field is invalid').required('Field is required'),
     countryCode: yup.string().required('Field is required'),
     recruiterId: yup.number().required('Field is required'),
-    mainTechnologiesIds: yup.array().of(yup.number()).min(1).required('Field is required'),
+    mainTechnologiesIds: yup.array().of(yup.number()).min(1).max(2).required('Field is required'),
     phone: yup.string().nullable(),
     city: yup.string().nullable(),
     professionId: yup.number().nullable(),
     technologiesIds: yup.array().of(yup.number()).nullable(),
-    rate: yup.number().min(1).nullable(),
+    rate: yup.number().transform(YupUtils.emptyStringToNull).min(1).nullable(),
     currency: yup.string().nullable(),
     availableFrom: yup.string().nullable(),
     experienceSince: yup.number().nullable(),

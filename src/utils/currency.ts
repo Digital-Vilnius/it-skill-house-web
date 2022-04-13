@@ -10,7 +10,7 @@ export const currenciesOptions = currencies.map((currency) => ({
   value: currency.code,
 }));
 
-export const getCurrencyName = (currencyCode: string) => {
+export const getCurrencyName = (currencyCode: string | null) => {
   return currencies.find((currency) => currency.code === currencyCode)?.name ?? 'Unknown';
 };
 
