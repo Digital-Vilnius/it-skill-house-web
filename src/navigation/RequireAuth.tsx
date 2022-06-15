@@ -1,8 +1,9 @@
 import { Navigate, useLocation } from 'react-router-dom';
-import { useAuth } from '../features/auth/hooks';
+import { useAppSelector } from 'core/store';
+import { selectIsLoggedIn } from 'features/auth/selectors';
 
 const RequireAuth = ({ children }: { children: JSX.Element }) => {
-  const { isLoggedIn } = useAuth();
+  const isLoggedIn = useAppSelector(selectIsLoggedIn);
   const location = useLocation();
 
   if (!isLoggedIn) {

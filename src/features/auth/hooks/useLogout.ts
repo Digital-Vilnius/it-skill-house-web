@@ -1,8 +1,11 @@
-import { msalInstance } from 'core/msal';
+import { useAppDispatch } from 'core/store';
+import { logout as logoutAction } from '../slice';
 
 const useLogout = () => {
+  const dispatch = useAppDispatch();
+
   const logout = () => {
-    msalInstance.logoutRedirect();
+    dispatch(logoutAction());
   };
 
   return { logout };

@@ -1,4 +1,2 @@
-import useAuth from './useAuth';
-import useLogout from './useLogout';
-
-export { useAuth, useLogout };
+export { default as useLogout } from './useLogout';
+export { default as useLoginForm } from './useLoginForm';

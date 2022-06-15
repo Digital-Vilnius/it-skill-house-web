@@ -10,7 +10,7 @@ import {
   FormYearPicker,
 } from 'components';
 import { CountryUtils, CurrencyUtils } from 'utils';
-import { UsersSelect } from 'features/users/hoc';
+import { RecruitersSelect } from 'features/recruiters/hoc';
 import { TechnologiesSelect } from 'features/technologies/hoc';
 import { ProfessionsSelect } from 'features/professions/hoc';
 import { SaveContractorRequest } from 'api/clients/contractors/types';
@@ -122,7 +122,7 @@ const ContractorForm: FC<Props> = (props) => {
               control={control}
               name='recruiterId'
               render={({ field: { ref, ...rest }, fieldState: { error } }) => (
-                <UsersSelect
+                <RecruitersSelect
                   required
                   label='Recruiter'
                   searchable

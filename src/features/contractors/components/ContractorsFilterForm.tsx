@@ -5,7 +5,7 @@ import { FormDatePicker, FormInput, FormSelect, FormSwitch, FormYearPicker } fro
 import { CountryUtils } from 'utils';
 import { ContractorsFilter as ContractorsFilterType } from 'api/clients/contractors/types';
 import { TechnologiesSelect } from 'features/technologies/hoc';
-import { UsersSelect } from 'features/users/hoc';
+import { RecruitersSelect } from 'features/recruiters/hoc';
 import { TagsSelect } from 'features/tags/hoc';
 import { ProfessionsSelect } from 'features/professions/hoc';
 
@@ -89,7 +89,7 @@ const ContractorsFilterForm: FC<Props> = (props) => {
               control={control}
               name='recruitersIds'
               render={({ field: { ref, ...rest }, fieldState }) => (
-                <UsersSelect
+                <RecruitersSelect
                   label='Recruiters'
                   multi
                   searchable

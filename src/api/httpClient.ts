@@ -1,8 +1,7 @@
 import axios from 'axios';
 import ToastService from 'core/toast';
 import { stringify } from 'qs';
-import { msalInstance } from 'core/msal';
-import { scopes } from 'core/msal/config';
+import { store } from '../core/store';
 
 const httpClient = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
@@ -11,13 +10,7 @@ const httpClient = axios.create({
 
 httpClient.interceptors.request.use(
   async (request) => {
-    const accounts = msalInstance.getAllAccounts();
-    const response = await msalInstance.acquireTokenSilent({
-      scopes,
-      account: accounts[0],
-      redirectUri: process.env.REACT_APP_URL,
-    });
-    const token = response.accessToken;
+    const token = store.getState().auth.token;
 
     if (token) {
       request.headers = request.headers ?? {};

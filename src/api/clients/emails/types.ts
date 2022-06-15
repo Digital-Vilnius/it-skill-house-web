@@ -1,10 +1,10 @@
 import { BaseModel } from '../../types';
-import { User } from '../users/types';
+import { Recruiter } from '../recruiters/types';
 
 export interface Email extends BaseModel {
   subject: string;
   body: string;
-  sender: User;
+  sender: Recruiter;
 }
 
 export interface SendEmailRequest {

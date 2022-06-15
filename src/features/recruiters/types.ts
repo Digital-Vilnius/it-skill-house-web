@@ -1,6 +1,6 @@
 import { BaseModel } from 'api/types';
 
-export interface User extends BaseModel {
+export interface Recruiter extends BaseModel {
   email: string;
   phone: string;
   firstName: string;

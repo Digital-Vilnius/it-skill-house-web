@@ -1,9 +1,9 @@
 import { BaseModel } from 'api/types';
-import { User } from '../users/types';
+import { Recruiter } from '../recruiters/types';
 
 export interface Note extends BaseModel {
   content: string;
-  createdBy: User;
+  createdBy: Recruiter;
 }
 
 export interface NoteFormData {
