@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Button, Card, Col, Container, Row } from 'react-bootstrap';
+import { Button, Container } from 'react-bootstrap';
 import {
   ContractorsSearch,
   ColumnsSelect,
@@ -9,6 +9,7 @@ import {
   ContractorForm,
 } from '../hoc';
 import { useModal } from 'core/modal/hooks';
+import { Filter, UserPlus } from 'react-feather';
 
 const ContractorsPage: FC = () => {
   const { showModal } = useModal();
@@ -22,40 +23,25 @@ const ContractorsPage: FC = () => {
   };
 
   return (
-    <div className='main-content'>
-      <Container fluid>
-        <Row className='justify-content-center'>
-          <Col xs={12}>
-            <div className='header mt-md-5'>
-              <div className='header-body'>
-                <Row className='align-items-center'>
-                  <Col>
-                    <h6 className='header-pretitle'>Overview</h6>
-                    <h1 className='header-title text-truncate'>Contractors</h1>
-                  </Col>
-                  <Col xs='auto'>
-                    <Button onClick={openContractorAddForm} className='ms-2'>
-                      Add contractor
-                    </Button>
-                  </Col>
-                </Row>
-              </div>
-            </div>
-            <Card>
-              <Card.Header>
-                <ContractorsSearch />
-                <ColumnsSelect />
-                <Button onClick={openContractorsFilter} className='ms-2' size='sm'>
-                  Filter
-                </Button>
-              </Card.Header>
-              <ContractorsDataTable />
-            </Card>
-          </Col>
-        </Row>
-      </Container>
+    <Container fluid>
+      <div className='page-header'>
+        <h1 className='page-title'>Contractors</h1>
+        <div className='page-actions'>
+          <ColumnsSelect />
+          <Button onClick={openContractorsFilter} className='button button-secondary'>
+            <Filter />
+            Filter
+          </Button>
+          <Button onClick={openContractorAddForm} className='button button-primary'>
+            <UserPlus />
+            Add contractor
+          </Button>
+        </div>
+      </div>
+      {/* <ContractorsSearch />*/}
+      <ContractorsDataTable />
       <ContractorsActions />
-    </div>
+    </Container>
   );
 };
 

@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Card, Dropdown, Form, Table } from 'react-bootstrap';
+import { Dropdown, Form, Table } from 'react-bootstrap';
 import Icon from '@ailibs/feather-react-ts';
 import classNames from 'classnames';
 import { Paging, Sort } from 'api/types';
@@ -83,7 +83,7 @@ const DataTable: FC<Props> = (props) => {
 
   return (
     <>
-      <Table size='sm' className='card-table table-nowrap'>
+      <Table bordered className='table'>
         <thead>
           <tr>
             <th className='text-center'>
@@ -141,9 +141,7 @@ const DataTable: FC<Props> = (props) => {
           ))}
         </tbody>
       </Table>
-      <Card.Footer className='d-flex justify-content-between'>
-        <Pagination paging={paging} count={count} onChange={onPaging} />
-      </Card.Footer>
+      <Pagination paging={paging} count={count} onChange={onPaging} />
     </>
   );
 };

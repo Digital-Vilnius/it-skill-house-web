@@ -17,7 +17,7 @@ const EventsListItem: FC<Props> = (props) => {
             <strong className='d-block mb-2'>{event.title}</strong>
             <div className='html-content' dangerouslySetInnerHTML={{ __html: event.content }} />
           </div>
-          <small className='text-muted'>{`${event.location}, ${event.date}`}</small>
+          <small className='text-muted'>{event.date}</small>
         </Col>
       </Row>
     </ListGroup.Item>

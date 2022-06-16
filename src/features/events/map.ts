@@ -11,6 +11,4 @@ export const mapEventFormData = (event: Event): EventFormData => ({
   title: event.title,
   content: event.content,
   date: DateUtils.formatDateStringStrict(event.date),
-  location: event.location,
-  link: event.link,
 });

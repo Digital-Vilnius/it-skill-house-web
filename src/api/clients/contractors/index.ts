@@ -13,7 +13,7 @@ export const getContractors = async (request: ListRequest<ContractorsFilter>) =>
 };
 
 export const getContractor = async (id: number) => {
-  return httpClient.get<void, ResultResponse<Contractor>>(`${baseUrl}/${id}`);
+  return httpClient.get<void, Contractor>(`${baseUrl}/${id}`);
 };
 
 export const deleteContractor = async (id: number) => {

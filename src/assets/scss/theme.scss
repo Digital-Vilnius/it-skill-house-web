@@ -1,31 +1,12 @@
-//
-// Theme
-//
-// Custom variables followed by theme variables followed by Bootstrap variables
-// to ensure cascade of styles.
-//
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100;200;300;400;500;600;700&display=swap');
+@import "~bootstrap/scss/bootstrap";
 
-@import '~react-toastify/dist/ReactToastify.css';
-@import "~react-quill/dist/quill.core.css";
-@import "~react-datepicker/dist/react-datepicker.css";
+@import "variables";
+@import "reset";
+@import "typography";
 
-// Bootstrap functions
-@import '~bootstrap/scss/functions';
-
-// React variables
-@import 'react-variables';
-
-// Theme variables
-@import 'theme/variables';
-
-// Bootstrap core
-@import '~bootstrap/scss/bootstrap';
-
-// Theme core
-@import 'theme/theme';
-
-// React
-@import 'react';
-
-// Custom
-@import 'custom/custom';
+@import "components/header";
+@import "components/page";
+@import "components/button";
+@import "components/table";
+@import "components/pagination";

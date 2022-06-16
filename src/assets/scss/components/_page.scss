@@ -1,0 +1,28 @@
+.page {;
+  padding: 65px 0 15px 0;
+  min-height: 100vh;
+
+  &-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+  }
+
+  &-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .button {
+      margin-left: 10px;
+    }
+  }
+
+  &-title {
+    font-size: 21px;
+    color: $color-text-primary;
+    font-weight: 500;
+    line-height: 1.25;
+  }
+}

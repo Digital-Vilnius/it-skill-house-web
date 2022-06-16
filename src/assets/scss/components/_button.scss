@@ -1,0 +1,42 @@
+.button {
+  font-size: 11px;
+  padding: 0 15px;
+  text-transform: uppercase;
+  line-height: 1.75;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  height: 34px;
+  border-radius: 4px;
+  transition: color 0.15s ease-in-out 0s, background-color 0.15s ease-in-out 0s, border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+
+  svg {
+    width: 14px;
+    height: 14px;
+    stroke-width: 2.5px;
+    margin-top: -2px;
+    margin-right: 7px;
+  }
+
+  &-primary {
+    border: 1px solid #0168FA;
+    background-color: #0168FA;
+    color: $color-white;
+
+    &:hover, &:active, &:focus {
+      background-color: #0153C7;
+      border-color: #0153C7;
+    }
+  }
+
+  &-secondary {
+    border: 1px solid #C0CCDA;
+    background-color: $color-white;
+    color: rgba(#1B2E4B, 0.7);
+
+    &:hover, &:active, &:focus {
+      background-color: $color-white;
+      border-color: #8392A5;
+      color: #1B2E4B;
+    }
+  }
+}

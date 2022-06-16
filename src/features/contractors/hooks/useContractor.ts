@@ -12,7 +12,7 @@ const useContractor = (id: number) => {
 
   return {
     isLoading,
-    contractor: data ? mapContractor(data.result) : null,
+    contractor: data ? mapContractor(data) : null,
   };
 };
 

@@ -60,7 +60,7 @@ const EventForm: FC<Props> = (props) => {
             />
           </Col>
         </Row>
-        <Row className='mb-4'>
+        <Row>
           <Col>
             <Controller
               control={control}
@@ -70,50 +70,6 @@ const EventForm: FC<Props> = (props) => {
                   <Form.Label>Content</Form.Label>
                   <TextEditor
                     onChange={field.onChange}
-                    onBlur={field.onBlur}
-                    name={field.name}
-                    value={field.value}
-                  />
-                  <Form.Control.Feedback type='invalid'>
-                    {fieldState.error?.message}
-                  </Form.Control.Feedback>
-                </div>
-              )}
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <Controller
-              control={control}
-              name='location'
-              render={({ field, fieldState }) => (
-                <div className='form-group'>
-                  <Form.Label>Location</Form.Label>
-                  <Form.Control
-                    isInvalid={!!fieldState.error}
-                    onInput={field.onChange}
-                    onBlur={field.onBlur}
-                    name={field.name}
-                    value={field.value}
-                  />
-                  <Form.Control.Feedback type='invalid'>
-                    {fieldState.error?.message}
-                  </Form.Control.Feedback>
-                </div>
-              )}
-            />
-          </Col>
-          <Col>
-            <Controller
-              control={control}
-              name='link'
-              render={({ field, fieldState }) => (
-                <div className='form-group'>
-                  <Form.Label>Link</Form.Label>
-                  <Form.Control
-                    isInvalid={!!fieldState.error}
-                    onInput={field.onChange}
                     onBlur={field.onBlur}
                     name={field.name}
                     value={field.value}

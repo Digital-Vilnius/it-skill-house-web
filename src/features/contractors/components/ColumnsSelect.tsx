@@ -4,6 +4,7 @@ import { Card, Dropdown, Form } from 'react-bootstrap';
 import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
 import xor from 'lodash/xor';
 import { Contractor } from '../types';
+import { Columns } from 'react-feather';
 
 interface Props {
   allColumns: Column<Contractor>[];
@@ -34,7 +35,8 @@ const ColumnsSelect: FC<Props> = (props) => {
 
   return (
     <Dropdown>
-      <Dropdown.Toggle variant='white' size='sm'>
+      <Dropdown.Toggle className='button button-secondary'>
+        <Columns />
         Columns
       </Dropdown.Toggle>
       <Dropdown.Menu style={{ width: '250px' }}>

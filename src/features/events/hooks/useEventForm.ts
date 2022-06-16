@@ -15,8 +15,6 @@ const getSchema = () => {
     title: yup.string().required(),
     date: yup.string().trim().required(),
     content: yup.string().required(),
-    location: yup.string().required(),
-    link: yup.string().required(),
   });
 };
 

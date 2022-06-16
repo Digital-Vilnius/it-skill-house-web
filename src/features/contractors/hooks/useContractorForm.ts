@@ -56,7 +56,7 @@ const useContractorForm = (props: Props) => {
   useEffect(() => {
     if (id) {
       ContractorsClient.getContractor(id).then((response) => {
-        const contractor = mapContractor(response.result);
+        const contractor = mapContractor(response);
         const request = mapSaveContractorRequest(contractor);
         reset(request);
       });

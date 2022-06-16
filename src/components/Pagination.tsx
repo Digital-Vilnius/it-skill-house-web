@@ -1,6 +1,4 @@
 import { FC } from 'react';
-import { Pagination as BootstrapPagination } from 'react-bootstrap';
-import Icon from '@ailibs/feather-react-ts';
 import { Paging } from 'api/types';
 import range from 'lodash/range';
 
@@ -23,43 +21,37 @@ const Pagination: FC<Props> = (props) => {
   };
 
   return (
-    <>
-      <BootstrapPagination className='card-pagination pagination-tabs'>
-        <BootstrapPagination.Item
-          className='ps-0 pe-4 border-end'
+    <div className='pagination'>
+      <span className='pagination-meta'>
+        Showing {paging.skip} to {paging.take} of {count} entries
+      </span>
+      <div className='pagination-controls'>
+        <button
           disabled={!canGoBack}
           onClick={() => gotToPage(currentPage - 1)}
+          className='pagination-item'
         >
-          <Icon size={16} className='me-1' name='arrow-left' />
           <span>Prev</span>
-        </BootstrapPagination.Item>
-        <div className='d-flex align-items-center justify-content-center px-4'>
-          <span>Total: {count}</span>
-        </div>
-      </BootstrapPagination>
-      <BootstrapPagination className='card-pagination pagination-tabs'>
+        </button>
         {range(pagesCount).map((page) => (
-          <BootstrapPagination.Item
+          <button
             key={page}
+            className='pagination-item'
             disabled={page === currentPage}
-            active={page === currentPage}
             onClick={() => gotToPage(page)}
           >
             {page + 1}
-          </BootstrapPagination.Item>
+          </button>
         ))}
-      </BootstrapPagination>
-      <BootstrapPagination className='card-pagination pagination-tabs'>
-        <BootstrapPagination.Item
-          className='ps-4 pe-0 border-start'
+        <button
+          className='pagination-item'
           disabled={!canGoNext}
           onClick={() => gotToPage(currentPage + 1)}
         >
           <span>Next</span>
-          <Icon size={16} className='ms-1' name='arrow-right' />
-        </BootstrapPagination.Item>
-      </BootstrapPagination>
-    </>
+        </button>
+      </div>
+    </div>
   );
 };
 

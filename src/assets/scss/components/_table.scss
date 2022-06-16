@@ -1,0 +1,26 @@
+.table {
+  width: 100%;
+  color: #001737;
+  border-collapse: collapse;
+  margin-bottom: 15px;
+
+  th, td {
+    border: 1px solid rgba(#485E90, 0.16);
+    white-space: nowrap;
+    line-height: 1.5;
+  }
+
+  th {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 6px 10px;
+    color: #8392A5;
+    font-weight: 500;
+  }
+
+  td {
+    font-size: 13px;
+    padding: 6px 10px;
+  }
+}
