@@ -83,5 +83,5 @@ export const initialColumnsIds: string[] = [
   ContractKeys.created,
 ];
 
-export const initialPaging: Paging = { take: 15, skip: 0 };
+export const initialPaging: Paging = { limit: 20, offset: 0 };
 export const initialSort: Sort = { sortBy: ContractKeys.created, sortDirection: SortDirections.desc };

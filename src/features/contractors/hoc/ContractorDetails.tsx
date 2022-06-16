@@ -16,8 +16,8 @@ const ContractorDetails: FC<Props> = (props) => {
 
   return (
     <div>
-      <ControlledContractorDetails contractor={contractor} />
-      <EventsList filter={{ contractorId: id }} />
+      <ControlledContractorDetails className='mb-4' contractor={contractor} />
+      <EventsList className='mb-4' filter={{ contractorId: id }} />
       <NotesList filter={{ contractorId: id }} />
     </div>
   );

@@ -1,5 +1,2 @@
-import NoteForm from './NoteForm';
-import NotesList from './NotesList';
-import NotesListItem from './NotesListItem';
-
-export { NoteForm, NotesList, NotesListItem };
+export { default as NoteForm } from './NoteForm';
+export { default as NotesList } from './NotesList';

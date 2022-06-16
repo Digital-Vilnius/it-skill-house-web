@@ -7,10 +7,11 @@ import NoteForm, { NoteFormProps } from './NoteForm';
 
 interface Props {
   filter: NotesFilter;
+  className?: string;
 }
 
 const NotesList: FC<Props> = (props) => {
-  const { filter } = props;
+  const { filter, className } = props;
   const { notes } = useNotes({ filter });
   const { showModal } = useModal();
 
@@ -22,7 +23,7 @@ const NotesList: FC<Props> = (props) => {
     );
   };
 
-  return <ControlledNotesList onAddClick={openAddNoteForm} notes={notes} />;
+  return <ControlledNotesList className={className} onAddClick={openAddNoteForm} notes={notes} />;
 };
 
 export default NotesList;

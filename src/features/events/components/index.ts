@@ -1,5 +1,2 @@
-import EventForm from './EventForm';
-import EventsList from './EventsList';
-import EventsListItem from './EventsListItem';
-
-export { EventForm, EventsList, EventsListItem };
+export { default as EventForm } from './EventForm';
+export { default as EventsList } from './EventsList';

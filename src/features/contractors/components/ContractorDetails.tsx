@@ -6,13 +6,14 @@ import { FormSwitch } from 'components';
 
 interface Props {
   contractor: Contractor;
+  className?: string;
 }
 
 const ContractorDetails: FC<Props> = (props) => {
-  const { contractor } = props;
+  const { contractor, className } = props;
 
   return (
-    <Card>
+    <Card className={className}>
       <Card.Header>
         <h4 className='card-header-title'>Details</h4>
       </Card.Header>

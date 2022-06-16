@@ -1,20 +1,29 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { LoginForm } from '../hoc';
 import Illustration from 'assets/img/illustrations/happiness.svg';
+import { useAppSelector } from 'core/store';
+import { selectIsLoggedIn } from '../selectors';
+import { useNavigate } from 'react-router-dom';
 
 const LoginPage: FC = () => {
+  const isLoggedIn = useAppSelector(selectIsLoggedIn);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isLoggedIn) navigate('/admin/contractors');
+  }, [isLoggedIn, navigate]);
+
   return (
-    <div className='d-flex align-items-center min-vh-100 bg-auth border-top border-top-2 border-primary'>
+    <div className='login-page'>
       <Container>
         <Row className='align-items-center'>
-          <Col xs={12} md={6} className='offset-xl-2 offset-md-1 order-md-2 mb-5 mb-md-0'>
-            <div className='text-center'>
-              <img className='img-fluid' src={Illustration} alt='Sign in illustration' />
-            </div>
-          </Col>
-          <Col xs={12} md={5} xl={4} className='order-md-1 my-5'>
+          <Col xl={4}>
+            <h1 className='login-page-title mb-4'>Sign In</h1>
             <LoginForm />
+          </Col>
+          <Col className='text-center' xl={8}>
+            <img className='login-page-image' src={Illustration} alt='Sign in illustration' />
           </Col>
         </Row>
       </Container>

@@ -10,7 +10,7 @@ const Header: FC = () => {
   return (
     <header className='header'>
       <Container fluid className='header-container'>
-        <Link to='/admin'>
+        <Link to='/admin/contractors'>
           <img className='header-logo' src={logo} alt='It Skill House' />
         </Link>
         <a className='header-item' onClick={logout}>

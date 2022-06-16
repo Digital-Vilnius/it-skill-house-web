@@ -176,7 +176,6 @@ const ContractorsFilterForm: FC<Props> = (props) => {
                 <FormSwitch
                   label='Remote'
                   switchClassName='justify-content-end'
-                  help='This contact will be shown to others publicly, so choose it carefully.'
                   error={error?.message}
                   onChange={onChange}
                   {...rest}
@@ -192,7 +191,6 @@ const ContractorsFilterForm: FC<Props> = (props) => {
                 <FormSwitch
                   label='On site'
                   switchClassName='justify-content-end'
-                  help='This contact will be shown to others publicly, so choose it carefully.'
                   error={error?.message}
                   onChange={onChange}
                   {...rest}
@@ -210,7 +208,6 @@ const ContractorsFilterForm: FC<Props> = (props) => {
                 <FormSwitch
                   label='Available'
                   switchClassName='justify-content-end'
-                  help='This contact will be shown to others publicly, so choose it carefully.'
                   error={error?.message}
                   onChange={onChange}
                   {...rest}
@@ -226,7 +223,6 @@ const ContractorsFilterForm: FC<Props> = (props) => {
                 <FormSwitch
                   label='Has contract'
                   switchClassName='justify-content-end'
-                  help='This contact will be shown to others publicly, so choose it carefully.'
                   error={error?.message}
                   onChange={onChange}
                   {...rest}
@@ -244,7 +240,6 @@ const ContractorsFilterForm: FC<Props> = (props) => {
                 <FormSwitch
                   label='Public'
                   switchClassName='justify-content-end'
-                  help='This contact will be shown to others publicly, so choose it carefully.'
                   error={error?.message}
                   onChange={onChange}
                   {...rest}
@@ -255,15 +250,15 @@ const ContractorsFilterForm: FC<Props> = (props) => {
         </Row>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={onClose} variant='secondary'>
+        <button onClick={onClose} className='button button-secondary'>
           Close
-        </Button>
-        <Button onClick={onReset} variant='white'>
+        </button>
+        <button onClick={onReset} className='button button-secondary'>
           Reset
-        </Button>
-        <Button onClick={onSubmit} type='submit'>
+        </button>
+        <button onClick={onSubmit} className='button button-primary'>
           Filter
-        </Button>
+        </button>
       </Modal.Footer>
     </>
   );

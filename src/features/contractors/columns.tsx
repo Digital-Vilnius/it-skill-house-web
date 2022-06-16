@@ -5,7 +5,6 @@ import React from 'react';
 import { ContractKeys } from './constants';
 import { CountryUtils, CurrencyUtils, DateUtils, EventUtils } from 'utils';
 import { Badge } from 'components';
-import Initials from '../../components/Initials';
 
 export const contractorColumns: Column<Contractor>[] = [
   { id: ContractKeys.id, label: 'Id', className: 'text-center', sortable: true },
@@ -87,13 +86,7 @@ export const contractorColumns: Column<Contractor>[] = [
   {
     id: ContractKeys.mainTechnologies,
     label: 'Main technologies',
-    Cell: (cell) => (
-      <div className='technologies'>
-        {cell.mainTechnologies.map((technology) => (
-          <Badge label={technology.name} className='me-1' key={technology.id} />
-        ))}
-      </div>
-    ),
+    Cell: (cell) => cell.mainTechnologies.map((technology) => technology.name).join(', '),
   },
   {
     id: ContractKeys.mailed,
@@ -114,13 +107,7 @@ export const contractorColumns: Column<Contractor>[] = [
   {
     id: ContractKeys.technologies,
     label: 'Technologies',
-    Cell: (cell) => (
-      <div className='technologies'>
-        {cell.technologies.map((technology) => (
-          <Badge label={technology.name} className='me-1' key={technology.id} />
-        ))}
-      </div>
-    ),
+    Cell: (cell) => cell.technologies.map((technology) => technology.name).join(', '),
   },
   {
     id: ContractKeys.tags,
@@ -136,6 +123,7 @@ export const contractorColumns: Column<Contractor>[] = [
   {
     id: ContractKeys.lastNote,
     label: 'Last note',
+    className: 'text-center',
     Cell: (cell) => {
       if (!cell.lastNote) return undefined;
       return (
@@ -153,14 +141,7 @@ export const contractorColumns: Column<Contractor>[] = [
               </Popover>
             }
           >
-            <div className='d-flex align-items-center'>
-              <Initials
-                className='me-2'
-                secondWord={cell.lastNote.createdBy.lastName}
-                firstWord={cell.lastNote.createdBy.firstName}
-              />
-              <span>{DateUtils.formatDateStringStrict(cell.lastNote.created)}</span>
-            </div>
+            <span>{DateUtils.formatDateStringStrict(cell.lastNote.created)}</span>
           </OverlayTrigger>
         </div>
       );

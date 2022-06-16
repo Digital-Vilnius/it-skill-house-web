@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { Paging } from 'api/types';
 import range from 'lodash/range';
+import classNames from 'classnames';
 
 interface Props {
   count: number;
@@ -11,19 +12,19 @@ interface Props {
 const Pagination: FC<Props> = (props) => {
   const { count, paging, onChange } = props;
 
-  const currentPage = paging.skip / paging.take;
-  const pagesCount = Math.ceil(count / paging.take);
+  const currentPage = paging.offset / paging.limit;
+  const pagesCount = Math.ceil(count / paging.limit);
   const canGoBack = currentPage > 0;
   const canGoNext = currentPage < pagesCount - 1;
 
   const gotToPage = (page: number) => {
-    onChange({ ...paging, skip: page * paging.take });
+    onChange({ ...paging, offset: page * paging.limit });
   };
 
   return (
     <div className='pagination'>
       <span className='pagination-meta'>
-        Showing {paging.skip} to {paging.take} of {count} entries
+        Showing {paging.offset} to {paging.limit} of {count} entries
       </span>
       <div className='pagination-controls'>
         <button
@@ -36,7 +37,7 @@ const Pagination: FC<Props> = (props) => {
         {range(pagesCount).map((page) => (
           <button
             key={page}
-            className='pagination-item'
+            className={classNames('pagination-item', { active: page === currentPage })}
             disabled={page === currentPage}
             onClick={() => gotToPage(page)}
           >

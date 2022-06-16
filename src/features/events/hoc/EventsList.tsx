@@ -7,10 +7,11 @@ import EventForm from './EventForm';
 
 interface Props {
   filter: EventsFilter;
+  className?: string;
 }
 
 const EventsList: FC<Props> = (props) => {
-  const { filter } = props;
+  const { filter, className } = props;
   const { events } = useEvents({ filter });
   const { showModal } = useModal();
 
@@ -18,7 +19,7 @@ const EventsList: FC<Props> = (props) => {
     showModal(EventForm, { title: 'Add event', size: 'lg' }, { contractorId: filter.contractorId });
   };
 
-  return <ControlledEventsList onAddClick={openAddEventForm} events={events} />;
+  return <ControlledEventsList className={className} onAddClick={openAddEventForm} events={events} />;
 };
 
 export default EventsList;

@@ -32,17 +32,17 @@ const contractorsSlice = createSlice({
     },
     setSort(state, action: PayloadAction<Sort>) {
       state.sort = action.payload;
-      state.paging = { ...state.paging, skip: 0 };
+      state.paging = { ...state.paging, offset: 0 };
       state.selected = [];
     },
     setFilter(state, action: PayloadAction<ContractorsFilter>) {
       state.filter = action.payload;
-      state.paging = { ...state.paging, skip: 0 };
+      state.paging = { ...state.paging, offset: 0 };
       state.selected = [];
     },
     resetFilter(state) {
       state.filter = initialState.filter;
-      state.paging = { ...state.paging, skip: 0 };
+      state.paging = { ...state.paging, offset: 0 };
       state.selected = [];
     },
     setVisibleColumnsIds(state, action: PayloadAction<string[]>) {

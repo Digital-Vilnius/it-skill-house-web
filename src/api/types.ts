@@ -16,8 +16,8 @@ export interface Sort {
 }
 
 export interface Paging {
-  take: number;
-  skip: number;
+  limit: number;
+  offset: number;
 }
 
 export interface ResultResponse<T> {

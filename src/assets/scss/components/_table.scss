@@ -22,5 +22,21 @@
   td {
     font-size: 13px;
     padding: 6px 10px;
+
+    .dropdown-toggle::after {
+      display: none !important;
+    }
+  }
+
+  tbody {
+    tr {
+      &:hover {
+        cursor: pointer;
+      }
+
+      &:nth-child(even), &:hover {
+        background-color: #f5f6fa;
+      }
+    }
   }
 }
