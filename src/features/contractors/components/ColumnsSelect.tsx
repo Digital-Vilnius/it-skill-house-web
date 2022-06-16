@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Column } from 'components/DataTable';
-import { Card, Dropdown, Form } from 'react-bootstrap';
+import { Dropdown, Form } from 'react-bootstrap';
 import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
 import xor from 'lodash/xor';
 import { Contractor } from '../types';
@@ -34,50 +34,47 @@ const ColumnsSelect: FC<Props> = (props) => {
   };
 
   return (
-    <Dropdown>
+    <Dropdown className='columns-select'>
       <Dropdown.Toggle className='button button-secondary'>
         <Columns />
         Columns
       </Dropdown.Toggle>
-      <Dropdown.Menu style={{ width: '250px' }}>
-        <Card.Body>
-          <DragDropContext onDragEnd={onDragEnd}>
-            <Droppable droppableId='tasks'>
-              {(droppableProvided) => (
-                <div
-                  className='checklist'
-                  ref={droppableProvided.innerRef}
-                  {...droppableProvided.droppableProps}
-                >
-                  {allColumns.map((column, index) => (
-                    <Draggable draggableId={column.id} key={column.id} index={index}>
-                      {(draggableProvided) => (
-                        <div
-                          className='checklist-item'
-                          ref={draggableProvided.innerRef}
-                          {...draggableProvided.draggableProps}
-                        >
-                          <Form.Check type='checkbox' id={column.id}>
-                            <Form.Check.Input
-                              onChange={() => handleOnChange(column.id)}
-                              checked={visibleColumns.includes(column.id)}
-                              type='checkbox'
-                              className='me-3'
-                            />
-                            <Form.Check.Label {...draggableProvided.dragHandleProps}>
-                              {column.label}
-                            </Form.Check.Label>
-                          </Form.Check>
-                        </div>
-                      )}
-                    </Draggable>
-                  ))}
-                  {droppableProvided.placeholder}
-                </div>
-              )}
-            </Droppable>
-          </DragDropContext>
-        </Card.Body>
+      <Dropdown.Menu align='end'>
+        <DragDropContext onDragEnd={onDragEnd}>
+          <Droppable droppableId='tasks'>
+            {(droppableProvided) => (
+              <div
+                className='columns-select-items'
+                ref={droppableProvided.innerRef}
+                {...droppableProvided.droppableProps}
+              >
+                {allColumns.map((column, index) => (
+                  <Draggable draggableId={column.id} key={column.id} index={index}>
+                    {(draggableProvided) => (
+                      <div ref={draggableProvided.innerRef} {...draggableProvided.draggableProps}>
+                        <Form.Check className='columns-select-item' type='checkbox' id={column.id}>
+                          <Form.Check.Input
+                            onChange={() => handleOnChange(column.id)}
+                            checked={visibleColumns.includes(column.id)}
+                            type='checkbox'
+                            className='me-3'
+                          />
+                          <Form.Check.Label
+                            className='columns-select-item-label'
+                            {...draggableProvided.dragHandleProps}
+                          >
+                            {column.label}
+                          </Form.Check.Label>
+                        </Form.Check>
+                      </div>
+                    )}
+                  </Draggable>
+                ))}
+                {droppableProvided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
       </Dropdown.Menu>
     </Dropdown>
   );
