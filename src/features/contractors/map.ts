@@ -10,11 +10,13 @@ import { SelectOption } from 'components/Select';
 export const mapContractor = (contractor: ApiContractor): Contractor => ({
   ...contractor,
   recruiter: mapRecruiter(contractor.recruiter),
-  availableFrom: DateUtils.formatDateString(contractor.availableFrom),
   lastNote: contractor.lastNote ? mapNote(contractor.lastNote) : null,
   technologies: [],
   mainTechnologies: contractor.mainTechnologies.map(mapTechnology),
   nearestEvent: contractor.nearestEvent ? mapEvent(contractor.nearestEvent) : null,
+  availableFrom: DateUtils.formatDateString(contractor.availableFrom),
+  updated: DateUtils.formatDateString(contractor.updated),
+  created: DateUtils.formatDateStringStrict(contractor.created),
 });
 
 export const mapSaveContractorRequest = (contractor: Contractor): SaveContractorRequest => ({

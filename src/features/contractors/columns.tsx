@@ -25,35 +25,70 @@ export const contractorColumns: Column<Contractor>[] = [
     label: 'Remote',
     className: 'text-center',
     sortable: true,
-    Cell: (cell) => <Form.Check readOnly checked={cell.isRemote} type='checkbox' />,
+    Cell: (cell) => (
+      <Form.Check
+        className='d-flex align-items-center justify-content-center'
+        readOnly
+        checked={cell.isRemote}
+        type='checkbox'
+      />
+    ),
   },
   {
     id: ContractKeys.isPublic,
     label: 'Public',
     className: 'text-center',
     sortable: true,
-    Cell: (cell) => <Form.Check readOnly checked={cell.isPublic} type='checkbox' />,
+    Cell: (cell) => (
+      <Form.Check
+        className='d-flex align-items-center justify-content-center'
+        readOnly
+        checked={cell.isPublic}
+        type='checkbox'
+      />
+    ),
   },
   {
     id: ContractKeys.isAvailable,
     label: 'Available',
     className: 'text-center',
     sortable: true,
-    Cell: (cell) => <Form.Check readOnly checked={cell.isAvailable} type='checkbox' />,
+    Cell: (cell) => (
+      <Form.Check
+        className='d-flex align-items-center justify-content-center'
+        readOnly
+        checked={cell.isAvailable}
+        type='checkbox'
+      />
+    ),
   },
   {
     id: ContractKeys.hasContract,
     label: 'Has contract',
     className: 'text-center',
     sortable: true,
-    Cell: (cell) => <Form.Check readOnly checked={cell.hasContract} type='checkbox' />,
+    Cell: (cell) => (
+      <Form.Check
+        className='d-flex align-items-center justify-content-center'
+        readOnly
+        checked={cell.hasContract}
+        type='checkbox'
+      />
+    ),
   },
   {
     id: ContractKeys.isOnSite,
     label: 'On site',
     className: 'text-center',
     sortable: true,
-    Cell: (cell) => <Form.Check readOnly checked={cell.isOnSite} type='checkbox' />,
+    Cell: (cell) => (
+      <Form.Check
+        className='d-flex align-items-center justify-content-center'
+        readOnly
+        checked={cell.isOnSite}
+        type='checkbox'
+      />
+    ),
   },
   {
     id: ContractKeys.country,

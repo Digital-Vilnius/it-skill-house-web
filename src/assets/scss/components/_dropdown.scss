@@ -1,0 +1,15 @@
+.dropdown {
+  &-menu {
+    padding: 6px 0;
+    min-width: 150px;
+  }
+
+  &-item {
+    color: $color-text-primary;
+    height: 30px;
+    padding: 0 12px;
+    line-height: 30px;
+    font-size: 14px;
+    white-space: nowrap;
+  }
+}

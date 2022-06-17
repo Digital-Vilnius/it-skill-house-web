@@ -88,6 +88,7 @@ const DataTable: FC<Props> = (props) => {
           <tr>
             <th className='text-center'>
               <Form.Check
+                className='d-flex align-items-center justify-content-center'
                 onChange={handleSelectAll}
                 checked={data.length === selectedRows.length}
                 value='all'
@@ -111,6 +112,7 @@ const DataTable: FC<Props> = (props) => {
             <tr onClick={() => onRowPress?.(item.id)} key={item.id}>
               <td onClick={EventUtils.stopPropagation} className='text-center'>
                 <Form.Check
+                  className='d-flex align-items-center justify-content-center'
                   checked={!!selectedRows.find((row) => item.id === row.id)}
                   onChange={() => handleRowSelect(item)}
                   type='checkbox'

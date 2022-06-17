@@ -33,7 +33,7 @@
     margin: 0;
     height: 38px;
     line-height: 38px;
-    width: 135px;
+    width: 140px;
     display: block;
   }
 }
@@ -42,4 +42,11 @@
   &-text {
     background-color: $color-white;
   }
+}
+
+div:not(.form-switch) > .form-check-input {
+  font-size: 15px;
+  width: 15px;
+  height: 15px;
+  margin-top: 0;
 }

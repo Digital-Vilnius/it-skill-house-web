@@ -20,7 +20,7 @@ const FormSwitch: FC<Props> = (props) => {
           <Form.Text className='small text-muted'>{help}</Form.Text>
         </div>
       )}
-      <div className='flex-grow-1 d-flex'>
+      <div className='flex-grow-1 d-flex justify-content-end'>
         <SwitchInput {...rest} />
         <Form.Control.Feedback type='invalid'>{error}</Form.Control.Feedback>
       </div>

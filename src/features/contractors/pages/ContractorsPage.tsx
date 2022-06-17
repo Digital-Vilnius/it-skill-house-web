@@ -19,7 +19,7 @@ const ContractorsPage: FC = () => {
   };
 
   const openContractorsFilter = () => {
-    showModal(ContractorsFilter, { title: 'Filter', size: 'lg' });
+    showModal(ContractorsFilter, { title: 'Filter', size: 'xl' });
   };
 
   return (
