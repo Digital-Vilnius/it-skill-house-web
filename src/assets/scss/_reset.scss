@@ -32,3 +32,9 @@ a {
 .table > :not(:first-child) {
   border-top: none;
 }
+
+hr {
+  border: none;
+  height: 1px;
+  background-color: #8392A5;
+}

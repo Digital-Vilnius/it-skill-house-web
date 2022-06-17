@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100;200;300;400;500;600;700&display=swap');
 @import "~bootstrap/scss/bootstrap";
+@import '~react-quill/dist/quill.snow.css';
+@import "~react-datepicker/dist/react-datepicker.css";
+@import '~react-toastify/dist/ReactToastify.css';
 
 @import "variables";
 @import "reset";
@@ -14,5 +17,6 @@
 @import "components/select";
 @import "components/modal";
 @import "components/form";
+@import "components/text-editor";
 
 @import "pages/login";

@@ -3,8 +3,18 @@
     max-width: 900px;
   }
 
+  &-xl {
+    max-width: 1000px;
+  }
+
   &-header {
-    padding: 10px 20px;
+    padding: 15px 20px;
+
+    .btn-close {
+      font-size: 12px;
+      padding: 0;
+      margin: 0;
+    }
   }
 
   &-body {

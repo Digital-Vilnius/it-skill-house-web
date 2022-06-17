@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
-import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
+import { Col, Form, Modal, Row } from 'react-bootstrap';
 import { Control, Controller } from 'react-hook-form';
-import { DatePicker, TextEditor } from 'components';
+import { DatePicker, FormDatePicker, FormInput, FormTextEditor, TextEditor } from 'components';
 import { EventFormData } from '../types';
 
 interface Props {
@@ -21,41 +21,19 @@ const EventForm: FC<Props> = (props) => {
             <Controller
               control={control}
               name='title'
-              render={({ field, fieldState }) => (
-                <div className='form-group'>
-                  <Form.Label>Title</Form.Label>
-                  <Form.Control
-                    isInvalid={!!fieldState.error}
-                    onInput={field.onChange}
-                    onBlur={field.onBlur}
-                    name={field.name}
-                    value={field.value}
-                  />
-                  <Form.Control.Feedback type='invalid'>
-                    {fieldState.error?.message}
-                  </Form.Control.Feedback>
-                </div>
+              render={({ field: { ref, ...rest }, fieldState: { error } }) => (
+                <FormInput required label='Title' {...rest} error={error?.message} />
               )}
             />
           </Col>
+        </Row>
+        <Row className='mb-4'>
           <Col>
             <Controller
               control={control}
               name='date'
-              render={({ field, fieldState }) => (
-                <div className='form-group'>
-                  <Form.Label>Date</Form.Label>
-                  <DatePicker
-                    isInvalid={!!fieldState.error}
-                    onChange={field.onChange}
-                    onBlur={field.onBlur}
-                    name={field.name}
-                    value={field.value}
-                  />
-                  <Form.Control.Feedback type='invalid'>
-                    {fieldState.error?.message}
-                  </Form.Control.Feedback>
-                </div>
+              render={({ field: { ref, ...rest }, fieldState: { error } }) => (
+                <FormDatePicker label='Date' {...rest} error={error?.message} />
               )}
             />
           </Col>
@@ -65,31 +43,20 @@ const EventForm: FC<Props> = (props) => {
             <Controller
               control={control}
               name='content'
-              render={({ field, fieldState }) => (
-                <div className='form-group'>
-                  <Form.Label>Content</Form.Label>
-                  <TextEditor
-                    onChange={field.onChange}
-                    onBlur={field.onBlur}
-                    name={field.name}
-                    value={field.value}
-                  />
-                  <Form.Control.Feedback type='invalid'>
-                    {fieldState.error?.message}
-                  </Form.Control.Feedback>
-                </div>
+              render={({ field: { ref, ...rest }, fieldState: { error } }) => (
+                <FormTextEditor required label='Content' {...rest} error={error?.message} />
               )}
             />
           </Col>
         </Row>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={onClose} variant='secondary'>
+        <button onClick={onClose} className='button button-secondary'>
           Close
-        </Button>
-        <Button onClick={onSubmit} type='submit'>
+        </button>
+        <button onClick={onSubmit} className='button button-primary'>
           Save
-        </Button>
+        </button>
       </Modal.Footer>
     </>
   );

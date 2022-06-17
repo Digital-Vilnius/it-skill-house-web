@@ -105,23 +105,19 @@ const ContractorDetails: FC<Props> = (props) => {
         <Row>
           <Col>
             <h6 className='text-uppercase text-muted mb-2'>Remote</h6>
-            <FormSwitch switchClassName='justify-content-start' readOnly value={contractor.isRemote} />
+            <FormSwitch readOnly value={contractor.isRemote} />
           </Col>
           <Col>
             <h6 className='text-uppercase text-muted mb-2'>On site</h6>
-            <FormSwitch switchClassName='justify-content-start' readOnly value={contractor.isOnSite} />
+            <FormSwitch readOnly value={contractor.isOnSite} />
           </Col>
           <Col>
             <h6 className='text-uppercase text-muted mb-2'>Available</h6>
-            <FormSwitch
-              switchClassName='justify-content-start'
-              readOnly
-              value={contractor.isAvailable}
-            />
+            <FormSwitch readOnly value={contractor.isAvailable} />
           </Col>
           <Col>
             <h6 className='text-uppercase text-muted mb-2'>Public</h6>
-            <FormSwitch switchClassName='justify-content-start' readOnly value={contractor.isPublic} />
+            <FormSwitch readOnly value={contractor.isPublic} />
           </Col>
         </Row>
       </Card.Body>

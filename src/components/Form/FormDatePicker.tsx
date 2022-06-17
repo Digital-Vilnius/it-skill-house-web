@@ -12,13 +12,13 @@ const FormDatePicker: FC<Props> = (props) => {
   const { label, error, ...rest } = props;
 
   return (
-    <div className='form-group d-flex align-items-center'>
+    <Form.Group className='form-group'>
       <Form.Label>{label}</Form.Label>
       <div className='flex-grow-1'>
         <DatePicker isInvalid={!!error} {...rest} />
         <Form.Control.Feedback type='invalid'>{error}</Form.Control.Feedback>
       </div>
-    </div>
+    </Form.Group>
   );
 };
 

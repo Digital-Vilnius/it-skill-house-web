@@ -112,13 +112,7 @@ export const contractorColumns: Column<Contractor>[] = [
   {
     id: ContractKeys.tags,
     label: 'Tags',
-    Cell: (cell) => (
-      <div className='tags'>
-        {cell.tags.map((tag) => (
-          <Badge label={tag.name} className='me-1' key={tag.id} />
-        ))}
-      </div>
-    ),
+    Cell: (cell) => cell.tags.map((tag) => tag.name).join(', '),
   },
   {
     id: ContractKeys.lastNote,

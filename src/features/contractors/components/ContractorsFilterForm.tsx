@@ -173,13 +173,7 @@ const ContractorsFilterForm: FC<Props> = (props) => {
               control={control}
               name='isRemote'
               render={({ field: { ref, onChange, ...rest }, fieldState: { error } }) => (
-                <FormSwitch
-                  label='Remote'
-                  switchClassName='justify-content-end'
-                  error={error?.message}
-                  onChange={onChange}
-                  {...rest}
-                />
+                <FormSwitch label='Remote' error={error?.message} onChange={onChange} {...rest} />
               )}
             />
           </Col>
@@ -188,13 +182,7 @@ const ContractorsFilterForm: FC<Props> = (props) => {
               control={control}
               name='isOnSite'
               render={({ field: { ref, onChange, ...rest }, fieldState: { error } }) => (
-                <FormSwitch
-                  label='On site'
-                  switchClassName='justify-content-end'
-                  error={error?.message}
-                  onChange={onChange}
-                  {...rest}
-                />
+                <FormSwitch label='On site' error={error?.message} onChange={onChange} {...rest} />
               )}
             />
           </Col>
@@ -205,13 +193,7 @@ const ContractorsFilterForm: FC<Props> = (props) => {
               control={control}
               name='isAvailable'
               render={({ field: { ref, onChange, ...rest }, fieldState: { error } }) => (
-                <FormSwitch
-                  label='Available'
-                  switchClassName='justify-content-end'
-                  error={error?.message}
-                  onChange={onChange}
-                  {...rest}
-                />
+                <FormSwitch label='Available' error={error?.message} onChange={onChange} {...rest} />
               )}
             />
           </Col>
@@ -220,13 +202,7 @@ const ContractorsFilterForm: FC<Props> = (props) => {
               control={control}
               name='hasContract'
               render={({ field: { ref, onChange, ...rest }, fieldState: { error } }) => (
-                <FormSwitch
-                  label='Has contract'
-                  switchClassName='justify-content-end'
-                  error={error?.message}
-                  onChange={onChange}
-                  {...rest}
-                />
+                <FormSwitch label='Has contract' error={error?.message} onChange={onChange} {...rest} />
               )}
             />
           </Col>
@@ -237,13 +213,7 @@ const ContractorsFilterForm: FC<Props> = (props) => {
               control={control}
               name='isPublic'
               render={({ field: { ref, onChange, ...rest }, fieldState: { error } }) => (
-                <FormSwitch
-                  label='Public'
-                  switchClassName='justify-content-end'
-                  error={error?.message}
-                  onChange={onChange}
-                  {...rest}
-                />
+                <FormSwitch label='Public' error={error?.message} onChange={onChange} {...rest} />
               )}
             />
           </Col>

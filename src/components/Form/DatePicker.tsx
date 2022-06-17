@@ -24,7 +24,6 @@ const DatePicker: FC<DatePickerProps<ValueType>> = (props) => {
   const renderInput = () => (
     <InputGroup>
       <Form.Control
-        readOnly
         name={name}
         autoComplete='none'
         className={classNames('form-control', className)}
