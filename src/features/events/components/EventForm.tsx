@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
-import { Col, Form, Modal, Row } from 'react-bootstrap';
+import { Col, Modal, Row } from 'react-bootstrap';
 import { Control, Controller } from 'react-hook-form';
-import { DatePicker, FormDatePicker, FormInput, FormTextEditor, TextEditor } from 'components';
+import { FormDatePicker, FormInput, FormTextEditor } from 'components';
 import { EventFormData } from '../types';
 
 interface Props {

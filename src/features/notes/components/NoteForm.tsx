@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
-import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
+import { Col, Modal, Row } from 'react-bootstrap';
 import { Control, Controller } from 'react-hook-form';
-import { FormTextEditor, TextEditor } from 'components';
+import { FormTextEditor } from 'components';
 import { NoteFormData } from '../types';
 
 interface Props {

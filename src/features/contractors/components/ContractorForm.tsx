@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Button, Col, Modal, Row } from 'react-bootstrap';
+import { Col, Modal, Row } from 'react-bootstrap';
 import { Control, Controller } from 'react-hook-form';
 import {
   FormDatePicker,

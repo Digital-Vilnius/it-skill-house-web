@@ -4,7 +4,6 @@ import { Form, OverlayTrigger, Popover } from 'react-bootstrap';
 import React from 'react';
 import { ContractKeys } from './constants';
 import { CountryUtils, CurrencyUtils, DateUtils, EventUtils } from 'utils';
-import { Badge } from 'components';
 
 export const contractorColumns: Column<Contractor>[] = [
   { id: ContractKeys.id, label: 'Id', className: 'text-center', sortable: true },

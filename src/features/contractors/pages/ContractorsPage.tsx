@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import { Button, Container } from 'react-bootstrap';
 import {
-  ContractorsSearch,
   ColumnsSelect,
   ContractorsDataTable,
   ContractorsActions,

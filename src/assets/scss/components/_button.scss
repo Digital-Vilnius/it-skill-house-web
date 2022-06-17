@@ -40,4 +40,28 @@
       color: #1B2E4B;
     }
   }
+
+  &-danger {
+    border: 1px solid rgba($color-danger, 0.7);
+    background-color: rgba($color-danger, 0.7);
+    color: $color-white;
+
+    &:hover, &:active, &:focus {
+      background-color: $color-danger;
+      border-color: $color-danger;
+      color: $color-white;
+    }
+
+    &-outline {
+      border: 1px solid rgba($color-danger, 0.5);
+      background-color: $color-white;
+      color: rgba($color-danger, 0.7);
+
+      &:hover, &:active, &:focus {
+        background-color: $color-white;
+        border-color: $color-danger;
+        color: $color-danger;
+      }
+    }
+  }
 }

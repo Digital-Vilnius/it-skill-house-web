@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Button, Container } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ContractorDetails } from '../hoc';
 import ContractorForm, { ContractorFormProps } from '../hoc/ContractorForm';
@@ -8,7 +8,7 @@ import { EmailForm } from 'features/emails/hoc';
 import ContractorDeleteConfirmation, {
   ContractorDeleteConfirmationProps,
 } from '../hoc/ContractorDeleteConfirmation';
-import { Filter, UserPlus } from 'react-feather';
+import { Trash, Mail, Edit } from 'react-feather';
 
 const ContractorPage: FC = () => {
   const params = useParams();
@@ -42,18 +42,18 @@ const ContractorPage: FC = () => {
       <div className='page-header'>
         <h1 className='page-title'>Contractor</h1>
         <div className='page-actions'>
-          <Button onClick={openContractorDeleteConfirmation} className='button button-secondary'>
-            <Filter />
+          <button onClick={openContractorDeleteConfirmation} className='button button-danger-outline'>
+            <Trash />
             Delete contractor
-          </Button>
-          <Button onClick={openContractorEditForm} className='button button-secondary'>
-            <UserPlus />
+          </button>
+          <button onClick={openContractorEditForm} className='button button-secondary'>
+            <Edit />
             Edit contractor
-          </Button>
-          <Button onClick={openSendEmailForm} className='button button-primary'>
-            <UserPlus />
+          </button>
+          <button onClick={openSendEmailForm} className='button button-primary'>
+            <Mail />
             Send email
-          </Button>
+          </button>
         </div>
       </div>
       <ContractorDetails id={id} />
