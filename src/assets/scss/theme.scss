@@ -4,6 +4,7 @@
 @import "~react-datepicker/dist/react-datepicker.css";
 @import '~react-toastify/dist/ReactToastify.css';
 
+@import "mixins/scrollbar";
 @import "variables";
 @import "reset";
 @import "typography";
@@ -19,5 +20,7 @@
 @import "components/form";
 @import "components/text-editor";
 @import "components/dropdown";
+@import "components/clearable-badge";
+@import "components/datepicker";
 
 @import "pages/login";

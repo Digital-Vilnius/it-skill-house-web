@@ -1,0 +1,23 @@
+.react-datepicker-wrapper {
+  .form-control {
+    background-color: $white;
+  }
+}
+
+.date-picker-clear {
+  position: absolute;
+  right: 45px;
+  top: 8px;
+  color: $gray-700;
+  padding: 0.25rem;
+
+  svg {
+    color: inherit;
+    display: block;
+  }
+
+  &:hover {
+    color: $black;
+    cursor: pointer;
+  }
+}

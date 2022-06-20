@@ -24,8 +24,8 @@ const getSchema = (isEdit: boolean) => {
     currency: yup.string().nullable(),
     availableFrom: yup.string().nullable(),
     experienceSince: yup.number().nullable(),
-    codaId: yup.string().nullable(),
-    cinodeId: yup.string().nullable(),
+    codaId: yup.number().nullable(),
+    cinodeId: yup.number().nullable(),
     tagsIds: yup.array().of(yup.number()).nullable(),
     linkedInUrl: yup.string().url().nullable(),
   };

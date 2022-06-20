@@ -11,7 +11,7 @@ export const mapContractor = (contractor: ApiContractor): Contractor => ({
   ...contractor,
   recruiter: mapRecruiter(contractor.recruiter),
   lastNote: contractor.lastNote ? mapNote(contractor.lastNote) : null,
-  technologies: [],
+  technologies: contractor.technologies.map(mapTechnology),
   mainTechnologies: contractor.mainTechnologies.map(mapTechnology),
   nearestEvent: contractor.nearestEvent ? mapEvent(contractor.nearestEvent) : null,
   availableFrom: DateUtils.formatDateString(contractor.availableFrom),
