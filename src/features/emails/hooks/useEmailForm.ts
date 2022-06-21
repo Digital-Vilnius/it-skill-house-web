@@ -6,6 +6,7 @@ import { useMutation } from 'react-query';
 import { EmailsClient } from 'api/clients';
 import { Contractor } from 'features/contractors/types';
 import { mapSendEmailRequest } from '../map';
+import { sendMultipleEmails } from '../../../api/clients/emails';
 
 const initialFormData: EmailFormData = {
   subject: '',
@@ -37,9 +38,8 @@ const useEmailForm = (props: Props) => {
   });
 
   const mutationFn = async (data: EmailFormData) => {
-    const emails = contractors.map((contractor) => contractor.email);
-    const request = mapSendEmailRequest(data, emails);
-    await EmailsClient.sendEmail(request);
+    const requests = contractors.map((contractor) => mapSendEmailRequest(data, contractor));
+    await EmailsClient.sendMultipleEmails(requests);
   };
 
   const { mutateAsync } = useMutation(mutationFn);
