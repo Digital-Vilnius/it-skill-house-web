@@ -5,7 +5,6 @@ import { Tag } from 'features/tags/types';
 import { Event } from 'features/events/types';
 import { Profession } from 'features/professions/types';
 import { Note } from 'features/notes/types';
-import { Email } from 'features/emails/types';
 
 export interface Contractor extends BaseModel {
   linkedInUrl: string | null;
@@ -27,7 +26,7 @@ export interface Contractor extends BaseModel {
   isPublic: boolean;
   hasContract: boolean;
   isOnSite: boolean;
-  lastEmail: Email | null;
+  lastEmail: string | null;
   nearestEvent: Event | null;
   profession: Profession | null;
   recruiter: Recruiter;

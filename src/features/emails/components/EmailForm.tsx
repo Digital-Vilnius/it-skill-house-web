@@ -11,30 +11,24 @@ interface Props {
   onSubmit: () => void;
   control: Control<EmailFormData>;
   contractors: Contractor[];
+  disabled?: boolean;
 }
 
 const EmailForm: FC<Props> = (props) => {
-  const { onClose, onSubmit, control, contractors } = props;
+  const { onClose, onSubmit, control, contractors, disabled } = props;
 
   return (
     <>
       <Modal.Body>
         <Row className='mb-4'>
           <Col>
-            <Controller
-              control={control}
-              name='contractorsIds'
-              render={({ field: { ref, ...rest }, fieldState: { error } }) => (
-                <FormSelect
-                  multi
-                  clearable
-                  label='Contractors'
-                  options={contractors.map(mapContractorToOption)}
-                  searchable
-                  error={error?.message}
-                  {...rest}
-                />
-              )}
+            <FormSelect
+              disabled
+              clearable={false}
+              multi
+              label='Contractors'
+              value={contractors.map((contractor) => contractor.id)}
+              options={contractors.map(mapContractorToOption)}
             />
           </Col>
         </Row>
@@ -65,7 +59,7 @@ const EmailForm: FC<Props> = (props) => {
         <button onClick={onClose} className='button button-secondary'>
           Close
         </button>
-        <button onClick={onSubmit} className='button button-primary'>
+        <button disabled={disabled} onClick={onSubmit} className='button button-primary'>
           Send
         </button>
       </Modal.Footer>

@@ -8,5 +8,4 @@ export interface Email extends BaseModel {
 export interface EmailFormData {
   subject: string;
   body: string;
-  contractorsIds: number[];
 }

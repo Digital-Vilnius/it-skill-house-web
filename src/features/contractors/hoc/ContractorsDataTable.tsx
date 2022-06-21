@@ -51,8 +51,9 @@ const ContractorsDataTable: FC = () => {
     showModal<EventFormProps>(EventForm, { title: 'Add event', size: 'lg' }, { contractorId: id });
   };
 
-  const openSendEmailForm = () => {
-    showModal(EmailForm, { title: 'Send email', size: 'lg' });
+  const openSendEmailForm = (id: number) => {
+    const filteredContractors = contractors.filter((contractor) => contractor.id === id);
+    showModal(EmailForm, { title: 'Send email', size: 'lg' }, { contractors: filteredContractors });
   };
 
   const openContractorDeleteConfirmation = (id: number) => {

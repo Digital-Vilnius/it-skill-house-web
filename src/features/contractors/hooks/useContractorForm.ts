@@ -66,7 +66,7 @@ const useContractorForm = (props: Props) => {
   const { mutateAsync } = useMutation(async (request: SaveContractorRequest) => {
     if (!id) {
       const response = await ContractorsClient.addContractor(request);
-      await NotesClient.addNote({ contractorId: response.result.id, content: request.note });
+      await NotesClient.addNote({ contractorId: response.id, content: request.note });
     } else await ContractorsClient.editContractor(id, request);
   });
 

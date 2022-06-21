@@ -1,14 +1,8 @@
-import httpClient from '../../httpClient';
-import { ListRequest, ListResponse, ResultResponse } from '../../types';
-import { Email, EmailsFilter, SendEmailRequest } from './types';
+import graphClient from '../../graphClient';
+import { SendEmailRequest } from './types';
 
-const baseUrl = '/emails';
+const baseUrl = '/me';
 
 export const sendEmail = async (request: SendEmailRequest) => {
-  return httpClient.post<SendEmailRequest, ResultResponse<Email>>(baseUrl, request);
-};
-
-export const getEmails = async (request: ListRequest<EmailsFilter>) => {
-  const params = { ...request.filter };
-  return httpClient.get<ListRequest<EmailsFilter>, ListResponse<Email>>(baseUrl, { params });
+  return graphClient.post<SendEmailRequest>(`${baseUrl}/sendMail`, request);
 };

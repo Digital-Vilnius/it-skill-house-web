@@ -1,3 +1,1 @@
-import EmailForm from './EmailForm';
-
-export { EmailForm };
+export { default as EmailForm } from './EmailForm';

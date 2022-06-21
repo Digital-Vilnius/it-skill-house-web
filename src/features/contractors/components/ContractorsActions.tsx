@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Alert, Button, CloseButton, Col, Row, Form } from 'react-bootstrap';
+import { CloseButton, Form, Container } from 'react-bootstrap';
 
 interface Props {
   selectedCount: number;
@@ -13,19 +13,19 @@ const ContractorsActions: FC<Props> = (props) => {
   if (selectedCount === 0) return null;
 
   return (
-    <Alert variant='dark' className='list-alert alert-dismissible border'>
-      <Row className='align-items-center'>
-        <Col>
+    <div className='table-actions'>
+      <Container className='h-100' fluid>
+        <div className='table-actions-content'>
           <Form.Check type='checkbox' label={`${selectedCount} selected`} checked disabled />
-        </Col>
-        <Col xs='auto' className='me-n3'>
-          <Button onClick={onSendEmail} variant='white-20' size='sm'>
-            Send email
-          </Button>
-        </Col>
-      </Row>
-      <CloseButton onClick={onClose} />
-    </Alert>
+          <div className='d-flex align-items-center'>
+            <button onClick={onSendEmail} className='button button-primary'>
+              Send email
+            </button>
+            <CloseButton onClick={onClose} />
+          </div>
+        </div>
+      </Container>
+    </div>
   );
 };
 

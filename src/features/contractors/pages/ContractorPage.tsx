@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Container } from 'react-bootstrap';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { ContractorDetails } from '../hoc';
 import ContractorForm, { ContractorFormProps } from '../hoc/ContractorForm';
 import { useModal } from 'core/modal/hooks';
@@ -9,24 +9,23 @@ import ContractorDeleteConfirmation, {
   ContractorDeleteConfirmationProps,
 } from '../hoc/ContractorDeleteConfirmation';
 import { Trash, Mail, Edit } from 'react-feather';
+import { useContractor } from '../hooks';
 
 const ContractorPage: FC = () => {
   const params = useParams();
-  const navigate = useNavigate();
   const { showModal } = useModal();
   const id = Number(params.id);
 
-  if (!id) {
-    navigate('/contractors');
-    return null;
-  }
+  const { contractor, isLoading } = useContractor(id);
+
+  if (!contractor || isLoading) return <div>Loading</div>;
 
   const openContractorEditForm = () => {
-    showModal<ContractorFormProps>(ContractorForm, { title: 'Edit contractor', size: 'lg' }, { id });
+    showModal<ContractorFormProps>(ContractorForm, { title: 'Edit contractor', size: 'xl' }, { id });
   };
 
   const openSendEmailForm = () => {
-    showModal(EmailForm, { title: 'Send email', size: 'lg' });
+    showModal(EmailForm, { title: 'Send email', size: 'lg' }, { contractors: [contractor] });
   };
 
   const openContractorDeleteConfirmation = () => {
@@ -56,7 +55,7 @@ const ContractorPage: FC = () => {
           </button>
         </div>
       </div>
-      <ContractorDetails id={id} />
+      <ContractorDetails contractor={contractor} />
     </Container>
   );
 };

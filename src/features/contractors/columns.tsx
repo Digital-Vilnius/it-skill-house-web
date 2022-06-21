@@ -127,7 +127,7 @@ export const contractorColumns: Column<Contractor>[] = [
     label: 'Mailed',
     className: 'text-center',
     Cell: (cell) => {
-      return cell.lastEmail ? DateUtils.formatDateStringStrict(cell.lastEmail.created) : undefined;
+      return cell.lastEmail ? DateUtils.formatDateStringStrict(cell.lastEmail) : undefined;
     },
     sortable: true,
   },

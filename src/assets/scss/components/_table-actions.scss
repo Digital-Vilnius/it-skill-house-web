@@ -1,0 +1,41 @@
+.table-actions {
+  position: fixed;
+  left: 50%;
+  transform: translate(-50%, 0);
+  bottom: 30px;
+  width: 400px;
+  background-color: $color-white;
+  height: 60px;
+  border: 1px solid $color-border;
+  z-index: 999;
+
+  &-content {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: space-between;
+
+    .form-check {
+      display: flex;
+      align-items: center;
+
+      input {
+        opacity: 1;
+      }
+
+      label {
+        margin-left: 10px;
+        font-size: 14px;
+        opacity: 1;
+      }
+    }
+
+    .button {
+      margin-right: 15px;
+    }
+
+    .btn-close {
+      font-size: 14px;
+    }
+  }
+}

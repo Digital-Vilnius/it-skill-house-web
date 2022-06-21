@@ -5,18 +5,17 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation } from 'react-query';
 import { EmailsClient } from 'api/clients';
 import { Contractor } from 'features/contractors/types';
+import { mapSendEmailRequest } from '../map';
 
 const initialFormData: EmailFormData = {
   subject: '',
   body: '',
-  contractorsIds: [],
 };
 
 const getSchema = () => {
   return yup.object().default({
     subject: yup.string().required(),
     body: yup.string().required(),
-    contractorsIds: yup.array().min(1).of(yup.number()),
   });
 };
 
@@ -27,19 +26,20 @@ interface Props {
 
 const useEmailForm = (props: Props) => {
   const { onSuccess, contractors } = props;
-  const contractorsIds = contractors.map((contractor) => contractor.id);
 
   const {
     control,
     handleSubmit,
     reset: resetForm,
   } = useForm<EmailFormData>({
-    defaultValues: { ...initialFormData, contractorsIds },
+    defaultValues: initialFormData,
     resolver: yupResolver(getSchema()),
   });
 
   const mutationFn = async (data: EmailFormData) => {
-    await EmailsClient.sendEmail(data);
+    const emails = contractors.map((contractor) => contractor.email);
+    const request = mapSendEmailRequest(data, emails);
+    await EmailsClient.sendEmail(request);
   };
 
   const { mutateAsync } = useMutation(mutationFn);

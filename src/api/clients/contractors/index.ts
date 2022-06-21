@@ -1,4 +1,4 @@
-import { ListRequest, ListResponse, ResultResponse } from '../../types';
+import { ListRequest, ListResponse } from '../../types';
 import httpClient from '../../httpClient';
 import { Contractor, SaveContractorRequest, ContractorsFilter } from './types';
 import pickBy from 'lodash/pickBy';
@@ -21,9 +21,9 @@ export const deleteContractor = async (id: number) => {
 };
 
 export const addContractor = async (request: SaveContractorRequest) => {
-  return httpClient.post<SaveContractorRequest, ResultResponse<Contractor>>(baseUrl, request);
+  return httpClient.post<SaveContractorRequest, Contractor>(baseUrl, request);
 };
 
 export const editContractor = async (id: number, request: SaveContractorRequest) => {
-  return httpClient.put<SaveContractorRequest, ResultResponse<Contractor>>(`${baseUrl}/${id}`, request);
+  return httpClient.put<SaveContractorRequest, Contractor>(`${baseUrl}/${id}`, request);
 };

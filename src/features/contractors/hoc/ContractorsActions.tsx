@@ -16,7 +16,7 @@ const ContractorsActions: FC = () => {
   };
 
   const openSendEmailForm = () => {
-    showModal(EmailForm, { title: 'Send email', size: 'lg' });
+    showModal(EmailForm, { title: 'Send email', size: 'lg' }, { contractors: selected });
   };
 
   return (

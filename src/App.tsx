@@ -7,17 +7,21 @@ import { queryClient } from 'core/query';
 import 'assets/scss/theme.scss';
 import { PersistGate } from 'redux-persist/integration/react';
 import { ToastContainer } from 'react-toastify';
+import { MsalProvider } from '@azure/msal-react';
+import msalInstance from 'core/msal';
 
 const App: FC = () => {
   return (
-    <QueryClientProvider client={queryClient}>
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <RootNavigator />
-          <ToastContainer />
-        </PersistGate>
-      </Provider>
-    </QueryClientProvider>
+    <MsalProvider instance={msalInstance}>
+      <QueryClientProvider client={queryClient}>
+        <Provider store={store}>
+          <PersistGate loading={null} persistor={persistor}>
+            <RootNavigator />
+            <ToastContainer />
+          </PersistGate>
+        </Provider>
+      </QueryClientProvider>
+    </MsalProvider>
   );
 };
 

@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Col, Modal, Row } from 'react-bootstrap';
+import { Col, Form, Modal, Row } from 'react-bootstrap';
 import { Control, Controller } from 'react-hook-form';
 import { FormDatePicker, FormInput, FormSelect, FormSwitch, FormYearPicker } from 'components';
 import { CountryUtils } from 'utils';
@@ -8,6 +8,7 @@ import { TechnologiesSelect } from 'features/technologies/hoc';
 import { RecruitersSelect } from 'features/recruiters/hoc';
 import { TagsSelect } from 'features/tags/hoc';
 import { ProfessionsSelect } from 'features/professions/hoc';
+import { Plus } from 'react-feather';
 
 interface Props {
   onClose: () => void;
@@ -134,40 +135,62 @@ const ContractorsFilterForm: FC<Props> = (props) => {
               </Col>
             </Row>
             <hr className='my-4' />
-            <Row className='mb-3'>
-              <Col>
-                <Controller
-                  control={control}
-                  name='technologiesIds'
-                  render={({ field: { ref, ...rest }, fieldState }) => (
-                    <TechnologiesSelect
-                      label='Technologies'
-                      multi
-                      searchable
-                      clearable
-                      error={fieldState.error?.message}
-                      {...rest}
-                    />
-                  )}
-                />
-              </Col>
-            </Row>
             <Row>
               <Col>
-                <Controller
-                  control={control}
-                  name='mainTechnologiesIds'
-                  render={({ field: { ref, ...rest }, fieldState }) => (
-                    <TechnologiesSelect
-                      label='Main technologies'
-                      multi
-                      searchable
-                      clearable
-                      error={fieldState.error?.message}
-                      {...rest}
+                <Row className='mb-2'>
+                  <Col>
+                    <Form.Label>Main technologies</Form.Label>
+                    <Controller
+                      control={control}
+                      name='mainTechnologiesIds'
+                      render={({ field: { ref, ...rest }, fieldState }) => (
+                        <TechnologiesSelect
+                          multi
+                          searchable
+                          clearable
+                          error={fieldState.error?.message}
+                          {...rest}
+                        />
+                      )}
                     />
-                  )}
-                />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col className='justify-content-end d-flex'>
+                    <button className='button button-secondary'>
+                      <Plus />
+                      Add and condition
+                    </button>
+                  </Col>
+                </Row>
+              </Col>
+              <Col>
+                <Row className='mb-2'>
+                  <Col>
+                    <Form.Label>Technologies</Form.Label>
+                    <Controller
+                      control={control}
+                      name='technologiesIds'
+                      render={({ field: { ref, ...rest }, fieldState }) => (
+                        <TechnologiesSelect
+                          multi
+                          searchable
+                          clearable
+                          error={fieldState.error?.message}
+                          {...rest}
+                        />
+                      )}
+                    />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col className='justify-content-end d-flex'>
+                    <button className='button button-secondary'>
+                      <Plus />
+                      Add and condition
+                    </button>
+                  </Col>
+                </Row>
               </Col>
             </Row>
           </Col>
