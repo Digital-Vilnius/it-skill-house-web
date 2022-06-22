@@ -9,7 +9,9 @@ const baseUrl = '/contractors';
 export const getContractors = async (request: ListRequest<ContractorsFilter>) => {
   const cleanedFilter = pickBy(request.filter, identity);
   const params = { ...request.paging, ...request.sort, ...cleanedFilter };
-  return httpClient.get<ListRequest<ContractorsFilter>, ListResponse<Contractor>>(baseUrl, { params });
+  return httpClient.get<ListRequest<ContractorsFilter>, ListResponse<Contractor>>(baseUrl, {
+    params,
+  });
 };
 
 export const getContractor = async (id: number) => {
@@ -26,4 +28,8 @@ export const addContractor = async (request: SaveContractorRequest) => {
 
 export const editContractor = async (id: number, request: SaveContractorRequest) => {
   return httpClient.put<SaveContractorRequest, Contractor>(`${baseUrl}/${id}`, request);
+};
+
+export const updateContractorMailedDate = async (id: number) => {
+  return httpClient.put<void, Contractor>(`${baseUrl}/${id}/mailed`);
 };

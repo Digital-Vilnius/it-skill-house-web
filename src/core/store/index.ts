@@ -5,7 +5,7 @@ import storage from 'redux-persist/lib/storage';
 import { persistStore, persistReducer } from 'redux-persist';
 import { reducer as contractorsReducer } from 'features/contractors/slice';
 import { reducer as authReducer } from 'features/auth/slice';
-import { reducer as layoutReducer } from 'layouts/slice';
+import { reducer as profileReducer } from 'features/profile/slice';
 import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE } from 'redux-persist/es/constants';
 
 const persistConfig = {
@@ -16,8 +16,8 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   contractors: contractorsReducer,
-  layout: layoutReducer,
   auth: authReducer,
+  profile: profileReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -26,8 +26,7 @@ const ignoredActions = [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER];
 
 export const store = configureStore({
   reducer: persistedReducer,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({ serializableCheck: { ignoredActions } }).concat(logger),
+  middleware: (get) => get({ serializableCheck: { ignoredActions } }).concat(logger),
   devTools: process.env.NODE_ENV !== 'production',
 });
 

@@ -2,28 +2,50 @@ import { Column } from 'components/DataTable';
 import { Contractor } from './types';
 import { Form, OverlayTrigger, Popover } from 'react-bootstrap';
 import React from 'react';
-import { ContractKeys } from './constants';
+import { ContractorKeys } from './constants';
 import { CountryUtils, CurrencyUtils, DateUtils, EventUtils } from 'utils';
 
 export const contractorColumns: Column<Contractor>[] = [
-  { id: ContractKeys.id, label: 'Id', className: 'text-center', sortable: true },
-  { id: ContractKeys.codaId, label: 'Coda id', sortable: true },
-  { id: ContractKeys.cinodeId, label: 'Cinode id', sortable: true },
+  { id: ContractorKeys.codaId, label: 'Coda id', sortKey: `contractor.${ContractorKeys.codaId}` },
+  { id: ContractorKeys.phone, label: 'Phone' },
   {
-    id: ContractKeys.fullName,
+    id: ContractorKeys.id,
+    label: 'Id',
+    className: 'text-center',
+    sortKey: `contractor.${ContractorKeys.id}`,
+  },
+  {
+    id: ContractorKeys.cinodeId,
+    label: 'Cinode id',
+    sortKey: `contractor.${ContractorKeys.cinodeId}`,
+  },
+  {
+    id: ContractorKeys.fullName,
     label: 'Full name',
     Cell: (cell) => `${cell.firstName} ${cell.lastName}`,
-    sortable: true,
+    sortKey: ContractorKeys.fullName,
   },
-  { id: ContractKeys.firstName, label: 'First name', sortable: true },
-  { id: ContractKeys.lastName, label: 'Last name', sortable: true },
-  { id: ContractKeys.email, label: 'Email', sortable: true, sticky: true },
-  { id: ContractKeys.phone, label: 'Phone' },
   {
-    id: ContractKeys.isRemote,
+    id: ContractorKeys.firstName,
+    label: 'First name',
+    sortKey: `contractor.${ContractorKeys.firstName}`,
+  },
+  {
+    id: ContractorKeys.lastName,
+    label: 'Last name',
+    sortKey: `contractor.${ContractorKeys.lastName}`,
+  },
+  {
+    id: ContractorKeys.email,
+    label: 'Email',
+    sticky: true,
+    sortKey: `contractor.${ContractorKeys.email}`,
+  },
+  {
+    id: ContractorKeys.isRemote,
     label: 'Remote',
     className: 'text-center',
-    sortable: true,
+    sortKey: `contractor.${ContractorKeys.isRemote}`,
     Cell: (cell) => (
       <Form.Check
         className='d-flex align-items-center justify-content-center'
@@ -34,10 +56,10 @@ export const contractorColumns: Column<Contractor>[] = [
     ),
   },
   {
-    id: ContractKeys.isPublic,
+    id: ContractorKeys.isPublic,
     label: 'Public',
     className: 'text-center',
-    sortable: true,
+    sortKey: `contractor.${ContractorKeys.isPublic}`,
     Cell: (cell) => (
       <Form.Check
         className='d-flex align-items-center justify-content-center'
@@ -48,10 +70,10 @@ export const contractorColumns: Column<Contractor>[] = [
     ),
   },
   {
-    id: ContractKeys.isAvailable,
+    id: ContractorKeys.isAvailable,
     label: 'Available',
     className: 'text-center',
-    sortable: true,
+    sortKey: ContractorKeys.isAvailable,
     Cell: (cell) => (
       <Form.Check
         className='d-flex align-items-center justify-content-center'
@@ -62,10 +84,10 @@ export const contractorColumns: Column<Contractor>[] = [
     ),
   },
   {
-    id: ContractKeys.hasContract,
+    id: ContractorKeys.hasContract,
     label: 'Has contract',
     className: 'text-center',
-    sortable: true,
+    sortKey: `contractor.${ContractorKeys.hasContract}`,
     Cell: (cell) => (
       <Form.Check
         className='d-flex align-items-center justify-content-center'
@@ -76,10 +98,10 @@ export const contractorColumns: Column<Contractor>[] = [
     ),
   },
   {
-    id: ContractKeys.isOnSite,
+    id: ContractorKeys.isOnSite,
     label: 'On site',
     className: 'text-center',
-    sortable: true,
+    sortKey: `contractor.${ContractorKeys.isOnSite}`,
     Cell: (cell) => (
       <Form.Check
         className='d-flex align-items-center justify-content-center'
@@ -90,68 +112,69 @@ export const contractorColumns: Column<Contractor>[] = [
     ),
   },
   {
-    id: ContractKeys.country,
+    id: ContractorKeys.country,
     label: 'Country',
-    sortable: true,
+    sortKey: ContractorKeys.country,
     Cell: (cell) => CountryUtils.getCountryName(cell.countryCode),
   },
   {
-    id: ContractKeys.rate,
+    id: ContractorKeys.rate,
     label: 'Rate',
     className: 'text-center',
+    sortKey: `contractor.${ContractorKeys.rate}`,
     Cell: (cell) =>
       cell.rate && cell.currency
         ? `${cell.rate.toFixed(2)} ${CurrencyUtils.getCurrencySymbol(cell.currency)}`
         : undefined,
-    sortable: true,
   },
   {
-    id: ContractKeys.profession,
+    id: ContractorKeys.profession,
     label: 'Profession',
     Cell: (cell) => (cell.profession ? cell.profession.name : undefined),
-    sortable: true,
+    sortKey: ContractorKeys.profession,
   },
   {
-    id: ContractKeys.recruiter,
+    id: ContractorKeys.recruiter,
     label: 'Recruiter',
-    sortable: true,
+    sortKey: ContractorKeys.recruiter,
     Cell: (cell) => `${cell.recruiter.firstName} ${cell.recruiter.lastName}`,
   },
   {
-    id: ContractKeys.mainTechnologies,
+    id: ContractorKeys.mainTechnologies,
     label: 'Main technologies',
     Cell: (cell) => cell.mainTechnologies.map((technology) => technology.name).join(', '),
   },
   {
-    id: ContractKeys.mailed,
+    id: ContractorKeys.mailed,
     label: 'Mailed',
     className: 'text-center',
+    sortKey: `contractor.${ContractorKeys.mailed}`,
     Cell: (cell) => {
       return cell.lastEmail ? DateUtils.formatDateStringStrict(cell.lastEmail) : undefined;
     },
-    sortable: true,
   },
   {
-    id: ContractKeys.nearestEvent,
+    id: ContractorKeys.nearestEvent,
     label: 'Nearest event',
     className: 'text-center',
+    sortKey: ContractorKeys.nearestEvent,
     Cell: (cell) => cell.nearestEvent?.date,
-    sortable: true,
   },
   {
-    id: ContractKeys.technologies,
+    id: ContractorKeys.technologies,
     label: 'Technologies',
     Cell: (cell) => cell.technologies.map((technology) => technology.name).join(', '),
   },
   {
-    id: ContractKeys.tags,
+    id: ContractorKeys.tags,
     label: 'Tags',
     Cell: (cell) => cell.tags.map((tag) => tag.name).join(', '),
   },
   {
-    id: ContractKeys.lastNote,
+    id: ContractorKeys.lastNote,
     label: 'Last note',
     className: 'text-center',
+    sortKey: ContractorKeys.lastNote,
     Cell: (cell) => {
       if (!cell.lastNote) return undefined;
       return (
@@ -174,17 +197,21 @@ export const contractorColumns: Column<Contractor>[] = [
         </div>
       );
     },
-    sortable: true,
   },
-  { id: ContractKeys.availableFrom, label: 'Available from', className: 'text-center', sortable: true },
   {
-    id: ContractKeys.experienceSince,
+    id: ContractorKeys.availableFrom,
+    label: 'Available from',
+    className: 'text-center',
+    sortKey: `contractor.${ContractorKeys.availableFrom}`,
+  },
+  {
+    id: ContractorKeys.experienceSince,
     label: 'Experience since',
     className: 'text-center',
-    sortable: true,
+    sortKey: `contractor.${ContractorKeys.experienceSince}`,
   },
   {
-    id: ContractKeys.linkedInUrl,
+    id: ContractorKeys.linkedInUrl,
     label: 'LinkedIn',
     className: 'text-center',
     Cell: (cell) =>
@@ -194,16 +221,21 @@ export const contractorColumns: Column<Contractor>[] = [
         </a>
       ) : undefined,
   },
-  { id: ContractKeys.updated, label: 'Updated', className: 'text-center', sortable: true },
   {
-    id: ContractKeys.created,
+    id: ContractorKeys.updated,
+    label: 'Updated',
+    className: 'text-center',
+    sortKey: `contractor.${ContractorKeys.updated}`,
+  },
+  {
+    id: ContractorKeys.created,
     label: 'Created',
     className: 'text-center',
-    sortable: true,
+    sortKey: `contractor.${ContractorKeys.created}`,
     sticky: true,
   },
 ];
 
-if (Object.keys(ContractKeys).length !== contractorColumns.length) {
+if (Object.keys(ContractorKeys).length !== contractorColumns.length) {
   throw new Error('Contractor columns missing');
 }

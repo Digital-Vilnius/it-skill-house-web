@@ -7,3 +7,4 @@ export * as EventsClient from './events';
 export * as NotesClient from './notes';
 export * as EmailsClient from './emails';
 export * as AuthClient from './auth';
+export * as ProfileClient from './profile';

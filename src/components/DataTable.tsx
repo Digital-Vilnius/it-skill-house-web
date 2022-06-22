@@ -13,7 +13,7 @@ export interface Column<T> {
   label: string;
   sticky?: boolean;
   className?: string;
-  sortable?: boolean;
+  sortKey?: string;
   Header?: () => React.ReactElement;
   Cell?: (cell: T) => React.ReactElement | string | null | undefined;
 }
@@ -59,15 +59,15 @@ const DataTable: FC<Props> = (props) => {
   } = props;
 
   const handleSort = (column: Column<unknown>) => {
-    if (!column.sortable) return;
+    if (!column.sortKey) return;
 
     const sortDirection =
-      column.id != sort.sortBy
+      column.sortKey != sort.sortBy
         ? SortDirections.desc
         : sort.sortDirection == SortDirections.asc
         ? SortDirections.desc
         : SortDirections.asc;
-    onSort({ sortBy: column.id, sortDirection });
+    onSort({ sortBy: column.sortKey, sortDirection });
   };
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -99,7 +99,7 @@ const DataTable: FC<Props> = (props) => {
               <th
                 key={column.id}
                 onClick={() => handleSort(column)}
-                className={classNames(column.className, { 'is-sortable': column.sortable })}
+                className={classNames(column.className, { 'is-sortable': !!column.sortKey })}
               >
                 {column.Header ? column.Header() : column.label}
               </th>

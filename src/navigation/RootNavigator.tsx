@@ -4,8 +4,11 @@ import { AuthLayout, AdminLayout } from 'layouts';
 import { LoginPage } from 'features/auth/pages';
 import { ContractorPage, ContractorsPage } from 'features/contractors/pages';
 import RequireAuth from './RequireAuth';
+import { useProfile } from 'features/profile/hooks';
 
 const RootNavigator: FC = () => {
+  useProfile();
+
   return (
     <BrowserRouter>
       <Routes>

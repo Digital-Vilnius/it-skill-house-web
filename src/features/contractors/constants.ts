@@ -1,7 +1,7 @@
 import { Paging, Sort } from 'api/types';
-import { SortDirections } from 'api/constants';
+import { SortDirections } from '../../api/constants';
 
-export enum ContractKeys {
+export enum ContractorKeys {
   id = 'id',
   codaId = 'codaId',
   cinodeId = 'cinodeId',
@@ -33,55 +33,58 @@ export enum ContractKeys {
 }
 
 export const initialColumnsOrder: string[] = [
-  ContractKeys.id,
-  ContractKeys.codaId,
-  ContractKeys.cinodeId,
-  ContractKeys.fullName,
-  ContractKeys.firstName,
-  ContractKeys.lastName,
-  ContractKeys.email,
-  ContractKeys.phone,
-  ContractKeys.recruiter,
-  ContractKeys.mailed,
-  ContractKeys.nearestEvent,
-  ContractKeys.profession,
-  ContractKeys.mainTechnologies,
-  ContractKeys.technologies,
-  ContractKeys.tags,
-  ContractKeys.lastNote,
-  ContractKeys.experienceSince,
-  ContractKeys.availableFrom,
-  ContractKeys.country,
-  ContractKeys.isRemote,
-  ContractKeys.isPublic,
-  ContractKeys.isAvailable,
-  ContractKeys.isOnSite,
-  ContractKeys.hasContract,
-  ContractKeys.rate,
-  ContractKeys.linkedInUrl,
-  ContractKeys.updated,
-  ContractKeys.created,
+  ContractorKeys.id,
+  ContractorKeys.codaId,
+  ContractorKeys.cinodeId,
+  ContractorKeys.fullName,
+  ContractorKeys.firstName,
+  ContractorKeys.lastName,
+  ContractorKeys.email,
+  ContractorKeys.phone,
+  ContractorKeys.recruiter,
+  ContractorKeys.mailed,
+  ContractorKeys.nearestEvent,
+  ContractorKeys.profession,
+  ContractorKeys.mainTechnologies,
+  ContractorKeys.technologies,
+  ContractorKeys.tags,
+  ContractorKeys.lastNote,
+  ContractorKeys.experienceSince,
+  ContractorKeys.availableFrom,
+  ContractorKeys.country,
+  ContractorKeys.isRemote,
+  ContractorKeys.isPublic,
+  ContractorKeys.isAvailable,
+  ContractorKeys.isOnSite,
+  ContractorKeys.hasContract,
+  ContractorKeys.rate,
+  ContractorKeys.linkedInUrl,
+  ContractorKeys.updated,
+  ContractorKeys.created,
 ];
 
-if (Object.keys(ContractKeys).length !== initialColumnsOrder.length) {
+if (Object.keys(ContractorKeys).length !== initialColumnsOrder.length) {
   throw new Error('Initial contractor columns missing');
 }
 
 export const initialColumnsIds: string[] = [
-  ContractKeys.id,
-  ContractKeys.fullName,
-  ContractKeys.email,
-  ContractKeys.recruiter,
-  ContractKeys.mainTechnologies,
-  ContractKeys.mailed,
-  ContractKeys.lastNote,
-  ContractKeys.experienceSince,
-  ContractKeys.availableFrom,
-  ContractKeys.country,
-  ContractKeys.isAvailable,
-  ContractKeys.rate,
-  ContractKeys.created,
+  ContractorKeys.id,
+  ContractorKeys.fullName,
+  ContractorKeys.email,
+  ContractorKeys.recruiter,
+  ContractorKeys.mainTechnologies,
+  ContractorKeys.mailed,
+  ContractorKeys.lastNote,
+  ContractorKeys.experienceSince,
+  ContractorKeys.availableFrom,
+  ContractorKeys.country,
+  ContractorKeys.isAvailable,
+  ContractorKeys.rate,
+  ContractorKeys.created,
 ];
 
 export const initialPaging: Paging = { limit: 20, offset: 0 };
-export const initialSort: Sort = { sortBy: ContractKeys.created, sortDirection: SortDirections.desc };
+export const initialSort: Sort = {
+  sortBy: `contractor.${ContractorKeys.created}`,
+  sortDirection: SortDirections.desc,
+};
