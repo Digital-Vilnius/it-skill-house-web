@@ -6,7 +6,6 @@ import { useMutation } from 'react-query';
 import { EmailsClient } from 'api/clients';
 import { Contractor } from 'features/contractors/types';
 import { mapSendEmailRequest } from '../map';
-import { sendMultipleEmails } from '../../../api/clients/emails';
 
 const initialFormData: EmailFormData = {
   subject: '',
