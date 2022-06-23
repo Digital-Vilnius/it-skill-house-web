@@ -27,32 +27,32 @@ const contractorsSlice = createSlice({
   name: 'contractors',
   initialState,
   reducers: {
-    setPaging(state, action: PayloadAction<Paging>) {
+    setPaging: (state, action: PayloadAction<Paging>) => {
       state.paging = action.payload;
       state.selected = [];
     },
-    setSort(state, action: PayloadAction<Sort>) {
+    setSort: (state, action: PayloadAction<Sort>) => {
       state.sort = action.payload;
       state.paging = { ...state.paging, offset: 0 };
       state.selected = [];
     },
-    setFilter(state, action: PayloadAction<ContractorsFilter>) {
+    setFilter: (state, action: PayloadAction<ContractorsFilter>) => {
       state.filter = action.payload;
       state.paging = { ...state.paging, offset: 0 };
       state.selected = [];
     },
-    resetFilter(state) {
+    resetFilter: (state) => {
       state.filter = initialState.filter;
       state.paging = { ...state.paging, offset: 0 };
       state.selected = [];
     },
-    setVisibleColumnsIds(state, action: PayloadAction<string[]>) {
+    setVisibleColumnsIds: (state, action: PayloadAction<string[]>) => {
       state.visibleColumnsIds = action.payload;
     },
-    setColumnsOrder(state, action: PayloadAction<string[]>) {
+    setColumnsOrder: (state, action: PayloadAction<string[]>) => {
       state.columnsOrder = action.payload;
     },
-    setSelectedContractors(state, action: PayloadAction<Contractor[]>) {
+    setSelectedContractors: (state, action: PayloadAction<Contractor[]>) => {
       state.selected = action.payload;
     },
   },

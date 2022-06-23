@@ -1,6 +1,11 @@
 import { ListRequest, ListResponse } from '../../types';
 import httpClient from '../../httpClient';
-import { Contractor, SaveContractorRequest, ContractorsFilter } from './types';
+import {
+  Contractor,
+  SaveContractorRequest,
+  ContractorsFilter,
+  UpdateContractorsMailedDateRequest,
+} from './types';
 import pickBy from 'lodash/pickBy';
 import identity from 'lodash/identity';
 
@@ -30,6 +35,6 @@ export const editContractor = async (id: number, request: SaveContractorRequest)
   return httpClient.put<SaveContractorRequest, Contractor>(`${baseUrl}/${id}`, request);
 };
 
-export const updateContractorMailedDate = async (id: number) => {
-  return httpClient.put<void, Contractor>(`${baseUrl}/${id}/mailed`);
+export const updateContractorsMailedDate = async (request: UpdateContractorsMailedDateRequest) => {
+  return httpClient.put<UpdateContractorsMailedDateRequest>(`${baseUrl}/mailed`, request);
 };

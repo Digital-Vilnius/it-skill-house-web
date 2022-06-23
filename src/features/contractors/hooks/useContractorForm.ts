@@ -17,6 +17,7 @@ const getSchema = (isEdit: boolean) => {
     recruiterId: yup.number().required('Field is required'),
     mainTechnologiesIds: yup.array().of(yup.number()).min(1).max(2).required('Field is required'),
     phone: yup.string().nullable(),
+    reference: yup.string().nullable(),
     city: yup.string().nullable(),
     professionId: yup.number().nullable(),
     technologiesIds: yup.array().of(yup.number()).nullable(),

@@ -69,7 +69,7 @@ const ContractorForm: FC<Props> = (props) => {
             />
           </Col>
         </Row>
-        <Row>
+        <Row className='mb-3'>
           <Col>
             <Controller
               control={control}
@@ -93,6 +93,17 @@ const ContractorForm: FC<Props> = (props) => {
               name='city'
               render={({ field: { ref, ...rest }, fieldState: { error } }) => (
                 <FormInput label='City' {...rest} error={error?.message} />
+              )}
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col xl={6}>
+            <Controller
+              control={control}
+              name='reference'
+              render={({ field: { ref, ...rest }, fieldState: { error } }) => (
+                <FormInput label='Reference' {...rest} error={error?.message} />
               )}
             />
           </Col>

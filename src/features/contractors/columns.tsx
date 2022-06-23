@@ -150,7 +150,7 @@ export const contractorColumns: Column<Contractor>[] = [
     className: 'text-center',
     sortKey: `contractor.${ContractorKeys.mailed}`,
     Cell: (cell) => {
-      return cell.lastEmail ? DateUtils.formatDateStringStrict(cell.lastEmail) : undefined;
+      return cell.mailed ? DateUtils.formatDateStringStrict(cell.mailed) : undefined;
     },
   },
   {

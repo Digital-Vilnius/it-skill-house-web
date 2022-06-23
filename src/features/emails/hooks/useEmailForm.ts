@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { EmailFormData } from '../types';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation } from 'react-query';
-import { EmailsClient } from 'api/clients';
+import { ContractorsClient, EmailsClient } from 'api/clients';
 import { Contractor } from 'features/contractors/types';
 import { mapSendEmailRequest } from '../map';
 
@@ -39,6 +39,9 @@ const useEmailForm = (props: Props) => {
   const mutationFn = async (data: EmailFormData) => {
     const requests = contractors.map((contractor) => mapSendEmailRequest(data, contractor));
     await EmailsClient.sendMultipleEmails(requests);
+
+    const contractorsIds = contractors.map((contractor) => contractor.id);
+    await ContractorsClient.updateContractorsMailedDate({ contractorsIds });
   };
 
   const { mutateAsync } = useMutation(mutationFn);

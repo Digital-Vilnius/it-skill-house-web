@@ -12,6 +12,8 @@ export interface Contractor extends BaseModel {
   cinodeId: number | null;
   userId: number;
   firstName: string;
+  reference: string | null;
+  mailed: string | null;
   lastName: string;
   email: string;
   phone: string | null;

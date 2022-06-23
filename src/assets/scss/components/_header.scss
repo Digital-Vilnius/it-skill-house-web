@@ -22,6 +22,30 @@
     line-height: 1.5;
   }
 
+  &-person {
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.5;
+    color: $color-text-primary;
+    margin-right: 20px;
+    margin-left: 10px;
+  }
+
+  .button {
+    margin-right: 20px;
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+    color: $color-text-primary;
+    cursor: pointer;
+
+    &.profile {
+      margin-top: 2px;
+    }
+  }
+
   &-logo {
     display: block;
     height: 25px;

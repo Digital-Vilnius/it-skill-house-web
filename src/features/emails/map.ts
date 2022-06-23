@@ -10,7 +10,7 @@ export const mapSendEmailRequest = (
     subject: formData.subject,
     body: {
       contentType: 'Html',
-      content: `Labas, ${contractor.firstName}\n\n${formData.body}`,
+      content: `Sveiki, ${contractor.reference}\n\n${formData.body}`,
     },
     toRecipients: [
       {

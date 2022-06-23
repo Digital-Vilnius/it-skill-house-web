@@ -13,6 +13,8 @@ export interface Contractor extends BaseModel {
   userId: number;
   firstName: string;
   lastName: string;
+  reference: string | null;
+  mailed: string | null;
   email: string;
   phone: string | null;
   countryCode: string;
@@ -39,6 +41,7 @@ export interface Contractor extends BaseModel {
 export interface SaveContractorRequest {
   firstName: string;
   lastName: string;
+  reference: string | null;
   email: string;
   phone: string | null;
   note: string;
@@ -78,4 +81,8 @@ export interface ContractorsFilter {
   rateTo?: number;
   experienceFrom?: number;
   availableFrom?: string;
+}
+
+export interface UpdateContractorsMailedDateRequest {
+  contractorsIds: number[];
 }

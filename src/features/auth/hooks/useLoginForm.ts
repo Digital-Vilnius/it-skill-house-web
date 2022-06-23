@@ -7,6 +7,8 @@ import { LoginRequest } from 'api/clients/auth/types';
 import { AuthClient } from 'api/clients';
 import { useMutation } from 'react-query';
 import { setTokens } from '../slice';
+import { useMsal } from '@azure/msal-react';
+import { authRequest } from '../../../core/msal/constants';
 
 const initialFormData: LoginFormData = {
   username: '',
@@ -22,6 +24,7 @@ const getSchema = () => {
 
 const useLoginForm = () => {
   const dispatch = useAppDispatch();
+  const { instance } = useMsal();
 
   const { control, handleSubmit } = useForm<LoginFormData>({
     defaultValues: initialFormData,
@@ -38,8 +41,9 @@ const useLoginForm = () => {
     },
   });
 
-  const login = (request: LoginRequest) => {
-    return mutateAsync(request);
+  const login = async (request: LoginRequest) => {
+    await mutateAsync(request);
+    await instance.loginRedirect(authRequest);
   };
 
   return { control, handleSubmit, login, isLoading };
