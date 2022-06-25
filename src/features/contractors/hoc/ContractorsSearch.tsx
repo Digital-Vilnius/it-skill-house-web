@@ -7,11 +7,11 @@ const ContractorsSearch: FC = () => {
   const dispatch = useAppDispatch();
   const { filter } = useAppSelector((state) => state.contractors);
 
-  const handleKeywordChange = (keyword: string) => {
-    dispatch(setFilter({ ...filter, keyword }));
+  const handleKeywordChange = () => {
+    dispatch(setFilter({ ...filter }));
   };
 
-  return <ControllerContractorsSearch onKeywordChange={handleKeywordChange} keyword={filter.keyword} />;
+  return <ControllerContractorsSearch onKeywordChange={handleKeywordChange} keyword='' />;
 };
 
 export default ContractorsSearch;

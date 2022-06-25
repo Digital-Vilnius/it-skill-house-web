@@ -16,7 +16,7 @@ const EventForm: FC<Props> = (props) => {
   return (
     <>
       <Modal.Body>
-        <Row className='mb-4'>
+        <Row className='mb-2'>
           <Col>
             <Controller
               control={control}
@@ -27,7 +27,7 @@ const EventForm: FC<Props> = (props) => {
             />
           </Col>
         </Row>
-        <Row className='mb-4'>
+        <Row className='mb-2'>
           <Col>
             <Controller
               control={control}

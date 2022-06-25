@@ -4,6 +4,10 @@ export const selectMsalAccessToken = (state: RootState): string | null => {
   return state.auth.msalAccessToken;
 };
 
+export const selectToken = (state: RootState): string | null => {
+  return state.auth.token;
+};
+
 export const selectIsAuthenticated = (state: RootState): boolean => {
   return !!state.auth.token && !!selectMsalAccessToken(state);
 };

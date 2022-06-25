@@ -20,7 +20,7 @@ const EmailForm: FC<Props> = (props) => {
   return (
     <>
       <Modal.Body>
-        <Row className='mb-4'>
+        <Row className='mb-2'>
           <Col>
             <FormSelect
               disabled
@@ -32,7 +32,7 @@ const EmailForm: FC<Props> = (props) => {
             />
           </Col>
         </Row>
-        <Row className='mb-4'>
+        <Row className='mb-2'>
           <Col>
             <Controller
               control={control}

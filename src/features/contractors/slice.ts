@@ -15,7 +15,7 @@ interface State {
 }
 
 const initialState: State = {
-  filter: {},
+  filter: { rules: [] },
   paging: initialPaging,
   sort: initialSort,
   visibleColumnsIds: initialColumnsIds,

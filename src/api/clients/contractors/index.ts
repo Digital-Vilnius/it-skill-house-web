@@ -6,17 +6,19 @@ import {
   ContractorsFilter,
   UpdateContractorsMailedDateRequest,
 } from './types';
-import pickBy from 'lodash/pickBy';
-import identity from 'lodash/identity';
 
 const baseUrl = '/contractors';
 
 export const getContractors = async (request: ListRequest<ContractorsFilter>) => {
-  const cleanedFilter = pickBy(request.filter, identity);
-  const params = { ...request.paging, ...request.sort, ...cleanedFilter };
-  return httpClient.get<ListRequest<ContractorsFilter>, ListResponse<Contractor>>(baseUrl, {
-    params,
-  });
+  const params = { ...request.paging, ...request.sort };
+
+  return httpClient.post<ContractorsFilter, ListResponse<Contractor>>(
+    `${baseUrl}/all`,
+    request.filter,
+    {
+      params,
+    }
+  );
 };
 
 export const getContractor = async (id: number) => {

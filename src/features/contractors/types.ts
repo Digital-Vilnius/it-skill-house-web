@@ -37,3 +37,9 @@ export interface Contractor extends BaseModel {
   technologies: Technology[];
   mainTechnologies: Technology[];
 }
+
+export interface ContractorsFilterRuleFormData {
+  key: string | null;
+  comparison: string | null;
+  value: unknown;
+}

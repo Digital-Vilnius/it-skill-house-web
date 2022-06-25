@@ -8,16 +8,16 @@ const ContractorsFilter: FC = () => {
   const { hideModal } = useModal();
   const { filter } = useAppSelector((state) => state.contractors);
 
-  const { control, handleSubmit, save, reset } = useContractorsFilterForm({
+  const { save, reset } = useContractorsFilterForm({
     filter,
     onSuccess: hideModal,
   });
 
   return (
     <ControlledContractorsFilter
-      control={control}
+      filter={filter}
       onClose={hideModal}
-      onSubmit={handleSubmit(save)}
+      onSubmit={save}
       onReset={reset}
     />
   );

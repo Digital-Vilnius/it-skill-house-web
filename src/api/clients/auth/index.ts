@@ -8,8 +8,13 @@ export const login = async (request: LoginRequest) => {
 };
 
 export const refreshToken = async (request: RefreshTokenRequest) => {
+  const formData = new FormData();
+  formData.append('refreshToken', request.refreshToken);
+  const headers = { 'Content-Type': 'multipart/form-data' };
+
   return httpClient.post<RefreshTokenRequest, RefreshTokenResponse>(
     `${baseUrl}/token/refresh`,
-    request
+    formData,
+    { headers }
   );
 };

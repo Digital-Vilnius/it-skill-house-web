@@ -1,12 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { LoginResponse } from 'api/clients/auth/types';
-import { refreshTokenAction } from './actions';
+import { refreshMsalAccessTokenAction, refreshTokenAction } from './actions';
 
 interface State {
   token: string | null;
   refreshToken: string | null;
   msalAccessToken: string | null;
   isRefreshing: boolean;
+  isMsalRefreshing: boolean;
 }
 
 const initialState: State = {
@@ -14,6 +15,7 @@ const initialState: State = {
   refreshToken: null,
   msalAccessToken: null,
   isRefreshing: false,
+  isMsalRefreshing: false,
 };
 
 const authSlice = createSlice({
@@ -40,6 +42,16 @@ const authSlice = createSlice({
     });
     builder.addCase(refreshTokenAction.rejected, (state) => {
       state.isRefreshing = false;
+    });
+    builder.addCase(refreshMsalAccessTokenAction.pending, (state) => {
+      state.isMsalRefreshing = true;
+    });
+    builder.addCase(refreshMsalAccessTokenAction.fulfilled, (state, action) => {
+      state.isMsalRefreshing = false;
+      state.msalAccessToken = action.payload.accessToken;
+    });
+    builder.addCase(refreshMsalAccessTokenAction.rejected, (state) => {
+      state.isMsalRefreshing = false;
     });
   },
 });

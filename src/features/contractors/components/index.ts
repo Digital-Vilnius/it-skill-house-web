@@ -6,3 +6,4 @@ export { default as ContractorForm } from './ContractorForm';
 export { default as ContractorsActions } from './ContractorsActions';
 export { default as ContractorDeleteConfirmation } from './ContractorDeleteConfirmation';
 export { default as ContractorDetails } from './ContractorDetails';
+export { default as ContractorsFilterRuleForm } from './ContractorsFilterRuleForm';

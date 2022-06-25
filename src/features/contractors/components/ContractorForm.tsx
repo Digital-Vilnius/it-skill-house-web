@@ -29,7 +29,7 @@ const ContractorForm: FC<Props> = (props) => {
   return (
     <>
       <Modal.Body>
-        <Row className='mb-3'>
+        <Row className='mb-2'>
           <Col>
             <Controller
               control={control}
@@ -49,7 +49,7 @@ const ContractorForm: FC<Props> = (props) => {
             />
           </Col>
         </Row>
-        <Row className='mb-3'>
+        <Row className='mb-2'>
           <Col>
             <Controller
               control={control}
@@ -69,7 +69,7 @@ const ContractorForm: FC<Props> = (props) => {
             />
           </Col>
         </Row>
-        <Row className='mb-3'>
+        <Row className='mb-2'>
           <Col>
             <Controller
               control={control}
@@ -98,7 +98,7 @@ const ContractorForm: FC<Props> = (props) => {
           </Col>
         </Row>
         <Row>
-          <Col xl={6}>
+          <Col lg={6}>
             <Controller
               control={control}
               name='reference'
@@ -108,8 +108,8 @@ const ContractorForm: FC<Props> = (props) => {
             />
           </Col>
         </Row>
-        <hr className='my-4' />
-        <Row className='mb-3'>
+        <hr className='my-3' />
+        <Row className='mb-2'>
           <Col>
             <Controller
               control={control}
@@ -143,7 +143,7 @@ const ContractorForm: FC<Props> = (props) => {
             />
           </Col>
         </Row>
-        <Row className='mb-3'>
+        <Row className='mb-2'>
           <Col>
             <Controller
               control={control}
@@ -208,8 +208,8 @@ const ContractorForm: FC<Props> = (props) => {
             />
           </Col>
         </Row>
-        <hr className='my-4' />
-        <Row className='mb-3'>
+        <hr className='my-3' />
+        <Row className='mb-2'>
           <Col>
             <Controller
               control={control}
@@ -229,7 +229,7 @@ const ContractorForm: FC<Props> = (props) => {
             />
           </Col>
         </Row>
-        <Row className='mb-3'>
+        <Row className='mb-2'>
           <Col>
             <Controller
               control={control}
@@ -279,7 +279,7 @@ const ContractorForm: FC<Props> = (props) => {
         </Row>
         {!isEdit && (
           <>
-            <hr className='my-4' />
+            <hr className='my-3' />
             <Row>
               <Col>
                 <Controller
@@ -293,7 +293,7 @@ const ContractorForm: FC<Props> = (props) => {
             </Row>
           </>
         )}
-        <hr className='my-4' />
+        <hr className='my-3' />
         <Row>
           <Col>
             <Controller

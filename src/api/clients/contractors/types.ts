@@ -65,22 +65,43 @@ export interface SaveContractorRequest {
   mainTechnologiesIds: number[];
 }
 
+export enum ContractorFilterKeys {
+  keyword = 'keyword',
+  profession = 'profession.id',
+  recruiter = 'recruiter.id',
+  tags = 'tags.id',
+  availableFrom = 'contractor.availableFrom',
+  experienceSince = 'contractor.experienceSince',
+  rate = 'contractor.rate',
+  country = 'contractor.countryCode',
+  mainTechnologies = 'mainTechnologies.id',
+  technologies = 'technologies.id',
+  isRemote = 'contractor.isRemote',
+  isOnSite = 'contractor.isOnSite',
+  isAvailable = 'isAvailable',
+  hasContract = 'contractor.hasContract',
+  isPublic = 'contractor.isPublic',
+}
+
+export enum Comparisons {
+  equal = 'equal',
+  greaterOrEqual = 'greaterOrEqual',
+  greater = 'greater',
+  lessOrEqual = 'lessOrEqual',
+  less = 'less',
+  isNull = 'isNull',
+  in = 'in',
+  notIn = 'notIn',
+}
+
+export interface ContractorsFilterRule {
+  key: ContractorFilterKeys;
+  comparison: Comparisons;
+  value: unknown;
+}
+
 export interface ContractorsFilter {
-  keyword?: string;
-  isRemote?: boolean;
-  isPublic?: boolean;
-  isAvailable?: boolean;
-  hasContract?: boolean;
-  isOnSite?: boolean;
-  countriesCodes?: string[];
-  professionsIds?: number[];
-  recruitersIds?: number[];
-  technologiesIds?: number[];
-  mainTechnologiesIds?: number[];
-  tagsIds?: number[];
-  rateTo?: number;
-  experienceFrom?: number;
-  availableFrom?: string;
+  rules: ContractorsFilterRule[];
 }
 
 export interface UpdateContractorsMailedDateRequest {

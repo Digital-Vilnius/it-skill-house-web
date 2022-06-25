@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 const LoginPage: FC = () => {
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
+
   const navigate = useNavigate();
 
   useEffect(() => {
