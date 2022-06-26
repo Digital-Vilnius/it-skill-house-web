@@ -3,6 +3,7 @@ import { Contractor } from './types';
 import { mapEvent } from 'features/events/map';
 import { mapNote } from 'features/notes/map';
 import { DateUtils } from 'utils';
+import { SelectOption } from 'api/types';
 
 export const mapContractor = (contractor: ApiContractor): Contractor => ({
   ...contractor,
@@ -23,7 +24,7 @@ export const mapSaveContractorRequest = (contractor: Contractor): SaveContractor
   note: '',
 });
 
-export const mapContractorToOption = (contractor: Contractor) => ({
+export const mapContractorToOption = (contractor: Contractor): SelectOption<number> => ({
   value: contractor.id,
   label: contractor.email,
 });

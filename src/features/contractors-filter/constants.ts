@@ -67,18 +67,6 @@ export const contractorsFilterKeyLabel: Record<ContractorsFilterKeys, string> = 
   [ContractorsFilterKeys.isAvailable]: 'Available',
 };
 
-export const contractorsFilterKeysOptions = Object.values(ContractorsFilterKeys).map((value) => ({
-  label: contractorsFilterKeyLabel[value],
-  value: value,
-}));
-
-export const comparisonsOptions = (contractorsFilterKey: ContractorsFilterKeys) => {
-  return contractorFilterKeyComparisons[contractorsFilterKey].map((comparison) => ({
-    label: comparisonLabel[comparison],
-    value: comparison,
-  }));
-};
-
 export const initialRuleFormData: RuleFormData = {
   key: null,
   comparison: null,

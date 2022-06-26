@@ -29,3 +29,8 @@ export interface BaseModel {
   created: string;
   updated: string | null;
 }
+
+export interface SelectOption<T> {
+  value: T;
+  label: string;
+}

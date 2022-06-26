@@ -37,5 +37,5 @@ export const parseDate = (date: DateStringType): DateType => {
 export const getYearsOptions = () => {
   const currentYear = new Date().getFullYear();
   const yearsRange = range(currentYear - 50, currentYear + 1).reverse();
-  return yearsRange.map((year) => ({ label: year.toString(), value: year }));
+  return yearsRange.map((year) => year);
 };

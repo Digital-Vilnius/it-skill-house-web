@@ -27,7 +27,7 @@ const EmailForm: FC<Props> = (props) => {
               <Select
                 isMulti
                 isDisabled
-                value={contractors.map((contractor) => contractor.id)}
+                value={contractors.map(mapContractorToOption)}
                 options={contractors.map(mapContractorToOption)}
               />
             </FormControl>

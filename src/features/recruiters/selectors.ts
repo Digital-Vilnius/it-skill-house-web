@@ -12,10 +12,3 @@ export const selectRecruitersCount = (state: RootState): number => {
 export const selectRecruitersLastUpdated = (state: RootState): number => {
   return state.recruiters.lastUpdated;
 };
-
-export const selectRecruitersOptions = (state: RootState) => {
-  return selectRecruiters(state).map((recruiter) => ({
-    value: recruiter.id,
-    label: `${recruiter.firstName} ${recruiter.lastName}`,
-  }));
-};

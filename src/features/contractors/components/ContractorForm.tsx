@@ -4,14 +4,18 @@ import { Control, Controller } from 'react-hook-form';
 import { FormControl, FormDatePicker, FormInput, FormSwitch, FormTextEditor } from 'components';
 import { SaveContractorRequest } from 'api/clients/contractors/types';
 import { useAppSelector } from 'core/store';
-import { selectTechnologiesOptions } from 'features/technologies/selectors';
-import { selectTagsOptions } from 'features/tags/selectors';
-import { selectProfessionsOptions } from 'features/professions/selectors';
-import { selectRecruitersOptions } from 'features/recruiters/selectors';
+import { selectTechnologies } from 'features/technologies/selectors';
+import { selectTags } from 'features/tags/selectors';
+import { selectProfessions } from 'features/professions/selectors';
+import { selectRecruiters } from 'features/recruiters/selectors';
 import Select from 'react-select';
-import { countriesOptions } from 'utils/countries';
-import { currenciesOptions } from 'utils/currency';
+import { countries, getCountryName } from 'utils/countries';
+import { currencies, getCurrencyName } from 'utils/currency';
 import { getYearsOptions } from 'utils/date';
+import { recruiterToString } from 'features/recruiters/utils';
+import { professionToString } from 'features/professions/utils';
+import { technologyToString } from 'features/technologies/utils';
+import { tagToString } from 'features/tags/utils';
 
 interface Props {
   onClose: () => void;
@@ -23,10 +27,10 @@ interface Props {
 const ContractorForm: FC<Props> = (props) => {
   const { onClose, onSubmit, isEdit, control } = props;
 
-  const technologiesOptions = useAppSelector(selectTechnologiesOptions);
-  const tagsOptions = useAppSelector(selectTagsOptions);
-  const professionsOptions = useAppSelector(selectProfessionsOptions);
-  const recruitersOptions = useAppSelector(selectRecruitersOptions);
+  const technologies = useAppSelector(selectTechnologies);
+  const tags = useAppSelector(selectTags);
+  const professions = useAppSelector(selectProfessions);
+  const recruiters = useAppSelector(selectRecruiters);
 
   return (
     <>
@@ -76,14 +80,14 @@ const ContractorForm: FC<Props> = (props) => {
             <Controller
               control={control}
               name='countryCode'
-              render={({ field: { onChange, onBlur }, fieldState: { error } }) => (
+              render={({ field, fieldState: { error } }) => (
                 <FormControl error={error?.message} required label='Country'>
                   <Select
                     isSearchable
                     isClearable
-                    options={countriesOptions}
-                    onChange={onChange}
-                    onBlur={onBlur}
+                    getOptionLabel={(option) => getCountryName(option)}
+                    options={countries.map((country) => country.code)}
+                    {...field}
                   />
                 </FormControl>
               )}
@@ -116,14 +120,16 @@ const ContractorForm: FC<Props> = (props) => {
             <Controller
               control={control}
               name='recruiterId'
-              render={({ field: { onChange, onBlur }, fieldState: { error } }) => (
+              render={({ field, fieldState: { error } }) => (
                 <FormControl error={error?.message} required label='Recruiter'>
                   <Select
                     isSearchable
                     isClearable
-                    options={recruitersOptions}
-                    onChange={onChange}
-                    onBlur={onBlur}
+                    getOptionLabel={(option) =>
+                      recruiterToString(recruiters.find((recruiter) => recruiter.id === option))
+                    }
+                    options={recruiters.map((recruiter) => recruiter.id)}
+                    {...field}
                   />
                 </FormControl>
               )}
@@ -133,14 +139,16 @@ const ContractorForm: FC<Props> = (props) => {
             <Controller
               control={control}
               name='professionId'
-              render={({ field: { onBlur, onChange }, fieldState: { error } }) => (
+              render={({ field, fieldState: { error } }) => (
                 <FormControl error={error?.message} required label='Role'>
                   <Select
                     isSearchable
                     isClearable
-                    options={professionsOptions}
-                    onChange={onChange}
-                    onBlur={onBlur}
+                    getOptionLabel={(option) =>
+                      professionToString(professions.find((profession) => profession.id === option))
+                    }
+                    options={professions.map((profession) => profession.id)}
+                    {...field}
                   />
                 </FormControl>
               )}
@@ -152,16 +160,18 @@ const ContractorForm: FC<Props> = (props) => {
             <Controller
               control={control}
               name='mainTechnologiesIds'
-              render={({ field: { onBlur, onChange, value }, fieldState: { error } }) => (
+              render={({ field, fieldState: { error } }) => (
                 <FormControl error={error?.message} required label='Main technologies'>
                   <Select
                     isMulti
                     isSearchable
                     isClearable
-                    options={technologiesOptions}
-                    onChange={onChange}
-                    isOptionDisabled={() => value.length >= 2}
-                    onBlur={onBlur}
+                    options={technologies.map((technology) => technology.id)}
+                    getOptionLabel={(option) =>
+                      technologyToString(professions.find((technology) => technology.id === option))
+                    }
+                    isOptionDisabled={() => field.value.length >= 2}
+                    {...field}
                   />
                 </FormControl>
               )}
@@ -171,15 +181,17 @@ const ContractorForm: FC<Props> = (props) => {
             <Controller
               control={control}
               name='technologiesIds'
-              render={({ field: { onChange, onBlur }, fieldState: { error } }) => (
+              render={({ field, fieldState: { error } }) => (
                 <FormControl error={error?.message} required label='Technologies'>
                   <Select
                     isMulti
                     isSearchable
                     isClearable
-                    options={technologiesOptions}
-                    onChange={onChange}
-                    onBlur={onBlur}
+                    options={technologies.map((technology) => technology.id)}
+                    getOptionLabel={(option) =>
+                      technologyToString(professions.find((technology) => technology.id === option))
+                    }
+                    {...field}
                   />
                 </FormControl>
               )}
@@ -200,13 +212,13 @@ const ContractorForm: FC<Props> = (props) => {
             <Controller
               control={control}
               name='currency'
-              render={({ field: { onBlur, onChange }, fieldState: { error } }) => (
+              render={({ field, fieldState: { error } }) => (
                 <FormControl error={error?.message} label='Currency'>
                   <Select
                     isClearable
-                    options={currenciesOptions}
-                    onChange={onChange}
-                    onBlur={onBlur}
+                    options={currencies.map((currency) => currency.code)}
+                    getOptionLabel={(option) => getCurrencyName(option)}
+                    {...field}
                   />
                 </FormControl>
               )}
@@ -228,15 +240,9 @@ const ContractorForm: FC<Props> = (props) => {
             <Controller
               control={control}
               name='experienceSince'
-              render={({ field: { onBlur, onChange }, fieldState: { error } }) => (
+              render={({ field, fieldState: { error } }) => (
                 <FormControl error={error?.message} required label='Experience since'>
-                  <Select
-                    isSearchable
-                    isClearable
-                    options={getYearsOptions()}
-                    onChange={onChange}
-                    onBlur={onBlur}
-                  />
+                  <Select isSearchable isClearable options={getYearsOptions()} {...field} />
                 </FormControl>
               )}
             />
@@ -267,15 +273,15 @@ const ContractorForm: FC<Props> = (props) => {
             <Controller
               control={control}
               name='tagsIds'
-              render={({ field: { onBlur, onChange }, fieldState: { error } }) => (
+              render={({ field, fieldState: { error } }) => (
                 <FormControl error={error?.message} required label='Tags'>
                   <Select
                     isMulti
                     isSearchable
                     isClearable
-                    options={tagsOptions}
-                    onChange={onChange}
-                    onBlur={onBlur}
+                    options={tags.map((tag) => tag.id)}
+                    getOptionLabel={(option) => tagToString(tags.find((tag) => tag.id === option))}
+                    {...field}
                   />
                 </FormControl>
               )}

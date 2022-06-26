@@ -5,11 +5,6 @@ export const currencies = [
   { code: 'USD', name: 'Dollar' },
 ];
 
-export const currenciesOptions = currencies.map((currency) => ({
-  label: `${currency.name} (${currency.code})`,
-  value: currency.code,
-}));
-
 export const getCurrencyName = (currencyCode: string | null) => {
   return currencies.find((currency) => currency.code === currencyCode)?.name ?? 'Unknown';
 };

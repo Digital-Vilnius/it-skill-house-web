@@ -12,10 +12,3 @@ export const selectProfessionsCount = (state: RootState): number => {
 export const selectProfessionsLastUpdated = (state: RootState): number => {
   return state.professions.lastUpdated;
 };
-
-export const selectProfessionsOptions = (state: RootState) => {
-  return selectProfessions(state).map((profession) => ({
-    value: profession.id,
-    label: profession.name,
-  }));
-};

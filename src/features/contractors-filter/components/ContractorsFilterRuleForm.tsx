@@ -3,8 +3,7 @@ import { RuleFormData } from '../types';
 import classNames from 'classnames';
 import { FormControl, FormDatePicker, FormInput } from 'components';
 import {
-  comparisonsOptions,
-  contractorsFilterKeysOptions,
+  contractorFilterKeyComparisons,
   getRuleFormSchema,
   initialRuleFormData,
 } from '../constants';
@@ -15,12 +14,16 @@ import {
 } from 'api/clients/contractors/types';
 import Select from 'react-select';
 import { useAppSelector } from 'core/store';
-import { selectTechnologiesOptions } from 'features/technologies/selectors';
-import { selectTagsOptions } from 'features/tags/selectors';
-import { selectProfessionsOptions } from 'features/professions/selectors';
-import { selectRecruitersOptions } from 'features/recruiters/selectors';
+import { selectTechnologies } from 'features/technologies/selectors';
+import { selectTags } from 'features/tags/selectors';
+import { selectProfessions } from 'features/professions/selectors';
+import { selectRecruiters } from 'features/recruiters/selectors';
 import { getYearsOptions } from 'utils/date';
-import { countriesOptions } from 'utils/countries';
+import { countries, getCountryName } from 'utils/countries';
+import { tagToString } from 'features/tags/utils';
+import { technologyToString } from 'features/technologies/utils';
+import { recruiterToString } from 'features/recruiters/utils';
+import { professionToString } from '../../professions/utils';
 
 interface Props {
   onRemove?: () => void;
@@ -32,16 +35,16 @@ interface Props {
 const ContractorsFilterRuleForm: FC<Props> = (props) => {
   const { className, rule, onRemove, onAdd } = props;
 
-  const technologiesOptions = useAppSelector(selectTechnologiesOptions);
-  const tagsOptions = useAppSelector(selectTagsOptions);
-  const professionsOptions = useAppSelector(selectProfessionsOptions);
-  const recruitersOptions = useAppSelector(selectRecruitersOptions);
+  const technologies = useAppSelector(selectTechnologies);
+  const tags = useAppSelector(selectTags);
+  const professions = useAppSelector(selectProfessions);
+  const recruiters = useAppSelector(selectRecruiters);
 
   const [isFormDirty, setIsFormDirty] = useState<boolean>(false);
   const [formData, setFormData] = useState<RuleFormData>(rule ?? initialRuleFormData);
 
   const filteredComparisonsOptions = useMemo(
-    () => (!formData.key ? [] : comparisonsOptions(formData.key)),
+    () => (!formData.key ? [] : contractorFilterKeyComparisons[formData.key]),
     [formData.key]
   );
 
@@ -77,7 +80,7 @@ const ContractorsFilterRuleForm: FC<Props> = (props) => {
           isClearable
           isDisabled={!!rule}
           value={formData.key}
-          options={contractorsFilterKeysOptions}
+          options={Object.values(ContractorsFilterKeys)}
           onChange={handleOnKeyChange}
         />
       </FormControl>
@@ -118,7 +121,8 @@ const ContractorsFilterRuleForm: FC<Props> = (props) => {
             isMulti={formData.comparison !== Comparisons.equal}
             isDisabled={!!rule}
             value={formData.value}
-            options={tagsOptions}
+            options={tags.map((tag) => tag.id)}
+            getOptionLabel={(option) => tagToString(tags.find((tag) => tag.id === option))}
             onChange={handleOnValueChange}
           />
         </FormControl>
@@ -152,33 +156,10 @@ const ContractorsFilterRuleForm: FC<Props> = (props) => {
             isMulti={formData.comparison !== Comparisons.equal}
             isDisabled={!!rule}
             value={formData.value}
-            options={technologiesOptions}
-            onChange={handleOnValueChange}
-          />
-        </FormControl>
-      )}
-      {formData.key === ContractorsFilterKeys.recruiter && (
-        <FormControl required label='Recruiters'>
-          <Select
-            isSearchable
-            isClearable
-            isMulti={formData.comparison !== Comparisons.equal}
-            isDisabled={!!rule}
-            value={formData.value}
-            options={recruitersOptions}
-            onChange={handleOnValueChange}
-          />
-        </FormControl>
-      )}
-      {formData.key === ContractorsFilterKeys.profession && (
-        <FormControl required label='Roles'>
-          <Select
-            isSearchable
-            isClearable
-            isMulti={formData.comparison !== Comparisons.equal}
-            isDisabled={!!rule}
-            value={formData.value}
-            options={professionsOptions}
+            options={technologies.map((technology) => technology.id)}
+            getOptionLabel={(option) =>
+              technologyToString(professions.find((technology) => technology.id === option))
+            }
             onChange={handleOnValueChange}
           />
         </FormControl>
@@ -191,7 +172,42 @@ const ContractorsFilterRuleForm: FC<Props> = (props) => {
             isMulti={formData.comparison !== Comparisons.equal}
             isDisabled={!!rule}
             value={formData.value}
-            options={professionsOptions}
+            options={technologies.map((technology) => technology.id)}
+            getOptionLabel={(option) =>
+              technologyToString(professions.find((technology) => technology.id === option))
+            }
+            onChange={handleOnValueChange}
+          />
+        </FormControl>
+      )}
+      {formData.key === ContractorsFilterKeys.recruiter && (
+        <FormControl required label='Recruiters'>
+          <Select
+            isSearchable
+            isClearable
+            isMulti={formData.comparison !== Comparisons.equal}
+            isDisabled={!!rule}
+            value={formData.value}
+            getOptionLabel={(option) =>
+              recruiterToString(recruiters.find((recruiter) => recruiter.id === option))
+            }
+            options={recruiters.map((recruiter) => recruiter.id)}
+            onChange={handleOnValueChange}
+          />
+        </FormControl>
+      )}
+      {formData.key === ContractorsFilterKeys.profession && (
+        <FormControl required label='Roles'>
+          <Select
+            isSearchable
+            isClearable
+            isMulti={formData.comparison !== Comparisons.equal}
+            isDisabled={!!rule}
+            value={formData.value}
+            getOptionLabel={(option) =>
+              professionToString(professions.find((profession) => profession.id === option))
+            }
+            options={professions.map((profession) => profession.id)}
             onChange={handleOnValueChange}
           />
         </FormControl>
@@ -204,7 +220,8 @@ const ContractorsFilterRuleForm: FC<Props> = (props) => {
             isMulti={formData.comparison !== Comparisons.equal}
             isDisabled={!!rule}
             value={formData.value}
-            options={countriesOptions}
+            getOptionLabel={(option) => getCountryName(option as string)}
+            options={countries.map((country) => country.code)}
             onChange={handleOnValueChange}
           />
         </FormControl>
