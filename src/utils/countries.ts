@@ -246,6 +246,11 @@ export const countries = [
   { code: 'ZW', name: 'Zimbabwe' },
 ];
 
+export const countriesOptions = countries.map((country) => ({
+  label: country.name,
+  value: country.code,
+}));
+
 export const getCountryName = (countryCode: string) => {
   return countries.find((country) => country.code === countryCode)?.name ?? 'Unknown';
 };

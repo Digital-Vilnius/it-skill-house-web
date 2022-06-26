@@ -3,5 +3,5 @@ import { Comparisons, ContractorsFilterKeys } from 'api/clients/contractors/type
 export interface RuleFormData {
   key: ContractorsFilterKeys | null;
   comparison: Comparisons | null;
-  value: unknown | null;
+  value: any;
 }

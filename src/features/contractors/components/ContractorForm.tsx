@@ -4,18 +4,14 @@ import { Control, Controller } from 'react-hook-form';
 import { FormControl, FormDatePicker, FormInput, FormSwitch, FormTextEditor } from 'components';
 import { SaveContractorRequest } from 'api/clients/contractors/types';
 import { useAppSelector } from 'core/store';
-import { selectTechnologies } from 'features/technologies/selectors';
-import { selectTags } from 'features/tags/selectors';
-import { selectProfessions } from 'features/professions/selectors';
-import { selectRecruiters } from 'features/recruiters/selectors';
+import { selectTechnologiesOptions } from 'features/technologies/selectors';
+import { selectTagsOptions } from 'features/tags/selectors';
+import { selectProfessionsOptions } from 'features/professions/selectors';
+import { selectRecruitersOptions } from 'features/recruiters/selectors';
 import Select from 'react-select';
-import { countries, getCountryName } from 'utils/countries';
-import { currencies, getCurrencyName } from 'utils/currency';
+import { countriesOptions } from 'utils/countries';
+import { currenciesOptions } from 'utils/currency';
 import { getYearsOptions } from 'utils/date';
-import { recruiterToString } from 'features/recruiters/utils';
-import { professionToString } from 'features/professions/utils';
-import { technologyToString } from 'features/technologies/utils';
-import { tagToString } from 'features/tags/utils';
 
 interface Props {
   onClose: () => void;
@@ -27,10 +23,10 @@ interface Props {
 const ContractorForm: FC<Props> = (props) => {
   const { onClose, onSubmit, isEdit, control } = props;
 
-  const technologies = useAppSelector(selectTechnologies);
-  const tags = useAppSelector(selectTags);
-  const professions = useAppSelector(selectProfessions);
-  const recruiters = useAppSelector(selectRecruiters);
+  const technologiesOptions = useAppSelector(selectTechnologiesOptions);
+  const tagsOptions = useAppSelector(selectTagsOptions);
+  const professionsOptions = useAppSelector(selectProfessionsOptions);
+  const recruitersOptions = useAppSelector(selectRecruitersOptions);
 
   return (
     <>
@@ -80,14 +76,16 @@ const ContractorForm: FC<Props> = (props) => {
             <Controller
               control={control}
               name='countryCode'
-              render={({ field, fieldState: { error } }) => (
+              render={({ field: { onChange, value, ...rest }, fieldState: { error } }) => (
                 <FormControl error={error?.message} required label='Country'>
                   <Select
+                    classNamePrefix='select'
                     isSearchable
                     isClearable
-                    getOptionLabel={(option) => getCountryName(option)}
-                    options={countries.map((country) => country.code)}
-                    {...field}
+                    onChange={(option) => onChange(option?.value)}
+                    value={countriesOptions.find((option) => option.value === value)}
+                    options={countriesOptions}
+                    {...rest}
                   />
                 </FormControl>
               )}
@@ -120,16 +118,16 @@ const ContractorForm: FC<Props> = (props) => {
             <Controller
               control={control}
               name='recruiterId'
-              render={({ field, fieldState: { error } }) => (
+              render={({ field: { onChange, value, ...rest }, fieldState: { error } }) => (
                 <FormControl error={error?.message} required label='Recruiter'>
                   <Select
+                    classNamePrefix='select'
                     isSearchable
                     isClearable
-                    getOptionLabel={(option) =>
-                      recruiterToString(recruiters.find((recruiter) => recruiter.id === option))
-                    }
-                    options={recruiters.map((recruiter) => recruiter.id)}
-                    {...field}
+                    onChange={(option) => onChange(option?.value)}
+                    value={recruitersOptions.find((option) => option.value === value)}
+                    options={recruitersOptions}
+                    {...rest}
                   />
                 </FormControl>
               )}
@@ -139,16 +137,16 @@ const ContractorForm: FC<Props> = (props) => {
             <Controller
               control={control}
               name='professionId'
-              render={({ field, fieldState: { error } }) => (
+              render={({ field: { onChange, value, ...rest }, fieldState: { error } }) => (
                 <FormControl error={error?.message} required label='Role'>
                   <Select
+                    classNamePrefix='select'
                     isSearchable
                     isClearable
-                    getOptionLabel={(option) =>
-                      professionToString(professions.find((profession) => profession.id === option))
-                    }
-                    options={professions.map((profession) => profession.id)}
-                    {...field}
+                    onChange={(option) => onChange(option?.value)}
+                    value={professionsOptions.find((option) => option.value === value)}
+                    options={professionsOptions}
+                    {...rest}
                   />
                 </FormControl>
               )}
@@ -160,18 +158,18 @@ const ContractorForm: FC<Props> = (props) => {
             <Controller
               control={control}
               name='mainTechnologiesIds'
-              render={({ field, fieldState: { error } }) => (
+              render={({ field: { onChange, value, ...rest }, fieldState: { error } }) => (
                 <FormControl error={error?.message} required label='Main technologies'>
                   <Select
+                    classNamePrefix='select'
                     isMulti
                     isSearchable
                     isClearable
-                    options={technologies.map((technology) => technology.id)}
-                    getOptionLabel={(option) =>
-                      technologyToString(professions.find((technology) => technology.id === option))
-                    }
-                    isOptionDisabled={() => field.value.length >= 2}
-                    {...field}
+                    onChange={(options) => onChange(options?.map((option) => option.value))}
+                    value={technologiesOptions.filter((option) => value?.includes(option.value))}
+                    options={technologiesOptions}
+                    isOptionDisabled={() => value?.length >= 2}
+                    {...rest}
                   />
                 </FormControl>
               )}
@@ -181,17 +179,17 @@ const ContractorForm: FC<Props> = (props) => {
             <Controller
               control={control}
               name='technologiesIds'
-              render={({ field, fieldState: { error } }) => (
+              render={({ field: { onChange, value, ...rest }, fieldState: { error } }) => (
                 <FormControl error={error?.message} required label='Technologies'>
                   <Select
+                    classNamePrefix='select'
                     isMulti
                     isSearchable
                     isClearable
-                    options={technologies.map((technology) => technology.id)}
-                    getOptionLabel={(option) =>
-                      technologyToString(professions.find((technology) => technology.id === option))
-                    }
-                    {...field}
+                    onChange={(options) => onChange(options?.map((option) => option.value))}
+                    value={technologiesOptions.filter((option) => value?.includes(option.value))}
+                    options={technologiesOptions}
+                    {...rest}
                   />
                 </FormControl>
               )}
@@ -212,13 +210,15 @@ const ContractorForm: FC<Props> = (props) => {
             <Controller
               control={control}
               name='currency'
-              render={({ field, fieldState: { error } }) => (
+              render={({ field: { onChange, value, ...rest }, fieldState: { error } }) => (
                 <FormControl error={error?.message} label='Currency'>
                   <Select
+                    classNamePrefix='select'
                     isClearable
-                    options={currencies.map((currency) => currency.code)}
-                    getOptionLabel={(option) => getCurrencyName(option)}
-                    {...field}
+                    onChange={(option) => onChange(option?.value)}
+                    value={currenciesOptions.find((option) => option.value === value)}
+                    options={currenciesOptions}
+                    {...rest}
                   />
                 </FormControl>
               )}
@@ -240,9 +240,17 @@ const ContractorForm: FC<Props> = (props) => {
             <Controller
               control={control}
               name='experienceSince'
-              render={({ field, fieldState: { error } }) => (
+              render={({ field: { onChange, value, ...rest }, fieldState: { error } }) => (
                 <FormControl error={error?.message} required label='Experience since'>
-                  <Select isSearchable isClearable options={getYearsOptions()} {...field} />
+                  <Select
+                    classNamePrefix='select'
+                    isSearchable
+                    isClearable
+                    onChange={(option) => onChange(option?.value)}
+                    value={getYearsOptions().find((option) => option.value === value)}
+                    options={getYearsOptions()}
+                    {...rest}
+                  />
                 </FormControl>
               )}
             />
@@ -273,15 +281,17 @@ const ContractorForm: FC<Props> = (props) => {
             <Controller
               control={control}
               name='tagsIds'
-              render={({ field, fieldState: { error } }) => (
+              render={({ field: { onChange, value, ...rest }, fieldState: { error } }) => (
                 <FormControl error={error?.message} required label='Tags'>
                   <Select
+                    classNamePrefix='select'
                     isMulti
                     isSearchable
                     isClearable
-                    options={tags.map((tag) => tag.id)}
-                    getOptionLabel={(option) => tagToString(tags.find((tag) => tag.id === option))}
-                    {...field}
+                    onChange={(options) => onChange(options?.map((option) => option.value))}
+                    value={tagsOptions.filter((option) => value?.includes(option.value))}
+                    options={tagsOptions}
+                    {...rest}
                   />
                 </FormControl>
               )}

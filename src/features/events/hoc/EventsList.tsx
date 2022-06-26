@@ -19,7 +19,9 @@ const EventsList: FC<Props> = (props) => {
     showModal(EventForm, { title: 'Add event', size: 'lg' }, { contractorId: filter.contractorId });
   };
 
-  return <ControlledEventsList className={className} onAddClick={openAddEventForm} events={events} />;
+  return (
+    <ControlledEventsList className={className} onAddClick={openAddEventForm} events={events} />
+  );
 };
 
 export default EventsList;

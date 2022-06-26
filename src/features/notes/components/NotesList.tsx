@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
-import { Button, Table } from 'react-bootstrap';
 import { Note } from '../types';
 import { Filter } from 'react-feather';
+import { DateUtils } from 'utils';
 
 interface Props {
   notes: Note[];
@@ -17,34 +17,21 @@ const NotesList: FC<Props> = (props) => {
       <div className='page-header'>
         <h1 className='page-title'>Notes</h1>
         <div className='page-actions'>
-          <Button onClick={onAddClick} className='button button-primary'>
+          <button onClick={onAddClick} className='button button-primary'>
             <Filter />
             Add note
-          </Button>
+          </button>
         </div>
       </div>
-      <Table bordered className='table'>
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>Content</th>
-            <th>Created by</th>
-            <th>Created</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {notes.map((note) => (
-            <tr key={note.id}>
-              <td>{note.id}</td>
-              <td>{note.content}</td>
-              <td>{note.created}</td>
-              <td>{note.created}</td>
-              <td>{note.created}</td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
+      {notes.map((note) => (
+        <div key={note.id} className='note'>
+          <h4 className='note-title'>{`${note.createdBy.firstName} ${note.createdBy.lastName}`}</h4>
+          <p className='note-content' dangerouslySetInnerHTML={{ __html: note.content }} />
+          <div className='note-footer'>
+            <span className='note-footer-value'>{DateUtils.formatDateString(note.created)}</span>
+          </div>
+        </div>
+      ))}
     </div>
   );
 };

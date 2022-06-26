@@ -25,6 +25,7 @@ const EmailForm: FC<Props> = (props) => {
           <Col>
             <FormControl required label='Contractors'>
               <Select
+                classNamePrefix='select'
                 isMulti
                 isDisabled
                 value={contractors.map(mapContractorToOption)}

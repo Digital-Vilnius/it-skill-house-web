@@ -77,7 +77,6 @@ export enum Comparisons {
 }
 
 export enum ContractorsFilterKeys {
-  keyword = 'keyword',
   profession = 'profession.id',
   recruiter = 'recruiter.id',
   tags = 'tags.id',
@@ -89,7 +88,6 @@ export enum ContractorsFilterKeys {
   technologies = 'technologies.id',
   isRemote = 'contractor.isRemote',
   isOnSite = 'contractor.isOnSite',
-  isAvailable = 'isAvailable',
   hasContract = 'contractor.hasContract',
   isPublic = 'contractor.isPublic',
 }
@@ -97,7 +95,7 @@ export enum ContractorsFilterKeys {
 export interface ContractorsFilterRule {
   key: ContractorsFilterKeys;
   comparison: Comparisons;
-  value: unknown;
+  value: unknown | unknown[];
 }
 
 export interface ContractorsFilter {

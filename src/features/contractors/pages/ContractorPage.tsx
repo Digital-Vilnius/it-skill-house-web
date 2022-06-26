@@ -21,7 +21,11 @@ const ContractorPage: FC = () => {
   if (!contractor || isLoading) return <div>Loading</div>;
 
   const openContractorEditForm = () => {
-    showModal<ContractorFormProps>(ContractorForm, { title: 'Edit contractor', size: 'xl' }, { id });
+    showModal<ContractorFormProps>(
+      ContractorForm,
+      { title: 'Edit contractor', size: 'xl' },
+      { id }
+    );
   };
 
   const openSendEmailForm = () => {
@@ -38,10 +42,13 @@ const ContractorPage: FC = () => {
 
   return (
     <Container>
-      <div className='page-header'>
+      <div className='page-header mb-4'>
         <h1 className='page-title'>Contractor</h1>
         <div className='page-actions'>
-          <button onClick={openContractorDeleteConfirmation} className='button button-danger-outline'>
+          <button
+            onClick={openContractorDeleteConfirmation}
+            className='button button-danger-outline'
+          >
             <Trash />
             Delete contractor
           </button>

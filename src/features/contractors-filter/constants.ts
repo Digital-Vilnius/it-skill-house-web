@@ -1,13 +1,7 @@
 import { RuleFormData } from './types';
-import * as yup from 'yup';
 import { Comparisons, ContractorsFilterKeys } from 'api/clients/contractors/types';
 
-const arrayFieldComparisons: Comparisons[] = [
-  Comparisons.in,
-  Comparisons.notIn,
-  Comparisons.equal,
-  Comparisons.isNull,
-];
+const arrayFieldComparisons: Comparisons[] = [Comparisons.in, Comparisons.notIn];
 
 const measurableFieldComparisons: Comparisons[] = [
   Comparisons.greater,
@@ -15,10 +9,9 @@ const measurableFieldComparisons: Comparisons[] = [
   Comparisons.equal,
   Comparisons.less,
   Comparisons.lessOrEqual,
-  Comparisons.isNull,
 ];
 
-const nonMeasurableFieldComparisons: Comparisons[] = [Comparisons.equal, Comparisons.isNull];
+const nonMeasurableFieldComparisons: Comparisons[] = [Comparisons.equal];
 
 export const contractorFilterKeyComparisons: Record<ContractorsFilterKeys, Comparisons[]> = {
   [ContractorsFilterKeys.mainTechnologies]: arrayFieldComparisons,
@@ -30,12 +23,10 @@ export const contractorFilterKeyComparisons: Record<ContractorsFilterKeys, Compa
   [ContractorsFilterKeys.availableFrom]: measurableFieldComparisons,
   [ContractorsFilterKeys.experienceSince]: measurableFieldComparisons,
   [ContractorsFilterKeys.rate]: measurableFieldComparisons,
-  [ContractorsFilterKeys.keyword]: nonMeasurableFieldComparisons,
   [ContractorsFilterKeys.isOnSite]: nonMeasurableFieldComparisons,
   [ContractorsFilterKeys.hasContract]: nonMeasurableFieldComparisons,
   [ContractorsFilterKeys.isRemote]: nonMeasurableFieldComparisons,
   [ContractorsFilterKeys.isPublic]: nonMeasurableFieldComparisons,
-  [ContractorsFilterKeys.isAvailable]: nonMeasurableFieldComparisons,
 };
 
 export const comparisonLabel: Record<Comparisons, string> = {
@@ -53,30 +44,39 @@ export const contractorsFilterKeyLabel: Record<ContractorsFilterKeys, string> = 
   [ContractorsFilterKeys.mainTechnologies]: 'Main technologies',
   [ContractorsFilterKeys.technologies]: 'Technologies',
   [ContractorsFilterKeys.tags]: 'Tags',
-  [ContractorsFilterKeys.profession]: 'Professions',
-  [ContractorsFilterKeys.country]: 'Countries',
-  [ContractorsFilterKeys.recruiter]: 'Recruiters',
+  [ContractorsFilterKeys.profession]: 'Profession',
+  [ContractorsFilterKeys.country]: 'Country',
+  [ContractorsFilterKeys.recruiter]: 'Recruiter',
   [ContractorsFilterKeys.availableFrom]: 'Available from',
   [ContractorsFilterKeys.experienceSince]: 'Experience since',
   [ContractorsFilterKeys.rate]: 'Rate',
-  [ContractorsFilterKeys.keyword]: 'Keyword',
   [ContractorsFilterKeys.isOnSite]: 'On site',
   [ContractorsFilterKeys.hasContract]: 'Has contract',
   [ContractorsFilterKeys.isRemote]: 'Remote',
   [ContractorsFilterKeys.isPublic]: 'Public',
-  [ContractorsFilterKeys.isAvailable]: 'Available',
 };
+
+export const contractorsFilterKeysOptions = Object.values(ContractorsFilterKeys).map((value) => ({
+  label: contractorsFilterKeyLabel[value],
+  value: value.toString(),
+}));
+
+export const comparisonsOptions = (contractorsFilterKey: ContractorsFilterKeys | null) => {
+  if (!contractorsFilterKey) return [];
+
+  return contractorFilterKeyComparisons[contractorsFilterKey].map((comparison) => ({
+    label: comparisonLabel[comparison],
+    value: comparison.toString(),
+  }));
+};
+
+export const booleanOptions = [
+  { label: 'True', value: true },
+  { label: 'False', value: false },
+];
 
 export const initialRuleFormData: RuleFormData = {
   key: null,
   comparison: null,
   value: null,
-};
-
-export const getRuleFormSchema = () => {
-  return yup.object().default({
-    key: yup.string().required(),
-    comparison: yup.string().required(),
-    value: yup.mixed().required(),
-  });
 };
