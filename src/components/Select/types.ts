@@ -15,19 +15,18 @@ export interface CommonSelectProps {
   creatable?: boolean;
   onCreate?: (value: string) => Promise<ValueType>;
   disabledOptionsValues?: ValueType[];
-  disabled?: boolean;
 }
 
 export interface SingleSelectProps extends CommonSelectProps {
   multi?: false;
   value?: SingleSelectValueType;
-  onChange?: (value: SingleSelectValueType) => void;
+  onChange: (value: SingleSelectValueType) => void;
 }
 
 export interface MultiSelectProps extends CommonSelectProps {
   multi: true;
   value?: ValueType[];
-  onChange?: (value: ValueType[]) => void;
+  onChange: (value: ValueType[]) => void;
   maxSelected?: number;
 }
 

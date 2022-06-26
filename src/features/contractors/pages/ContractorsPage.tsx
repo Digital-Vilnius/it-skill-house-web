@@ -1,14 +1,9 @@
 import React, { FC } from 'react';
 import { Button, Container } from 'react-bootstrap';
-import {
-  ColumnsSelect,
-  ContractorsDataTable,
-  ContractorsActions,
-  ContractorsFilter,
-  ContractorForm,
-} from '../hoc';
+import { ColumnsSelect, ContractorsDataTable, ContractorsActions, ContractorForm } from '../hoc';
 import { useModal } from 'core/modal/hooks';
 import { Filter, UserPlus } from 'react-feather';
+import { ContractorsFilter } from 'features/contractors-filter/hoc';
 
 const ContractorsPage: FC = () => {
   const { showModal } = useModal();

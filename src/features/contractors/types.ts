@@ -43,3 +43,5 @@ export interface ContractorsFilterRuleFormData {
   comparison: string | null;
   value: unknown;
 }
+
+export type ContractorFieldValueType = 'date' | 'year' | 'string' | 'number' | 'boolean' | 'array';

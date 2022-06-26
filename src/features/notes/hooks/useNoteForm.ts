@@ -6,9 +6,8 @@ import { useMutation } from 'react-query';
 import { NotesClient } from 'api/clients';
 import { useEffect } from 'react';
 import { mapNote, mapNoteFormData } from '../map';
-import { queryClient } from 'core/query';
-import { getQueryKey } from 'features/contractors/hooks/useContractors';
-import { useAppSelector } from 'core/store';
+import { useAppDispatch } from 'core/store';
+import { updateLastUpdated } from 'features/contractors/slice';
 
 const initialFormData: NoteFormData = {
   content: '',
@@ -28,7 +27,7 @@ interface Props {
 
 const useNoteForm = (props: Props) => {
   const { id, onSuccess, contractorId } = props;
-  const { filter, paging, sort } = useAppSelector((state) => state.contractors);
+  const dispatch = useAppDispatch();
 
   const { control, handleSubmit, reset } = useForm<NoteFormData>({
     defaultValues: initialFormData,
@@ -50,7 +49,7 @@ const useNoteForm = (props: Props) => {
   const mutationFn = async (data: NoteFormData) => {
     if (id) await NotesClient.editNote(id, data);
     else await NotesClient.addNote({ ...data, contractorId });
-    return queryClient.refetchQueries(getQueryKey(filter, paging, sort));
+    dispatch(updateLastUpdated());
   };
 
   const { mutateAsync } = useMutation(mutationFn);

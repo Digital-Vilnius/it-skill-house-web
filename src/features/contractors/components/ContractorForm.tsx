@@ -1,20 +1,17 @@
 import React, { FC } from 'react';
 import { Col, Modal, Row } from 'react-bootstrap';
 import { Control, Controller } from 'react-hook-form';
-import {
-  FormDatePicker,
-  FormInput,
-  FormSelect,
-  FormSwitch,
-  FormTextEditor,
-  FormYearPicker,
-} from 'components';
-import { CountryUtils, CurrencyUtils } from 'utils';
-import { RecruitersSelect } from 'features/recruiters/hoc';
-import { TechnologiesSelect } from 'features/technologies/hoc';
-import { ProfessionsSelect } from 'features/professions/hoc';
+import { FormControl, FormDatePicker, FormInput, FormSwitch, FormTextEditor } from 'components';
 import { SaveContractorRequest } from 'api/clients/contractors/types';
-import { TagsSelect } from 'features/tags/hoc';
+import { useAppSelector } from 'core/store';
+import { selectTechnologiesOptions } from 'features/technologies/selectors';
+import { selectTagsOptions } from 'features/tags/selectors';
+import { selectProfessionsOptions } from 'features/professions/selectors';
+import { selectRecruitersOptions } from 'features/recruiters/selectors';
+import Select from 'react-select';
+import { countriesOptions } from 'utils/countries';
+import { currenciesOptions } from 'utils/currency';
+import { getYearsOptions } from 'utils/date';
 
 interface Props {
   onClose: () => void;
@@ -25,6 +22,11 @@ interface Props {
 
 const ContractorForm: FC<Props> = (props) => {
   const { onClose, onSubmit, isEdit, control } = props;
+
+  const technologiesOptions = useAppSelector(selectTechnologiesOptions);
+  const tagsOptions = useAppSelector(selectTagsOptions);
+  const professionsOptions = useAppSelector(selectProfessionsOptions);
+  const recruitersOptions = useAppSelector(selectRecruitersOptions);
 
   return (
     <>
@@ -74,16 +76,16 @@ const ContractorForm: FC<Props> = (props) => {
             <Controller
               control={control}
               name='countryCode'
-              render={({ field: { ref, ...rest }, fieldState: { error } }) => (
-                <FormSelect
-                  required
-                  searchable
-                  clearable
-                  label='Country'
-                  options={CountryUtils.countriesOptions}
-                  {...rest}
-                  error={error?.message}
-                />
+              render={({ field: { onChange, onBlur }, fieldState: { error } }) => (
+                <FormControl error={error?.message} required label='Country'>
+                  <Select
+                    isSearchable
+                    isClearable
+                    options={countriesOptions}
+                    onChange={onChange}
+                    onBlur={onBlur}
+                  />
+                </FormControl>
               )}
             />
           </Col>
@@ -114,15 +116,16 @@ const ContractorForm: FC<Props> = (props) => {
             <Controller
               control={control}
               name='recruiterId'
-              render={({ field: { ref, ...rest }, fieldState: { error } }) => (
-                <RecruitersSelect
-                  required
-                  label='Recruiter'
-                  searchable
-                  clearable
-                  {...rest}
-                  error={error?.message}
-                />
+              render={({ field: { onChange, onBlur }, fieldState: { error } }) => (
+                <FormControl error={error?.message} required label='Recruiter'>
+                  <Select
+                    isSearchable
+                    isClearable
+                    options={recruitersOptions}
+                    onChange={onChange}
+                    onBlur={onBlur}
+                  />
+                </FormControl>
               )}
             />
           </Col>
@@ -130,15 +133,16 @@ const ContractorForm: FC<Props> = (props) => {
             <Controller
               control={control}
               name='professionId'
-              render={({ field: { ref, ...rest }, fieldState: { error } }) => (
-                <ProfessionsSelect
-                  label='Role'
-                  clearable
-                  searchable
-                  creatable
-                  {...rest}
-                  error={error?.message}
-                />
+              render={({ field: { onBlur, onChange }, fieldState: { error } }) => (
+                <FormControl error={error?.message} required label='Role'>
+                  <Select
+                    isSearchable
+                    isClearable
+                    options={professionsOptions}
+                    onChange={onChange}
+                    onBlur={onBlur}
+                  />
+                </FormControl>
               )}
             />
           </Col>
@@ -148,18 +152,18 @@ const ContractorForm: FC<Props> = (props) => {
             <Controller
               control={control}
               name='mainTechnologiesIds'
-              render={({ field: { ref, ...rest }, fieldState: { error } }) => (
-                <TechnologiesSelect
-                  required
-                  label='Main technologies'
-                  clearable
-                  searchable
-                  creatable
-                  multi
-                  maxSelected={2}
-                  {...rest}
-                  error={error?.message}
-                />
+              render={({ field: { onBlur, onChange, value }, fieldState: { error } }) => (
+                <FormControl error={error?.message} required label='Main technologies'>
+                  <Select
+                    isMulti
+                    isSearchable
+                    isClearable
+                    options={technologiesOptions}
+                    onChange={onChange}
+                    isOptionDisabled={() => value.length >= 2}
+                    onBlur={onBlur}
+                  />
+                </FormControl>
               )}
             />
           </Col>
@@ -167,16 +171,17 @@ const ContractorForm: FC<Props> = (props) => {
             <Controller
               control={control}
               name='technologiesIds'
-              render={({ field: { ref, ...rest }, fieldState: { error } }) => (
-                <TechnologiesSelect
-                  label='Technologies'
-                  clearable
-                  searchable
-                  creatable
-                  multi
-                  {...rest}
-                  error={error?.message}
-                />
+              render={({ field: { onChange, onBlur }, fieldState: { error } }) => (
+                <FormControl error={error?.message} required label='Technologies'>
+                  <Select
+                    isMulti
+                    isSearchable
+                    isClearable
+                    options={technologiesOptions}
+                    onChange={onChange}
+                    onBlur={onBlur}
+                  />
+                </FormControl>
               )}
             />
           </Col>
@@ -195,15 +200,15 @@ const ContractorForm: FC<Props> = (props) => {
             <Controller
               control={control}
               name='currency'
-              render={({ field: { ref, ...rest }, fieldState: { error } }) => (
-                <FormSelect
-                  searchable
-                  clearable
-                  label='Currency'
-                  options={CurrencyUtils.currenciesOptions}
-                  {...rest}
-                  error={error?.message}
-                />
+              render={({ field: { onBlur, onChange }, fieldState: { error } }) => (
+                <FormControl error={error?.message} label='Currency'>
+                  <Select
+                    isClearable
+                    options={currenciesOptions}
+                    onChange={onChange}
+                    onBlur={onBlur}
+                  />
+                </FormControl>
               )}
             />
           </Col>
@@ -223,8 +228,16 @@ const ContractorForm: FC<Props> = (props) => {
             <Controller
               control={control}
               name='experienceSince'
-              render={({ field: { ref, ...rest }, fieldState: { error } }) => (
-                <FormYearPicker label='Experience since' {...rest} error={error?.message} />
+              render={({ field: { onBlur, onChange }, fieldState: { error } }) => (
+                <FormControl error={error?.message} required label='Experience since'>
+                  <Select
+                    isSearchable
+                    isClearable
+                    options={getYearsOptions()}
+                    onChange={onChange}
+                    onBlur={onBlur}
+                  />
+                </FormControl>
               )}
             />
           </Col>
@@ -254,16 +267,17 @@ const ContractorForm: FC<Props> = (props) => {
             <Controller
               control={control}
               name='tagsIds'
-              render={({ field: { ref, ...rest }, fieldState: { error } }) => (
-                <TagsSelect
-                  label='Tags'
-                  clearable
-                  searchable
-                  creatable
-                  multi
-                  {...rest}
-                  error={error?.message}
-                />
+              render={({ field: { onBlur, onChange }, fieldState: { error } }) => (
+                <FormControl error={error?.message} required label='Tags'>
+                  <Select
+                    isMulti
+                    isSearchable
+                    isClearable
+                    options={tagsOptions}
+                    onChange={onChange}
+                    onBlur={onBlur}
+                  />
+                </FormControl>
               )}
             />
           </Col>

@@ -6,9 +6,8 @@ import { useMutation } from 'react-query';
 import { EventsClient } from 'api/clients';
 import { useEffect } from 'react';
 import { mapEvent, mapEventFormData } from '../map';
-import { queryClient } from 'core/query';
-import { getQueryKey } from 'features/contractors/hooks/useContractors';
-import { useAppSelector } from 'core/store';
+import { useAppDispatch } from 'core/store';
+import { updateLastUpdated } from 'features/contractors/slice';
 
 const getSchema = () => {
   return yup.object().default({
@@ -26,7 +25,7 @@ interface Props {
 
 const useEventForm = (props: Props) => {
   const { id, onSuccess, contractorId } = props;
-  const { filter, paging, sort } = useAppSelector((state) => state.contractors);
+  const dispatch = useAppDispatch();
 
   const { control, handleSubmit, reset } = useForm<EventFormData>({
     resolver: yupResolver(getSchema()),
@@ -47,7 +46,7 @@ const useEventForm = (props: Props) => {
   const mutationFn = async (data: EventFormData) => {
     if (id) await EventsClient.editEvent(id, data);
     else await EventsClient.addEvent({ ...data, contractorId });
-    return queryClient.refetchQueries(getQueryKey(filter, paging, sort));
+    dispatch(updateLastUpdated());
   };
 
   const { mutateAsync } = useMutation(mutationFn);

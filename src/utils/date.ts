@@ -1,4 +1,5 @@
 import moment from 'moment';
+import range from 'lodash/range';
 
 type DateStringType = string | null;
 type DateType = Date | null;
@@ -31,4 +32,10 @@ export const parseDate = (date: DateStringType): DateType => {
   if (!date) return null;
 
   return moment(date).toDate();
+};
+
+export const getYearsOptions = () => {
+  const currentYear = new Date().getFullYear();
+  const yearsRange = range(currentYear - 50, currentYear + 1).reverse();
+  return yearsRange.map((year) => ({ label: year.toString(), value: year }));
 };

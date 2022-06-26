@@ -18,12 +18,6 @@ const ContractorsFilterForm: FC<Props> = (props) => {
     setRules([...rules, rule]);
   };
 
-  const handleOnEdit = (index: number, rule: ContractorsFilterRule) => {
-    const newRules = [...rules];
-    newRules[index] = rule;
-    setRules(newRules);
-  };
-
   const handleOnRemove = (indexToDelete: number) => {
     const newRules = rules.filter((_, index) => index !== indexToDelete);
     setRules(newRules);
@@ -32,19 +26,16 @@ const ContractorsFilterForm: FC<Props> = (props) => {
   return (
     <>
       <Modal.Body>
-        <Row className='mb-2'>
+        <Row>
           <Col>
-            <ContractorsFilterRuleForm onSave={handleOnAdd} />
+            <ContractorsFilterRuleForm onAdd={handleOnAdd} />
           </Col>
         </Row>
+        {rules.length > 0 && <hr className='my-4' />}
         {rules.map((rule, index) => (
           <Row className='mb-2' key={index}>
             <Col>
-              <ContractorsFilterRuleForm
-                rule={rule}
-                onClear={() => handleOnRemove(index)}
-                onSave={(editedRule) => handleOnEdit(index, editedRule)}
-              />
+              <ContractorsFilterRuleForm rule={rule} onRemove={() => handleOnRemove(index)} />
             </Col>
           </Row>
         ))}

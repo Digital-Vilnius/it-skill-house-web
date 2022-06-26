@@ -1,33 +1,27 @@
 import { TechnologiesClient } from 'api/clients';
-import { useMutation, useQuery } from 'react-query';
-import { mapTechnology } from '../map';
-import { queryClient } from 'core/query';
+import { useQuery } from 'react-query';
+import { useAppDispatch, useAppSelector } from 'core/store';
+import { setTechnologies } from '../slice';
+import { selectTechnologiesLastUpdated } from '../selectors';
+import { useEffect } from 'react';
 
 export const getQueryKey = () => {
   return ['technologies'];
 };
 
 const useTechnologies = () => {
-  const getTechnologiesFn = () => TechnologiesClient.getTechnologies();
+  const dispatch = useAppDispatch();
+  const lastUpdated = useAppSelector(selectTechnologiesLastUpdated);
 
-  const addTechnologyFn = async (name: string) => {
-    const technology = await TechnologiesClient.addTechnology({ name });
-    await queryClient.refetchQueries(getQueryKey());
-    return technology.result.id;
-  };
+  const { isLoading, refetch } = useQuery(getQueryKey(), TechnologiesClient.getTechnologies, {
+    onSuccess: (response) => dispatch(setTechnologies(response)),
+  });
 
-  const { isLoading, data } = useQuery(getQueryKey(), getTechnologiesFn);
-  const { mutateAsync: addTechnology } = useMutation(addTechnologyFn);
+  useEffect(() => {
+    refetch();
+  }, [lastUpdated, refetch]);
 
-  const technologies = data?.result?.map(mapTechnology) ?? [];
-  const count = data?.count ?? 0;
-
-  return {
-    addTechnology,
-    isLoading,
-    count,
-    technologies,
-  };
+  return { isLoading };
 };
 
 export default useTechnologies;

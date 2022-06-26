@@ -1,33 +1,27 @@
 import { TagsClient } from 'api/clients';
-import { useMutation, useQuery } from 'react-query';
-import { mapTag } from '../map';
-import { queryClient } from 'core/query';
+import { useQuery } from 'react-query';
+import { useAppDispatch, useAppSelector } from 'core/store';
+import { setTags } from '../slice';
+import { selectTagsLastUpdated } from '../selectors';
+import { useEffect } from 'react';
 
 export const getQueryKey = () => {
   return ['tags'];
 };
 
 const useTags = () => {
-  const getTagsFn = () => TagsClient.getTags();
+  const dispatch = useAppDispatch();
+  const lastUpdated = useAppSelector(selectTagsLastUpdated);
 
-  const addTagFn = async (name: string) => {
-    const tag = await TagsClient.addTag({ name });
-    await queryClient.refetchQueries(getQueryKey());
-    return tag.result.id;
-  };
+  const { isLoading, refetch } = useQuery(getQueryKey(), TagsClient.getTags, {
+    onSuccess: (response) => dispatch(setTags(response)),
+  });
 
-  const { isLoading, data } = useQuery(getQueryKey(), getTagsFn);
-  const { mutateAsync: addTag } = useMutation(addTagFn);
+  useEffect(() => {
+    refetch();
+  }, [lastUpdated, refetch]);
 
-  const tags = data?.result?.map(mapTag) ?? [];
-  const count = data?.count ?? 0;
-
-  return {
-    addTag,
-    isLoading,
-    count,
-    tags,
-  };
+  return { isLoading };
 };
 
 export default useTags;

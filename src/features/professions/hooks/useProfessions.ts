@@ -1,33 +1,27 @@
 import { ProfessionsClient } from 'api/clients';
-import { useMutation, useQuery } from 'react-query';
-import { mapProfession } from '../map';
-import { queryClient } from 'core/query';
+import { useQuery } from 'react-query';
+import { useAppDispatch, useAppSelector } from 'core/store';
+import { setProfessions } from '../slice';
+import { selectProfessionsLastUpdated } from '../selectors';
+import { useEffect } from 'react';
 
 export const getQueryKey = () => {
   return ['professions'];
 };
 
 const useProfessions = () => {
-  const getProfessionsFn = () => ProfessionsClient.getProfessions();
+  const dispatch = useAppDispatch();
+  const lastUpdated = useAppSelector(selectProfessionsLastUpdated);
 
-  const addProfessionFn = async (name: string) => {
-    const profession = await ProfessionsClient.addProfession({ name });
-    await queryClient.refetchQueries(getQueryKey());
-    return profession.result.id;
-  };
+  const { isLoading, refetch } = useQuery(getQueryKey(), ProfessionsClient.getProfessions, {
+    onSuccess: (response) => dispatch(setProfessions(response)),
+  });
 
-  const { isLoading, data } = useQuery(getQueryKey(), getProfessionsFn);
-  const { mutateAsync: addProfession } = useMutation(addProfessionFn);
+  useEffect(() => {
+    refetch();
+  }, [lastUpdated, refetch]);
 
-  const professions = data?.result?.map(mapProfession) ?? [];
-  const count = data?.count ?? 0;
-
-  return {
-    addProfession,
-    isLoading,
-    count,
-    professions,
-  };
+  return { isLoading };
 };
 
 export default useProfessions;

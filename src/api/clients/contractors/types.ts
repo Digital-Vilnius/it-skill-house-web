@@ -65,7 +65,18 @@ export interface SaveContractorRequest {
   mainTechnologiesIds: number[];
 }
 
-export enum ContractorFilterKeys {
+export enum Comparisons {
+  equal = 'equal',
+  greaterOrEqual = 'greaterOrEqual',
+  greater = 'greater',
+  lessOrEqual = 'lessOrEqual',
+  less = 'less',
+  isNull = 'isNull',
+  in = 'in',
+  notIn = 'notIn',
+}
+
+export enum ContractorsFilterKeys {
   keyword = 'keyword',
   profession = 'profession.id',
   recruiter = 'recruiter.id',
@@ -83,19 +94,8 @@ export enum ContractorFilterKeys {
   isPublic = 'contractor.isPublic',
 }
 
-export enum Comparisons {
-  equal = 'equal',
-  greaterOrEqual = 'greaterOrEqual',
-  greater = 'greater',
-  lessOrEqual = 'lessOrEqual',
-  less = 'less',
-  isNull = 'isNull',
-  in = 'in',
-  notIn = 'notIn',
-}
-
 export interface ContractorsFilterRule {
-  key: ContractorFilterKeys;
+  key: ContractorsFilterKeys;
   comparison: Comparisons;
   value: unknown;
 }

@@ -1,10 +1,11 @@
 import React, { FC } from 'react';
 import { Col, Modal, Row } from 'react-bootstrap';
 import { Control, Controller } from 'react-hook-form';
-import { FormInput, FormSelect, FormTextEditor } from 'components';
+import { FormControl, FormInput, FormTextEditor } from 'components';
 import { EmailFormData } from '../types';
 import { Contractor } from 'features/contractors/types';
 import { mapContractorToOption } from 'features/contractors/map';
+import Select from 'react-select';
 
 interface Props {
   onClose: () => void;
@@ -22,14 +23,14 @@ const EmailForm: FC<Props> = (props) => {
       <Modal.Body>
         <Row className='mb-2'>
           <Col>
-            <FormSelect
-              disabled
-              clearable={false}
-              multi
-              label='Contractors'
-              value={contractors.map((contractor) => contractor.id)}
-              options={contractors.map(mapContractorToOption)}
-            />
+            <FormControl required label='Contractors'>
+              <Select
+                isMulti
+                isDisabled
+                value={contractors.map((contractor) => contractor.id)}
+                options={contractors.map(mapContractorToOption)}
+              />
+            </FormControl>
           </Col>
         </Row>
         <Row className='mb-2'>

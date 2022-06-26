@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { useContractors } from '../hooks';
 import { useAppDispatch, useAppSelector } from 'core/store';
 import { getAllColumns, getVisibleColumns } from '../utils';
@@ -15,17 +15,20 @@ import { EmailForm } from 'features/emails/hoc';
 import EventForm, { EventFormProps } from 'features/events/hoc/EventForm';
 import NoteForm, { NoteFormProps } from 'features/notes/hoc/NoteForm';
 import { useNavigate } from 'react-router-dom';
+import { selectContractorsFilter } from 'features/contractors-filter/selectors';
 
 const ContractorsDataTable: FC = () => {
   const dispatch = useAppDispatch();
   const { showModal } = useModal();
   const navigate = useNavigate();
 
-  const { filter, paging, sort, selected, visibleColumnsIds, columnsOrder } = useAppSelector(
+  const { paging, sort, selected, visibleColumnsIds, columnsOrder, lastUpdated } = useAppSelector(
     (state) => state.contractors
   );
 
-  const { contractors, count } = useContractors({ filter, paging, sort });
+  const filter = useAppSelector(selectContractorsFilter);
+
+  const { contractors, count, refetch } = useContractors({ paging, sort, filter });
 
   const handleSortChange = (newSort: Sort) => {
     dispatch(setSort(newSort));
@@ -67,6 +70,10 @@ const ContractorsDataTable: FC = () => {
       { id }
     );
   };
+
+  useEffect(() => {
+    refetch();
+  }, [lastUpdated, refetch]);
 
   return (
     <ControllerContractorsDataTable

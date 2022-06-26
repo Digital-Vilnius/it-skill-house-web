@@ -18,7 +18,6 @@ const Select: FC<SelectProps> = (props) => {
     onCreate,
     isInvalid,
     disabledOptionsValues = [],
-    disabled = false,
   } = props;
 
   const [visible, setVisible] = useState<boolean>(false);
@@ -26,14 +25,11 @@ const Select: FC<SelectProps> = (props) => {
   useOnClickOutside({ ref, callback: () => setVisible(false) });
 
   const handleOnClear = () => {
-    if (!props.onChange) return;
     if (props.multi) props.onChange([]);
     else props.onChange(null);
   };
 
   const handleOnClick = (clickedValue: ValueType) => {
-    if (!props.onChange) return;
-
     if (!props.multi) {
       props.onChange(clickedValue);
       setVisible(false);
@@ -43,11 +39,6 @@ const Select: FC<SelectProps> = (props) => {
       if (props.maxSelected && newValue.length > props.maxSelected) return;
       props.onChange(newValue);
     }
-  };
-
-  const handleSelectValueClick = () => {
-    if (disabled) return;
-    setVisible((focus) => !focus);
   };
 
   const hasValue = () => {
@@ -81,7 +72,7 @@ const Select: FC<SelectProps> = (props) => {
       <SelectValue
         isInvalid={isInvalid}
         hasValue={hasValue()}
-        onClick={handleSelectValueClick}
+        onClick={() => setVisible((focus) => !focus)}
         onClear={handleOnClear}
         clearable={clearable}
       >

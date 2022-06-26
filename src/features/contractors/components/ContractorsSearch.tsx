@@ -16,7 +16,12 @@ const ContractorsSearch: FC<Props> = (props) => {
 
   return (
     <InputGroup className='input-group-merge input-group-flush input-group-reverse'>
-      <Form.Control value={keyword} onChange={handleKeywordChange} type='search' placeholder='Search' />
+      <Form.Control
+        value={keyword}
+        onChange={handleKeywordChange}
+        type='search'
+        placeholder='Search'
+      />
       <InputGroup.Text>
         <Icon name='search' size={16} />
       </InputGroup.Text>

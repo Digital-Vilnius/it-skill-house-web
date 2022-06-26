@@ -18,9 +18,13 @@ const useContractors = (props: Props) => {
   const { filter, paging, sort } = props;
 
   const getContractorsFn = () => ContractorsClient.getContractors({ filter, paging, sort });
-  const { isLoading, data, refetch } = useQuery(getQueryKey(filter, paging, sort), getContractorsFn, {
-    keepPreviousData: true,
-  });
+  const { isLoading, data, refetch } = useQuery(
+    getQueryKey(filter, paging, sort),
+    getContractorsFn,
+    {
+      keepPreviousData: true,
+    }
+  );
 
   return {
     isLoading,
