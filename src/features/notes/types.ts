@@ -1,5 +1,5 @@
 import { BaseModel } from 'api/types';
-import { Recruiter } from '../recruiters/types';
+import { Recruiter } from 'api/clients/recruiters/types';
 
 export interface Note extends BaseModel {
   content: string;

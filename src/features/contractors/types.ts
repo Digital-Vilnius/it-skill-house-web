@@ -1,10 +1,10 @@
-import { Recruiter } from 'features/recruiters/types';
-import { Technology } from 'features/technologies/types';
 import { BaseModel } from 'api/types';
-import { Tag } from 'features/tags/types';
 import { Event } from 'features/events/types';
-import { Profession } from 'features/professions/types';
 import { Note } from 'features/notes/types';
+import { Profession } from 'api/clients/professions/types';
+import { Recruiter } from 'api/clients/recruiters/types';
+import { Tag } from 'api/clients/tags/types';
+import { Technology } from 'api/clients/technologies/types';
 
 export interface Contractor extends BaseModel {
   linkedInUrl: string | null;
@@ -37,11 +37,3 @@ export interface Contractor extends BaseModel {
   technologies: Technology[];
   mainTechnologies: Technology[];
 }
-
-export interface ContractorsFilterRuleFormData {
-  key: string | null;
-  comparison: string | null;
-  value: unknown;
-}
-
-export type ContractorFieldValueType = 'date' | 'year' | 'string' | 'number' | 'boolean' | 'array';
